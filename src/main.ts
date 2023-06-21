@@ -20,10 +20,11 @@ async function bootstrap() {
 
   app.use(cookieParser()); // 쿠키 설정
 
-  app.use(compression()); // Response 파일 압축
+  app.use(compression());
 
-  await coreFundamentals(app); // 기본 설정
+  await coreFundamentals(app); // NestJS Core 설정
 
   await app.listen(3000);
 }
-bootstrap();
+
+void bootstrap();
