@@ -20,9 +20,4 @@ export class HealthCheckerController {
             () => this.typeOrmIndicator.pingCheck("database", { timeout: 1500 }),
         ]);
     }
-
-    @Post()
-    async healthCheckPost(): Promise<any> {
-        throw new HttpException("Not Found", 404);
-    }
 }

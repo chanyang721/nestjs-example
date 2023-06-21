@@ -1,8 +1,12 @@
-import { Module }        from '@nestjs/common';
+import { Module }              from '@nestjs/common';
+import { HealthCheckerModule } from "./common/health-checker/health-checker.module";
+
 
 
 @Module({
-  imports: [],
+  imports: [
+    HealthCheckerModule
+  ],
   controllers: [],
   providers: [],
 })
