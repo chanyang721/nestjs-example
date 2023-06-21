@@ -5,6 +5,7 @@ import * as cookieParser          from "cookie-parser";
 import * as compression           from 'compression';
 import helmet                     from 'helmet'
 import { coreFundamentals }       from "./fundamentals";
+import { setupSwagger }           from "./common/swagger";
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
@@ -24,7 +25,13 @@ async function bootstrap() {
 
   await coreFundamentals(app); // NestJS Core 설정
 
+  await setupSwagger(app); // Swagger 설정
+
   await app.listen(3000);
+
+  console.log(`Server is running on: ${await app.getUrl()}`)
+
+  return app
 }
 
 void bootstrap();
