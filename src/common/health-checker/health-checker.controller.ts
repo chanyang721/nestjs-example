@@ -1,23 +1,23 @@
-import { Controller, Get, HttpException, Post }                                       from "@nestjs/common";
-import { HealthCheck, HealthCheckResult, HealthCheckService, TypeOrmHealthIndicator } from "@nestjs/terminus"
+import { Controller, Get }                                                            from "@nestjs/common";
+import { HealthCheck, HealthCheckResult, HealthCheckService, TypeOrmHealthIndicator } from "@nestjs/terminus";
 
 
 
-@Controller('health-checker')
+@Controller("health-checker")
 export class HealthCheckerController {
-    constructor( private healthCheckerService: HealthCheckService, private typeOrmIndicator: TypeOrmHealthIndicator ) {
-    }
+  constructor( private healthCheckerService: HealthCheckService, private typeOrmIndicator: TypeOrmHealthIndicator ) {
+  }
 
-    /**
-     *  {
-     *     "status": 'error' | 'ok' | 'shutting_down',
-     * }
-     * */
-    @Get()
-    @HealthCheck()
-    async healthCheck(): Promise<HealthCheckResult> {
-        return this.healthCheckerService.check([
-            () => this.typeOrmIndicator.pingCheck("database", { timeout: 1500 }),
-        ]);
-    }
+
+  /**
+   *  {
+   *     "status": 'error' | 'ok' | 'shutting_down',
+   * }
+   * */
+  @Get() @HealthCheck()
+  async healthCheck(): Promise<HealthCheckResult> {
+    return this.healthCheckerService.check([
+      () => this.typeOrmIndicator.pingCheck("database", { timeout: 1500 })
+    ]);
+  }
 }

@@ -1,5 +1,5 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post } from "@nestjs/common";
-import { CatsService }                                       from "./cats.service";
+import { Body, Controller, Delete, Get, HttpException, HttpStatus, Param, Patch, Post } from "@nestjs/common";
+import { CatsService }                                                                  from "./cats.service";
 
 
 
@@ -8,5 +8,8 @@ export class CatsController {
   constructor( private readonly catsService: CatsService ) {
   }
 
-
+  @Get()
+  async getCats() {
+    throw new HttpException("Bad Request", HttpStatus.BAD_REQUEST)
+  }
 }

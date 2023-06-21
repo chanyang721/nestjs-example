@@ -10,4 +10,5 @@ import { TerminusModule }          from '@nestjs/terminus'
     providers  : [],
 })
 export class HealthCheckerModule {
+
 }
