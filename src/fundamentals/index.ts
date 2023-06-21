@@ -1,16 +1,15 @@
-import { NestExpressApplication } from "@nestjs/platform-express";
-import { RequestMethod }          from "@nestjs/common";
-import { AllExceptionsFilter }    from "./filters/global.exception.filter";
-import { HttpAdapterHost }        from "@nestjs/core";
+import { NestExpressApplication }        from "@nestjs/platform-express";
+import { RequestMethod, ValidationPipe } from "@nestjs/common";
+import { GlobalExceptionFilter }         from "./filters/global.exception.filter";
+import { validationPipeOptions }         from "./pipes/global.validation.pipe";
 
 
 
 export const coreFundamentals = async( app: NestExpressApplication ): Promise<void> => {
-  const { httpAdapter } = app.get(HttpAdapterHost);
 
+  app.useGlobalPipes(new ValidationPipe(validationPipeOptions))
 
-  app.useGlobalFilters(new AllExceptionsFilter(httpAdapter));
-
+  app.useGlobalFilters(new GlobalExceptionFilter());
 
   app.setGlobalPrefix("api", {
     exclude: [
