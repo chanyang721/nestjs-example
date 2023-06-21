@@ -1,10 +1,10 @@
+import { NestExpressApplication } from '@nestjs/platform-express'
 import { NestFactory }            from '@nestjs/core';
 import { AppModule }              from './app.module';
-import { NestExpressApplication } from '@nestjs/platform-express'
-import helmet                     from 'helmet'
 import * as cookieParser          from "cookie-parser";
 import * as compression           from 'compression';
-import { RequestMethod }          from '@nestjs/common'
+import helmet                     from 'helmet'
+import { coreFundamentals }       from "./fundamentals";
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
@@ -22,14 +22,7 @@ async function bootstrap() {
 
   app.use(compression()); // Response 파일 압축
 
-  app.setGlobalPrefix("api", {
-    exclude: [
-      {
-        path  : "/health-checker",
-        method: RequestMethod.GET,
-      }, // ignore health check
-    ],
-  });
+  await coreFundamentals(app); // 기본 설정
 
   await app.listen(3000);
 }
