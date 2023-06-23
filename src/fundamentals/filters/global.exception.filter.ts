@@ -16,7 +16,7 @@ export class GlobalExceptionFilter<T = any> implements ExceptionFilter {
     let exceptionCode: string, message: string, statusCode: number = HttpStatus.INTERNAL_SERVER_ERROR, errors: any;
 
     /**
-     * Validation Error Filter
+     * Validation Error Exception Filter
      * */
     if ( exception instanceof UnprocessableEntityException ) {
       statusCode = ( exception as UnprocessableEntityException ).getStatus();

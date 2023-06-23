@@ -1,6 +1,6 @@
 import { Body, Controller, Delete, Get, HttpException, HttpStatus, Param, Patch, Post } from "@nestjs/common";
-import { CatsService }                    from "./cats.service";
-import { IsNumber, IsOptional, IsString } from "class-validator";
+import { CatsService }                                                                  from "./cats.service";
+import { IsNumber, IsOptional, IsString }                                               from "class-validator";
 
 export class CreateCatDto {
   @IsString()
