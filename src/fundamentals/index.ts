@@ -1,17 +1,30 @@
 import { NestExpressApplication } from "@nestjs/platform-express";
+import { globalInterceptors }     from "./interceptors";
+import { globalGuards }           from "./guards";
+import { globalPipes }            from "./pipes";
+import { globalExceptionFilters } from "./filters";
 import { RequestMethod }          from "@nestjs/common";
-import { AllExceptionsFilter }    from "./filters/global.exception.filter";
-import { HttpAdapterHost }        from "@nestjs/core";
 
 
 
-export const coreFundamentals = async( app: NestExpressApplication ): Promise<void> => {
-  const { httpAdapter } = app.get(HttpAdapterHost);
+export const coreFundamentals = async( app: NestExpressApplication ) => {
+  /**
+   * Global Core Fundamentals
+   * */
+  // app.use() // 글로벌 미들웨어 설정
+
+  app.useGlobalGuards(...globalGuards);
+
+  app.useGlobalInterceptors(...globalInterceptors);
+
+  app.useGlobalPipes(...globalPipes);
+
+  app.useGlobalFilters(...globalExceptionFilters);
 
 
-  app.useGlobalFilters(new AllExceptionsFilter(httpAdapter));
-
-
+  /**
+   * Global Settings
+   * */
   app.setGlobalPrefix("api", {
     exclude: [
       {
