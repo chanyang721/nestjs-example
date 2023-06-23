@@ -21,11 +21,11 @@ async function bootstrap() {
 
   await coreFundamentals(app) // 기본 설정
 
+  await setupSwagger(app) // Swagger 설정
+
   await app.listen(process.env.PORT); // 서버 실행
 
   console.info(`Server is running on: ${await app.getUrl()}`);
-
-  await setupSwagger(app) // Swagger 설정
 
   return app;
 }

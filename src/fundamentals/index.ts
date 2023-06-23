@@ -8,6 +8,9 @@ import { RequestMethod }          from "@nestjs/common";
 
 
 export const coreFundamentals = async( app: NestExpressApplication ) => {
+  /**
+   * Global Core Fundamentals
+   * */
   // app.use() // 글로벌 미들웨어 설정
 
   app.useGlobalGuards(...globalGuards);
@@ -20,7 +23,7 @@ export const coreFundamentals = async( app: NestExpressApplication ) => {
 
 
   /**
-   *
+   * Global Settings
    * */
   app.setGlobalPrefix("api", {
     exclude: [
