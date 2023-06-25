@@ -1,6 +1,7 @@
 import { ConfigModule, ConfigService } from "@nestjs/config";
 import { TypeOrmModuleAsyncOptions }   from "@nestjs/typeorm";
 import { PROD }                        from "../../constants";
+import { CatsEntity }                  from "../../domain/cats/entities/cat.entity";
 
 
 export const typeOrmOptions: TypeOrmModuleAsyncOptions = {
@@ -14,7 +15,7 @@ export const typeOrmOptions: TypeOrmModuleAsyncOptions = {
     password   : process.env.DB_PASSWORD || configService.get("DB_PASSWORD"),
     database   : process.env.DB_DATABASE || configService.get("DB_DATABASE"),
     synchronize: process.env.NODE_ENV !== PROD,
-    entities   : [  ],
+    entities   : [ CatsEntity ],
     timezone   : "Z"
   } )
 };

@@ -3,7 +3,7 @@ import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
 
 @Entity({ name: "cats" })
-export class Cat {
+export class CatsEntity {
     @PrimaryGeneratedColumn()
     id: number;
 

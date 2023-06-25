@@ -12,6 +12,7 @@ import { AwsS3Service }        from './aws/aws.s3.service'
         AwsConfigService,
         SharedConfigService,
         AwsS3Service,
+        AwsConfigService
     ],
 })
 export class SharedModule {
