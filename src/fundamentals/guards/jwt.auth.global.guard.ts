@@ -17,8 +17,7 @@ export class JwtAuthGlobalGuard extends AuthGuard("jwt") {
 
 
   async canActivate( context: ExecutionContext ) {
-    const request = context.switchToHttp()
-                           .getRequest();
+    const request = context.switchToHttp().getRequest();
 
     const { isPublic } = await this.catchPublicRequest(context);
     if ( isPublic ) return true;

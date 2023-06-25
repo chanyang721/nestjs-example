@@ -1,6 +1,7 @@
 import { ArgumentsHost, Catch, ExceptionFilter, HttpException, HttpStatus, Logger, UnprocessableEntityException, ValidationError } from "@nestjs/common";
 import type { Request, Response }                                                                                                  from "express";
 import { GlobalResponseError }                                                                                                     from "./global.response.error";
+import { TypeORMError }                                                                                                            from "typeorm";
 
 
 
@@ -19,7 +20,7 @@ export class GlobalExceptionFilter<T = any> implements ExceptionFilter {
      * Validation Error Exception Filter
      * */
     if ( exception instanceof UnprocessableEntityException ) {
-      statusCode = ( exception as UnprocessableEntityException ).getStatus();
+      statusCode = ( exception as UnprocessableEntityException ).getStatus(); // 422
       exceptionCode = exception.constructor.name;
       message = ( exception as UnprocessableEntityException ).message;
       const error = exception.getResponse() as { message: ValidationError[] };
@@ -32,12 +33,20 @@ export class GlobalExceptionFilter<T = any> implements ExceptionFilter {
      * Http Exception Filter
      * */
     else if ( exception instanceof HttpException ) {
-      this.logger.log(exception);
       statusCode = ( exception as HttpException ).getStatus();
       exceptionCode = ( exception as HttpException ).name;
       message = ( exception as HttpException ).message;
     }
 
+    if ( ( exception instanceof TypeORMError ) ) {
+      statusCode = HttpStatus.UNPROCESSABLE_ENTITY // 422
+      exceptionCode = ( exception as TypeORMError ).name
+      message = ( exception as TypeORMError ).message
+    }
+
+
+
+    this.logger.error(GlobalResponseError({ statusCode, exceptionCode, message, method: request.method, path  : request.url, errors }))
     response.status(statusCode)
             .json(GlobalResponseError({
               statusCode,

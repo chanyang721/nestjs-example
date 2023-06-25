@@ -16,15 +16,16 @@ export class AwsConfigService {
         }
     }
 
-    get accessAwsS3Bucket() {
+    get accessAwsS3BucketConfig() {
         return {
 
         }
     }
 
-    get accessAwsCognito() {
+    get accessAwsCognitoConfig() {
         return {
-
+            clientId: this.configService.get<string>('AWS_COGNITO_CLIENT_ID'),
+            userPoolId  : this.configService.get<string>('AWS_COGNITO_USER_POOL_ID'),
         }
     }
 
