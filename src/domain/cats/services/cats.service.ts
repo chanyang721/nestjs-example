@@ -14,10 +14,15 @@ export class CatsService {
   public async saveCache( data: any ) {
     const a = await this.cacheManager.set("data", data);
     const b = await this.cacheManager.get("data");
-    if (a === null) {
-      throw new HttpException("Bad Request", 400)
+    if (b === undefined) {
+      throw new HttpException("b exist", 400)
     }
-    console.log(b)
+
+    // await this.cacheManager.del("data");
+    // const b_del = await this.cacheManager.get("data");
+    // if (b_del === undefined) {
+    //   throw new HttpException("b deleted", 400)
+    // }
 
     return b
   }
