@@ -2,6 +2,7 @@ import { Global, Module }      from '@nestjs/common'
 import { AwsConfigService }    from './aws/aws.config.service'
 import { SharedConfigService } from './config/shared.config.service'
 import { AwsS3Service }        from './aws/aws.s3.service'
+import { AwsCognitoService }   from "./aws/aws.cognito.service";
 
 
 @Global()
@@ -12,7 +13,7 @@ import { AwsS3Service }        from './aws/aws.s3.service'
         AwsConfigService,
         SharedConfigService,
         AwsS3Service,
-        AwsConfigService
+        AwsCognitoService
     ],
 })
 export class SharedModule {

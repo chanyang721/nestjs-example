@@ -6,5 +6,5 @@ import { ResponseInterceptor } from "./response.interceptor";
 
 export const globalInterceptors: NestInterceptor[] = [
   new LoggingInterceptor(),
-  new ResponseInterceptor()
+  new ResponseInterceptor(),
 ];

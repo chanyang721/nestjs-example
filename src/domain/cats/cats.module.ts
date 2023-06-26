@@ -9,7 +9,8 @@ import { JwtAuthGlobalStrategy } from "../../fundamentals/guards/jwt.auth.global
 
 @Module({
   imports: [
-    PassportModule, JwtModule.registerAsync({
+    PassportModule,
+    JwtModule.registerAsync({
       inject    : [ ConfigService ],
       useFactory: ( configService: ConfigService ) => ( {
         global       : true,

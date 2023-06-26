@@ -4,7 +4,7 @@ import { PROD }                        from "../../constants";
 import { CatsEntity }                  from "../../domain/cats/entities/cat.entity";
 
 
-export const typeOrmOptions: TypeOrmModuleAsyncOptions = {
+export const typeOrmModuleAsyncOptions: TypeOrmModuleAsyncOptions = {
   imports   : [ ConfigModule ],
   inject    : [ ConfigService ],
   useFactory: ( configService: ConfigService ) => ( {

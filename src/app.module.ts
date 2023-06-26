@@ -1,20 +1,24 @@
-import { Module }              from '@nestjs/common';
-import { ConfigModule }        from "@nestjs/config";
-import { HealthCheckerModule } from "./common/health-checker/health-checker.module";
-import { CatsModule }          from './domain/cats/cats.module';
-import { configOptions }       from "./fundamentals/options/config.options";
-import { TypeOrmModule }       from "@nestjs/typeorm";
-import { typeOrmOptions }      from "./fundamentals/options/database.options";
+import { Module }                    from "@nestjs/common";
+import { ConfigModule }              from "@nestjs/config";
+import { TypeOrmModule }                 from "@nestjs/typeorm";
+import { CacheInterceptor, CacheModule } from "@nestjs/cache-manager";
+import { configOptions }                 from "./fundamentals/options/config.options";
+import { typeOrmModuleAsyncOptions } from "./fundamentals/options/typeorm.module.options";
+import { cacheModuleAsyncOptions }   from "./fundamentals/options/cache.module.options";
+import { CatsModule }                from "./domain/cats/cats.module";
+import { HealthCheckerModule }       from "./common/health-checker/health-checker.module";
+import { APP_INTERCEPTOR }           from "@nestjs/core";
 
 
 
 @Module({
-  imports: [
+  imports    : [
     /**
      * Core Modules
      * */
     ConfigModule.forRoot(configOptions),
-    TypeOrmModule.forRootAsync(typeOrmOptions),
+    TypeOrmModule.forRootAsync(typeOrmModuleAsyncOptions),
+    CacheModule.registerAsync(cacheModuleAsyncOptions),
     HealthCheckerModule,
 
     /**
@@ -27,6 +31,12 @@ import { typeOrmOptions }      from "./fundamentals/options/database.options";
     CatsModule
   ],
   controllers: [],
-  providers: [],
+  providers  : [
+    {
+      provide: APP_INTERCEPTOR,
+      useClass: CacheInterceptor,
+    },
+  ]
 })
-export class AppModule {}
+export class AppModule {
+}
