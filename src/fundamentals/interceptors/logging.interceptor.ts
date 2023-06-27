@@ -9,6 +9,7 @@ export class LoggingInterceptor implements NestInterceptor {
 
     intercept( context: ExecutionContext, next: CallHandler ): Observable<any> {
         const { method, url, body, params } = context.getArgByIndex(0);
+        const now = Date.now();
 
         if ( method === "GET" && url === "/api/health-checker" ) {
             return next.handle()
@@ -24,8 +25,7 @@ export class LoggingInterceptor implements NestInterceptor {
 
         return next
             .handle()
-            .pipe(tap(( data ) => this.logger.debug(`\n[ Response ]: ${method} | ${url} \n[ Response ]: ${JSON.stringify(data)}`)),)
-
+            .pipe(tap(( data ) => this.logger.debug(`\n[ Response ]: ${method} | ${url} | ${Date.now() - now}ms \n[ Response ]: ${JSON.stringify(data)}`)),)
     }
 
 }
