@@ -24,6 +24,9 @@ export class HttpModule extends AxiosHttpModule implements OnModuleInit {
     axios.interceptors.response.use(function( response: AxiosResponse ) {
       return response;
     }, function( error: AxiosError ) {
+      /**
+       *  TODO: Exception 종류 HttpException OR Custom Exception 으로 변경
+       */
       throw new HttpException("Axios Error", error.response.status);
     });
   }

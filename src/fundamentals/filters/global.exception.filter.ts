@@ -6,7 +6,7 @@ import { TypeORMError }                                                         
 
 
 @Catch()
-export class GlobalExceptionFilter<T = any> implements ExceptionFilter {
+export class GlobalExceptionFilter<T = HttpException | Error> implements ExceptionFilter {
   private readonly logger = new Logger(GlobalExceptionFilter.name);
 
 
@@ -30,6 +30,15 @@ export class GlobalExceptionFilter<T = any> implements ExceptionFilter {
     }
 
     /**
+     * Axios Exception Filter
+     */
+    else if ( exception instanceof HttpException ) {
+      statusCode = ( exception as HttpException ).getStatus();
+      exceptionCode = ( exception as HttpException ).name;
+      message = ( exception as HttpException ).message;
+    }
+
+    /**
      * Http Exception Filter
      * */
     else if ( exception instanceof HttpException ) {
@@ -38,6 +47,9 @@ export class GlobalExceptionFilter<T = any> implements ExceptionFilter {
       message = ( exception as HttpException ).message;
     }
 
+    /**
+     * TypeORM Error Exception Filter
+     */
     if ( ( exception instanceof TypeORMError ) ) {
       statusCode = HttpStatus.UNPROCESSABLE_ENTITY // 422
       exceptionCode = ( exception as TypeORMError ).name

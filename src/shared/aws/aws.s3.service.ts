@@ -12,8 +12,5 @@ export class AwsS3Service {
   constructor(
     @Inject(CACHE_MANAGER) private cacheManager: Cache,
     private readonly awsConfigService: AwsConfigService
-  ) {
-  }
-
-
+  ) {}
 }

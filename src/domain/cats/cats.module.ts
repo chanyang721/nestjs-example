@@ -6,7 +6,7 @@ import { JwtModule }             from "@nestjs/jwt";
 import { ConfigService }         from "@nestjs/config";
 import { Algorithm }             from "jsonwebtoken";
 import { JwtAuthGlobalStrategy } from "../../fundamentals/guards/jwt.auth.global.strategy";
-import { HttpModule }            from "../../common/http/http.module";
+import { HttpModule }            from "../../shared/http/http.module";
 
 @Module({
   imports: [
