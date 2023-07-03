@@ -1,14 +1,16 @@
 import { HttpException, Inject, Injectable } from "@nestjs/common";
 import { CACHE_MANAGER }                     from "@nestjs/cache-manager";
-import { Cache }              from "cache-manager";
+import { Cache }                             from "cache-manager";
+import { CatsRepository }                    from "../repositories/cats.repository";
 
 
 
 @Injectable()
 export class CatsService {
-  constructor( @Inject(CACHE_MANAGER) private cacheManager: Cache ) {
-
-  }
+  constructor(
+    @Inject(CACHE_MANAGER) private cacheManager: Cache,
+    private readonly catsRepository: CatsRepository
+  ) {}
 
 
   public async saveCache( data: any ) {

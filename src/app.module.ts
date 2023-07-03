@@ -1,11 +1,9 @@
 import { Module }                        from "@nestjs/common";
 import { ConfigModule }                  from "@nestjs/config";
-import { TypeOrmModule }                 from "@nestjs/typeorm";
 import { APP_INTERCEPTOR }               from "@nestjs/core";
 import { CacheInterceptor, CacheModule } from "@nestjs/cache-manager";
 import { HttpModule }                    from "./shared/http/http.module";
 import { configOptions }                 from "./fundamentals/options/config.options";
-import { typeOrmModuleAsyncOptions }     from "./fundamentals/options/typeorm.module.options";
 import { cacheModuleAsyncOptions }       from "./fundamentals/options/cache.module.options";
 import { httpModuleAsyncOptions }        from "./fundamentals/options/http.mudule.options";
 import { CatsModule }                    from "./domain/cats/cats.module";
@@ -24,6 +22,7 @@ import { DatabaseModule }                from "./common/database/database.module
     HttpModule.registerAsync(httpModuleAsyncOptions),
     HealthCheckerModule,
     DatabaseModule,
+
     /**
      * Domain Modules
      * */
