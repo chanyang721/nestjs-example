@@ -7,11 +7,15 @@ import { ConfigService }         from "@nestjs/config";
 import { Algorithm }             from "jsonwebtoken";
 import { JwtAuthGlobalStrategy } from "../../fundamentals/guards/jwt.auth.global.strategy";
 import { HttpModule }            from "../../shared/http/http.module";
+import { CatsRepository }        from "./repositories/cats.repository";
+import { TypeOrmModule }         from "@nestjs/typeorm";
+import { CatsEntity }            from "./entities/cat.entity";
 
 @Module({
   imports: [
     PassportModule,
     HttpModule,
+    TypeOrmModule.forFeature([ CatsEntity ]),
     JwtModule.registerAsync({
       inject    : [ ConfigService ],
       useFactory: ( configService: ConfigService ) => ( {
@@ -26,9 +30,10 @@ import { HttpModule }            from "../../shared/http/http.module";
           algorithms: [ configService.get<Algorithm>("JWT_ALGORITHM") ]
         }
       } )
-    })
+    }),
+
   ],
   controllers: [CatsController],
-  providers: [CatsService, JwtAuthGlobalStrategy]
+  providers: [CatsService, CatsRepository, JwtAuthGlobalStrategy]
 })
 export class CatsModule {}
