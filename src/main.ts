@@ -3,10 +3,10 @@ import { NestFactory }            from '@nestjs/core';
 import { AppModule }              from './app.module';
 import * as cookieParser          from "cookie-parser";
 import * as compression           from 'compression';
-import helmet                     from 'helmet'
-import { coreFundamentals }       from "./fundamentals";
-import { setupSwagger }           from "./common/swagger";
-import { corsOptions }            from "./fundamentals/options/cors.options";
+import helmet               from 'helmet'
+import { coreFundamentals } from "./lib/core-fundamental";
+import { setupSwagger }     from "./lib/swagger";
+import { corsOptions }      from "./lib/core-fundamental/options/cors.options";
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule)
