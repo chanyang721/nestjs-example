@@ -1,21 +1,32 @@
-import { Module }                    from "@nestjs/common";
-import { TypeOrmModule }             from "@nestjs/typeorm";
-import { typeOrmModuleAsyncOptions } from "../core-fundamental/options/typeorm.module.options";
+import { Module }                        from "@nestjs/common";
+import { TypeOrmModule }                 from "@nestjs/typeorm";
+import { MongooseModule }                from "@nestjs/mongoose";
+import { CacheModule }                   from "@nestjs/cache-manager";
+import { typeOrmModuleAsyncOptions }     from "./options/typeorm.module.options";
+import { cacheModuleAsyncOptions }       from "./options/cache.module.options";
+import { catMongooseModuleAsyncOptions } from "./options/mongoose.module.options";
+
 
 
 @Module({
-  imports: [
+  imports  : [
     /**
-     * TODO: CQRS, Kubernetes Node 별 Database and Replica 다양한 연결의 위한 모듈 분리
+     * TODO: Command MySQL Database
      */
     TypeOrmModule.forRootAsync(typeOrmModuleAsyncOptions),
 
     /**
-     * TODO: CQRS 적용 Redis, MongoDB Database 분리
+     * TODO: Cache Redis
      */
+    CacheModule.registerAsync(cacheModuleAsyncOptions),
 
+    /**
+     * TODO: Query MongoDB Database
+     */
+    MongooseModule.forRootAsync(catMongooseModuleAsyncOptions)
   ],
-  exports: [],
-  providers: [],
+  exports  : [],
+  providers: []
 })
-export class DatabaseModule {}
+export class DatabaseModule {
+}
