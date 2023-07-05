@@ -7,7 +7,7 @@ import { CqrsModule }            from "@nestjs/cqrs";
 import { MongooseModule }        from "@nestjs/mongoose";
 import { Algorithm }             from "jsonwebtoken";
 import { JwtAuthGlobalStrategy } from "../../lib/core-fundamental/guards/jwt.auth.global.strategy";
-import { HttpModule }            from "../../lib/shared/http/http.module";
+import { HttpModule }            from "../../lib/http/http.module";
 import { CatController }         from "./presentation/adapter/controllers/cat.controller";
 import { CatsCommandService }    from "./application/service/cats.command.service";
 import { CatsQueryService }      from "./application/service/cats.query.service";

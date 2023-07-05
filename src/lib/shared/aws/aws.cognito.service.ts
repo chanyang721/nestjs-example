@@ -1,12 +1,14 @@
 import { Injectable }       from "@nestjs/common";
-import { AwsConfigService } from "./aws.config.service";
+import { AwsConfigService } from "./config/aws.config.service";
 
 
 
 @Injectable()
 export class AwsCognitoService {
 
-  constructor( private readonly awsConfigService: AwsConfigService ) {
+  constructor(
+    private readonly awsConfigService: AwsConfigService
+  ) {
   }
 
 

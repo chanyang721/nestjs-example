@@ -1,6 +1,6 @@
 import { Global, Module }      from '@nestjs/common'
 import { SharedConfigService } from './config/shared.config.service'
-import { AwsConfigService }    from './aws/aws.config.service'
+import { AwsConfigService }    from './aws/config/aws.config.service'
 import { AwsS3Service }        from './aws/aws.s3.service'
 import { AwsCognitoService }   from "./aws/aws.cognito.service";
 
