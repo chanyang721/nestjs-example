@@ -1,9 +1,9 @@
+import { RequestMethod }          from "@nestjs/common";
 import { NestExpressApplication } from "@nestjs/platform-express";
-import { globalInterceptors }     from "./interceptors";
 import { globalGuards }           from "./guards";
+import { globalInterceptors }     from "./interceptors";
 import { globalPipes }            from "./pipes";
 import { globalExceptionFilters } from "./filters";
-import { RequestMethod }          from "@nestjs/common";
 
 
 

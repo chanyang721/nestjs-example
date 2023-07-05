@@ -1,8 +1,8 @@
 import { ExecutionContext, HttpException, HttpStatus, Injectable, Logger, UnauthorizedException } from "@nestjs/common";
 import { AuthGuard }                                                                              from "@nestjs/passport";
 import { Reflector }                                                                              from "@nestjs/core";
-import { ExtractJwt }    from "passport-jwt";
-import { IS_PUBLIC_KEY } from "../../constant";
+import { ExtractJwt }                                                                             from "passport-jwt";
+import { IS_PUBLIC_KEY }                                                                          from "../../constant";
 
 
 
@@ -17,7 +17,8 @@ export class JwtAuthGlobalGuard extends AuthGuard("jwt") {
 
 
   async canActivate( context: ExecutionContext ) {
-    const request = context.switchToHttp().getRequest();
+    const request = context.switchToHttp()
+                           .getRequest();
 
     const { isPublic } = await this.catchPublicRequest(context);
     if ( isPublic ) return true;

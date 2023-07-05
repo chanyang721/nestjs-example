@@ -1,15 +1,17 @@
-import { NestExpressApplication } from '@nestjs/platform-express'
-import { NestFactory }            from '@nestjs/core';
-import { AppModule }              from './app.module';
+import { NestExpressApplication } from "@nestjs/platform-express";
+import { NestFactory }            from "@nestjs/core";
+import helmet                     from "helmet";
+import * as compression           from "compression";
 import * as cookieParser          from "cookie-parser";
-import * as compression           from 'compression';
-import helmet               from 'helmet'
-import { coreFundamentals } from "./lib/core-fundamental";
-import { setupSwagger }     from "./lib/swagger";
-import { corsOptions }      from "./lib/core-fundamental/options/cors.options";
+import { coreFundamentals }       from "./lib/core-fundamental";
+import { setupSwagger }           from "./lib/swagger";
+import { corsOptions }            from "./lib/core-fundamental/options/cors.options";
+import { AppModule }              from "./app.module";
+
+
 
 async function bootstrap() {
-  const app = await NestFactory.create<NestExpressApplication>(AppModule)
+  const app = await NestFactory.create<NestExpressApplication>(AppModule);
 
   app.enableCors(corsOptions);
 
@@ -19,9 +21,9 @@ async function bootstrap() {
 
   app.use(compression());
 
-  await coreFundamentals(app)
+  await coreFundamentals(app);
 
-  await setupSwagger(app)
+  await setupSwagger(app);
 
   await app.listen(process.env.PORT);
 

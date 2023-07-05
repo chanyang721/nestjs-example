@@ -1,4 +1,4 @@
-import { NestExpressApplication }         from "@nestjs/platform-express";
+import { NestExpressApplication }                              from "@nestjs/platform-express";
 import { DocumentBuilder, SwaggerModule }                      from "@nestjs/swagger";
 import { COOKIE_ACCESS_TOKEN_NAME, COOKIE_REFRESH_TOKEN_NAME } from "./constant";
 

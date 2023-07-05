@@ -1,11 +1,5 @@
 import { Controller, Get }                                                                                     from "@nestjs/common";
-import {
-  HealthCheck,
-  HealthCheckResult,
-  HealthCheckService,
-  MongooseHealthIndicator,
-  TypeOrmHealthIndicator
-} from "@nestjs/terminus";
+import { HealthCheck, HealthCheckResult, HealthCheckService, MongooseHealthIndicator, TypeOrmHealthIndicator } from "@nestjs/terminus";
 
 
 
@@ -24,8 +18,7 @@ export class HealthCheckerController {
    *     "status": 'error' | 'ok' | 'shutting_down',
    * }
    * */
-  @Get()
-  @HealthCheck()
+  @Get() @HealthCheck()
   async healthCheck(): Promise<HealthCheckResult> {
     return this.healthCheckerService.check([
       () => this.typeOrmIndicator.pingCheck("database", { timeout: 1500 }),

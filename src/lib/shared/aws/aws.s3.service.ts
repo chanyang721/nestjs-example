@@ -1,7 +1,7 @@
 import { Inject, Injectable } from "@nestjs/common";
-import { AwsConfigService }   from "./aws.config.service";
 import { CACHE_MANAGER }      from "@nestjs/cache-manager";
 import { Cache }              from "cache-manager";
+import { AwsConfigService }   from "./aws.config.service";
 
 
 
