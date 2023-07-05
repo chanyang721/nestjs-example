@@ -8,7 +8,7 @@ import { KillCatCommand }        from "../command/kill.cat.command";
 
 
 @Injectable()
-export class CatsCommandService {
+export class CatCommandService {
   constructor(
     @Inject(CACHE_MANAGER) private cacheManager: Cache,
     private readonly catsRepository: CatsCommandRepository,

@@ -1,6 +1,6 @@
 import { CanActivate }        from "@nestjs/common";
-import { JwtAuthGlobalGuard } from "./jwt.auth.global.guard";
 import { Reflector }          from "@nestjs/core";
+import { JwtAuthGlobalGuard } from "./global/jwt.auth.global.guard";
 
 const reflector = new Reflector();
 

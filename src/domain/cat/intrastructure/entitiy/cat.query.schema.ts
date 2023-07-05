@@ -8,7 +8,6 @@ export type CatDocument = HydratedDocument<CatModel>;
 
 @Schema({
   collection: "cats",
-  timestamps: true,
   versionKey: false,
 })
 export class CatModel extends Document {

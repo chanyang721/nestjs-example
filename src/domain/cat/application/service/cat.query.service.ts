@@ -7,7 +7,7 @@ import { QueryBus }            from "@nestjs/cqrs";
 
 
 @Injectable()
-export class CatsQueryService {
+export class CatQueryService {
   constructor(
     @Inject(CACHE_MANAGER) private cacheManager: Cache,
     private readonly catsRepository: CatsQueryRepository,

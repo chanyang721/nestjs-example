@@ -6,7 +6,7 @@ import { PROD }                        from "../../constant";
 
 
 
-export const typeOrmModuleAsyncOptions: TypeOrmModuleAsyncOptions = {
+export const typeOrmModuleAsyncOptionsMain: TypeOrmModuleAsyncOptions = {
   imports   : [ ConfigModule ],
   inject    : [ ConfigService ],
   name       : "main",

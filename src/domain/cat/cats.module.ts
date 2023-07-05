@@ -6,11 +6,11 @@ import { TypeOrmModule }         from "@nestjs/typeorm";
 import { CqrsModule }            from "@nestjs/cqrs";
 import { MongooseModule }        from "@nestjs/mongoose";
 import { Algorithm }             from "jsonwebtoken";
-import { JwtAuthGlobalStrategy } from "../../lib/core-fundamental/guards/jwt.auth.global.strategy";
-import { HttpModule }            from "../../lib/http/http.module";
-import { CatController }         from "./presentation/adapter/controllers/cat.controller";
-import { CatsCommandService }    from "./application/service/cats.command.service";
-import { CatsQueryService }      from "./application/service/cats.query.service";
+import { JwtAuthGlobalStrategy } from "../../lib/core-fundamental/guards/global/jwt.auth.global.strategy";
+import { HttpModule }         from "../../lib/http/http.module";
+import { CatController }     from "./presentation/adapter/controller/cat.controller";
+import { CatCommandService }     from "./application/service/cat.command.service";
+import { CatQueryService }       from "./application/service/cat.query.service";
 import { CatsCommandRepository } from "./intrastructure/repository/command/cats.command.repository";
 import { CatsQueryRepository }   from "./intrastructure/repository/query/cats.query.repository";
 import { CatEntity }             from "./intrastructure/entitiy/cat.command.entity";
@@ -46,10 +46,10 @@ import { CatModel, CatSchema }   from "./intrastructure/entitiy/cat.query.schema
     CatController
   ],
   providers  : [
-    CatsCommandService,
+    CatCommandService,
     CatsCommandRepository,
 
-    CatsQueryService,
+    CatQueryService,
     CatsQueryRepository,
 
     JwtAuthGlobalStrategy

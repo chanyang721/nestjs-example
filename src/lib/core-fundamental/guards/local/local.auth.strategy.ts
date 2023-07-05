@@ -1,8 +1,8 @@
 import { Injectable }        from "@nestjs/common";
 import { PassportStrategy }  from "@nestjs/passport";
 import { Strategy }           from "passport-local";
-import { AwsCognitoService }  from "../../../lib/shared/aws/aws.cognito.service";
-import { CatsCommandService } from "../application/service/cats.command.service";
+import { AwsCognitoService } from "../../../shared/aws/aws.cognito.service";
+import { CatCommandService } from "../../../../domain/cat/application/service/cat.command.service";
 
 
 
@@ -12,7 +12,7 @@ export class LocalAuthStrategy extends PassportStrategy(Strategy) {
 
 
   constructor(
-    private readonly catsService: CatsCommandService,
+    private readonly catsService: CatCommandService,
     private readonly awsCognitoService: AwsCognitoService
   ) {
     super({

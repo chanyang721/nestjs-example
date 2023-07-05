@@ -1,9 +1,9 @@
 import { Body, Controller, HttpException, HttpStatus, Post } from "@nestjs/common";
 import { ApiTags }                                           from "@nestjs/swagger";
 import { HttpService }        from "@nestjs/axios";
-import { Public }             from "../../../../../lib/decoretor";
-import { CatsCommandService } from "../../../application/service/cats.command.service";
-import { CreateCatDto }       from "../dto/create.cats.dto";
+import { Public }            from "../../../../../lib/decoretor";
+import { CatCommandService } from "../../../application/service/cat.command.service";
+import { CreateCatDto }      from "../dto/create.cats.dto";
 
 
 
@@ -13,7 +13,7 @@ import { CreateCatDto }       from "../dto/create.cats.dto";
 @Controller("cat")
 export class CatController {
   constructor(
-    private readonly catsService: CatsCommandService,
+    private readonly catsService: CatCommandService,
     private readonly httpService: HttpService
   ) {}
 

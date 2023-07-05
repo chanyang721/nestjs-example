@@ -1,6 +1,6 @@
 import { Test, TestingModule }  from '@nestjs/testing';
-import { CatController }      from './cat.controller';
-import { CatsCommandService } from '../../../application/service/cats.command.service';
+import { CatController }     from './cat.controller';
+import { CatCommandService } from '../../../application/service/cat.command.service';
 
 describe('CatController', () => {
   let controller: CatController;
@@ -8,7 +8,7 @@ describe('CatController', () => {
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [ CatController],
-      providers: [ CatsCommandService],
+      providers: [ CatCommandService],
     }).compile();
 
     controller = module.get<CatController>(CatController);

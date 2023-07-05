@@ -1,5 +1,5 @@
-import { Injectable }       from "@nestjs/common";
-import { AwsConfigService } from "./config/aws.config.service";
+import { Injectable }          from "@nestjs/common";
+import { SharedConfigService } from "../config/shared.config.service";
 
 
 
@@ -7,13 +7,13 @@ import { AwsConfigService } from "./config/aws.config.service";
 export class AwsCognitoService {
 
   constructor(
-    private readonly awsConfigService: AwsConfigService
+    private readonly sharedConfigService: SharedConfigService
   ) {
   }
 
 
   get accessToAwsCognito() {
-    const { clientId, userPoolId } = this.awsConfigService.accessAwsCognitoConfig;
+    const { clientId, userPoolId } = this.sharedConfigService.accessAwsCognitoConfig;
     return;
   }
 }
