@@ -2,12 +2,12 @@
 
 ## 환경 변수 설정 방법
 
-## 디렉터리 구조
+## Directory Structure
 
-## 도메인 참조 문서
+## Domain Modeling Document
 
-## Git Branch 전략
+## Git Usage
 
-## 배포
+## Deployment Strategy
 
-## 인프라 구조
+## Infrastructure 
