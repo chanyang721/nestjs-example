@@ -13,8 +13,9 @@ import { CatsCommandService }    from "./application/service/cats.command.servic
 import { CatsQueryService }      from "./application/service/cats.query.service";
 import { CatsCommandRepository } from "./intrastructure/repository/command/cats.command.repository";
 import { CatsQueryRepository }   from "./intrastructure/repository/query/cats.query.repository";
-import { CatCommandEntity }      from "./intrastructure/entitiy/cat.command.entity";
+import { CatEntity }             from "./intrastructure/entitiy/cat.command.entity";
 import { CatModel, CatSchema }   from "./intrastructure/entitiy/cat.query.schema";
+
 
 
 
@@ -23,8 +24,8 @@ import { CatModel, CatSchema }   from "./intrastructure/entitiy/cat.query.schema
     CqrsModule,
     PassportModule,
     HttpModule,
-    TypeOrmModule.forFeature([ CatCommandEntity ]),
-    MongooseModule.forFeature([ { name  : CatModel.name, schema: CatSchema } ], "cats"),
+    TypeOrmModule.forFeature([ CatEntity ], 'main'),
+    MongooseModule.forFeature([ { name  : CatModel.name, schema: CatSchema } ], "one"),
     JwtModule.registerAsync({
       inject    : [ ConfigService ],
       useFactory: ( configService: ConfigService ) => ( {

@@ -1,21 +1,30 @@
-import { Injectable }       from "@nestjs/common";
-import { InjectRepository } from "@nestjs/typeorm";
-import { CatCommandEntity } from "../../entitiy/cat.command.entity";
-import { Repository }       from "typeorm";
+import { Injectable }             from "@nestjs/common";
+import { DataSource, Repository } from "typeorm";
+import { CatEntity }                          from "../../entitiy/cat.command.entity";
+import { InjectDataSource, InjectRepository } from "@nestjs/typeorm";
 
 
 
 @Injectable()
-export class CatsCommandRepository {
+export class CatsCommandRepository extends Repository<CatEntity> {
   constructor(
-    @InjectRepository(CatCommandEntity)
-    private readonly catsRepository: Repository<CatCommandEntity>
-  ) {}
+    @InjectDataSource("main")
+    private readonly mainDataSource: DataSource,
+    @InjectDataSource("support")
+    private readonly supportDataSource: DataSource,
+    @InjectRepository(CatEntity, "main")
+    private readonly catsRepository: Repository<CatEntity>,
+  ) {
+    super(CatEntity, mainDataSource.createEntityManager());
+  }
 
 
   public async getCatBy( id: string ) {
-    return await this.catsRepository
-                     .createQueryBuilder("cat")
+    await this.mainDataSource.transaction(async manager => {
+
+    })
+    await this.supportDataSource.getRepository(CatEntity)
+    return await this.createQueryBuilder("cat")
                      .where("cat.id = :id", { id })
                      .getOne();
 

@@ -1,21 +1,26 @@
-import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import mongoose, { HydratedDocument }  from 'mongoose';
+import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
+import { Document, HydratedDocument }  from "mongoose";
+
+
 
 export type CatDocument = HydratedDocument<CatModel>;
 
-@Schema()
-export class CatModel {
+
+@Schema({
+  collection: "cats",
+  timestamps: true,
+  versionKey: false,
+})
+export class CatModel extends Document {
   @Prop({
-    type: mongoose.Schema.Types.String,
-    required: false,
-  })
-  name: string;
+    type    : String,
+    required: false
+  }) name: string;
 
-  @Prop()
-  age: number;
+  @Prop() age: number;
 
-  @Prop()
-  breed: string;
+  @Prop() breed: string;
 }
+
 
 export const CatSchema = SchemaFactory.createForClass(CatModel);

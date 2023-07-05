@@ -1,6 +1,7 @@
 import { ArgumentsHost, Catch, ExceptionFilter, HttpException, HttpStatus, Logger, UnprocessableEntityException, ValidationError } from "@nestjs/common";
 import type { Request, Response } from "express";
 import { TypeORMError }           from "typeorm";
+import { MongooseError }               from "mongoose";
 import { GlobalResponseError }    from "./global.response.error";
 
 
@@ -56,7 +57,14 @@ export class GlobalExceptionFilter<T = HttpException | Error> implements Excepti
       message = ( exception as TypeORMError ).message
     }
 
-
+    /**
+     *
+     */
+    if ( (exception instanceof MongooseError )) {
+      statusCode = HttpStatus.UNPROCESSABLE_ENTITY // 422
+      exceptionCode = ( exception as MongooseError ).name
+      message = ( exception as MongooseError ).message
+    }
 
     this.logger.error(GlobalResponseError({ statusCode, exceptionCode, message, method: request.method, path  : request.url, errors }))
     response.status(statusCode)

@@ -1,25 +1,43 @@
 import { ConfigModule, ConfigService } from "@nestjs/config";
-import { TypeOrmModuleAsyncOptions } from "@nestjs/typeorm";
-import { SqlLogger }        from "./typeorm.logger.options";
-import { CatCommandEntity } from "../../../domain/cat/intrastructure/entitiy/cat.command.entity";
-import { PROD }             from "../../constant";
+import { TypeOrmModuleAsyncOptions }   from "@nestjs/typeorm";
+import { SqlLogger }                   from "./typeorm.logger.options";
+import { CatEntity }                   from "../../../domain/cat/intrastructure/entitiy/cat.command.entity";
+import { PROD }                        from "../../constant";
 
 
 
 export const typeOrmModuleAsyncOptions: TypeOrmModuleAsyncOptions = {
   imports   : [ ConfigModule ],
   inject    : [ ConfigService ],
+  name       : "main",
   useFactory: ( configService: ConfigService ) => ( {
-    name       : "default",
     type       : "mysql",
-    host       : process.env.DB_HOST || configService.get("DB_HOST"),
-    port       : +process.env.DB_PORT || +configService.get<number>("DB_PORT"),
-    username   : process.env.DB_USERNAME || configService.get("DB_USERNAME"),
-    password   : process.env.DB_PASSWORD || configService.get("DB_PASSWORD"),
-    database   : process.env.DB_DATABASE || configService.get("DB_DATABASE"),
+    host       : process.env.MYSQL_DB_HOST || configService.get<string>("MYSQL_DB_HOST"),
+    port       : +process.env.MYSQL_DB_PORT || +configService.get<number>("MYSQL_DB_PORT"),
+    username   : process.env.MYSQL_DB_USERNAME || configService.get<string>("MYSQL_DB_USERNAME"),
+    password   : process.env.MYSQL_DB_PASSWORD || configService.get<string>("MYSQL_DB_PASSWORD"),
+    database   : process.env.MYSQL_DB_DATABASE || configService.get<string>("MYSQL_DB_DATABASE"),
     synchronize: process.env.NODE_ENV !== PROD,
     logger     : new SqlLogger(),
-    entities   : [ CatCommandEntity ],
+    entities   : [ CatEntity ],
     timezone   : "Z"
-  } )
+  } ),
+};
+
+export const typeOrmModuleAsyncOptionsSupport: TypeOrmModuleAsyncOptions = {
+  imports   : [ ConfigModule ],
+  inject    : [ ConfigService ],
+  name       : "support",
+  useFactory: ( configService: ConfigService ) => ( {
+    type       : "mysql",
+    host       : process.env.MYSQL_DB_HOST || configService.get<string>("MYSQL_DB_HOST"),
+    port       : +process.env.MYSQL_DB_PORT || +configService.get<number>("MYSQL_DB_PORT"),
+    username   : process.env.MYSQL_DB_USERNAME || configService.get<string>("MYSQL_DB_USERNAME"),
+    password   : process.env.MYSQL_DB_PASSWORD || configService.get<string>("MYSQL_DB_PASSWORD"),
+    database   : 'support',
+    synchronize: process.env.NODE_ENV !== PROD,
+    logger     : new SqlLogger(),
+    entities   : [ CatEntity ],
+    timezone   : "Z"
+  } ),
 };
