@@ -1,9 +1,9 @@
 import { HttpException, Inject, Injectable } from "@nestjs/common";
 import { CACHE_MANAGER }                     from "@nestjs/cache-manager";
 import { CommandBus }                        from "@nestjs/cqrs";
-import { Cache }                             from "cache-manager";
-import { CatsCommandRepository }             from "../../repository/command/cats.command.repository";
-import { KillCatCommand }                    from "../command/kill.cat.command";
+import { Cache }                 from "cache-manager";
+import { CatsCommandRepository } from "../../intrastructure/repository/command/cats.command.repository";
+import { KillCatCommand }        from "../command/kill.cat.command";
 
 
 

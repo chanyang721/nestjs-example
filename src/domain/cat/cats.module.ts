@@ -3,19 +3,18 @@ import { JwtModule }             from "@nestjs/jwt";
 import { ConfigService }         from "@nestjs/config";
 import { PassportModule }        from "@nestjs/passport";
 import { TypeOrmModule }         from "@nestjs/typeorm";
+import { CqrsModule }            from "@nestjs/cqrs";
+import { MongooseModule }        from "@nestjs/mongoose";
 import { Algorithm }             from "jsonwebtoken";
 import { JwtAuthGlobalStrategy } from "../../lib/core-fundamental/guards/jwt.auth.global.strategy";
 import { HttpModule }            from "../../lib/shared/http/http.module";
-import { CatCommandController }  from "./adapter/controllers/command/cats.command.controller";
-import { CatQueryController }    from "./adapter/controllers/query/cats.query.controller";
-import { CatsCommandService }    from "./usecase/service/cats.command.service";
-import { CatsQueryService }      from "./usecase/service/cats.query.service";
-import { CatsCommandRepository } from "./repository/command/cats.command.repository";
-import { CatCommandEntity }      from "./entitiy/cat.command.entity";
-import { CqrsModule }            from "@nestjs/cqrs";
-import { CatsQueryRepository }   from "./repository/query/cats.query.repository";
-import { MongooseModule }      from "@nestjs/mongoose";
-import { CatModel, CatSchema } from "./entitiy/cat.query.schema";
+import { CatController }         from "./presentation/adapter/controllers/cat.controller";
+import { CatsCommandService }    from "./application/service/cats.command.service";
+import { CatsQueryService }      from "./application/service/cats.query.service";
+import { CatsCommandRepository } from "./intrastructure/repository/command/cats.command.repository";
+import { CatsQueryRepository }   from "./intrastructure/repository/query/cats.query.repository";
+import { CatCommandEntity }      from "./intrastructure/entitiy/cat.command.entity";
+import { CatModel, CatSchema }   from "./intrastructure/entitiy/cat.query.schema";
 
 
 
@@ -25,7 +24,7 @@ import { CatModel, CatSchema } from "./entitiy/cat.query.schema";
     PassportModule,
     HttpModule,
     TypeOrmModule.forFeature([ CatCommandEntity ]),
-    MongooseModule.forFeature([{ name: CatModel.name, schema: CatSchema }], 'cats'),
+    MongooseModule.forFeature([ { name  : CatModel.name, schema: CatSchema } ], "cats"),
     JwtModule.registerAsync({
       inject    : [ ConfigService ],
       useFactory: ( configService: ConfigService ) => ( {
@@ -43,14 +42,15 @@ import { CatModel, CatSchema } from "./entitiy/cat.query.schema";
     })
   ],
   controllers: [
-    CatCommandController,
-    CatQueryController
+    CatController
   ],
   providers  : [
     CatsCommandService,
-    CatsQueryService,
     CatsCommandRepository,
+
+    CatsQueryService,
     CatsQueryRepository,
+
     JwtAuthGlobalStrategy
   ]
 })

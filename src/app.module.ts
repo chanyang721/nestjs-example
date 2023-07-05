@@ -8,7 +8,6 @@ import { httpModuleAsyncOptions } from "./lib/core-fundamental/options/http.mudu
 import { HealthCheckerModule }    from "./lib/health-checker/health-checker.module";
 import { DatabaseModule }         from "./lib/database/database.module";
 import { CatsModule }             from "./domain/cat/cats.module";
-import { DogModule }              from "./domain/dog/dog.module";
 
 
 
@@ -28,7 +27,7 @@ import { DogModule }              from "./domain/dog/dog.module";
     /**
      * Test Modules
      * */
-    CatsModule, DogModule
+    CatsModule
   ],
   controllers: [],
   providers  : [

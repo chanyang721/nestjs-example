@@ -1,4 +1,4 @@
-import { CreateCatDto } from "../../../dto/create.cats.dto";
+import { CreateCatDto } from "../dto/create.cats.dto";
 
 
 

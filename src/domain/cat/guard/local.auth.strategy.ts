@@ -2,7 +2,7 @@ import { Injectable }        from "@nestjs/common";
 import { PassportStrategy }  from "@nestjs/passport";
 import { Strategy }           from "passport-local";
 import { AwsCognitoService }  from "../../../lib/shared/aws/aws.cognito.service";
-import { CatsCommandService } from "../usecase/service/cats.command.service";
+import { CatsCommandService } from "../application/service/cats.command.service";
 
 
 

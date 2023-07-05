@@ -1,7 +1,7 @@
 import { HttpException, Inject, Injectable } from "@nestjs/common";
 import { CACHE_MANAGER }                     from "@nestjs/cache-manager";
 import { Cache }               from "cache-manager";
-import { CatsQueryRepository } from "../../repository/query/cats.query.repository";
+import { CatsQueryRepository } from "../../intrastructure/repository/query/cats.query.repository";
 import { QueryBus }            from "@nestjs/cqrs";
 
 
