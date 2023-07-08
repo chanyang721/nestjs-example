@@ -1,4 +1,4 @@
-export const DEV = "development";
-export const PROD = "production";
+export const DEVELOPMENT = "development";
+export const PRODUCTION = "production";
 
 export const IS_PUBLIC_KEY = "isPublic";

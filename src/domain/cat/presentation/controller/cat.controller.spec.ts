@@ -1,6 +1,6 @@
-import { Test, TestingModule }  from '@nestjs/testing';
-import { CatController }     from './cat.controller';
-import { CatCommandService } from '../../../application/service/cat.command.service';
+import { Test, TestingModule } from '@nestjs/testing';
+import { CatController }       from './cat.controller';
+import { CatCommandService }   from '../../application/service/cat.command.service';
 
 describe('CatController', () => {
   let controller: CatController;

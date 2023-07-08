@@ -16,6 +16,7 @@ export class KillCatHandler implements ICommandHandler<KillCatCommand> {
 
   public async execute( command: KillCatCommand ) {
     const { userId, catId } = command;
+    console.log("CommandHandler: KillCatCommand :", userId, catId)
     // const cat = this.publisher.mergeObjectContext(
     //
     // )

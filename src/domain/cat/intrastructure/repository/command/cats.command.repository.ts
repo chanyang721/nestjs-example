@@ -6,7 +6,7 @@ import { InjectDataSource, InjectRepository } from "@nestjs/typeorm";
 
 
 @Injectable()
-export class CatsCommandRepository extends Repository<CatEntity> {
+export class CatsCommandRepository {
   constructor(
     @InjectDataSource("main")
     private readonly mainDataSource: DataSource,
@@ -14,19 +14,11 @@ export class CatsCommandRepository extends Repository<CatEntity> {
     private readonly supportDataSource: DataSource,
     @InjectRepository(CatEntity, "main")
     private readonly catsRepository: Repository<CatEntity>,
-  ) {
-    super(CatEntity, mainDataSource.createEntityManager());
+  ) {}
+
+  public async createOrUpdateCat( createCatDto: any ) {
+    return await this.catsRepository.save(createCatDto);
   }
 
-
-  public async getCatBy( id: string ) {
-    await this.mainDataSource.transaction(async manager => {
-
-    })
-    await this.supportDataSource.getRepository(CatEntity)
-    return await this.createQueryBuilder("cat")
-                     .where("cat.id = :id", { id })
-                     .getOne();
-
-  }
+  public async
 }

@@ -9,17 +9,20 @@ export class CatEntity extends BaseEntity {
     type    : String,
     length  : 20,
     nullable: false
-  }) name: string;
+  })
+  name: string;
 
   @Column({
     type    : Number,
     nullable: false,
     default : 0
-  }) age: number;
+  })
+  age: number;
 
   @Column({
     type    : Boolean,
     nullable: false,
     default : true
-  }) breed: Boolean;
+  })
+  breed: Boolean;
 }

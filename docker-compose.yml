@@ -1,7 +1,7 @@
-#version: '3.9'
-#
-#services:
-#  defaultdb:
+version: '3.9'
+
+services:
+#  mysql_main_db:
 #    image: mysql
 #    container_name: ${MYSQL_DB_HOST}
 #    restart: always
@@ -13,10 +13,10 @@
 #    ports:
 #        - ${MYSQL_DB_PORT}:${MYSQL_DB_PORT}
 #    volumes:
-#        - ./defaultdb_data:/var/lib/mysql
+#        - ./default_db_data:/var/lib/mysql
 #    networks:
 #      - backend
-#
+##
 #  mongodb:
 #    image: mongo
 #    container_name: ${MONGO_DB_HOST}
@@ -27,29 +27,31 @@
 #      - ./mongodb_data:/var/lib/mongodb
 #    networks:
 #      - backend
-#
-#  server:
-#    container_name: main_server
-#    working_dir: /app
+
+
+  server:
+    container_name: main_server
+    working_dir: /app/server
 #    depends_on:
-#      - defaultdb
+#      - mysql_main_db
 #      - mongodb
-#    build:
-#      context: .
-#      dockerfile: Dockerfile
-#    ports:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "4000:4000"
 #      - ${MAIN_SERVER_PORT}:${MAIN_SERVER_PORT}
-#    volumes:
-#      - ./:/app
-#    networks:
-#      - backend
-#
-#volumes:
-#  defaultdb_data:
-#    driver: local
+    volumes:
+      - ./:/app/server
+    networks:
+      - backend
+
+volumes:
+  default_db_data:
+    driver: local
 #  mongodb_data:
 #    driver: local
-#
-#networks:
-#  backend:
-#    driver: bridge
+
+networks:
+  backend:
+    driver: bridge

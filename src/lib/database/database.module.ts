@@ -15,24 +15,24 @@ import { mongooseModuleAsyncOptions }                                      from 
      * TODO: Command MySQL Database
      */
     TypeOrmModule.forRootAsync(typeOrmModuleAsyncOptionsMain),
-    TypeOrmModule.forRootAsync(typeOrmModuleAsyncOptionsSupport),
+    // TypeOrmModule.forRootAsync(typeOrmModuleAsyncOptionsSupport),
 
     /**
      * TODO: Cache Redis
      */
-    CacheModule.registerAsync(cacheModuleAsyncOptions),
+    // CacheModule.registerAsync(cacheModuleAsyncOptions),
 
     /**
      * TODO: Query MongoDB Database
      */
-    MongooseModule.forRootAsync(mongooseModuleAsyncOptions)
+    // MongooseModule.forRootAsync(mongooseModuleAsyncOptions)
   ],
   exports  : [],
   providers: [
-    {
-      provide : APP_INTERCEPTOR,
-      useClass: CacheInterceptor
-    }
+    // {
+    //   provide : APP_INTERCEPTOR,
+    //   useClass: CacheInterceptor
+    // }
   ]
 })
 export class DatabaseModule {
