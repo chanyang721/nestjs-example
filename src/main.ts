@@ -1,29 +1,31 @@
-import { NestExpressApplication } from '@nestjs/platform-express'
-import { NestFactory }            from '@nestjs/core';
-import { AppModule }              from './app.module';
+import { NestExpressApplication } from "@nestjs/platform-express";
+import { NestFactory }            from "@nestjs/core";
+import helmet                     from "helmet";
+import * as compression           from "compression";
 import * as cookieParser          from "cookie-parser";
-import * as compression           from 'compression';
-import helmet                     from 'helmet'
-import { coreFundamentals }       from "./fundamentals";
-import { setupSwagger }           from "./common/swagger";
-import { corsOptions }            from "./fundamentals/options/cors.options";
+import { coreFundamentals }       from "./lib/core-fundamental";
+import { setupSwagger }           from "./lib/swagger";
+import { corsOptions }            from "./lib/core-fundamental/options/cors.options";
+import { AppModule }              from "./app.module";
+
+
 
 async function bootstrap() {
-  const app = await NestFactory.create<NestExpressApplication>(AppModule)
+  const app = await NestFactory.create<NestExpressApplication>(AppModule);
 
-  app.enableCors(corsOptions); // CORS 설정
+  app.enableCors(corsOptions);
 
-  app.use(helmet()); // Helmet 설정
+  app.use(helmet());
 
-  app.use(cookieParser()); // 쿠키 설정
+  app.use(cookieParser());
 
-  app.use(compression()); // Response 파일 압축
+  app.use(compression());
 
-  await coreFundamentals(app) // 기본 설정
+  await coreFundamentals(app);
 
-  await setupSwagger(app) // Swagger 설정
+  await setupSwagger(app);
 
-  await app.listen(process.env.PORT); // 서버 실행
+  await app.listen(process.env.MAIN_SERVER_PORT);
 
   console.info(`Server is running on: ${await app.getUrl()}`);
 

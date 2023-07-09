@@ -1,25 +1,28 @@
-import { Module }              from '@nestjs/common';
+import { Module }                 from "@nestjs/common";
 import { ConfigModule }        from "@nestjs/config";
-import { HealthCheckerModule } from "./common/health-checker/health-checker.module";
-import { CatsModule }          from './domain/cats/cats.module';
-import { configOptions }       from "./fundamentals/options/config.options";
-import { TypeOrmModule }       from "@nestjs/typeorm";
-import { typeOrmOptions }      from "./fundamentals/options/database.options";
+import { HealthCheckerModule } from "./lib/health-checker/health-checker.module";
+import { configOptions }       from "./lib/core-fundamental/options/config.options";
+import { httpModuleAsyncOptions } from "./lib/core-fundamental/options/http.mudule.options";
+import { DatabaseModule }      from "./lib/database/database.module";
+import { HttpModule }          from "./lib/http/http.module";
+import { CatsModule }          from "./domain/cat/cats.module";
 
 
 
 @Module({
-  imports: [
+  imports    : [
     /**
-     * Core Modules
+     * Core Libs Modules
      * */
     ConfigModule.forRoot(configOptions),
-    TypeOrmModule.forRootAsync(typeOrmOptions),
+    HttpModule.registerAsync(httpModuleAsyncOptions),
     HealthCheckerModule,
+    DatabaseModule,
 
     /**
      * Domain Modules
      * */
+
 
     /**
      * Test Modules
@@ -27,6 +30,7 @@ import { typeOrmOptions }      from "./fundamentals/options/database.options";
     CatsModule
   ],
   controllers: [],
-  providers: [],
+  providers  : []
 })
-export class AppModule {}
+export class AppModule {
+}
