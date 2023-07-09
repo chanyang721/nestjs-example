@@ -10,6 +10,9 @@ import { AuthController }        from './presentation/controller/auth.controller
 import { AuthService }           from './application/service/auth.service';
 import { AuthRepository }        from "./infrastructure/repository/auth.repository";
 import { UserEntity }            from "../../domain/user/infrastructure/entities/user.entity";
+import { LocalAuthStrategy }     from "../core-fundamental/guards/local/local.auth.strategy";
+import { SharedConfigService }   from "../configuration/shared.config.service";
+import { FirebaseService }       from "./infrastructure/authentication/firebase/firebase.service";
 
 @Module({
   imports: [
@@ -38,7 +41,12 @@ import { UserEntity }            from "../../domain/user/infrastructure/entities
   providers: [
     AuthService,
     AuthRepository,
-    JwtAuthGlobalStrategy
+    SharedConfigService,
+
+    FirebaseService,
+
+    LocalAuthStrategy,
+    JwtAuthGlobalStrategy,
   ]
 })
 export class AuthModule {}

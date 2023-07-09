@@ -12,7 +12,7 @@ export function ApiRegisterDecorator() {
       `
   }), ApiResponse({
     status     : HttpStatus.CREATED,
-    description: "로그인 성공",
+    description: "회원가입 성공",
     type       : FirebaseUserDto
   }));
 }

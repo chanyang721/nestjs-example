@@ -20,9 +20,8 @@ export class AuthController implements IAuthController<UserEntity> {
 
   /**
    * @description: [ POST ] register user
-   * @param firebaseUserDto
+   * @param firebaseUserDto FirebaseUserDto
    * @return any
-   * TODO: Firebase auth 전용 Local Guard 만들기
    */
   @Post("register")
   @ApiRegisterDecorator()
@@ -32,5 +31,6 @@ export class AuthController implements IAuthController<UserEntity> {
   ): Promise<any> {
     return await this.authService.registerUser(FirebaseUserDto);
   }
+
 
 }

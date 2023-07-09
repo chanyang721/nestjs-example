@@ -1,7 +1,6 @@
-import { Injectable }        from "@nestjs/common";
-import { PassportStrategy }  from "@nestjs/passport";
+import { HttpException, Injectable } from "@nestjs/common";
+import { PassportStrategy }          from "@nestjs/passport";
 import { Strategy }          from "passport-local";
-import { AwsCognitoService } from "../../../aws/aws.cognito.service";
 import { FirebaseService }   from "../../../authentication/infrastructure/authentication/firebase/firebase.service";
 
 
@@ -11,7 +10,7 @@ export class LocalAuthStrategy extends PassportStrategy(Strategy) {
   private readonly firebaseClient: any;
 
 
-  constructor( private readonly awsCognitoService: AwsCognitoService,
+  constructor(
     private readonly firebaseService: FirebaseService
   ) {
     super({
@@ -23,14 +22,20 @@ export class LocalAuthStrategy extends PassportStrategy(Strategy) {
 
 
   async validate( uid: string, id_token: string ): Promise<any> {
-    const decodedFirebaseToken = this.firebaseClient.auth()
-                                     .verifyIdToken(id_token);
+    try {
+      const decodedFirebaseToken = this.firebaseClient.auth()
+                                       .verifyIdToken(id_token);
+      console.log(decodedFirebaseToken)
 
-    return {
-      uid,
-      id_token, ...decodedFirebaseToken
-    };
+      return {
+        uid,
+        ...decodedFirebaseToken
+      };
+    }
+    catch ( e ) {
+      console.log(e)
+      throw new HttpException(e.message, 401)
+    }
   }
-
 }
 

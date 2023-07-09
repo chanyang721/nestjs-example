@@ -8,7 +8,7 @@ export const validationPipeOptions: ValidationPipeOptions = {
   forbidUnknownValues: true,
   // forbidNonWhitelisted: true,
   transform           : true,
-  disableErrorMessages: true,
+  disableErrorMessages: false,
   // stopAtFirstError    : true,
   errorHttpStatusCode: HttpStatus.UNPROCESSABLE_ENTITY,
   validationError    : { target: false },
