@@ -5,6 +5,9 @@
 # env
 .env*
 
+# container data
+/db_data
+
 # Logs
 logs
 *.log

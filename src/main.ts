@@ -25,7 +25,7 @@ async function bootstrap() {
 
   await setupSwagger(app);
 
-  await app.listen(process.env.PORT);
+  await app.listen(process.env.MAIN_SERVER_PORT);
 
   console.info(`Server is running on: ${await app.getUrl()}`);
 

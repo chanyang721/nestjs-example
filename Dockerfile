@@ -26,7 +26,7 @@ RUN npm install
 FROM base AS release
 
 # build 스테이지 결과물인 node_module을 release의 ./ 에 복사
-COPY --from=build /app/node_modules ./node_modules
+COPY --from=build /app/server/node_modules ./node_modules
 
 # 애플리케이션 소스코드 복사
 # 의미: 현재 디렉토리(./)의 모든 파일을 컨테이너의 WORKDIR(/app)의 (./)경로에 복사

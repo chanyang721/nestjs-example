@@ -1,15 +1,10 @@
-import { HttpException, Inject, Injectable } from "@nestjs/common";
-import { CACHE_MANAGER }                     from "@nestjs/cache-manager";
-import { Cache }                             from "cache-manager";
-import { CatsQueryRepository }               from "../../intrastructure/repository/query/cats.query.repository";
-import { QueryBus }                          from "@nestjs/cqrs";
+import { Injectable } from "@nestjs/common";
 
 
 
 @Injectable()
 export class CatQueryService {
-  constructor(
-    // @Inject(CACHE_MANAGER) private cacheManager: Cache,
+  constructor( // @Inject(CACHE_MANAGER) private cacheManager: Cache,
     // private readonly catsRepository: CatsQueryRepository,
     // private queryBus: QueryBus
   ) {

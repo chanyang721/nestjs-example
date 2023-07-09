@@ -1,56 +1,74 @@
 version: '3.9'
 
 services:
-#  mysql_main_db:
-#    image: mysql
-#    container_name: ${MYSQL_DB_HOST}
-#    restart: always
-#    environment:
-#      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
-#      MYSQL_DATABASE: ${MYSQL_DATABASE}
-#      MYSQL_USER: ${MYSQL_USER}
-#      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
-#    ports:
-#        - ${MYSQL_DB_PORT}:${MYSQL_DB_PORT}
-#    volumes:
-#        - ./default_db_data:/var/lib/mysql
-#    networks:
-#      - backend
-##
-#  mongodb:
-#    image: mongo
-#    container_name: ${MONGO_DB_HOST}
-#    restart: always
-#    ports:
-#      - ${MONGO_DB_PORT}:${MONGO_DB_PORT}
-#    volumes:
-#      - ./mongodb_data:/var/lib/mongodb
-#    networks:
-#      - backend
+  mysql_main_db:
+    image: mysql
+    container_name: ${MYSQL_MAIN_CONTAINER_NAME}
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_MAIN_DB_DATABASE}
+      MYSQL_USER: ${MYSQL_DB_USER}
+      MYSQL_PASSWORD: ${MYSQL_DB_PASSWORD}
+    ports:
+        - ${MYSQL_MAIN_DB_PORT}:${MYSQL_MAIN_DB_PORT}
+    volumes:
+        - ./db_data/mysql_main_db:/var/lib/mysql
+    networks:
+      - backend
+
+  mysql_support_db:
+    image: mysql
+    container_name: ${MYSQL_SUPPORT_CONTAINER_NAME}
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_SUPPORT_DB_DATABASE}
+      MYSQL_USER: ${MYSQL_DB_USER}
+      MYSQL_PASSWORD: ${MYSQL_DB_PASSWORD}
+    ports:
+        - ${MYSQL_SUPPORT_DB_PORT}:${MYSQL_SUPPORT_DB_PORT}
+    volumes:
+      - ./db_data/mysql_support_db:/var/lib/mysql
+    networks:
+      - backend
+
+  mongo_main_db:
+    image: mongo
+    container_name: ${MONGO_DB_CONTAINER_HOST}
+    restart: always
+    ports:
+      - ${MONGO_DB_PORT}:${MONGO_DB_PORT}
+    volumes:
+      - ./db_data/mongo_main_db:/var/lib/mongodb
+    networks:
+      - backend
 
 
   server:
     container_name: main_server
     working_dir: /app/server
-#    depends_on:
-#      - mysql_main_db
-#      - mongodb
+    depends_on:
+      - mysql_main_db
+      - mysql_support_db
+      - mongo_main_db
     build:
       context: .
       dockerfile: Dockerfile
     ports:
-      - "4000:4000"
-#      - ${MAIN_SERVER_PORT}:${MAIN_SERVER_PORT}
+      - ${MAIN_SERVER_PORT}:${MAIN_SERVER_PORT}
     volumes:
       - ./:/app/server
     networks:
       - backend
 
 volumes:
-  default_db_data:
+  mysql_main_db:
     driver: local
-#  mongodb_data:
-#    driver: local
+  mysql_support_db:
+    driver: local
+  mongo_main_db:
+    driver: local
 
 networks:
   backend:
