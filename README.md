@@ -2,7 +2,7 @@
     - docker compose up
 
 ## 환경 변수 설정 방법
-    - root => mkdir .env
+    - root => touch .env
 
 
 ## Directory Structure
