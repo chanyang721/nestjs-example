@@ -28,5 +28,4 @@ export class UserEntity extends BaseEntity {
   })
   role: UserRole;
 
-
 }

@@ -15,7 +15,18 @@ export class GlobalExceptionFilter<T = HttpException | Error> implements Excepti
     const ctx = host.switchToHttp();
     const request = ctx.getRequest<Request>();
     const response = ctx.getResponse<Response>();
-    let exceptionCode: string, message: string, statusCode: number = HttpStatus.INTERNAL_SERVER_ERROR, errors: any;
+    /**
+     * Default Error Exception Filter
+     * TODO: 아래 if 문에서 아무것도 걸리지 않는 경우에 exceptionCode, message 정보가 나타나지 않는 문제 있음
+     */
+    let exceptionCode: string = exception.constructor.name,
+        message: string,
+        statusCode: number = HttpStatus.INTERNAL_SERVER_ERROR,
+        errors: any;
+    // console.log("exception", exception)
+    //
+    // console.log("host", host)
+
 
     /**
      * Validation Error Exception Filter
@@ -32,6 +43,7 @@ export class GlobalExceptionFilter<T = HttpException | Error> implements Excepti
 
     /**
      * Axios Exception Filter
+     * TODO: Axios Exception Filter 전용 Exception 생성
      */
     else if ( exception instanceof HttpException ) {
       statusCode = ( exception as HttpException ).getStatus();
@@ -58,7 +70,7 @@ export class GlobalExceptionFilter<T = HttpException | Error> implements Excepti
     }
 
     /**
-     *
+     * Mongoose Error Exception Filter
      */
     if ( (exception instanceof MongooseError )) {
       statusCode = HttpStatus.UNPROCESSABLE_ENTITY // 422

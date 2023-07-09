@@ -1,10 +1,11 @@
-import { Module }                                                          from "@nestjs/common";
-import { TypeOrmModule }                                                   from "@nestjs/typeorm";
-import { MongooseModule }                                                  from "@nestjs/mongoose";
-import { mainTypeOrmModuleAsyncOptions, supportTypeOrmModuleAsyncOptions } from "./options/typeorm.module.options";
-import { mainMongooseModuleAsyncOptions }                                  from "./options/mongoose.module.options";
-import { CacheModule }                                                     from "@nestjs/cache-manager";
-import { cacheModuleAsyncOptions }                                         from "./options/cache.module.options";
+import { Module }                         from "@nestjs/common";
+import { TypeOrmModule }                  from "@nestjs/typeorm";
+import { MongooseModule }                from "@nestjs/mongoose";
+import { CacheInterceptor, CacheModule } from "@nestjs/cache-manager";
+import { mainTypeOrmModuleAsyncOptions } from "./options/typeorm.module.options";
+import { mainMongooseModuleAsyncOptions } from "./options/mongoose.module.options";
+import { cacheModuleAsyncOptions }        from "./options/cache.module.options";
+import { APP_INTERCEPTOR }                from "@nestjs/core";
 
 
 
@@ -14,7 +15,7 @@ import { cacheModuleAsyncOptions }                                         from 
      * TODO: Command MySQL Database
      */
     TypeOrmModule.forRootAsync(mainTypeOrmModuleAsyncOptions),
-    TypeOrmModule.forRootAsync(supportTypeOrmModuleAsyncOptions),
+    // TypeOrmModule.forRootAsync(supportTypeOrmModuleAsyncOptions),
 
     /**
      * TODO: Cache Redis
@@ -28,10 +29,10 @@ import { cacheModuleAsyncOptions }                                         from 
   ],
   exports  : [],
   providers: [
-    // {
-    //   provide : APP_INTERCEPTOR,
-    //   useClass: CacheInterceptor
-    // }
+    {
+      provide : APP_INTERCEPTOR,
+      useClass: CacheInterceptor
+    }
   ]
 })
 export class DatabaseModule {

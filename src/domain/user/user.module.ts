@@ -1,8 +1,12 @@
 import { Module }         from '@nestjs/common';
-import { UserService }    from './application/service/user.service';
+import { TypeOrmModule }  from "@nestjs/typeorm";
+import { MongooseModule } from "@nestjs/mongoose";
+import { CqrsModule }     from "@nestjs/cqrs";
+import { HttpModule }     from "../../lib/http/http.module";
 import { UserController } from './presentation/controller/user.controller';
-import { CqrsModule } from "@nestjs/cqrs";
-import { HttpModule } from "../../lib/http/http.module";
+import { UserService }    from './application/service/user.service';
+import { UserEntity }     from "./infrastructure/entities/user.entity";
+import { UserRepository } from "./infrastructure/repository/user.repository";
 
 
 @Module({
@@ -15,9 +19,9 @@ import { HttpModule } from "../../lib/http/http.module";
     //     schema: CatSchema
     //   }
     // ], "one"),
-    // TypeOrmModule.forFeature([ CatEntity ], "main")
+    TypeOrmModule.forFeature([ UserEntity ], "main")
   ],
   controllers: [UserController],
-  providers: [UserService]
+  providers: [UserService, UserRepository]
 })
 export class UserModule {}

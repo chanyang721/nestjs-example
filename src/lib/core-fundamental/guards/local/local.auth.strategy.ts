@@ -1,43 +1,41 @@
-import { Injectable }        from "@nestjs/common";
-import { PassportStrategy }  from "@nestjs/passport";
+import { HttpException, Injectable } from "@nestjs/common";
+import { PassportStrategy }          from "@nestjs/passport";
 import { Strategy }          from "passport-local";
-import { AwsCognitoService } from "../../../aws/aws.cognito.service";
-// import { CatCommandService } from "../../../../domain/cat/application/service/cat.command.service";
+import { FirebaseService }   from "../../../authentication/infrastructure/authentication/firebase/firebase.service";
 
 
 
 @Injectable()
 export class LocalAuthStrategy extends PassportStrategy(Strategy) {
-  private cognitoConnection = this.awsCognitoService.accessToAwsCognito;
+  private readonly firebaseClient: any;
 
 
   constructor(
-    // private readonly catsService: CatCommandService,
-    private readonly awsCognitoService: AwsCognitoService
+    private readonly firebaseService: FirebaseService
   ) {
     super({
-      usernameField: "email",
-      passwordField: "password"
+      usernameField: "uid",
+      passwordField: "id_token"
     });
+    this.firebaseClient = firebaseService.getFirebaseClient();
   }
 
 
-  async validate( email: string, password: string ): Promise<any> {
+  async validate( uid: string, id_token: string ): Promise<any> {
     try {
-      /**
-       * 1. cognito connection으로 입력된 email, password로 유저 조회
-       * 2.
-       */
+      const decodedFirebaseToken = this.firebaseClient.auth()
+                                       .verifyIdToken(id_token);
+      console.log(decodedFirebaseToken)
 
-      return {};
+      return {
+        uid,
+        ...decodedFirebaseToken
+      };
     }
     catch ( e ) {
-      /**
-       * 1. 에러 처리
-       * 2.
-       */
+      console.log(e)
+      throw new HttpException(e.message, 401)
     }
   }
-
 }
 
