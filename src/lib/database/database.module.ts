@@ -3,6 +3,8 @@ import { TypeOrmModule }                                                   from 
 import { MongooseModule }                                                  from "@nestjs/mongoose";
 import { mainTypeOrmModuleAsyncOptions, supportTypeOrmModuleAsyncOptions } from "./options/typeorm.module.options";
 import { mainMongooseModuleAsyncOptions }                                  from "./options/mongoose.module.options";
+import { CacheModule }                                                     from "@nestjs/cache-manager";
+import { cacheModuleAsyncOptions }                                         from "./options/cache.module.options";
 
 
 
@@ -17,7 +19,7 @@ import { mainMongooseModuleAsyncOptions }                                  from 
     /**
      * TODO: Cache Redis
      */
-    // CacheModule.registerAsync(cacheModuleAsyncOptions),
+    CacheModule.registerAsync(cacheModuleAsyncOptions),
 
     /**
      * TODO: Query MongoDB Database
