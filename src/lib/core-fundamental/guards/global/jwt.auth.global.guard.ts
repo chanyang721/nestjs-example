@@ -1,8 +1,8 @@
 import { ExecutionContext, HttpException, HttpStatus, Injectable, Logger, UnauthorizedException } from "@nestjs/common";
 import { AuthGuard }                                                                              from "@nestjs/passport";
 import { Reflector }                                                                              from "@nestjs/core";
-import { ExtractJwt }    from "passport-jwt";
-import { IS_PUBLIC_KEY } from "../../../constant";
+import { ExtractJwt }                                                                             from "passport-jwt";
+import { IS_PUBLIC_KEY }                                                                          from "../../../constant";
 
 
 
@@ -21,10 +21,14 @@ export class JwtAuthGlobalGuard extends AuthGuard("jwt") {
                            .getRequest();
 
     const { isPublic } = await this.catchPublicRequest(context);
-    if ( isPublic ) return true;
+    if ( isPublic ) {
+      return true;
+    }
 
     const access_token = ExtractJwt.fromAuthHeaderAsBearerToken()(request);
-    if ( !access_token ) throw new UnauthorizedException("Access token is not set in header");
+    if ( !access_token ) {
+      throw new UnauthorizedException("Access token is not set in header");
+    }
 
     return this.activate(context);
   }
@@ -44,8 +48,12 @@ export class JwtAuthGlobalGuard extends AuthGuard("jwt") {
 
 
   handleRequest( err, user, info: Error ) {
-    if ( info?.name === "TokenExpiredError" ) throw new HttpException("Token expired", HttpStatus.UNAUTHORIZED);
-    if ( err || !user ) throw new HttpException("Unauthorized access", HttpStatus.UNAUTHORIZED);
+    if ( info?.name === "TokenExpiredError" ) {
+      throw new HttpException("Token expired", HttpStatus.UNAUTHORIZED);
+    }
+    if ( err || !user ) {
+      throw new HttpException("Unauthorized access", HttpStatus.UNAUTHORIZED);
+    }
 
     return user;
   }

@@ -32,4 +32,11 @@ export class UserRepository extends Repository<UserEntity> {
 
 
   }
+
+
+  public async findUserById( id: string ) {
+    return await this.createQueryBuilder('user')
+      .where('user.id = :id', { id })
+      .getOne()
+  }
 }

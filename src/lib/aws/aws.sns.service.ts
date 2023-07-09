@@ -1,5 +1,5 @@
 import { Injectable }          from "@nestjs/common";
-import { SharedConfigService } from "../config/shared.config.service";
+import { SharedConfigService } from "../configuration/shared.config.service";
 
 
 

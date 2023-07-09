@@ -1,7 +1,7 @@
 import { Inject, Injectable }  from "@nestjs/common";
 import { CACHE_MANAGER }       from "@nestjs/cache-manager";
 import { Cache }               from "cache-manager";
-import { SharedConfigService } from "../config/shared.config.service";
+import { SharedConfigService } from "../configuration/shared.config.service";
 
 
 

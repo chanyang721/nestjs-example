@@ -12,13 +12,12 @@ export class JwtAuthGlobalStrategy extends PassportStrategy(Strategy) {
       jwtFromRequest   : ExtractJwt.fromAuthHeaderAsBearerToken(),
       ignoreExpiration : false,
       secretOrKey      : process.env.JWT_SECRET || configService.get("JWT_SECRET"),
-      // passReqToCallback: true
+      passReqToCallback: true
     });
   }
 
 
-  async validate( payload: any ) {
-    console.log("payload :", payload)
-    return { ...payload };
+  async validate( req: Request, payload: any ) {
+    return { req, ...payload };
   }
 }
