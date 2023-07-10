@@ -1,6 +1,6 @@
 import * as firebase           from "firebase-admin";
-import { SharedConfigService } from "../../../../configuration/shared.config.service";
 import { Injectable }          from "@nestjs/common";
+import { SharedConfigService } from "../../../../configuration/shared.config.service";
 
 
 @Injectable()

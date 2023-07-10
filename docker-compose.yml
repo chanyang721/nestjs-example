@@ -17,32 +17,21 @@ services:
     networks:
       - backend
 
-  mysql_support_db:
-    image: mysql
-    container_name: ${MYSQL_SUPPORT_CONTAINER_NAME}
-    restart: always
-    environment:
-      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
-      MYSQL_DATABASE: ${MYSQL_SUPPORT_DB_DATABASE}
-      MYSQL_USER: ${MYSQL_DB_USERNAME}
-      MYSQL_PASSWORD: ${MYSQL_DB_PASSWORD}
-    ports:
-        - ${MYSQL_SUPPORT_DB_PORT}:${MYSQL_SUPPORT_DB_PORT}
-    volumes:
-      - ./db_data/mysql_support_db:/var/lib/mysql
-    networks:
-      - backend
-
-  support_cache_redis:
-    image: redis:7.0-alpine
-    container_name: support_cache_redis
-    restart: always
-    ports:
-      - ${REDIS_PORT}:${REDIS_PORT}
-    volumes:
-      - ./db_data/redis_support_cache:/data
-    networks:
-      - backend
+#  mysql_support_db:
+#    image: mysql
+#    container_name: ${MYSQL_SUPPORT_CONTAINER_NAME}
+#    restart: always
+#    environment:
+#      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+#      MYSQL_DATABASE: ${MYSQL_SUPPORT_DB_DATABASE}
+#      MYSQL_USER: ${MYSQL_DB_USERNAME}
+#      MYSQL_PASSWORD: ${MYSQL_DB_PASSWORD}
+#    ports:
+#        - ${MYSQL_SUPPORT_DB_PORT}:${MYSQL_SUPPORT_DB_PORT}
+#    volumes:
+#      - ./db_data/mysql_support_db:/var/lib/mysql
+#    networks:
+#      - backend
 
   mongo_main_db:
     image: mongo
@@ -55,13 +44,24 @@ services:
     networks:
       - backend
 
+  support_cache_redis:
+    image: redis:7.0-alpine
+    container_name: ${REDIS_HOST}
+    restart: always
+    ports:
+      - ${REDIS_PORT}:${REDIS_PORT}
+    volumes:
+      - ./db_data/redis_support_cache:/data
+    networks:
+      - backend
+
 
   server:
     container_name: main_server
     working_dir: /app/server
     depends_on:
       - mysql_main_db
-      - mysql_support_db
+#      - mysql_support_db
       - support_cache_redis
       - mongo_main_db
     build:
@@ -77,11 +77,11 @@ services:
 volumes:
   mysql_main_db:
     driver: local
-  mysql_support_db:
+#  mysql_support_db:
+#    driver: local
+  mongo_main_db:
     driver: local
   redis_support_cache:
-    driver: local
-  mongo_main_db:
     driver: local
 
 networks:

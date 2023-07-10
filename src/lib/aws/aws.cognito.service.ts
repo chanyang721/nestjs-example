@@ -12,8 +12,7 @@ export class AwsCognitoService {
   }
 
 
-  get accessToAwsCognito() {
-    const { clientId, userPoolId } = this.sharedConfigService.accessAwsCognitoConfig;
-    return;
+  get getAwsCognitoClient() {
+    return
   }
 }

@@ -1,11 +1,11 @@
 import { Body, Controller, Post, UseGuards } from "@nestjs/common";
-import { AuthService }                       from "../../application/service/auth.service";
-import { Public }                            from "../../../decoretor";
 import { ApiTags }                           from "@nestjs/swagger";
-import { IAuthController }                   from "../interface/auth.controller.interface";
 import { ApiRegisterDecorator }              from "../swagger/api.register.decorator";
+import { Public }                            from "../../../decoretor";
 import { LocalAuthGuard }                    from "../../../core-fundamental/guards/local/local.auth.guard";
+import { IAuthController }                   from "../interface/auth.controller.interface";
 import { FirebaseUserDto }                   from "../dto/auth.register.user.dto";
+import { AuthService }                       from "../../application/service/auth.service";
 import { UserEntity }                        from "../../../../domain/user/infrastructure/entities/user.entity";
 
 
