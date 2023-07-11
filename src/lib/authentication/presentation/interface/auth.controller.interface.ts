@@ -1,8 +1,9 @@
-import { FirebaseUserDto } from "../dto/auth.register.user.dto";
+import { RegisterUserDto } from "../dto/auth.register.user.dto";
 
 
 
 export interface IAuthController<T> {
-  registerUserThroughFirebase( firebaseUserDto: FirebaseUserDto ): Promise<any>;
+  registerUserThroughAuthenticationServer( registerUserDto: RegisterUserDto ): Promise<any>;
+
   // registerUserThroughCognito( cognitoUserDto ): Promise<any>
 }

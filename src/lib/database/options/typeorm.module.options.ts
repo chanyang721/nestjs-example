@@ -1,8 +1,9 @@
 import { ConfigModule, ConfigService } from "@nestjs/config";
-import { TypeOrmModuleAsyncOptions }   from "@nestjs/typeorm";
-import { PRODUCTION }                  from "../../constant";
-import { UserEntity }                  from "../../../domain/user/infrastructure/entities/user.entity";
+import { TypeOrmModuleAsyncOptions } from "@nestjs/typeorm";
+import { PRODUCTION }                from "../../utils/constant";
+import { UserEntity }                from "../../../domain/user/infrastructure/entities/user.entity";
 import { SqlLogger }                   from "./typeorm.logger.options";
+import { AuthEntity }                  from "../../authentication/infrastructure/entity/auth.entity";
 
 
 
@@ -19,7 +20,7 @@ export const mainTypeOrmModuleAsyncOptions: TypeOrmModuleAsyncOptions = {
       database   : process.env.MYSQL_DB_DATABASE || configService.get<string>("MYSQL_MAIN_DB_DATABASE"),
       synchronize: process.env.NODE_ENV !== PRODUCTION,
       logger     : new SqlLogger(),
-      entities   : [ UserEntity ],
+      entities   : [ UserEntity, AuthEntity ],
       timezone   : "Z"
     })
 };

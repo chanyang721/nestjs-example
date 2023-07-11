@@ -23,10 +23,7 @@ export class GlobalExceptionFilter<T = HttpException | Error> implements Excepti
         message: string,
         statusCode: number = HttpStatus.INTERNAL_SERVER_ERROR,
         errors: any;
-    // console.log("exception", exception)
-    //
-    // console.log("host", host)
-
+    console.log(exception)
 
     /**
      * Validation Error Exception Filter

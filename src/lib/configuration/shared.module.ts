@@ -4,9 +4,10 @@ import { SharedConfigService }         from "./shared.config.service";
 
 
 
-@Global() @Module({
+@Global()
+@Module({
   imports  : [ ConfigModule ],
-  exports  : [ SharedConfigService ],
+  exports  : [],
   providers: [
     SharedConfigService,
     ConfigService

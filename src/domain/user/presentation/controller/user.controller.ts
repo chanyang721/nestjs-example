@@ -7,11 +7,4 @@ export class UserController {
   constructor( private readonly userService: UserService ) {
   }
 
-  @Get("")
-  async findUser(
-  ) {
-    console.log("UserController.findUser")
-    // return await this.userService.findUser(id);
-  }
-
 }

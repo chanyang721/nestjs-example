@@ -1,6 +1,6 @@
 import { applyDecorators, HttpStatus } from "@nestjs/common";
 import { ApiOperation, ApiResponse }   from "@nestjs/swagger";
-import { FirebaseUserDto }             from "../dto/auth.register.user.dto";
+import { RegisterUserDto }             from "../dto/auth.register.user.dto";
 
 
 
@@ -13,6 +13,6 @@ export function ApiRegisterDecorator() {
   }), ApiResponse({
     status     : HttpStatus.CREATED,
     description: "회원가입 성공",
-    type       : FirebaseUserDto
+    type       : RegisterUserDto
   }));
 }

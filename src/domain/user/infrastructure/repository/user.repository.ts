@@ -1,5 +1,5 @@
 import { Injectable }                         from "@nestjs/common";
-import { InjectDataSource, InjectRepository } from "@nestjs/typeorm";
+import { InjectDataSource }                   from "@nestjs/typeorm";
 import { DataSource, Repository }             from "typeorm";
 import { UserEntity }                         from "../entities/user.entity";
 
@@ -14,29 +14,4 @@ export class UserRepository extends Repository<UserEntity> {
     super(UserEntity, mainDataSource.createEntityManager());
   }
 
-  async registerUser( userInfo: any ): Promise<any> {
-    const rawQuery =  await this.query(`
-      INSERT INTO users (id, uid)
-      VALUES ('${userInfo.id}', '${userInfo.uid}')
-    `)
-
-    const queryBuiler = await this.createQueryBuilder('user')
-      .insert()
-      .into(UserEntity)
-      .values(userInfo)
-      .execute()
-
-    const transaction = await this.mainDataSource.transaction(async entityManager => {
-
-    })
-
-
-  }
-
-
-  public async findUserById( id: string ) {
-    return await this.createQueryBuilder('user')
-      .where('user.id = :id', { id })
-      .getOne()
-  }
 }

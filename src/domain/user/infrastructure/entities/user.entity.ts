@@ -3,27 +3,20 @@ import { BaseEntity }     from "../../../../lib/database/base/typeorm/base.entit
 
 
 export enum UserRole {
-  ADMIN = 'ADMIN',
-  SELLER = 'SELLER'
+  UNKNOWN   = 'UNKNOWN',
+  ADMIN     = 'ADMIN',
+  CLIENT    = 'CLIENT',
+  SELLER    = 'SELLER',
+  PUBLISHER = 'PUBLISHER',
 }
-
 
 @Entity({ name: "users" })
 export class UserEntity extends BaseEntity {
 
   @Column({
-    type  : String,
-    length: 100,
-    unique: true,
-    nullable: false,
-    comment: "Cognito 유저 아이디"
-  })
-  uid: string;
-
-  @Column({
     type: 'enum',
     enum: UserRole,
-    default: UserRole.SELLER,
+    default: UserRole.UNKNOWN,
     comment: '유저 권한'
   })
   role: UserRole;
