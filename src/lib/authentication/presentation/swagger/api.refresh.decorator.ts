@@ -1,16 +1,19 @@
-import { applyDecorators, HttpStatus } from "@nestjs/common";
-import { ApiOperation, ApiResponse }   from "@nestjs/swagger";
+import { applyDecorators, HttpStatus }         from "@nestjs/common";
+import { ApiOperation, ApiResponse, PickType } from "@nestjs/swagger";
+import { TokenDto }                            from "../dto/token.dto";
 
 
 
 export function ApiRefreshDecorator() {
-  return applyDecorators(ApiOperation({
-    summary    : "리프레시 토큰으로 엑세스 토큰 재발급",
+  return applyDecorators(
+  ApiOperation({
+    summary    : "엑세스 토큰 재발급",
     description: `
-                리프레시 토큰으로 엑세스 토큰 재발급
+                엑세스 토큰 재발급
             `
-  }), ApiResponse({
+  }),
+  ApiResponse({
     status: HttpStatus.OK,
-    // type  : any
+    type  : PickType(TokenDto, ["access_token"])
   }));
 }

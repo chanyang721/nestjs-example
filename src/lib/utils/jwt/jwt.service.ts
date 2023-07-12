@@ -2,8 +2,8 @@ import { Injectable }                                          from "@nestjs/com
 import { JwtService as OriginJwtService, JwtSignOptions }      from "@nestjs/jwt";
 import { COOKIE_ACCESS_TOKEN_NAME, COOKIE_REFRESH_TOKEN_NAME } from "../constant";
 import { IJwtPayLoad }                                         from "./interface/jwt.payload.interface";
-import { IToken }                                              from "../../authentication/presentation/interface/token.interface";
 import { SharedConfigService }                                 from "../../configuration/shared.config.service";
+import { TokenDto }                                            from "../../authentication/presentation/dto/token.dto";
 
 
 
@@ -35,8 +35,8 @@ export class JwtService {
   }
 
 
-  public async getTokens( payloadSource: any, subject?: string ): Promise<IToken> {
-    const tokens: IToken = new IToken();
+  public async getTokens( payloadSource: any, subject?: string ): Promise<TokenDto> {
+    const tokens = new TokenDto();
     const payload: IJwtPayLoad = await this.generatePayload(payloadSource);
 
     tokens.access_token = await this.generateToken(payload, {

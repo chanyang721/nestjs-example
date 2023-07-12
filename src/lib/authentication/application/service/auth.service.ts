@@ -1,10 +1,10 @@
 import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
 import { JwtService }                            from "../../../utils/jwt/jwt.service";
 import { HashingService }                        from "../../../utils/hashing/hashing.service";
-import { IToken }                                from "../../presentation/interface/token.interface";
 import { LoginDto }                              from "../../presentation/dto/login.firebase.user.dto";
 import { RegisterUserDto }                       from "../../presentation/dto/auth.register.user.dto";
 import { AuthRepository }                        from "../../infrastructure/repository/auth.repository";
+import { TokenDto }                              from "../../presentation/dto/token.dto";
 
 
 
@@ -21,10 +21,10 @@ export class AuthService {
   }
 
 
-  public async login( loginDto: LoginDto ): Promise<IToken> {
+  public async login( loginDto: LoginDto ): Promise<TokenDto> {
     const auth = await this.authRepository.findByUid(loginDto.uid);
 
-    const tokens: IToken = await this.jwtService.getTokens(auth);
+    const tokens: TokenDto = await this.jwtService.getTokens(auth);
 
     const hashedRefreshToken: string = await this.hashingService.hashingTarget(tokens.refresh_token);
 
@@ -34,7 +34,7 @@ export class AuthService {
   }
 
 
-  public async refreshAccessToken( user: any, refresh_token: string ): Promise<Pick<IToken, "access_token">> {
+  public async refreshAccessToken( user: any, refresh_token: string ): Promise<Pick<TokenDto, "access_token">> {
     const auth = await this.authRepository.findByUid(user.uid);
     if ( !auth ) {
       throw new HttpException("User not found", HttpStatus.NOT_FOUND);

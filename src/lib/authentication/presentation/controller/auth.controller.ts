@@ -7,13 +7,12 @@ import { COOKIE_ACCESS_TOKEN_NAME, COOKIE_ACCESS_TOKEN_OPTIONS, COOKIE_REFRESH_T
 import { Public }                                                                                                         from "../../../utils/decoretor";
 import { RegisterUserDto }                                                                                                from "../dto/auth.register.user.dto";
 import { LoginDto }                                                                                                       from "../dto/login.firebase.user.dto";
-import { LoginResponseDto }                                                                                               from "../dto/login.response.dto";
 import { ApiRegisterDecorator }                                                                                           from "../swagger/api.register.decorator";
 import { ApiLoginDecorator }                                                                                              from "../swagger/api.login.decorator";
 import { ApiRefreshDecorator }                                                                                            from "../swagger/api.refresh.decorator";
 import { IAuthController }                                                                                                from "../interface/auth.controller.interface";
-import { IToken }                                                                                                         from "../interface/token.interface";
 import { AuthService }                                                                                                    from "../../application/service/auth.service";
+import { TokenDto }                                                                                                       from "../dto/token.dto";
 
 
 
@@ -44,15 +43,15 @@ export class AuthController implements IAuthController {
    * @description [ POST ] Auth Login API
    * @param loginDto LoginDto
    * @param res Request with user
-   * @returns LoginResponseDto
+   * @returns TokenDto
    * */
   @Post("login")
   @ApiLoginDecorator()
   async login(
     @Body() loginDto: LoginDto,
     @Res({ passthrough: true }) res: Response
-  ): Promise<LoginResponseDto> {
-    const tokens: IToken = await this.authService.login(loginDto);
+  ): Promise<TokenDto> {
+    const tokens: TokenDto = await this.authService.login(loginDto);
 
     res.cookie(COOKIE_ACCESS_TOKEN_NAME, tokens.access_token, COOKIE_ACCESS_TOKEN_OPTIONS);
     res.cookie(COOKIE_REFRESH_TOKEN_NAME, tokens.refresh_token, COOKIE_REFRESH_TOKEN_OPTIONS);
@@ -64,14 +63,14 @@ export class AuthController implements IAuthController {
   /**
    * @description [ GET ] Auth Refresh API
    * @param req Request with user
-   * @returns IToken
+   * @returns TokenDto
    */
   @Get("refresh")
   @ApiRefreshDecorator()
   @UseGuards(JwtAuthRefreshGuard)
   async refresh(
     @Req() req: any
-  ): Promise<Pick<IToken, "access_token">> {
+  ): Promise<Pick<TokenDto, "access_token">> {
     return await this.authService.refreshAccessToken(req.user, req.cookie.refresh_token);
   }
 }

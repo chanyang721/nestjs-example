@@ -15,7 +15,6 @@ import { APP_INTERCEPTOR }                from "@nestjs/core";
      * TODO: Command MySQL Database
      */
     TypeOrmModule.forRootAsync(mainTypeOrmModuleAsyncOptions),
-    // TypeOrmModule.forRootAsync(supportTypeOrmModuleAsyncOptions),
 
     /**
      * TODO: Cache Redis
