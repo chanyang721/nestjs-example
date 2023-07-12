@@ -25,7 +25,6 @@ import { UserModule }             from "./domain/user/user.module";
      * Domain Modules
      * */
     UserModule
-
   ],
   controllers: [],
   providers  : []

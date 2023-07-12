@@ -61,9 +61,8 @@ services:
     working_dir: /app/server
     depends_on:
       - mysql_main_db
-#      - mysql_support_db
-      - support_cache_redis
       - mongo_main_db
+      - support_cache_redis
     build:
       context: .
       dockerfile: Dockerfile
@@ -77,8 +76,6 @@ services:
 volumes:
   mysql_main_db:
     driver: local
-#  mysql_support_db:
-#    driver: local
   mongo_main_db:
     driver: local
   redis_support_cache:

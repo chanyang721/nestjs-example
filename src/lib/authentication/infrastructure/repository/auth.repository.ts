@@ -1,8 +1,9 @@
 import { DataSource, Repository } from "typeorm";
 import { Injectable }             from "@nestjs/common";
 import { InjectDataSource }       from "@nestjs/typeorm";
-import { AuthEntity } from "../entity/auth.entity";
-import { MAIN }       from "../../../utils/constant";
+import { AuthEntity }             from "../entity/auth.entity";
+import { MAIN }                   from "../../../utils/constant";
+import { AuthEntityDto }          from "../../presentation/dto/auth.entity.dto";
 
 
 
@@ -27,17 +28,16 @@ export class AuthRepository extends Repository<AuthEntity> {
 
 
   public async findByUid( uid: string ): Promise<any> {
-
-
-    return {
-      id: "uuid",
-      uid: uid,
-      platform: "GOOGLE",
-      currentRefreshToken: "test",
-    }
+    const qb = await this.getQueryBuilderByAliasWhereUid("auth", uid)
+    return await qb.getOne();
   }
 
   async updateCurrentRefreshToken( uid: string, hashedRefreshToken: string ) {
     await this.update({ uid }, { current_refresh_token: hashedRefreshToken });
+  }
+
+  async getQueryBuilderByAliasWhereUid( alias: string, uid: string ) {
+    return this.createQueryBuilder(alias)
+               .where(`${alias}.uid = :uid`, { uid })
   }
 }
