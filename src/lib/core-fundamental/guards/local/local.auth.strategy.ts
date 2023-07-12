@@ -24,7 +24,6 @@ export class LocalAuthStrategy extends PassportStrategy(Strategy) {
 
   async validate( uid: string, id_token: string ): Promise<any> {
     try {
-      console.log(this.firebaseClient)
       const decodedFirebaseToken = this.firebaseClient.auth()
                                        .verifyIdToken(id_token);
 

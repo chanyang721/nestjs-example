@@ -27,10 +27,12 @@ export class AuthRepository extends Repository<AuthEntity> {
 
 
   public async findByUid( uid: string ): Promise<any> {
+
+
     return {
       id: "uuid",
       uid: uid,
-      platform: "test",
+      platform: "GOOGLE",
       currentRefreshToken: "test",
     }
   }

@@ -13,13 +13,13 @@ export class HashingService {
   }
 
 
-  public async hashingTarget( target: string ) {
+  public async hashingTarget( target: string ): Promise<string> {
     const salt = await bcrypt.genSalt(this.hashingConfig.saltRound);
     return await bcrypt.hash(target, salt);
   }
 
 
-  public async compare( plain: string, hashed_target: string ) {
+  public async compare( plain: string, hashed_target: string ): Promise<boolean> {
     return await bcrypt.compare(plain, hashed_target);
   }
 

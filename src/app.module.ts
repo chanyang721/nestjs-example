@@ -6,8 +6,7 @@ import { httpModuleAsyncOptions } from "./lib/core-fundamental/options/http.mudu
 import { AuthModule }             from "./lib/authentication/auth.module";
 import { DatabaseModule }         from "./lib/database/database.module";
 import { HttpModule }             from "./lib/utils/http/http.module";
-import { UserModule }         from "./domain/user/user.module";
-import { SharedConfigModule } from "./lib/configuration/shared.config.module";
+import { UserModule }             from "./domain/user/user.module";
 
 
 

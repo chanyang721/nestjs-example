@@ -10,9 +10,7 @@ import { AuthRepository }                        from "../../infrastructure/repo
 
 @Injectable()
 export class AuthService {
-  constructor(
-    private readonly authRepository: AuthRepository,
-    private readonly jwtService: JwtService,
+  constructor( private readonly authRepository: AuthRepository, private readonly jwtService: JwtService,
     private readonly hashingService: HashingService
   ) {
   }
@@ -23,32 +21,35 @@ export class AuthService {
   }
 
 
-  public async login( loginDto: LoginDto ): Promise<any> {
+  public async login( loginDto: LoginDto ): Promise<IToken> {
     const auth = await this.authRepository.findByUid(loginDto.uid);
 
-    // const tokens: IToken = await this.jwtService.getTokens(auth.id);
-    //
+    const tokens: IToken = await this.jwtService.getTokens(auth);
 
-    // const hashedRefreshToken = await this.hashingService.hashingTarget(tokens.refresh_token);
+    const hashedRefreshToken: string = await this.hashingService.hashingTarget(tokens.refresh_token);
 
-    // await this.authRepository.updateCurrentRefreshToken(auth.id, hashedRefreshToken);
+    await this.authRepository.updateCurrentRefreshToken(auth.id, hashedRefreshToken);
 
-    // return tokens;
+    return tokens;
   }
 
 
-  // public async getUserIfRefreshTokenMatches( refresh_token: string, uid: string ): Promise<any> {
-  //   const auth = await this.authRepository.findByUid(uid);
-  //   if ( !auth ) {
-  //     throw new HttpException("User not found", HttpStatus.NOT_FOUND);
-  //   }
-  //
-  //   const isRefreshTokenMatching = await this.hashingService.compare(refresh_token, auth.currentRefreshToken);
-  //
-  //   if ( !isRefreshTokenMatching ) {
-  //     throw new HttpException("Refresh token mismatch", HttpStatus.UNAUTHORIZED);
-  //   }
-  //
-  //   return { uid: auth.uid };
-  // }
+  public async refreshAccessToken( user: any, refresh_token: string ): Promise<Pick<IToken, "access_token">> {
+    const auth = await this.authRepository.findByUid(user.uid);
+    if ( !auth ) {
+      throw new HttpException("User not found", HttpStatus.NOT_FOUND);
+    }
+
+    const isRefreshTokenMatching = await this.hashingService.compare(refresh_token, auth.currentRefreshToken);
+    if ( !isRefreshTokenMatching ) {
+      throw new HttpException("Refresh token mismatch", HttpStatus.UNAUTHORIZED);
+    }
+
+    const refreshedAccessToken: string = await this.jwtService.getTokens(auth)
+                                                   .then(tokens => tokens.access_token);
+
+    return {
+      access_token: refreshedAccessToken
+    };
+  }
 }
