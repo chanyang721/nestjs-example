@@ -21,10 +21,10 @@ FROM base AS build
 # Install dependencies
 ## if you are building your code for production
 ## RUN npm ci --only=production
-RUN npm cache clean --force && rm -rf node_modules && npm ci
+RUN npm cache clean --force && rm -rf node_modules && npm install
 
 
-FROM base AS release
+FROM base AS releases
 
 # build 스테이지 결과물인 node_module을 release의 ./ 에 복사
 COPY --from=build /app/server/node_modules ./node_modules

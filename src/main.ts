@@ -13,6 +13,9 @@ import { AppModule }              from "./app.module";
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
 
+  // const sharedConfig = new SharedConfigService(new ConfigService())
+  // console.log(sharedConfig.JwtConfig)
+
   app.enableCors(corsOptions);
 
   app.use(helmet());

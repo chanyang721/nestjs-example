@@ -4,20 +4,19 @@ import { IToken }                                              from "../../authe
 import { COOKIE_ACCESS_TOKEN_NAME, COOKIE_REFRESH_TOKEN_NAME } from "../constant";
 import { SharedConfigService }                                 from "../../configuration/shared.config.service";
 import { IJwtPayLoad }                                         from "./interface/jwt.payload.interface";
-import { ConfigService }                                       from "@nestjs/config";
 
 
 
 @Injectable()
 export class JwtService extends OriginJwtService {
-  private readonly jwtConfig: any;
+  // TODO: shared config service 읽지 못하는 에러 있음
+  // private readonly jwtConfig: any = this.sharedConfigService.JwtConfig;
 
 
   constructor(
     private readonly sharedConfigService: SharedConfigService,
   ) {
     super();
-    this.jwtConfig = sharedConfigService.JwtConfig
   }
 
 
@@ -41,14 +40,16 @@ export class JwtService extends OriginJwtService {
     const access_token = await this.generateToken({
       id: authId
     }, {
-      expiresIn: this.jwtConfig.AccessTokenExpiresIn,
+      // expiresIn: this.jwtConfig.AccessTokenExpiresIn,
+      expiresIn: '2m',
       subject  : COOKIE_ACCESS_TOKEN_NAME
     });
 
     const refresh_token = await this.generateToken({
       id: authId
     }, {
-      expiresIn: this.jwtConfig.RefreshTokenExpiresIn,
+      // expiresIn: this.jwtConfig.RefreshTokenExpiresIn,
+      expiresIn: '30d',
       subject  : COOKIE_REFRESH_TOKEN_NAME
     });
 

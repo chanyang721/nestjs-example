@@ -8,7 +8,10 @@ import { SharedConfigService } from "../../configuration/shared.config.service";
 @Module({
   imports  : [],
   exports  : [],
-  providers: [ HashingService, SharedConfigService ]
+  providers: [
+    HashingService,
+    SharedConfigService
+  ]
 })
 export class HashingModule {
 }

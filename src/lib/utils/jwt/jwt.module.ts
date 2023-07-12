@@ -1,7 +1,7 @@
 import { Module }                       from "@nestjs/common";
 import { JwtModule as OriginJwtModule } from "@nestjs/jwt";
 import { JwtService }                   from "./jwt.service";
-import { SharedConfigService }          from "../../configuration/shared.config.service";
+import { SharedConfigService } from "../../configuration/shared.config.service";
 
 
 
@@ -9,7 +9,8 @@ import { SharedConfigService }          from "../../configuration/shared.config.
   imports  : [ OriginJwtModule ],
   exports  : [],
   providers: [
-    JwtService, SharedConfigService
+    SharedConfigService,
+    JwtService
   ]
 })
 export class JwtModule extends OriginJwtModule {

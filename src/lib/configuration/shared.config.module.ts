@@ -9,10 +9,9 @@ import { SharedConfigService }         from "./shared.config.service";
   imports  : [ ConfigModule ],
   exports  : [],
   providers: [
-    SharedConfigService,
-    ConfigService
+    SharedConfigService, ConfigService
   ]
 })
-export class SharedModule {
+export class SharedConfigModule {
 
 }

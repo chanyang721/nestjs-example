@@ -24,30 +24,31 @@ export class AuthService {
 
 
   public async login( loginDto: LoginDto ): Promise<any> {
-    // const auth = await this.authRepository.findByUid(loginDto.uid);
-    //
+    const auth = await this.authRepository.findByUid(loginDto.uid);
+
     // const tokens: IToken = await this.jwtService.getTokens(auth.id);
     //
+
     // const hashedRefreshToken = await this.hashingService.hashingTarget(tokens.refresh_token);
-    //
+
     // await this.authRepository.updateCurrentRefreshToken(auth.id, hashedRefreshToken);
-    //
+
     // return tokens;
   }
 
 
-  public async getUserIfRefreshTokenMatches( refresh_token: string, uid: string ): Promise<any> {
-    const auth = await this.authRepository.findByUid(uid);
-    if ( !auth ) {
-      throw new HttpException("User not found", HttpStatus.NOT_FOUND);
-    }
-
-    const isRefreshTokenMatching = await this.hashingService.compare(refresh_token, auth.currentRefreshToken);
-
-    if ( !isRefreshTokenMatching ) {
-      throw new HttpException("Refresh token mismatch", HttpStatus.UNAUTHORIZED);
-    }
-
-    return { uid: auth.uid };
-  }
+  // public async getUserIfRefreshTokenMatches( refresh_token: string, uid: string ): Promise<any> {
+  //   const auth = await this.authRepository.findByUid(uid);
+  //   if ( !auth ) {
+  //     throw new HttpException("User not found", HttpStatus.NOT_FOUND);
+  //   }
+  //
+  //   const isRefreshTokenMatching = await this.hashingService.compare(refresh_token, auth.currentRefreshToken);
+  //
+  //   if ( !isRefreshTokenMatching ) {
+  //     throw new HttpException("Refresh token mismatch", HttpStatus.UNAUTHORIZED);
+  //   }
+  //
+  //   return { uid: auth.uid };
+  // }
 }
