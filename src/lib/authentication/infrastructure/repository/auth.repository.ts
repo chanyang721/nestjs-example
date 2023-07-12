@@ -3,7 +3,6 @@ import { Injectable }             from "@nestjs/common";
 import { InjectDataSource }       from "@nestjs/typeorm";
 import { AuthEntity }             from "../entity/auth.entity";
 import { MAIN }                   from "../../../utils/constant";
-import { AuthEntityDto }          from "../../presentation/dto/auth.entity.dto";
 
 
 
@@ -17,9 +16,9 @@ export class AuthRepository extends Repository<AuthEntity> {
   }
 
   async registerUser( registerUserDto ): Promise<any> {
-    // await this.mainDataSource.transaction(async ( entityManager ) => {
-    //
-    // })
+    await this.mainDataSource.transaction(async ( entityManager ) => {
+
+    })
 
     return {
       uid: "",

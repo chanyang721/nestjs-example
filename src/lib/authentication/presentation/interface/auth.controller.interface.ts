@@ -6,7 +6,7 @@ import { TokenDto }        from "../dto/token.dto";
 
 
 export interface IAuthController {
-  registerUserThroughAuthenticationServer( registerUserDto: RegisterUserDto ): Promise<any>;
+  register( registerUserDto: RegisterUserDto ): Promise<any>;
 
   login( loginDto: LoginDto, res: Response ): Promise<TokenDto>;
 

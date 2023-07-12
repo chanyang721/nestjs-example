@@ -11,7 +11,7 @@ export class BaseEntityDto {
     example    : "806c85de-2534-4fc9-8b2f-980e4faab60f"
   })
   @IsUUID()
-  id: String;
+  id: string;
 
   @ApiProperty({
     type: Date,

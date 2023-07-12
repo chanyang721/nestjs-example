@@ -13,7 +13,7 @@ import { BaseEntityDto }                                       from "../../../da
  */
 export class AuthEntityDto extends PartialType(BaseEntityDto) {
   @ApiProperty({
-    type       : String,
+    type       : 'string',
     description: "외부에 저장된 유저 정보를 가져올 수 있는 유저 아이디",
     required   : true,
     example    : "xoqGTR9871Nbzkd4bsEr5AZVp2"
@@ -24,7 +24,7 @@ export class AuthEntityDto extends PartialType(BaseEntityDto) {
   uid: string;
 
   @ApiProperty({
-    type       : String,
+    type       : 'string',
     description: "인증 서버 플랫폼 이름",
     required   : false,
     example    : "FIREBASE"
@@ -34,7 +34,7 @@ export class AuthEntityDto extends PartialType(BaseEntityDto) {
   platform: UserAuthenticationPlatform;
 
   @ApiProperty({
-    type       : String,
+    type       : 'string',
     description: "Main 서버에서 발급한 리프레시 토큰을 암호화한 값",
     required   : true,
     example    : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9~"
@@ -43,4 +43,10 @@ export class AuthEntityDto extends PartialType(BaseEntityDto) {
   @IsNotEmpty()
   @MaxLength(150)
   currentRefreshToken: string;
+
+
+  constructor(authEntityDto: AuthEntityDto) {
+    super();
+    Object.assign(this, authEntityDto)
+  }
 }

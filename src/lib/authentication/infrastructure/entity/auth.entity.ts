@@ -6,7 +6,6 @@ import { BaseEntity }                 from "../../../database/base/typeorm/base.
 
 @Entity({ name: 'auth' })
 export class AuthEntity extends BaseEntity {
-
   @Column({
     type  : String,
     length: 100,

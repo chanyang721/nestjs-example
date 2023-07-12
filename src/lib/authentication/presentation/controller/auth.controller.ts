@@ -32,7 +32,7 @@ export class AuthController implements IAuthController {
   @Post("register")
   @ApiRegisterDecorator()
   @UseGuards(LocalAuthGuard)
-  async registerUserThroughAuthenticationServer(
+  async register(
     @Body() registerUserDto: RegisterUserDto
   ): Promise<any> {
     return await this.authService.register(registerUserDto);
