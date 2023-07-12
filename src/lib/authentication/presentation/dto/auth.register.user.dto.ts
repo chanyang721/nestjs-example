@@ -4,7 +4,7 @@ import { AuthEntityDto }                from "./auth.entity.dto";
 
 
 
-export class RegisterUserDto extends PickType(AuthEntityDto, [ "uid" ]) {
+export class RegisterUserDto extends PickType(AuthEntityDto, [ "id", "uid" ]) {
   @ApiProperty({
     type: String,
     description: "인증 서버에서 발급한 id_token",

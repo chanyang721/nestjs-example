@@ -1,9 +1,9 @@
 import { Injectable }                                          from "@nestjs/common";
 import { JwtService as OriginJwtService, JwtSignOptions }      from "@nestjs/jwt";
 import { COOKIE_ACCESS_TOKEN_NAME, COOKIE_REFRESH_TOKEN_NAME } from "../constant";
-import { IJwtPayLoad }                                         from "./interface/jwt.payload.interface";
 import { SharedConfigService }                                 from "../../configuration/shared.config.service";
 import { TokenDto }                                            from "../../authentication/presentation/dto/token.dto";
+import { JwtPayLoadDto }                                       from "./interface/jwt.payload.interface";
 
 
 
@@ -25,7 +25,7 @@ export class JwtService {
   }
 
 
-  private async generateToken( payload: IJwtPayLoad, options: JwtSignOptions ) {
+  private async generateToken( payload: JwtPayLoadDto, options: JwtSignOptions ) {
     return this.originJwtService.sign(payload, options);
   }
 
@@ -37,7 +37,7 @@ export class JwtService {
 
   public async getTokens( payloadSource: any, subject?: string ): Promise<TokenDto> {
     const tokens = new TokenDto();
-    const payload: IJwtPayLoad = await this.generatePayload(payloadSource);
+    const payload: JwtPayLoadDto = await this.generatePayload(payloadSource);
 
     tokens.access_token = await this.generateToken(payload, {
       expiresIn: this.jwtConfig.accessTokenExpiresIn,
@@ -52,7 +52,7 @@ export class JwtService {
     return tokens;
   }
 
-  private async generatePayload( payload: any ): Promise<IJwtPayLoad> {
+  private async generatePayload( payload: any ): Promise<JwtPayLoadDto> {
     // const [ id ] = await Promise.all([
     //   this.hashingService.hashingTarget(payload.id)
     // ])
@@ -75,5 +75,4 @@ export class JwtService {
       return e.name === "TokenExpiredError";
     }
   }
-
 }

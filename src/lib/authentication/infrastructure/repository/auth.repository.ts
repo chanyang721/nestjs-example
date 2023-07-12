@@ -38,6 +38,6 @@ export class AuthRepository extends Repository<AuthEntity> {
   }
 
   async updateCurrentRefreshToken( uid: string, hashedRefreshToken: string ) {
-    await this.update({ uid }, { currentRefreshToken: hashedRefreshToken });
+    await this.update({ uid }, { current_refresh_token: hashedRefreshToken });
   }
 }

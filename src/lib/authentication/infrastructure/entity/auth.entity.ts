@@ -30,5 +30,5 @@ export class AuthEntity extends BaseEntity {
     nullable: true,
     comment: "엑세스 토콘 리프레시용 토큰"
   })
-  currentRefreshToken: string;
+  current_refresh_token: string;
 }

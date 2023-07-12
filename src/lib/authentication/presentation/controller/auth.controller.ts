@@ -6,7 +6,7 @@ import { JwtAuthRefreshGuard }                                                  
 import { COOKIE_ACCESS_TOKEN_NAME, COOKIE_ACCESS_TOKEN_OPTIONS, COOKIE_REFRESH_TOKEN_NAME, COOKIE_REFRESH_TOKEN_OPTIONS } from "../../../utils/constant";
 import { Public }                                                                                                         from "../../../utils/decoretor";
 import { RegisterUserDto }                                                                                                from "../dto/auth.register.user.dto";
-import { LoginDto }                                                                                                       from "../dto/login.firebase.user.dto";
+import { LoginDto }                                                                                                       from "../dto/login.dto";
 import { ApiRegisterDecorator }                                                                                           from "../swagger/api.register.decorator";
 import { ApiLoginDecorator }                                                                                              from "../swagger/api.login.decorator";
 import { ApiRefreshDecorator }                                                                                            from "../swagger/api.refresh.decorator";

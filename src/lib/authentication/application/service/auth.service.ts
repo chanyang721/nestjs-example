@@ -1,8 +1,8 @@
 import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
 import { JwtService }                            from "../../../utils/jwt/jwt.service";
-import { HashingService }                        from "../../../utils/hashing/hashing.service";
-import { LoginDto }                              from "../../presentation/dto/login.firebase.user.dto";
-import { RegisterUserDto }                       from "../../presentation/dto/auth.register.user.dto";
+import { HashingService }  from "../../../utils/hashing/hashing.service";
+import { LoginDto }        from "../../presentation/dto/login.dto";
+import { RegisterUserDto } from "../../presentation/dto/auth.register.user.dto";
 import { AuthRepository }                        from "../../infrastructure/repository/auth.repository";
 import { TokenDto }                              from "../../presentation/dto/token.dto";
 

@@ -1,8 +1,9 @@
-import { IsString } from "class-validator";
+import { IsNotEmpty, IsString } from "class-validator";
 
 
 
-export class IJwtPayLoad {
+export class JwtPayLoadDto {
   @IsString()
+  @IsNotEmpty()
   id: string
 }
