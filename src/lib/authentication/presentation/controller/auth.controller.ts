@@ -1,30 +1,28 @@
-import type { Response }                                    from "express";
-import { Body, Controller, Get, Post, Req, Res, UseGuards } from "@nestjs/common";
-import { ApiTags }                                          from "@nestjs/swagger";
-import { ApiRegisterDecorator } from "../swagger/api.register.decorator";
-import { Public }                                                                                                         from "../../../utils/decoretor";
+import type { Response }                                                                                                  from "express";
+import { Body, Controller, Get, Post, Req, Res, UseGuards }                                                               from "@nestjs/common";
+import { ApiTags }                                                                                                        from "@nestjs/swagger";
 import { LocalAuthGuard }                                                                                                 from "../../../core-fundamental/guards/local/local.auth.guard";
-import { IAuthController }                                                                                                from "../interface/auth.controller.interface";
-import { AuthService }                                                                                                    from "../../application/service/auth.service";
-import { UserEntity }                                                                                                     from "../../../../domain/user/infrastructure/entities/user.entity";
-import { ApiLoginDecorator }                                                                                              from "../swagger/api.login.decorator";
+import { JwtAuthRefreshGuard }                                                                                            from "../../../core-fundamental/guards/local/jwt.refresh.guard";
+import { COOKIE_ACCESS_TOKEN_NAME, COOKIE_ACCESS_TOKEN_OPTIONS, COOKIE_REFRESH_TOKEN_NAME, COOKIE_REFRESH_TOKEN_OPTIONS } from "../../../utils/constant";
+import { Public }                                                                                                         from "../../../utils/decoretor";
+import { RegisterUserDto }                                                                                                from "../dto/auth.register.user.dto";
 import { LoginDto }                                                                                                       from "../dto/login.firebase.user.dto";
 import { LoginResponseDto }                                                                                               from "../dto/login.response.dto";
-import { IToken }                                                                                                         from "../interface/token.interface";
-import { COOKIE_ACCESS_TOKEN_NAME, COOKIE_ACCESS_TOKEN_OPTIONS, COOKIE_REFRESH_TOKEN_NAME, COOKIE_REFRESH_TOKEN_OPTIONS } from "../../../utils/constant";
-import { RegisterUserDto }                                                                                                from "../dto/auth.register.user.dto";
+import { ApiRegisterDecorator }                                                                                           from "../swagger/api.register.decorator";
+import { ApiLoginDecorator }                                                                                              from "../swagger/api.login.decorator";
 import { ApiRefreshDecorator }                                                                                            from "../swagger/api.refresh.decorator";
-import { JwtAuthRefreshGuard }                                                                                            from "../../../core-fundamental/guards/local/jwt.refresh.guard";
+import { IAuthController }                                                                                                from "../interface/auth.controller.interface";
+import { IToken }                                                                                                         from "../interface/token.interface";
+import { AuthService }                                                                                                    from "../../application/service/auth.service";
 
 
 
 @Public()
 @ApiTags("auth")
 @Controller("auth")
-export class AuthController implements IAuthController<UserEntity> {
-  constructor(
-    private readonly authService: AuthService
-  ) {}
+export class AuthController implements IAuthController {
+  constructor( private readonly authService: AuthService ) {
+  }
 
 
   /**
@@ -35,7 +33,7 @@ export class AuthController implements IAuthController<UserEntity> {
   @Post("register")
   @ApiRegisterDecorator()
   @UseGuards(LocalAuthGuard)
-  async registerUserThroughAuthenticationServer (
+  async registerUserThroughAuthenticationServer(
     @Body() registerUserDto: RegisterUserDto
   ): Promise<any> {
     return await this.authService.register(registerUserDto);
@@ -62,11 +60,11 @@ export class AuthController implements IAuthController<UserEntity> {
     return tokens;
   }
 
+
   /**
    * @description [ GET ] Auth Refresh API
-   * @param req
-   * @param cookie access_token, refresh_token
-   * @returns any
+   * @param req Request with user
+   * @returns IToken
    */
   @Get("refresh")
   @ApiRefreshDecorator()
