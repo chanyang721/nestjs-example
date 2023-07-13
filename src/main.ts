@@ -1,10 +1,10 @@
 import { NestExpressApplication } from "@nestjs/platform-express";
 import { NestFactory }            from "@nestjs/core";
 import helmet                     from "helmet";
-import * as compression           from "compression";
-import * as cookieParser          from "cookie-parser";
+import compression                from "compression";
+import cookieParser               from "cookie-parser";
 import { coreFundamentals }       from "./lib/core-fundamental";
-import { setupSwagger }           from "./lib/swagger";
+import { setupSwagger }           from "./lib/utils/swagger";
 import { corsOptions }            from "./lib/core-fundamental/options/cors.options";
 import { AppModule }              from "./app.module";
 

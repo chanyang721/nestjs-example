@@ -2,7 +2,7 @@
 
 # Base 이미지 설정
 # Node 이미지 용량: node:16(800 ~ 900mb) -> node:16-slim -> node:16-alpine
-FROM node:16-alpine AS base
+FROM node:18-alpine AS base
 LABEL maintainer="Chanyang Lee"
 LABEL description="Main server for AdOps application"
 
@@ -21,12 +21,10 @@ FROM base AS build
 # Install dependencies
 ## if you are building your code for production
 ## RUN npm ci --only=production
-RUN npm install
-
-##
+RUN npm cache clean --force && rm -rf node_modules && npm install
 
 
-FROM base AS release
+FROM base AS releases
 
 # build 스테이지 결과물인 node_module을 release의 ./ 에 복사
 COPY --from=build /app/server/node_modules ./node_modules
@@ -34,9 +32,6 @@ COPY --from=build /app/server/node_modules ./node_modules
 # 애플리케이션 소스코드 복사
 # 의미: 현재 디렉토리(./)의 모든 파일을 컨테이너의 WORKDIR(/app)의 (./)경로에 복사
 COPY . .
-
-# 애플리케이션이 노출되는 Container Port가 4000임을 문서로 명시(영향 없음)
-EXPOSE 4000
 
 ### 컨테이너 실행시 수행하는 명령 설정
 ### [ Entrypoint ] [ Command ] 로 컨테이너 CLI에 입력되어 실행된다

@@ -1,7 +1,8 @@
-import { HttpException, Injectable } from "@nestjs/common";
-import { PassportStrategy }          from "@nestjs/passport";
-import { Strategy }          from "passport-local";
-import { FirebaseService }   from "../../../authentication/infrastructure/authentication/firebase/firebase.service";
+import { HttpException, HttpStatus, Injectable, UnauthorizedException } from "@nestjs/common";
+import { PassportStrategy }                                             from "@nestjs/passport";
+import { Strategy }                                                     from "passport-local";
+import { FirebaseService }                                              from "../../../authentication/infrastructure/authentication/firebase/firebase.service";
+import { RegisterUserDto }                                              from "../../../authentication/presentation/dto/auth.register.user.dto";
 
 
 
@@ -11,7 +12,7 @@ export class LocalAuthStrategy extends PassportStrategy(Strategy) {
 
 
   constructor(
-    private readonly firebaseService: FirebaseService
+    private readonly firebaseService: FirebaseService,
   ) {
     super({
       usernameField: "uid",
@@ -25,16 +26,20 @@ export class LocalAuthStrategy extends PassportStrategy(Strategy) {
     try {
       const decodedFirebaseToken = this.firebaseClient.auth()
                                        .verifyIdToken(id_token);
-      console.log(decodedFirebaseToken)
+
+      if ( decodedFirebaseToken.uid !== uid ) {
+        throw new UnauthorizedException("firebase uid is not matched with user uid in db");
+      }
 
       return {
-        uid,
-        ...decodedFirebaseToken
-      };
+        uid, ...decodedFirebaseToken
+      } as RegisterUserDto;
     }
     catch ( e ) {
-      console.log(e)
-      throw new HttpException(e.message, 401)
+      if ( e.code === "auth/argument-error" ) {
+        throw new HttpException("firebase id token is expired", HttpStatus.UNAUTHORIZED);
+      }
+      throw new HttpException("firebase id token is invalid", HttpStatus.UNAUTHORIZED);
     }
   }
 }

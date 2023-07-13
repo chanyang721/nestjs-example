@@ -1,52 +1,48 @@
-import { Module }                from '@nestjs/common';
-import { ConfigService }         from "@nestjs/config";
-import { TypeOrmModule }         from "@nestjs/typeorm";
-import { PassportModule }        from "@nestjs/passport";
-import { JwtModule }             from "@nestjs/jwt";
-import { Algorithm }             from "jsonwebtoken";
-import { JwtAuthGlobalStrategy } from "../core-fundamental/guards/global/jwt.auth.global.strategy";
-import { HttpModule }            from "../http/http.module";
-import { AuthController }        from './presentation/controller/auth.controller';
-import { AuthService }           from './application/service/auth.service';
-import { AuthRepository }        from "./infrastructure/repository/auth.repository";
-import { UserEntity }            from "../../domain/user/infrastructure/entities/user.entity";
-import { LocalAuthStrategy }     from "../core-fundamental/guards/local/local.auth.strategy";
-import { SharedConfigService }   from "../configuration/shared.config.service";
-import { FirebaseService }       from "./infrastructure/authentication/firebase/firebase.service";
+import { Module }                 from "@nestjs/common";
+import { TypeOrmModule }          from "@nestjs/typeorm";
+import { PassportModule }         from "@nestjs/passport";
+import { JwtModule }              from "@nestjs/jwt";
+import { MAIN }                   from "../utils/constant";
+import { JwtService }             from "../utils/jwt/jwt.service";
+import { jwtModuleAsyncOptions }  from "../utils/jwt/jwt.module.option";
+import { HashingService }         from "../utils/hashing/hashing.service";
+import { SharedConfigService }    from "../configuration/shared.config.service";
+import { JwtAuthGlobalStrategy }  from "../core-fundamental/guards/global/jwt.auth.global.strategy";
+import { LocalAuthStrategy }      from "../core-fundamental/guards/local/local.auth.strategy";
+import { JwtAuthRefreshStrategy } from "../core-fundamental/guards/local/jwt.refresh.strategy";
+import { AuthController }         from "./presentation/controller/auth.controller";
+import { AuthService }            from "./application/service/auth.service";
+import { AuthRepository }         from "./infrastructure/repository/auth.repository";
+import { FirebaseService }        from "./infrastructure/authentication/firebase/firebase.service";
+import { AuthEntity }             from "./infrastructure/entity/auth.entity";
+import { UserEntity }             from "../../domain/user/infrastructure/entities/user.entity";
+
+
 
 @Module({
-  imports: [
-    HttpModule,
+  imports    : [
     PassportModule,
-    TypeOrmModule.forFeature([ UserEntity ], "main"),
-    JwtModule.registerAsync({
-      inject    : [ ConfigService ],
-      useFactory: ( configService: ConfigService ) => ( {
-        global       : true,
-        secret       : configService.get<string>("JWT_SECRET"),
-        signOptions  : {
-          algorithm: configService.get<Algorithm>("JWT_ALGORITHM"),
-          expiresIn: configService.get<string>("JWT_EXPIRATION_TIME"),
-          subject  : configService.get<string>("JWT_SIGN_SUBJECT")
-        },
-        verifyOptions: {
-          algorithms: [ configService.get<Algorithm>("JWT_ALGORITHM") ]
-        }
-      } )
-    })
+
+    JwtModule.registerAsync(jwtModuleAsyncOptions),
+
+    TypeOrmModule.forFeature([ UserEntity, AuthEntity ], MAIN)
   ],
   controllers: [
     AuthController
   ],
-  providers: [
-    AuthService,
-    AuthRepository,
+  providers  : [
     SharedConfigService,
+
+    AuthService, AuthRepository,
 
     FirebaseService,
 
-    LocalAuthStrategy,
-    JwtAuthGlobalStrategy,
+    JwtService,
+
+    HashingService,
+
+    JwtAuthGlobalStrategy, LocalAuthStrategy, JwtAuthRefreshStrategy
   ]
 })
-export class AuthModule {}
+export class AuthModule {
+}

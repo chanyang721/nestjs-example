@@ -15,18 +15,17 @@ export class GlobalExceptionFilter<T = HttpException | Error> implements Excepti
     const ctx = host.switchToHttp();
     const request = ctx.getRequest<Request>();
     const response = ctx.getResponse<Response>();
+
     /**
      * Default Error Exception Filter
      * TODO: 아래 if 문에서 아무것도 걸리지 않는 경우에 exceptionCode, message 정보가 나타나지 않는 문제 있음
      */
     let exceptionCode: string = exception.constructor.name,
-        message: string,
+        // @ts-ignore
+        message: string = exception.message || exception.response.message || exception.response.error || exception.response || exception,
         statusCode: number = HttpStatus.INTERNAL_SERVER_ERROR,
         errors: any;
-    // console.log("exception", exception)
-    //
-    // console.log("host", host)
-
+    console.log(exception)
 
     /**
      * Validation Error Exception Filter

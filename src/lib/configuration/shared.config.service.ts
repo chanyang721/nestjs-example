@@ -73,6 +73,22 @@ export class SharedConfigService {
       statusApi : this.configService.get<string>("OPEN_API_STATUS_PATH")
     };
   }
+
+
+  get JwtConfig() {
+    return {
+      accessTokenExpiresIn: `${this.configService.get("JWT_ACCESS_TOKEN_EXPIRATION_TIME")}m`,
+      refreshTokenExpiresIn: `${this.configService.get("JWT_REFRESH_TOKEN_EXPIRATION_TIME")}d`
+    }
+  }
+
+
+  get HashingConfig() {
+    return {
+      saltRound: Number(this.configService.get("HASHING_SALT_ROUND"))
+    }
+  }
+
 }
 
 

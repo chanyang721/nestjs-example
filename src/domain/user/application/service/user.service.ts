@@ -9,9 +9,4 @@ export class UserService {
     private readonly userRepository: UserRepository
   ) {
   }
-
-
-  public async findUser(id: string) {
-    return await this.userRepository.findUserById(id);
-  }
 }
