@@ -6,7 +6,7 @@ import { ApiProperty } from "@nestjs/swagger";
 export class BaseEntityDto {
   @ApiProperty({
     type       : 'uuid',
-    description: "base entity id",
+    description: "base entities id",
     required   : true,
     example    : "806c85de-2534-4fc9-8b2f-980e4faab60f"
   })
@@ -15,7 +15,7 @@ export class BaseEntityDto {
 
   @ApiProperty({
     type: Date,
-    description: "base entity created at",
+    description: "base entities created at",
     required: false,
     example: "2021-09-30T07:00:00.000Z"
   })
@@ -23,7 +23,7 @@ export class BaseEntityDto {
 
   @ApiProperty({
     type: Date,
-    description: "base entity created at",
+    description: "base entities created at",
     required: false,
     example: "2021-09-30T07:00:00.000Z"
   })
