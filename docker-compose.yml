@@ -8,7 +8,6 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
       MYSQL_DATABASE: ${MYSQL_MAIN_DB_DATABASE}
-      MYSQL_USER: ${MYSQL_DB_USERNAME}
       MYSQL_PASSWORD: ${MYSQL_DB_PASSWORD}
     ports:
         - ${MYSQL_MAIN_DB_PORT}:${MYSQL_MAIN_DB_PORT}
@@ -17,21 +16,6 @@ services:
     networks:
       - backend
 
-#  mysql_support_db:
-#    image: mysql
-#    container_name: ${MYSQL_SUPPORT_CONTAINER_NAME}
-#    restart: always
-#    environment:
-#      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
-#      MYSQL_DATABASE: ${MYSQL_SUPPORT_DB_DATABASE}
-#      MYSQL_USER: ${MYSQL_DB_USERNAME}
-#      MYSQL_PASSWORD: ${MYSQL_DB_PASSWORD}
-#    ports:
-#        - ${MYSQL_SUPPORT_DB_PORT}:${MYSQL_SUPPORT_DB_PORT}
-#    volumes:
-#      - ./db_data/mysql_support_db:/var/lib/mysql
-#    networks:
-#      - backend
 
   mongo_main_db:
     image: mongo
@@ -43,6 +27,7 @@ services:
       - ./db_data/mongo_main_db:/var/lib/mongodb
     networks:
       - backend
+
 
   support_cache_redis:
     image: redis:7.0-alpine
@@ -73,6 +58,7 @@ services:
     networks:
       - backend
 
+
 volumes:
   mysql_main_db:
     driver: local
@@ -80,6 +66,7 @@ volumes:
     driver: local
   redis_support_cache:
     driver: local
+
 
 networks:
   backend:
