@@ -5,6 +5,7 @@ import { LocalAuthGuard }                                                       
 import { JwtAuthRefreshGuard }                                                                                            from "../../../core-fundamental/guards/local/jwt.refresh.guard";
 import { COOKIE_ACCESS_TOKEN_NAME, COOKIE_ACCESS_TOKEN_OPTIONS, COOKIE_REFRESH_TOKEN_NAME, COOKIE_REFRESH_TOKEN_OPTIONS } from "../../../utils/constant";
 import { Public }                                                                                                         from "../../../utils/decoretor";
+import { TokenDto }                                                                                                       from "../dto/token.dto";
 import { RegisterUserDto }                                                                                                from "../dto/auth.register.user.dto";
 import { LoginDto }                                                                                                       from "../dto/login.dto";
 import { ApiRegisterDecorator }                                                                                           from "../swagger/api.register.decorator";
@@ -12,7 +13,6 @@ import { ApiLoginDecorator }                                                    
 import { ApiRefreshDecorator }                                                                                            from "../swagger/api.refresh.decorator";
 import { IAuthController }                                                                                                from "../interface/auth.controller.interface";
 import { AuthService }                                                                                                    from "../../application/service/auth.service";
-import { TokenDto }                                                                                                       from "../dto/token.dto";
 
 
 

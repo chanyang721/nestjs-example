@@ -11,7 +11,9 @@ import { AuthEntityDto }                         from "../../presentation/dto/au
 
 @Injectable()
 export class AuthService {
-  constructor( private readonly authRepository: AuthRepository, private readonly jwtService: JwtService,
+  constructor(
+    private readonly authRepository: AuthRepository,
+    private readonly jwtService: JwtService,
     private readonly hashingService: HashingService
   ) {
   }
@@ -24,8 +26,6 @@ export class AuthService {
 
   public async login( loginDto: LoginDto ): Promise<TokenDto> {
     const auth: AuthEntityDto = await this.authRepository.findByUid(loginDto.uid);
-    const test = new AuthEntityDto(auth)
-    console.log(test)
 
     const tokens: TokenDto = await this.jwtService.getTokens(auth);
 
