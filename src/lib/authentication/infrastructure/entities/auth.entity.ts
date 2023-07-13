@@ -30,4 +30,9 @@ export class AuthEntity extends BaseEntity {
     comment: "엑세스 토콘 리프레시용 토큰"
   })
   current_refresh_token: string;
+
+  constructor(authEntity: AuthEntity) {
+    super();
+    Object.assign(this, authEntity)
+  }
 }

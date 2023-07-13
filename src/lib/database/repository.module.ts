@@ -1,29 +1,28 @@
-import { DynamicModule, Provider }             from "@nestjs/common";
-import { TYPEORM_REPOSITORY_ENTITY_INJECTION } from "../utils/decoretors/repository.decoretor";
-import { getDataSourceToken }                  from "@nestjs/typeorm";
-import { DataSource }                          from "typeorm";
+import { DataSource }              from "typeorm";
+import { DynamicModule, Provider } from "@nestjs/common";
+import { getDataSourceToken }      from "@nestjs/typeorm";
+import { MAIN }                    from "../utils/constants";
 
 
 
 export class RepositoryModule {
-  public static forRoot<T extends new ( ...args: any[] ) => any>(
-    repositories: T[],
-    connectionName: string
+  public static forFeature<T extends new ( ...args: any[] ) => any>( repositories: T[]
+    // connectionName: string | DataSource | DataSourceOptions
   ): DynamicModule {
     const providers: Provider[] = [];
 
     for ( const repository of repositories ) {
-      const entity = Reflect.getMetadata(TYPEORM_REPOSITORY_ENTITY_INJECTION, repository);
-      if ( !entity ) {
-        continue;
-      }
+      // const entity = Reflect.getMetadata(TYPEORM_REPOSITORY_ENTITY_INJECTION, repository);
+      // if ( !entity ) {
+      //   continue;
+      // }
 
       providers.push({
-        inject    : [ getDataSourceToken(connectionName) ],
+        inject    : [ getDataSourceToken(MAIN) ],
         provide   : repository,
         useFactory: ( dataSource: DataSource ): typeof repository => {
-          const baseRepository = dataSource.getRepository(entity);
-          return new repository(baseRepository.target, baseRepository.manager, baseRepository.queryRunner);
+          // const baseRepository = dataSource.getRepository<any>(entity);
+          return new repository(dataSource);
         }
       });
 
