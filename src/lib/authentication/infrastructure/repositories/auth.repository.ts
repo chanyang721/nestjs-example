@@ -3,6 +3,7 @@ import { InjectDataSource }       from "@nestjs/typeorm";
 import { RepositoryInject }       from "../../../utils/decoretors/repository.decoretor";
 import { MAIN }                   from "../../../utils/constants";
 import { AuthEntity }             from "../entities/auth.entity";
+import { transaction }            from "../../../database/transaction";
 
 
 
@@ -15,22 +16,14 @@ export class AuthRepository extends Repository<AuthEntity> {
     super(AuthEntity, mainDataSource.createEntityManager());
   }
 
-  async registerUser( registerUserDto: AuthEntity ): Promise<any> {
-    const authEntity = new AuthEntity(registerUserDto);
-    const qr = await this.mainDataSource.createQueryRunner();
-    await qr.connect();
-    await qr.startTransaction();
-    try {
-      const a = await qr.manager.save(authEntity);
-      console.log(a)
-    }
-    catch ( e ) {
-      await qr.rollbackTransaction();
-      throw e;
-    }
-    finally {
-      await qr.release();
-    }
+  async registerUser( registerUserDto: AuthEntity ): Promise<AuthEntity> {
+    return await transaction(
+      [ this.mainDataSource ],
+      async ( mainQueryRunner ) => {
+        const authEntity = new AuthEntity(registerUserDto);
+        return await mainQueryRunner.manager.save(authEntity);
+      }
+    )
   }
 
 

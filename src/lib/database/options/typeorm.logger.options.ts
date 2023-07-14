@@ -8,7 +8,7 @@ export class SqlLogger implements TypeOrmLogger {
 
 
   logQuery( query: string, parameters?: unknown[] ): any {
-    // this.logger.log(`${query} -- Parameters: ${this.stringifyParameters(parameters)}`);
+    this.logger.log(`${query} -- Parameters: ${this.stringifyParameters(parameters)}`);
   }
 
 
