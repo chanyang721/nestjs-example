@@ -1,12 +1,11 @@
 import { DataSource, QueryRunner }   from "typeorm";
-import { HttpException, HttpStatus } from "@nestjs/common";
 
 
-export async function transaction<T>(
+export async function transaction<Input, Output>(
     dataSources: DataSource[],
-    tryBlock: ( ...queryRunners: QueryRunner[] ) => Promise<T>,
-    catchBlock?: () => Promise<Error>
-): Promise<T> {
+    tryBlock: ( ...queryRunners: QueryRunner[] ) => Promise<Output>,
+    catchBlock?: () => void
+): Promise<Output> {
   const queryRunners: QueryRunner[] = [];
   for ( const dataSource of dataSources ) {
       const queryRunner = dataSource.createQueryRunner();
@@ -16,7 +15,7 @@ export async function transaction<T>(
   }
 
   try {
-    const result = await tryBlock(...queryRunners);
+    const result: Output = await tryBlock(...queryRunners);
     for ( const queryRunner of queryRunners ) {
         await queryRunner.commitTransaction();
     }
