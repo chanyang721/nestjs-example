@@ -4,6 +4,8 @@ import { RepositoryInject }       from "../../../utils/decoretors/repository.dec
 import { MAIN }                   from "../../../utils/constants";
 import { AuthEntity }             from "../entities/auth.entity";
 import { transaction }            from "../../../database/transaction";
+import { UserEntity }             from "../../../../domain/user/infrastructure/entities/user.entity";
+import { RegisterUserDto }        from "../../presentation/dtos/auth.register.user.dto";
 
 
 
@@ -16,16 +18,20 @@ export class AuthRepository extends Repository<AuthEntity> {
     super(AuthEntity, mainDataSource.createEntityManager());
   }
 
-  async registerUser( registerUserDto: AuthEntity ): Promise<AuthEntity> {
+  async registerUser( registerUserDto: RegisterUserDto ): Promise<AuthEntity> {
     return await transaction<AuthEntity, AuthEntity>(
       [ this.mainDataSource ],
       async ( mainQueryRunner ) => {
-        const authEntity = new AuthEntity(registerUserDto);
-        return await mainQueryRunner.manager.save(authEntity);
+        const auth = new AuthEntity(registerUserDto);
+        const user = new UserEntity({ uid: registerUserDto.uid });
+        const savedAuthData = await mainQueryRunner.manager.save(auth);
+        await mainQueryRunner.manager.save(user)
+
+        return savedAuthData
       },
       async () => {
         /**
-         * catch black logic without transaction and throw error
+         * catch black logic without transaction rollback and throw error
          */
       }
     )

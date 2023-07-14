@@ -6,6 +6,11 @@ import { BaseEntity }                 from "../../../database/base/typeorm/base.
 
 @Entity({ name: 'auth' })
 export class AuthEntity extends BaseEntity {
+  constructor(authEntity: any) {
+    super();
+    Object.assign(this, authEntity)
+  }
+
   @Column({
     type  : String,
     length: 100,
@@ -30,9 +35,4 @@ export class AuthEntity extends BaseEntity {
     comment: "엑세스 토콘 리프레시용 토큰"
   })
   current_refresh_token: string;
-
-  constructor(authEntity: AuthEntity) {
-    super();
-    Object.assign(this, authEntity)
-  }
 }
