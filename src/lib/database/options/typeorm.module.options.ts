@@ -20,6 +20,7 @@ export const mainTypeOrmModuleAsyncOptions: TypeOrmModuleAsyncOptions = {
     database   : process.env.MYSQL_DB_DATABASE || configService.get<string>("MYSQL_MAIN_DB_DATABASE"),
     synchronize: process.env.NODE_ENV !== PRODUCTION,
     logger     : new SqlLogger(),
+    logging    : process.env.NODE_ENV !== PRODUCTION,
     entities   : [ AuthEntity, UserEntity ],
     timezone   : "Z"
   } )
