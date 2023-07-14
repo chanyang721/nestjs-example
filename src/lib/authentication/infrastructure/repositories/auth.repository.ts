@@ -17,11 +17,16 @@ export class AuthRepository extends Repository<AuthEntity> {
   }
 
   async registerUser( registerUserDto: AuthEntity ): Promise<AuthEntity> {
-    return await transaction(
+    return await transaction<AuthEntity, AuthEntity>(
       [ this.mainDataSource ],
       async ( mainQueryRunner ) => {
         const authEntity = new AuthEntity(registerUserDto);
         return await mainQueryRunner.manager.save(authEntity);
+      },
+      async () => {
+        /**
+         * catch black logic without transaction and throw error
+         */
       }
     )
   }
