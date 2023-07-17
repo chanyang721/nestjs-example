@@ -40,5 +40,5 @@ COPY . .
 #ENTRYPOINT [ "docker-entrypoint.sh" ]
 
 # Cammand: 컨테이너가 실행할 때 수행하는 명령어 혹은 엔트리포인트에 설정한 명령어의 인자값
-# docker compose 파일에서 command 태그로 가능하지만 서버 배포 시에 사용하기 위해 Dockerfile에 명시
+# docker compose 파일에서 commands 태그로 가능하지만 서버 배포 시에 사용하기 위해 Dockerfile에 명시
 CMD [ "npm", "run", "start:dev" ]

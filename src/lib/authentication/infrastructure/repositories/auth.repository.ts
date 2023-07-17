@@ -19,13 +19,13 @@ export class AuthRepository extends Repository<AuthEntity> {
   }
 
   async registerUser( registerUserDto: RegisterUserDto ): Promise<AuthEntity> {
-    return await transaction<AuthEntity, AuthEntity>(
+    return await transaction<AuthEntity, any>(
       [ this.mainDataSource ],
       async ( mainQueryRunner ) => {
         const auth = new AuthEntity(registerUserDto);
         const user = new UserEntity({ uid: registerUserDto.uid });
-        const savedAuthData = await mainQueryRunner.manager.save(auth);
-        await mainQueryRunner.manager.save(user)
+
+        const savedAuthData = await mainQueryRunner.manager.save([auth, user]);
 
         return savedAuthData
       },
