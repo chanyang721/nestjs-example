@@ -3,20 +3,12 @@ import { BaseEntity }     from "../../../../lib/database/base/typeorm/base.entit
 import { UserRole }       from "./enums/user.enum.role";
 
 
-@Entity({ name: "users" })
+@Entity({ name: "user" })
 export class UserEntity extends BaseEntity {
   constructor( userEntity: any ) {
     super();
     Object.assign(this, userEntity)
   }
-
-  @Column({
-    type: String,
-    length: 100,
-    nullable: false,
-    comment: '유저 uid',
-  })
-  uid: string;
 
   @Column({
     type: 'enum',
