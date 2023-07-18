@@ -24,4 +24,9 @@ export class UserRepository extends Repository<UserEntity> {
       }
     )
   }
+
+
+  public async createUser(createUserDto: any): Promise<any> {
+    return await this.save(createUserDto);
+  }
 }

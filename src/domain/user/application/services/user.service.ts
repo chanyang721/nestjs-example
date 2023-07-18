@@ -1,8 +1,8 @@
 import { Injectable }                from "@nestjs/common";
 import { CommandBus, QueryBus }      from "@nestjs/cqrs";
 import { CreateUserDto }             from "../../presentation/dtos/create.user.dto";
-import { CreateUserCommand }         from "../commands/create-user.command";
-import { FindUserInfoWithAuthQuery } from "../queries/find-user-info-with-auth.query";
+import { CreateUserCommand }         from "../commands/impl/create-user.command";
+import { FindUserInfoWithAuthQuery } from "../queries/impl/find-user-info-with-auth.query";
 
 
 
@@ -23,7 +23,7 @@ export class UserService {
 
   public async createUser( createUserDto: CreateUserDto ): Promise<any> {
     return await this.commandBus.execute(
-      new CreateUserCommand(createUserDto.role)
+      new CreateUserCommand(createUserDto)
     )
   }
 }
