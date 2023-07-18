@@ -6,8 +6,6 @@ import { RegisterUserDto }                       from "../../presentation/dtos/a
 import { AuthRepository }                        from "../../infrastructure/repositories/auth.repository";
 import { TokenDto }                              from "../../presentation/dtos/token.dto";
 import { AuthEntityDto }                         from "../../presentation/dtos/auth.entity.dto";
-import { CommandBus }                            from "@nestjs/cqrs";
-import { KillDragonCommand }                     from "../commands/test.command";
 
 
 
@@ -15,16 +13,9 @@ import { KillDragonCommand }                     from "../commands/test.command"
 export class AuthService {
   constructor(
     private readonly authRepository: AuthRepository,
-    private readonly commandBus: CommandBus,
     private readonly jwtService: JwtService,
     private readonly hashingService: HashingService
   ) {
-  }
-
-  public async killDragon(heroId: string, killDragonDto: any): Promise<void> {
-    await this.commandBus.execute(
-      new KillDragonCommand(heroId, killDragonDto)
-    );
   }
 
   public async register( registerUserDto: RegisterUserDto ): Promise<any> {

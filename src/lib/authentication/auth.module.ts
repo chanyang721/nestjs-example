@@ -15,14 +15,11 @@ import { AuthService }            from "./application/services/auth.service";
 import { FirebaseService }        from "./infrastructure/platforms/firebase/firebase.service";
 import { AuthRepository }         from "./infrastructure/repositories/auth.repository";
 import { UserRepository }         from "../../domain/user/infrastructure/repositories/user.repository";
-import { CqrsModule }             from "@nestjs/cqrs";
 
 
 
 @Module({
   imports    : [
-    CqrsModule,
-
     PassportModule,
 
     JwtModule.registerAsync(jwtModuleAsyncOptions),
