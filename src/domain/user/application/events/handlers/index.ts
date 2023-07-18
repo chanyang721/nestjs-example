@@ -1,5 +1,5 @@
-import { HeroKilledDragonHandler } from "./test.event.handler";
+import { CreateUserEventHandler } from "./create-user.event.handler";
 
 
 
-export const EventHandlers = [ HeroKilledDragonHandler ];
+export const EventHandlers = [ CreateUserEventHandler ];

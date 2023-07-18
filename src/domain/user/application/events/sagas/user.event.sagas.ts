@@ -6,14 +6,12 @@ import { map, Observable }        from "rxjs";
 
 
 @Injectable()
-export class HeroesGameSagas {
+export class UserSagas {
   @Saga()
   dragonKilled = ( events$: Observable<any> ): Observable<void> => {
     return events$.pipe(
       ofType(),
-      // filter((event) => event instanceof HeroKilledDragonEvent),
       map(( event ) => {
-        console.log("Inside [HeroesGameSagas] Saga");
 
       }));
   };

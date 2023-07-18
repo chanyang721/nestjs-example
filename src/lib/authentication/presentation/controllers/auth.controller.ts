@@ -31,7 +31,7 @@ export class AuthController implements IAuthController {
    */
   @Post("register")
   @ApiRegisterDecorator()
-  // @UseGuards(LocalAuthGuard)
+  @UseGuards(LocalAuthGuard)
   async register(
     @Body() registerUserDto: RegisterUserDto
   ): Promise<any> {
