@@ -1,8 +1,8 @@
 import { Injectable }                from "@nestjs/common";
 import { CommandBus, QueryBus }      from "@nestjs/cqrs";
 import { CreateUserDto }             from "../../presentation/dtos/create.user.dto";
-import { CreateUserCommand }         from "../commands/impl/create-user.command";
-import { FindUserInfoWithAuthQuery } from "../queries/impl/find-user-info-with-auth.query";
+import { CreateUserCommand }         from "../commands/implements/create-user.command";
+import { FindUserInfoWithAuthQuery } from "../queries/implements/find-user-info-with-auth.query";
 
 
 
@@ -10,12 +10,12 @@ import { FindUserInfoWithAuthQuery } from "../queries/impl/find-user-info-with-a
 export class UserService {
   constructor(
     private readonly commandBus: CommandBus,
-    private readonly querybus: QueryBus
+    private readonly queryBus: QueryBus
   ) {
   }
 
   public async findUserInfoWithAuth( body: any ): Promise<any> {
-    await this.querybus.execute(
+    await this.queryBus.execute(
       new FindUserInfoWithAuthQuery(body)
     )
   }

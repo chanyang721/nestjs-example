@@ -7,21 +7,32 @@
 
 ## Directory Structure
     - document: 서비스 관련 문서화 파일
-    - manifest: k8s manifest 파일
     - src 
         - domain: 서비스 도메인 모듈
             - domain 이름
                 - presentation
-                    - controller
-                    - dto
-                    - interface
+                    - controllers
+                    - dtos
+                    - interfaces
                     - swagger: decorator
                 - application
-                    - service
+                    - commands
+                        - handlers
+                        - implements
+                    - queries
+                        - handlers
+                        - implements
+                    - events
+                        - handlers
+                        - implements
+                        - models
+                        - sagas
+                    - services
                 - infrastructure
-                    - entity
-                    - repository
-                    - platform
+                    - schemas
+                    - entities
+                    - repositories
+                    - platforms
         - lib: 서비스 실행 시 필요한 라이브러리 모듈
             - authentication: 인증 모듈
             - aws: aws 서비스 모듈

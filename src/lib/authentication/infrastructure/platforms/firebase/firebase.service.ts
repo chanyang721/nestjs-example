@@ -11,7 +11,9 @@ export class FirebaseService {
 
   constructor( private readonly sharedConfigService: SharedConfigService ) {
     this.firebaseClient = firebase.initializeApp({
-      credential: firebase.credential.cert(sharedConfigService.accessFirebaseConfig)
+      credential: firebase.credential.cert(
+        sharedConfigService.accessFirebaseConfig
+      )
     });
   }
 

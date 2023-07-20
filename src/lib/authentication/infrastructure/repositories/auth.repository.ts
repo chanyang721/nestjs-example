@@ -1,6 +1,6 @@
 import { DataSource, Repository } from "typeorm";
 import { InjectDataSource }       from "@nestjs/typeorm";
-import { RepositoryInject }       from "../../../utils/decoretors/repository.decoretor";
+import { RepositoryInject }       from "../../../utils/decoretors";
 import { MAIN }                   from "../../../utils/constants";
 import { AuthEntity }             from "../entities/auth.entity";
 import { transaction }            from "../../../database/transaction";
@@ -13,28 +13,26 @@ import { RegisterUserDto }        from "../../presentation/dtos/auth.register.us
 export class AuthRepository extends Repository<AuthEntity> {
   constructor(
     @InjectDataSource(MAIN)
-    private readonly mainDataSource: DataSource,
+    private readonly mainDataSource: DataSource
   ) {
     super(AuthEntity, mainDataSource.createEntityManager());
   }
 
+
   async registerUser( registerUserDto: RegisterUserDto ): Promise<AuthEntity> {
-    return await transaction<AuthEntity, any>(
+    return await transaction<AuthEntity, AuthEntity>(
       [ this.mainDataSource ],
-      async ( mainQueryRunner ) => {
-        const auth = new AuthEntity(registerUserDto);
-        const user = new UserEntity({ uid: registerUserDto.uid });
+      async( mainQueryRunner ) => {
+      const user = new UserEntity({ uid: registerUserDto.uid });
+      user.auth = new AuthEntity(registerUserDto);
 
-        const savedAuthData = await mainQueryRunner.manager.save([auth, user]);
-
-        return savedAuthData
-      },
-      async () => {
-        /**
-         * catch black logic without transaction rollback and throw error
-         */
-      }
-    )
+      const createdUser = await mainQueryRunner.manager.save(user);
+      return createdUser.auth;
+    }, async() => {
+      /**
+       * catch black logic without transaction rollback and throw error
+       */
+    });
   }
 
 
