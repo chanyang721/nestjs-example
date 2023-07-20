@@ -1,4 +1,4 @@
-import { FindUserInfoWithAuthQueryHandler } from "./test.query.handler";
+import { FindUserInfoWithAuthQueryHandler } from "./find-user.query.handler";
 
 
 

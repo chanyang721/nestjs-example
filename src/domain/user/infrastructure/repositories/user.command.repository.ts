@@ -16,17 +16,4 @@ export class UserCommandRepository extends Repository<UserEntity> {
     super(UserEntity, mainDataSource.createEntityManager());
   }
 
-
-  async findById( id: number ): Promise<UserEntity> {
-    return await transaction(
-      [ this.mainDataSource ],
-      async( mainQueryRunner ) => {
-        return await this.findById(id);
-    });
-  }
-
-
-  public async createUser( createUserDto: any ): Promise<any> {
-    return await this.save(createUserDto);
-  }
 }

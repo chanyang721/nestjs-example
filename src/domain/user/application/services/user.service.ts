@@ -1,8 +1,7 @@
-import { Injectable }                from "@nestjs/common";
-import { CommandBus, QueryBus }      from "@nestjs/cqrs";
-import { CreateUserDto }             from "../../presentation/dtos/create.user.dto";
-import { CreateUserCommand }         from "../commands/implements/create-user.command";
-import { FindUserInfoWithAuthQuery } from "../queries/implements/find-user-info-with-auth.query";
+import { Injectable }           from "@nestjs/common";
+import { CommandBus, QueryBus } from "@nestjs/cqrs";
+import { UpdateUserDto }     from "../../presentation/dtos/update.user.dto";
+import { UpdateUserCommand } from "../commands/implements/update-user.command";
 
 
 
@@ -14,16 +13,10 @@ export class UserService {
   ) {
   }
 
-  public async findUserInfoWithAuth( body: any ): Promise<any> {
-    await this.queryBus.execute(
-      new FindUserInfoWithAuthQuery(body)
-    )
-  }
 
-
-  public async createUser( createUserDto: CreateUserDto ): Promise<any> {
+  public async updateUser( updateUserDto: UpdateUserDto ): Promise<any> {
     return await this.commandBus.execute(
-      new CreateUserCommand(createUserDto)
-    )
+      new UpdateUserCommand(updateUserDto)
+    );
   }
 }

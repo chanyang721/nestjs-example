@@ -1,5 +1,5 @@
-import { CreateUserEventHandler } from "./create-user.event.handler";
+import { UpdateUserEventHandler } from "./create-user.event.handler";
 
 
 
-export const EventHandlers = [ CreateUserEventHandler ];
+export const EventHandlers = [ UpdateUserEventHandler ];
