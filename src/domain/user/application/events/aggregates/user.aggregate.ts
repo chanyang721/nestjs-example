@@ -2,9 +2,14 @@ import { AggregateRoot } from "@nestjs/cqrs";
 
 
 
-export class User extends AggregateRoot {
+export class UserAggregate extends AggregateRoot {
   constructor () {
     super();
     this.autoCommit = true;
   }
+
+
+  /**
+   * TODO:
+   */
 }

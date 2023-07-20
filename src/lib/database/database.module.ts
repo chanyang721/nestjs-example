@@ -12,17 +12,17 @@ import { cacheModuleAsyncOptions }        from "./options/cache.module.options";
 @Module({
   imports  : [
     /**
-     * TODO: Command MySQL Database
+     * Command MySQL Database
      */
     TypeOrmModule.forRootAsync(mainTypeOrmModuleAsyncOptions),
 
     /**
-     * TODO: Cache Redis
+     * Query Cache Redis
      */
     CacheModule.registerAsync(cacheModuleAsyncOptions),
 
     /**
-     * TODO: Query MongoDB Database
+     * Query MongoDB Database
      */
     MongooseModule.forRootAsync(mainMongooseModuleAsyncOptions)
   ],
