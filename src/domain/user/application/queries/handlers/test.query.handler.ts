@@ -1,5 +1,5 @@
 import { QueryHandler }              from "@nestjs/cqrs";
-import { FindUserInfoWithAuthQuery } from "../impl/find-user-info-with-auth.query";
+import { FindUserInfoWithAuthQuery } from "../implements/find-user-info-with-auth.query";
 import { UserQueryRepository }       from "../../../infrastructure/repositories/user.query.repository";
 
 

@@ -19,5 +19,5 @@ export class DefaultResponseDto {
     description: "API 응답 데이터를 담은 속성",
     required: true,
   })
-  data: null | any;
+  data: any;
 }

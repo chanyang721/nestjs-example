@@ -14,7 +14,7 @@ import { AuthController }         from "./presentation/controllers/auth.controll
 import { AuthService }            from "./application/services/auth.service";
 import { FirebaseService }        from "./infrastructure/platforms/firebase/firebase.service";
 import { AuthRepository }         from "./infrastructure/repositories/auth.repository";
-import { UserRepository }         from "../../domain/user/infrastructure/repositories/user.repository";
+import { UserCommandRepository }  from "../../domain/user/infrastructure/repositories/user.command.repository";
 
 
 
@@ -24,7 +24,7 @@ import { UserRepository }         from "../../domain/user/infrastructure/reposit
 
     JwtModule.registerAsync(jwtModuleAsyncOptions),
 
-    RepositoryModule.forFeature([ UserRepository, AuthRepository ], MAIN),
+    RepositoryModule.forFeature([ UserCommandRepository, AuthRepository ], MAIN)
   ],
   controllers: [
     AuthController

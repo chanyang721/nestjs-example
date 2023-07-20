@@ -6,7 +6,7 @@ export type BaseDocument = BaseModel & Document;
 @Schema()
 export class BaseModel {
   @Prop()
-  _id: string;
+  id: string;
 
   @Prop()
   timestamps: Timestamps;

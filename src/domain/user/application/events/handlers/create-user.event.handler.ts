@@ -1,6 +1,6 @@
-import { CreateUserEvent }              from "../impl/create.user.event";
 import { EventsHandler, IEventHandler } from "@nestjs/cqrs";
-import { UserRepository }               from "../../../infrastructure/repositories/user.repository";
+import { CreateUserEvent }              from "../implements/create.user.event";
+import { UserCommandRepository }        from "../../../infrastructure/repositories/user.command.repository";
 
 
 
@@ -11,7 +11,7 @@ export class CreateUserEventHandler implements IEventHandler<CreateUserEvent> {
     /**
      * Repository injection
      */
-    private readonly userRepository: UserRepository
+    private readonly userRepository: UserCommandRepository
   ) {}
 
   handle(event: CreateUserEvent) {

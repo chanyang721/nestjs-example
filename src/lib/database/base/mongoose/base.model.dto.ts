@@ -1,5 +1,6 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { IsUUID }      from "class-validator";
+import { Timestamps }  from "./timestamps.model";
 
 
 
@@ -15,17 +16,14 @@ export class BaseModelDto {
 
   @ApiProperty({
     type: Date,
-    description: "base schema created at",
+    description: "base schema timestamps",
     required: false,
-    example: "2021-09-30T07:00:00.000Z"
+    example: {
+      created_at: "2021-01-01T00:00:00.000Z",
+      updated_at: "2021-01-01T00:00:00.000Z",
+      deleted_at: "2021-01-01T00:00:00.000Z"
+    }
   })
-  created_at: Date;
+  timestamps: Timestamps;
 
-  @ApiProperty({
-    type: Date,
-    description: "base schema created at",
-    required: false,
-    example: "2021-09-30T07:00:00.000Z"
-  })
-  updated_at: Date;
 }
