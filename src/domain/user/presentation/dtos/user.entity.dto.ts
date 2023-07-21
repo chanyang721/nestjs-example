@@ -21,4 +21,5 @@ export class UserEntityDto extends PartialType(BaseEntityDto) {
   @IsOptional()
   role: UserRole;
 
+
 }

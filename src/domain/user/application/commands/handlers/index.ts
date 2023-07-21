@@ -2,4 +2,4 @@ import { UpdateUserCommandHandler } from "./update-user.command.handler";
 
 
 
-export const CommandHandlers = [ UpdateUserCommandHandler ];
+export const UserCommandHandlers = [ UpdateUserCommandHandler ];

@@ -10,6 +10,8 @@ export class UserAggregate extends AggregateRoot {
 
 
   /**
-   * TODO:
+   * TODO: User + Auth 정보 모델링
    */
+
+
 }

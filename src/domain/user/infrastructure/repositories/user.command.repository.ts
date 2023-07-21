@@ -1,9 +1,8 @@
 import { DataSource, Repository } from "typeorm";
 import { InjectDataSource }       from "@nestjs/typeorm";
-import { UserEntity }             from "../entities/user.entity";
 import { RepositoryInject }       from "../../../../lib/utils/decoretors";
 import { MAIN }                   from "../../../../lib/utils/constants";
-import { transaction }            from "../../../../lib/database/transaction";
+import { UserEntity }             from "../entities/user.entity";
 
 
 
@@ -16,4 +15,7 @@ export class UserCommandRepository extends Repository<UserEntity> {
     super(UserEntity, mainDataSource.createEntityManager());
   }
 
+  public async updateUser( updateUserCommand: any ) {
+    return await this.save(updateUserCommand)
+  }
 }

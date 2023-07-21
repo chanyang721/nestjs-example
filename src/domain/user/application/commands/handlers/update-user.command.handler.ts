@@ -16,8 +16,8 @@ export class UpdateUserCommandHandler implements ICommandHandler<UpdateUserComma
   public async execute( command: UpdateUserCommand ) {
     console.log("UpdateUserCommandHandler :", command);
 
-    // return await this.eventPublisher.mergeObjectContext(
-    //   await this.userRepository.createUser(command)
-    // );
+    return this.eventPublisher.mergeObjectContext(
+      await this.userRepository.updateUser(command)
+    );
   }
 }

@@ -30,6 +30,10 @@ export class UserEntity extends BaseEntity {
   /**
    * Table Relations
    */
-  @OneToOne(() => AuthEntity, ( auth ) => auth.user, { cascade: true })
+  @OneToOne(
+    () => AuthEntity,
+    ( auth ) => auth.user,
+    { cascade: true }
+  )
   auth: AuthEntity;
 }
