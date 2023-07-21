@@ -1,7 +1,7 @@
 import { Injectable }           from "@nestjs/common";
 import { CommandBus, QueryBus } from "@nestjs/cqrs";
-import { UpdateUserDto }     from "../../presentation/dtos/update.user.dto";
-import { UpdateUserCommand } from "../commands/implements/update-user.command";
+import { UpdateUserDto }        from "../../presentation/dtos/update.user.dto";
+import { UpdateUserCommand }    from "../commands/implements/update-user.command";
 
 
 

@@ -1,9 +1,9 @@
-import { RepositoryInject } from "../../../../lib/utils/decoretors/repository.decoretor";
-import { InjectModel }      from "@nestjs/mongoose";
-import { UserModel }        from "../schemas/user.schema";
 import { Model }            from "mongoose";
-import { MAIN }             from "../../../../lib/utils/constants";
 import { Injectable }       from "@nestjs/common";
+import { InjectModel }      from "@nestjs/mongoose";
+import { RepositoryInject } from "../../../../lib/utils/decoretors";
+import { MAIN }             from "../../../../lib/utils/constants";
+import { UserModel }        from "../schemas/user.schema";
 
 
 @Injectable()
@@ -15,7 +15,6 @@ export class UserQueryRepository {
     private readonly userModel: Model<UserModel>
   ) {
   }
-
 
   public async findUserInfoWithAuth( body: any ) {
     return this.userModel.findById(body.id);

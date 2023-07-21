@@ -80,12 +80,12 @@ export class GlobalExceptionFilter<T = HttpException | Error> implements Excepti
     this.logger.error(GlobalResponseError({ statusCode, exceptionCode, message, method: request.method, path  : request.url, errors }))
     response.status(statusCode)
             .json(GlobalResponseError({
-              statusCode,
-              exceptionCode,
-              message,
-              method: request.method,
-              path  : request.url,
-              errors
+                statusCode,
+                exceptionCode,
+                message,
+                method: request.method,
+                path  : request.url,
+                errors
             }));
   }
 

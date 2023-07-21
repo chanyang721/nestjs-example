@@ -47,7 +47,10 @@ export class AuthEntity extends BaseEntity {
   /**
    * Table Relations
    */
-  @OneToOne(() => UserEntity, (user) => user.auth)
+  @OneToOne(
+    () => UserEntity,
+    (user) => user.auth
+  )
   @JoinColumn({ name: 'user_id' })
   user: UserEntity
 }

@@ -12,6 +12,11 @@ import { BaseEntityDto }                                       from "../../../da
  * 3. Validation 값으로 사용 가능
  */
 export class AuthEntityDto extends PartialType(BaseEntityDto) {
+  constructor(authEntityDto: AuthEntityDto) {
+    super();
+    Object.assign(this, authEntityDto)
+  }
+
   @ApiProperty({
     type       : 'string',
     description: "외부에 저장된 유저 정보를 가져올 수 있는 유저 아이디",
@@ -43,10 +48,4 @@ export class AuthEntityDto extends PartialType(BaseEntityDto) {
   @IsNotEmpty()
   @MaxLength(150)
   currentRefreshToken: string;
-
-
-  constructor(authEntityDto: AuthEntityDto) {
-    super();
-    Object.assign(this, authEntityDto)
-  }
 }

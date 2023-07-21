@@ -7,6 +7,7 @@ import { AuthModule }             from "./lib/authentication/auth.module";
 import { DatabaseModule }         from "./lib/database/database.module";
 import { HttpModule }             from "./lib/utils/http/http.module";
 import { UserModule }             from "./domain/user/user.module";
+import { ProjectModule }          from "./domain/project/project.module";
 
 
 
@@ -24,7 +25,8 @@ import { UserModule }             from "./domain/user/user.module";
     /**
      * Domain Modules
      */
-    UserModule
+    UserModule,
+    ProjectModule
   ],
   controllers: [],
   providers  : []

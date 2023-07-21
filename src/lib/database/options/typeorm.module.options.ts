@@ -4,6 +4,9 @@ import { MAIN, PRODUCTION }          from "../../utils/constants";
 import { SqlLogger }                 from "./typeorm.logger.options";
 import { UserEntity } from "../../../domain/user/infrastructure/entities/user.entity";
 import { AuthEntity } from "../../authentication/infrastructure/entities/auth.entity";
+import { ProjectEntity }               from "../../../domain/project/infrastructure/entities/project.entity";
+import { GroupEntity }                 from "../../../domain/project/infrastructure/entities/group.entity";
+import { FileEntity }                  from "../../../domain/project/infrastructure/entities/file.entity";
 
 
 
@@ -21,7 +24,11 @@ export const mainTypeOrmModuleAsyncOptions: TypeOrmModuleAsyncOptions = {
     synchronize: process.env.NODE_ENV !== PRODUCTION,
     logger     : new SqlLogger(),
     logging    : process.env.NODE_ENV !== PRODUCTION,
-    entities   : [ AuthEntity, UserEntity ],
+    entities   : [
+      AuthEntity, UserEntity,
+
+      ProjectEntity, GroupEntity, FileEntity
+    ],
     timezone   : "Z"
   } )
 };

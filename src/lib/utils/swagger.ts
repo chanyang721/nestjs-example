@@ -1,10 +1,10 @@
 import { NestExpressApplication }                              from "@nestjs/platform-express";
-import { DocumentBuilder, SwaggerModule }                      from "@nestjs/swagger";
+import { DocumentBuilder, OpenAPIObject, SwaggerModule }       from "@nestjs/swagger";
 import { COOKIE_ACCESS_TOKEN_NAME, COOKIE_REFRESH_TOKEN_NAME } from "./constants";
 
 
 
-export const setupSwagger = async( app: NestExpressApplication ) => {
+export const setupSwagger = async( app: NestExpressApplication ): Promise<void> => {
 
   const config = new DocumentBuilder()
     .setTitle("Be Free API")
@@ -31,7 +31,7 @@ export const setupSwagger = async( app: NestExpressApplication ) => {
     })
     .build();
 
-  const document = SwaggerModule.createDocument(app, config);
+  const document: OpenAPIObject = SwaggerModule.createDocument(app, config);
 
   SwaggerModule.setup("api", app, document);
 };

@@ -85,7 +85,7 @@ export class SharedConfigService {
 
   get HashingConfig() {
     return {
-      saltRound: Number(this.configService.get("HASHING_SALT_ROUND"))
+      saltRound: +this.configService.get("HASHING_SALT_ROUND")
     }
   }
 
