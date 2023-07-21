@@ -1,5 +1,5 @@
 import { EventsHandler, IEventHandler } from "@nestjs/cqrs";
-import { UpdateUserEvent }              from "../implements/update.user.event";
+import { UpdateUserEvent }              from "../implements";
 import { UserCommandRepository }        from "../../../infrastructure/repositories/user.command.repository";
 
 
@@ -9,7 +9,7 @@ import { UserCommandRepository }        from "../../../infrastructure/repositori
 export class UpdateUserEventHandler implements IEventHandler<UpdateUserEvent> {
   constructor(
     /**
-     * Repository injection
+     * Repository, Message Queue, etc  injection
      */
     private readonly userRepository: UserCommandRepository
   ) {}
@@ -17,7 +17,7 @@ export class UpdateUserEventHandler implements IEventHandler<UpdateUserEvent> {
   handle(event: UpdateUserEvent) {
     console.log("UpdateUserEvent :", event)
     /**
-     * Business logic
+     * Business logic with kafka
      */
   }
 }

@@ -1,14 +1,14 @@
+import { BaseModelDto }             from "../../../../lib/database/base/mongoose/base.model.dto";
 import { ApiProperty, PartialType } from "@nestjs/swagger";
-import { IsEnum, IsOptional }       from "class-validator";
 import { UserRole }                 from "../../infrastructure/entities/enums/user.enum.role";
-import { BaseEntityDto }            from "../../../../lib/database/base/typeorm/base.entity.dto";
+import { IsEnum, IsOptional }       from "class-validator";
 
 
 
-export class UserEntityDto extends PartialType(BaseEntityDto) {
-  constructor(userEntityDto: UserEntityDto) {
+export class UserModelDto extends PartialType(BaseModelDto) {
+  constructor(userModelDto: UserModelDto) {
     super();
-    Object.assign(this, userEntityDto)
+    Object.assign(this, userModelDto)
   }
 
   @ApiProperty({
@@ -20,4 +20,10 @@ export class UserEntityDto extends PartialType(BaseEntityDto) {
   @IsEnum(UserRole)
   @IsOptional()
   role: UserRole;
+
+  // @ApiProperty({
+  //
+  // })
+  // auth: any
+
 }

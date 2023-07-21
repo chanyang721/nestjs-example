@@ -1,6 +1,7 @@
 import { CommandHandler, EventPublisher, ICommandHandler } from "@nestjs/cqrs";
-import { UpdateUserCommand }                               from "../implements/update-user.command";
+import { UpdateUserCommand }                               from "../implements";
 import { UserCommandRepository }                           from "../../../infrastructure/repositories/user.command.repository";
+import { UserAggregate }                                   from "../../events/aggregates/user.aggregate";
 
 
 
@@ -14,10 +15,12 @@ export class UpdateUserCommandHandler implements ICommandHandler<UpdateUserComma
 
 
   public async execute( command: UpdateUserCommand ) {
-    console.log("UpdateUserCommandHandler :", command);
-
-    return this.eventPublisher.mergeObjectContext(
-      await this.userRepository.updateUser(command)
+    const UpatedUserInfo = this.eventPublisher.mergeObjectContext(
+      await this.userRepository.updateUser(command.updateUserDto)
     );
+
+    const UserModel = this.eventPublisher.mergeClassContext(UserAggregate)
+    const userModel = new UserModel(UpatedUserInfo)
+    await userModel.emitUpdateUserModel()
   }
 }
