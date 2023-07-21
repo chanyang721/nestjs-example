@@ -1,10 +1,11 @@
 import { Body, Controller, Post } from "@nestjs/common";
-import { IUserController }        from "../interfaces/user.controller.interface";
-import { UserService }     from "../../application/services/user.service";
 import { UpdateUserDto }          from "../dtos/update.user.dto";
+import { IUserController }        from "../interfaces/user.controller.interface";
+import { UserService }            from "../../application/services/user.service";
+import { Public }                 from "../../../../lib/utils/decoretors";
 
 
-
+@Public()
 @Controller("user")
 export class UserController implements IUserController {
   constructor( private readonly userService: UserService ) {
@@ -15,6 +16,6 @@ export class UserController implements IUserController {
   public async updateUser(
     @Body() updateUserDto: UpdateUserDto
   ): Promise<any> {
-    return await this.userService.updateUser(updateUserDto)
+    return await this.userService.updateUser(updateUserDto);
   }
 }

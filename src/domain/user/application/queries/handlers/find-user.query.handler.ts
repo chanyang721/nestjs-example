@@ -1,5 +1,5 @@
 import { QueryHandler }        from "@nestjs/cqrs";
-import { FindUserQuery }       from "../implements/find-user.query";
+import { FindUserQuery }       from "../implements";
 import { UserQueryRepository } from "../../../infrastructure/repositories/user.query.repository";
 
 
@@ -7,7 +7,8 @@ import { UserQueryRepository } from "../../../infrastructure/repositories/user.q
 @QueryHandler(FindUserQuery)
 export class FindUserInfoWithAuthQueryHandler {
   constructor(
-    private readonly userQueryRepository: UserQueryRepository
+    private readonly userQueryRepository: UserQueryRepository,
+    // private readonly cacheManager:
   ) {}
 
   public async execute( query: FindUserQuery ): Promise<any> {
