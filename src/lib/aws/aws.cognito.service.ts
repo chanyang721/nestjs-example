@@ -1,5 +1,5 @@
 import { Injectable }          from "@nestjs/common";
-import { SharedConfigService } from "../configuration/shared.config.service";
+import { CommonConfigService } from "../configuration/common.config.service";
 
 
 
@@ -7,7 +7,7 @@ import { SharedConfigService } from "../configuration/shared.config.service";
 export class AwsCognitoService {
 
   constructor(
-    private readonly sharedConfigService: SharedConfigService
+    private readonly commonConfigService: CommonConfigService
   ) {
   }
 

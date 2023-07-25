@@ -4,7 +4,7 @@ import { ConfigService } from "@nestjs/config";
 
 
 @Injectable()
-export class SharedConfigService {
+export class CommonConfigService {
   constructor(
     private readonly configService: ConfigService
   ) {
@@ -86,6 +86,17 @@ export class SharedConfigService {
   get HashingConfig() {
     return {
       saltRound: +this.configService.get("HASHING_SALT_ROUND")
+    }
+  }
+
+  get KafkaConfig() {
+    return {
+      // clientId: this.configService.kafkaClientId,
+      // brokers: this.configService.kafkaBrokers,
+      // groupId: this.configService.kafkaGroupId,
+      clientId: "",
+      brokers: [] as string[],
+      groupId: "",
     }
   }
 

@@ -9,15 +9,18 @@ import { UserCommandRepository }        from "../../../infrastructure/repositori
 export class UpdateUserEventHandler implements IEventHandler<UpdateUserEvent> {
   constructor(
     /**
-     * Repository, Message Queue, etc  injection
+     * Repository, Message Queue, etc injection
      */
-    private readonly userRepository: UserCommandRepository
+    private readonly userRepository: UserCommandRepository,
   ) {}
 
   handle(event: UpdateUserEvent) {
     console.log("UpdateUserEvent :", event)
     /**
-     * Business logic with kafka
+     * The event handler only mutates the aggregate state, no logic there!
      */
+    console.log(event.userModelDto)
+    // const a = this.kafkaService.sendMessage('test-topic', 'Hello World!');
+    // console.log("UpdateUserEvent :", a)
   }
 }

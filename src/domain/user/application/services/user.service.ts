@@ -2,6 +2,7 @@ import { Injectable }           from "@nestjs/common";
 import { CommandBus, QueryBus } from "@nestjs/cqrs";
 import { UpdateUserDto }        from "../../presentation/dtos/update.user.dto";
 import { UpdateUserCommand }    from "../commands/implements";
+import { SubscribeTo }          from "../../../../lib/utils/decoretors";
 
 
 
@@ -13,6 +14,10 @@ export class UserService {
   ) {
   }
 
+  @SubscribeTo('test-topic')
+  async subscribeToTestTopic(message: string) {
+    console.log('message', message);
+  }
 
   public async updateUser( updateUserDto: UpdateUserDto ): Promise<any> {
     return await this.commandBus.execute(new UpdateUserCommand(updateUserDto));

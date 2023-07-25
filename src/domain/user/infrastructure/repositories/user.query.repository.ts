@@ -1,5 +1,4 @@
 import { Connection, Model }             from "mongoose";
-import { Injectable }                    from "@nestjs/common";
 import { InjectConnection, InjectModel } from "@nestjs/mongoose";
 import { RepositoryInject }              from "../../../../lib/utils/decoretors";
 import { MAIN }                          from "../../../../lib/utils/constants";

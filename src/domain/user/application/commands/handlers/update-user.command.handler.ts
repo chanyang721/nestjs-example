@@ -15,12 +15,14 @@ export class UpdateUserCommandHandler implements ICommandHandler<UpdateUserComma
 
 
   public async execute( command: UpdateUserCommand ) {
-    const UpatedUserInfo = this.eventPublisher.mergeObjectContext(
+    const updatedUserInfo = this.eventPublisher.mergeObjectContext(
       await this.userRepository.updateUser(command.updateUserDto)
     );
 
     const UserModel = this.eventPublisher.mergeClassContext(UserAggregate)
-    const userModel = new UserModel(UpatedUserInfo)
+    const userModel = new UserModel(updatedUserInfo)
     await userModel.emitUpdateUserModel()
+
+    return updatedUserInfo;
   }
 }

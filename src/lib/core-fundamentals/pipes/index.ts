@@ -3,6 +3,6 @@ import { validationPipeOptions }         from "./global.validation.pipe";
 
 
 
-export const globalPipes: PipeTransform<any>[] = [
+export const globalPipes: PipeTransform[] = [
   new ValidationPipe(validationPipeOptions)
 ];
