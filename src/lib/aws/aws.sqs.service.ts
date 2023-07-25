@@ -1,12 +1,12 @@
 import { Injectable }          from "@nestjs/common";
-import { SharedConfigService } from "../configuration/shared.config.service";
+import { CommonConfigService } from "../configuration/common.config.service";
 
 
 
 @Injectable()
 export class AwsSqsService {
 
-  constructor( private readonly awsConfigService: SharedConfigService ) {
+  constructor( private readonly commonConfigService: CommonConfigService ) {
   }
 
 }

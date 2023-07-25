@@ -1,20 +1,20 @@
 import { Injectable }                                          from "@nestjs/common";
 import { JwtService as OriginJwtService, JwtSignOptions }      from "@nestjs/jwt";
 import { COOKIE_ACCESS_TOKEN_NAME, COOKIE_REFRESH_TOKEN_NAME } from "../constants";
-import { SharedConfigService } from "../../configuration/shared.config.service";
-import { TokenDto }            from "../../authentication/presentation/dtos/token.dto";
+import { CommonConfigService }                                 from "../../configuration/common.config.service";
+import { TokenDto }                                            from "../../authentication/presentation/dtos/token.dto";
 import { JwtPayLoadDto }       from "./interface/jwt.payload.interface";
 
 
 
 @Injectable()
 export class JwtService {
-  private readonly jwtConfig = this.sharedConfigService.JwtConfig;
+  private readonly jwtConfig = this.commonConfigService.JwtConfig;
 
 
   constructor(
     private readonly originJwtService: OriginJwtService,
-    private readonly sharedConfigService: SharedConfigService,
+    private readonly commonConfigService: CommonConfigService,
   ) {
   }
 

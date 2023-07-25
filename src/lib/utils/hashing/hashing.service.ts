@@ -1,15 +1,15 @@
 import { Injectable }          from "@nestjs/common";
 import bcrypt                  from "bcryptjs";
-import { SharedConfigService } from "../../configuration/shared.config.service";
+import { CommonConfigService } from "../../configuration/common.config.service";
 
 
 
 @Injectable()
 export class HashingService {
-  private readonly hashingConfig = this.sharedConfigService.HashingConfig;
+  private readonly hashingConfig = this.commonConfigService.HashingConfig;
 
 
-  constructor( private readonly sharedConfigService: SharedConfigService ) {
+  constructor( private readonly commonConfigService: CommonConfigService ) {
   }
 
 

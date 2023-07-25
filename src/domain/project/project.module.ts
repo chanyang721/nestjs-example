@@ -22,7 +22,7 @@ import { ProjectModel, ProjectSchema } from "./infrastructure/schemas/project.sc
 
     RepositoryModule.forFeature([ ProjectQueryRepository ], MAIN),
 
-    // MongooseModule.forFeature([{ name: ProjectModel.name, schema: ProjectSchema }], MAIN)
+    MongooseModule.forFeature([{ name: ProjectModel.name, schema: ProjectSchema }], MAIN)
   ],
   controllers: [ ProjectController ],
   providers  : [

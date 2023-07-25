@@ -15,4 +15,13 @@ export class UserSagas {
 
       }));
   };
+
+  // @Saga()
+  // deleteUser = ( events$: Observable<any> ): Observable<void> => {
+  //   return events$.pipe(
+  //     ofType(),
+  //     map(( event ) => {
+  //
+  //     }));
+  // }
 }

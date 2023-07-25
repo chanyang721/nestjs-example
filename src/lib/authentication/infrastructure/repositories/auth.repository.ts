@@ -2,10 +2,10 @@ import { DataSource, Repository } from "typeorm";
 import { InjectDataSource }       from "@nestjs/typeorm";
 import { RepositoryInject }       from "../../../utils/decoretors";
 import { MAIN }                   from "../../../utils/constants";
-import { AuthEntity }             from "../entities/auth.entity";
 import { transaction }            from "../../../database/transaction";
-import { UserEntity }             from "../../../../domain/user/infrastructure/entities/user.entity";
 import { RegisterUserDto }        from "../../presentation/dtos/auth.register.user.dto";
+import { UserEntity }             from "../../../../domain/user/infrastructure/entities/user.entity";
+import { AuthEntity }             from "../entities/auth.entity";
 
 
 
