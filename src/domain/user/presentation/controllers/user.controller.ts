@@ -7,16 +7,16 @@ import { UserService }            from "../../application/services/user.service"
 
 @Controller("user")
 export class UserController implements IUserController {
-  constructor(
-    private readonly userService: UserService
-  ) {
-  }
+    constructor(
+        private readonly userService: UserService
+    ) {
+    }
 
 
-  @Post()
-  public async updateUser(
-    @Body() updateUserDto: UpdateUserDto
-  ): Promise<any> {
-    return await this.userService.updateUser(updateUserDto);
-  }
+    @Post()
+    public async updateUser(
+        @Body() updateUserDto: UpdateUserDto
+    ): Promise<any> {
+        return await this.userService.updateUser(updateUserDto);
+    }
 }
