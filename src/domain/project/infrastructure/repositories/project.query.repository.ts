@@ -1,4 +1,4 @@
-import { RepositoryInject } from "../../../../lib/utils/decoretors";
+import { RepositoryInject } from "../../../../libs/utils/decoretors";
 
 
 @RepositoryInject(ProjectQueryRepository)

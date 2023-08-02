@@ -21,9 +21,9 @@
     "resolveJsonModule": true,
     "esModuleInterop": true,
     "paths": {
-        "@libs/authentication": [
-          "libs/authentication"
-        ]
+      "@libs/*": [
+        "libs/*"
+      ],
     }
   }
 }

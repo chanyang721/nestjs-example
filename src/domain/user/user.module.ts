@@ -1,8 +1,8 @@
 import { Module }                from "@nestjs/common";
 import { MongooseModule }        from "@nestjs/mongoose";
 import { CqrsModule }            from "@nestjs/cqrs";
-import { RepositoryModule }      from "../../lib/database/repository.module";
-import { MAIN }                  from "../../lib/utils/constants";
+import { RepositoryModule }      from "../../libs/database/repository.module";
+import { MAIN }                  from "../../libs/utils/constants";
 import { UserController }        from "./presentation/controllers/user.controller";
 import { UserService }           from "./application/services/user.service";
 import { UserCommandHandlers }   from "./application/commands/handlers";
@@ -16,23 +16,24 @@ import { UserQueryRepository }   from "./infrastructure/repositories/user.query.
 
 
 @Module({
-  imports    : [
-    CqrsModule,
+    imports    : [
+        CqrsModule,
 
-    RepositoryModule.forFeature([ UserCommandRepository ], MAIN),
+        RepositoryModule.forFeature([ UserCommandRepository ], MAIN),
 
-    RepositoryModule.forFeature([ UserQueryRepository ], MAIN),
+        RepositoryModule.forFeature([ UserQueryRepository ], MAIN),
 
-    MongooseModule.forFeature([ { name: UserModel.name, schema: UserSchema } ], MAIN)
-  ],
-  controllers: [ UserController ],
-  providers  : [
-    UserService,
-    ...UserCommandHandlers,
-    ...UserQueryHandlers,
-    ...UserEventHandlers,
-    UserSagas
-  ]
+        MongooseModule.forFeature([
+            {
+                name  : UserModel.name,
+                schema: UserSchema,
+            },
+        ], MAIN),
+    ],
+    controllers: [ UserController ],
+    providers  : [
+        UserService, ...UserCommandHandlers, ...UserQueryHandlers, ...UserEventHandlers, UserSagas,
+    ],
 })
 export class UserModule {
 }

@@ -1,8 +1,8 @@
 import { DataSource, Repository } from "typeorm";
-import { InjectDataSource }       from "@nestjs/typeorm";
-import { RepositoryInject }       from "../../../../lib/utils/decoretors";
-import { MAIN }                   from "../../../../lib/utils/constants";
-import { UserEntity }             from "../entities/user.entity";
+import { InjectDataSource } from "@nestjs/typeorm";
+import { RepositoryInject } from "../../../../libs/utils/decoretors";
+import { MAIN }             from "../../../../libs/utils/constants";
+import { UserEntity }       from "../entities/user.entity";
 
 
 

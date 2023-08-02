@@ -1,7 +1,7 @@
 import { ApiProperty, PartialType } from "@nestjs/swagger";
 import { IsEnum, IsOptional }       from "class-validator";
-import { UserRole }                 from "../../infrastructure/entities/enums/user.enum.role";
-import { BaseEntityDto }            from "../../../../lib/database/base/typeorm/base.entity.dto";
+import { UserRole }      from "../../infrastructure/entities/enums/user.enum.role";
+import { BaseEntityDto } from "../../../../libs/database/base/typeorm/base.entity.dto";
 
 
 
