@@ -5,9 +5,9 @@ import { MAIN }                   from "../utils/constants";
 import { JwtService }             from "../utils/jwt/jwt.service";
 import { jwtModuleAsyncOptions }  from "../utils/jwt/jwt.module.option";
 import { HashingService }         from "../utils/hashing/hashing.service";
-import { RepositoryModule }      from "../database/repository.module";
-import { CommonConfigService }   from "../configuration/common.config.service";
-import { JwtAuthGlobalStrategy } from "../core-fundamentals/guards/global/jwt.auth.global.strategy";
+import { RepositoryModule }       from "../database/repository.module";
+import { CommonConfigService }    from "../configuration/common.config.service";
+import { JwtAuthGlobalStrategy }  from "../core-fundamentals/guards/global/jwt.auth.global.strategy";
 import { LocalAuthStrategy }      from "../core-fundamentals/guards/local/local.auth.strategy";
 import { JwtAuthRefreshStrategy } from "../core-fundamentals/guards/local/jwt.refresh.strategy";
 import { AuthController }         from "./presentation/controllers/auth.controller";
@@ -19,25 +19,25 @@ import { UserCommandRepository }  from "../../domain/user/infrastructure/reposit
 
 
 @Module({
-  imports    : [
-    PassportModule,
+    imports    : [
+        PassportModule,
 
-    JwtModule.registerAsync(jwtModuleAsyncOptions),
+        JwtModule.registerAsync(jwtModuleAsyncOptions),
 
-    RepositoryModule.forFeature([ UserCommandRepository, AuthRepository ], MAIN)
-  ],
-  controllers: [
-    AuthController
-  ],
-  providers  : [
-    CommonConfigService,
+        RepositoryModule.forFeature([ UserCommandRepository, AuthRepository ], MAIN),
+    ],
+    controllers: [
+        AuthController,
+    ],
+    providers  : [
+        CommonConfigService,
 
-    AuthService, FirebaseService,
+        AuthService, FirebaseService,
 
-    JwtService, HashingService,
+        JwtService, HashingService,
 
-    JwtAuthGlobalStrategy, LocalAuthStrategy, JwtAuthRefreshStrategy
-  ]
+        JwtAuthGlobalStrategy, LocalAuthStrategy, JwtAuthRefreshStrategy,
+    ],
 })
 export class AuthModule {
 }

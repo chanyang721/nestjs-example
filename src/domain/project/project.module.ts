@@ -1,9 +1,9 @@
 import { MongooseModule }              from "@nestjs/mongoose";
 import { Module }                      from "@nestjs/common";
-import { CqrsModule }                  from "@nestjs/cqrs";
-import { MAIN }                        from "../../lib/utils/constants";
-import { RepositoryModule }            from "../../lib/database/repository.module";
-import { ProjectController }           from "./presentation/controllers/project.controller";
+import { CqrsModule }        from "@nestjs/cqrs";
+import { MAIN }              from "../../libs/utils/constants";
+import { RepositoryModule }  from "../../libs/database/repository.module";
+import { ProjectController } from "./presentation/controllers/project.controller";
 import { ProjectService }              from "./application/services/project.service";
 import { ProjectCommandHandlers }      from "./application/commands/handlers";
 import { ProjectQueryHandlers }        from "./application/queries/handlers";

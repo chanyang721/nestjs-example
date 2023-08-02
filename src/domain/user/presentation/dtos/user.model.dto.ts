@@ -1,4 +1,4 @@
-import { BaseModelDto }             from "../../../../lib/database/base/mongoose/base.model.dto";
+import { BaseModelDto }             from "../../../../libs/database/base/mongoose/base.model.dto";
 import { ApiProperty, PartialType } from "@nestjs/swagger";
 import { UserRole }                 from "../../infrastructure/entities/enums/user.enum.role";
 import { IsEnum, IsOptional }       from "class-validator";

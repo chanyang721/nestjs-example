@@ -1,5 +1,5 @@
-import { Entity } from "typeorm";
-import { BaseEntity } from "../../../../lib/database/base/typeorm/base.entity";
+import { Entity }     from "typeorm";
+import { BaseEntity } from "../../../../libs/database/base/typeorm/base.entity";
 
 
 

@@ -1,7 +1,7 @@
 import { Column, Entity, OneToOne } from "typeorm";
-import { BaseEntity }               from "../../../../lib/database/base/typeorm/base.entity";
+import { BaseEntity }               from "../../../../libs/database/base/typeorm/base.entity";
 import { UserRole }                 from "./enums/user.enum.role";
-import { AuthEntity }               from "../../../../lib/authentication/infrastructure/entities/auth.entity";
+import { AuthEntity }               from "../../../../libs/authentication/infrastructure/entities/auth.entity";
 
 
 
