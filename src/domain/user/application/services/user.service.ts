@@ -1,9 +1,8 @@
 import { Injectable }           from "@nestjs/common";
 import { CommandBus, QueryBus } from "@nestjs/cqrs";
+import { SubscribeTo }          from "../../../../lib/utils/decoretors";
 import { UpdateUserDto }        from "../../presentation/dtos/update.user.dto";
 import { UpdateUserCommand }    from "../commands/implements";
-import { SubscribeTo }          from "../../../../lib/utils/decoretors";
-
 
 
 @Injectable()
