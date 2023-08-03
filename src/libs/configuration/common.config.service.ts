@@ -21,7 +21,10 @@ export class CommonConfigService {
 
 
   get accessAwsS3Config() {
-    return {};
+    return {
+        region         : this.configService.get<string>("AWS_REGION"),
+        bucketName     : this.configService.get<string>("AWS_S3_BUCKET_NAME")
+    };
   }
 
 

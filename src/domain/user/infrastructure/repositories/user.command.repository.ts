@@ -16,6 +16,7 @@ export class UserCommandRepository extends Repository<UserEntity> {
   }
 
   public async updateUser( updateUserCommand: any ) {
+    console.log("updateUserCommand", updateUserCommand)
     return await this.save(updateUserCommand)
   }
 }
