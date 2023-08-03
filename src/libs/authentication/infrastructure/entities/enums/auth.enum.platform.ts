@@ -1,4 +1,4 @@
-export enum UserAuthenticationPlatform {
+export enum AuthenticationPlatform {
   FIREBASE = "FIREBASE",
 
   COGNITO  = "COGNITO",

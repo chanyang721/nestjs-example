@@ -3,5 +3,5 @@ import { PickType }      from "@nestjs/swagger";
 
 
 
-export class UpdateUserDto extends PickType(UserEntityDto, [ "role" ]) {
+export class UpdateUserDto extends PickType(UserEntityDto, [ "role", "thumbnail" ]) {
 }

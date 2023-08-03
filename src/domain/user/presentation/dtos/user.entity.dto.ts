@@ -1,6 +1,6 @@
-import { ApiProperty, PartialType } from "@nestjs/swagger";
-import { IsEnum, IsOptional }       from "class-validator";
-import { UserRole }      from "../../infrastructure/entities/enums/user.enum.role";
+import { ApiProperty, PartialType }     from "@nestjs/swagger";
+import { IsEnum, IsOptional, IsString } from "class-validator";
+import { UserRole }                     from "../../infrastructure/entities/enums/user.enum.role";
 import { BaseEntityDto } from "../../../../libs/database/base/typeorm/base.entity.dto";
 
 
@@ -20,4 +20,13 @@ export class UserEntityDto extends PartialType(BaseEntityDto) {
   @IsEnum(UserRole)
   @IsOptional()
   role: UserRole;
+
+  @ApiProperty({
+    type: 'string',
+    description: "유저 썸네일 S3 key",
+    example: "/thumbnail/thumbnail_key",
+  })
+  @IsString()
+  @IsOptional()
+  thumbnail: string;
 }

@@ -1,5 +1,6 @@
 import { Injectable }           from "@nestjs/common";
 import { CommandBus, QueryBus } from "@nestjs/cqrs";
+import { CreateProjectCommand } from "../commands/implements/create-project.command";
 
 
 
@@ -12,4 +13,7 @@ export class ProjectService {
   }
 
 
+  public async createProject( createProjectWithFilesDto: any ): Promise<any> {
+    return await this.commandBus.execute(new CreateProjectCommand(createProjectWithFilesDto))
+  }
 }

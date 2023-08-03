@@ -23,16 +23,20 @@ import { UserQueryRepository }   from "./infrastructure/repositories/user.query.
 
         RepositoryModule.forFeature([ UserQueryRepository ], MAIN),
 
-        MongooseModule.forFeature([
-            {
-                name  : UserModel.name,
-                schema: UserSchema,
-            },
-        ], MAIN),
+        // MongooseModule.forFeature([
+        //     {
+        //         name  : UserModel.name,
+        //         schema: UserSchema,
+        //     },
+        // ], MAIN),
     ],
     controllers: [ UserController ],
     providers  : [
-        UserService, ...UserCommandHandlers, ...UserQueryHandlers, ...UserEventHandlers, UserSagas,
+        UserService,
+        ...UserCommandHandlers,
+        ...UserQueryHandlers,
+        ...UserEventHandlers,
+        UserSagas,
     ],
 })
 export class UserModule {
