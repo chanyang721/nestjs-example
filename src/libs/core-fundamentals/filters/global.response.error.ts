@@ -8,7 +8,7 @@ export const GlobalResponseError = ( data: IResponseErrorInput ): IResponseError
         timestamp    : new Date().toISOString(),
         errors       : data.errors,
     },
-} )
+} );
 
 
 export interface IResponseError {
@@ -20,21 +20,21 @@ export interface IResponseError {
         message: string
         timestamp: string
         errors?: any
-    }
+    };
 }
 
 
 export interface IResponseErrorInput {
-    statusCode: number
-    exceptionCode: string
-    method: string
-    path: string
-    message: string
-    errors?: any
+    statusCode: number;
+    exceptionCode: string;
+    method: string;
+    path: string;
+    message: string;
+    errors?: any;
 }
 
 
 export interface IError {
-    message: string
-    info: string
+    message: string;
+    info: string;
 }

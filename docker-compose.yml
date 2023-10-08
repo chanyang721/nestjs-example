@@ -10,9 +10,26 @@ services:
       MYSQL_DATABASE: ${MYSQL_MAIN_DB_DATABASE}
       MYSQL_PASSWORD: ${MYSQL_DB_PASSWORD}
     ports:
-        - ${MYSQL_MAIN_DB_PORT}:${MYSQL_MAIN_DB_PORT}
+      - ${MYSQL_MAIN_DB_PORT}:${MYSQL_MAIN_DB_PORT}
     volumes:
-        - ./db_data/mysql_main_db:/var/libs/mysql
+      - ./db_data/mysql_main_db:/var/libs/mysql
+    networks:
+      - backend
+
+
+  mariadb:
+    image: mariadb
+    restart: always
+    container_name: mariadb
+    environment:
+      MARIADB_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+      MARIADB_DATABASE: ${DB_NAME}
+      MARIADB_USER: ${DB_USER}
+      MARIADB_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - 6603:${DB_PORT}
+    volumes:
+      - ./db_data:/var/libs/mysql
     networks:
       - backend
 
@@ -50,7 +67,7 @@ services:
       - support_cache_redis
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.yarn
     ports:
       - ${MAIN_SERVER_PORT}:${MAIN_SERVER_PORT}
     volumes:

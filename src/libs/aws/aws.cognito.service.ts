@@ -1,24 +1,25 @@
-import { Injectable } from '@nestjs/common'
-import { CommonConfigService } from '../configuration/common.config.service'
-
+import { Injectable }          from '@nestjs/common';
+import { CommonConfigService } from '../configuration/common.config.service';
 
 
 
 @Injectable()
 export class CognitoService {
-  private readonly cognitoClient: any;
-
-  constructor(
-      private readonly commonConfigService: CommonConfigService
-  ) {
-    /**
-     * TODO: Implement cognito client
-     */
-
-
-  }
-
-  public getCognitoClient() {
-    return this.cognitoClient;
-  }
+    private readonly cognitoClient: any;
+    
+    
+    constructor(
+        private readonly commonConfigService: CommonConfigService,
+    ) {
+        /**
+         * TODO: Implement cognito client
+         */
+        
+        
+    }
+    
+    
+    public getCognitoClient() {
+        return this.cognitoClient;
+    }
 }
