@@ -1,8 +1,8 @@
 import { MongooseModule }              from '@nestjs/mongoose';
 import { Module }                      from '@nestjs/common';
-import { CqrsModule }                  from '@nestjs/cqrs';
-import { MAIN }                        from '../../libs/utils/constants';
-import { RepositoryModule }            from '../../libs/database/orm/typeorm/repository.module';
+import { CqrsModule }       from '@nestjs/cqrs';
+import { MAIN, PROJECT }    from '../../libs/utils/constants';
+import { RepositoryModule } from '../../libs/database/orm/typeorm/repository.module';
 import { ProjectController }           from './presentation/controllers/project.controller';
 import { ProjectService }              from './application/services/project.service';
 import { ProjectCommandHandlers }      from './application/commands/handlers';
@@ -18,9 +18,9 @@ import { ProjectModel, ProjectSchema } from './infrastructure/schemas/project.sc
     imports    : [
         CqrsModule,
         
-        RepositoryModule.forFeature( [ ProjectCommandRepository ], MAIN ),
+        RepositoryModule.forFeature( [ ProjectCommandRepository ], PROJECT ),
         
-        RepositoryModule.forFeature( [ ProjectQueryRepository ], MAIN ),
+        RepositoryModule.forFeature( [ ProjectQueryRepository ], PROJECT ),
         
         MongooseModule.forFeature( [ { name: ProjectModel.name, schema: ProjectSchema } ], MAIN ),
     ],

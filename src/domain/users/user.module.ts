@@ -2,7 +2,7 @@ import { Module }                from '@nestjs/common';
 import { MongooseModule }        from '@nestjs/mongoose';
 import { CqrsModule }            from '@nestjs/cqrs';
 import { RepositoryModule }      from '../../libs/database/orm/typeorm/repository.module';
-import { MAIN }                  from '../../libs/utils/constants';
+import { PROJECT }               from '../../libs/utils/constants';
 import { UserController }        from './presentation/controllers/user.controller';
 import { UserService }           from './application/services/user.service';
 import { UserCommandHandlers }   from './application/commands/handlers';
@@ -19,9 +19,9 @@ import { UserQueryRepository }   from './infrastructure/repositories/user.query.
     imports    : [
         CqrsModule,
         
-        RepositoryModule.forFeature( [ UserCommandRepository ], MAIN ),
+        RepositoryModule.forFeature( [ UserCommandRepository ], PROJECT ),
         
-        RepositoryModule.forFeature( [ UserQueryRepository ], MAIN ),
+        RepositoryModule.forFeature( [ UserQueryRepository ], PROJECT ),
         
         // MongooseModule.forFeature([
         //     {
