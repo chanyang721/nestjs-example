@@ -1,11 +1,11 @@
-import { APP_INTERCEPTOR }                from '@nestjs/core';
-import { Module }                         from '@nestjs/common';
-import { TypeOrmModule }                  from '@nestjs/typeorm';
-import { MongooseModule }                 from '@nestjs/mongoose';
-import { CacheInterceptor, CacheModule }  from '@nestjs/cache-manager';
-import { mainTypeOrmModuleAsyncOptions }  from './orm/typeorm/options/typeorm.module.options';
-import { mainMongooseModuleAsyncOptions } from './orm/mongoose/options/mongoose.module.options';
-import { cacheModuleAsyncOptions }        from './cache/options/cache.module.options';
+import { APP_INTERCEPTOR }                                                  from '@nestjs/core';
+import { Module }                                                           from '@nestjs/common';
+import { TypeOrmModule }                                                    from '@nestjs/typeorm';
+import { MongooseModule }                                                   from '@nestjs/mongoose';
+import { CacheInterceptor, CacheModule }                                    from '@nestjs/cache-manager';
+import { boardTypeOrmModuleAsyncOptions, projectTypeOrmModuleAsyncOptions } from './orm/typeorm/options/typeorm.module.options';
+import { mainMongooseModuleAsyncOptions }                                   from './orm/mongoose/options/mongoose.module.options';
+import { cacheModuleAsyncOptions }                                          from './cache/options/cache.module.options';
 
 
 
@@ -14,7 +14,8 @@ import { cacheModuleAsyncOptions }        from './cache/options/cache.module.opt
         /**
          * Command RDBMS Database
          */
-        TypeOrmModule.forRootAsync( mainTypeOrmModuleAsyncOptions ),
+        TypeOrmModule.forRootAsync( projectTypeOrmModuleAsyncOptions ),
+        TypeOrmModule.forRootAsync( boardTypeOrmModuleAsyncOptions ),
         
         /**
          * Query Cache Redis

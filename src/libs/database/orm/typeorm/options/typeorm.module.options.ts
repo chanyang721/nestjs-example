@@ -1,6 +1,6 @@
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModuleAsyncOptions }   from '@nestjs/typeorm';
-import { MAIN, PRODUCTION }            from '../../../../utils/constants';
+import { BOARD, PRODUCTION, PROJECT }  from '../../../../utils/constants';
 import { SqlLogger }                   from './typeorm.logger.options';
 import { UserEntity }                  from '../../../../../domain/users/infrastructure/entities/user.entity';
 import { AuthEntity }                  from '../../../../authentication/infrastructure/entities/auth.entity';
@@ -10,17 +10,17 @@ import { FileEntity }                  from '../../../../../domain/projects/infr
 
 
 
-export const mainTypeOrmModuleAsyncOptions: TypeOrmModuleAsyncOptions = {
+export const projectTypeOrmModuleAsyncOptions: TypeOrmModuleAsyncOptions = {
     imports   : [ ConfigModule ],
     inject    : [ ConfigService ],
-    name      : MAIN,
+    name      : PROJECT,
     useFactory: ( configService: ConfigService ) => ( {
         type       : 'mysql',
-        host       : configService.get<string>( 'MYSQL_MAIN_CONTAINER_NAME' ) || configService.get<string>( 'MYSQL_DB_HOST' ),
-        port       : +process.env.MYSQL_DB_PORT || +configService.get<number>( 'MYSQL_MAIN_DB_PORT' ),
-        username   : process.env.MYSQL_DB_USERNAME || configService.get<string>( 'MYSQL_DB_USERNAME' ),
-        password   : process.env.MYSQL_DB_PASSWORD || configService.get<string>( 'MYSQL_DB_PASSWORD' ),
-        database   : process.env.MYSQL_DB_DATABASE || configService.get<string>( 'MYSQL_MAIN_DB_DATABASE' ),
+        host       : configService.get<string>( 'MYSQL_MAIN_CONTAINER_NAME' ),
+        port       : +configService.get<number>( 'MYSQL_MAIN_DB_PORT' ),
+        username   : configService.get<string>( 'MYSQL_DB_USERNAME' ),
+        password   : configService.get<string>( 'MYSQL_DB_PASSWORD' ),
+        database   : configService.get<string>( 'MYSQL_MAIN_DB_DATABASE' ),
         synchronize: process.env.NODE_ENV !== PRODUCTION,
         logger     : new SqlLogger(),
         logging    : process.env.NODE_ENV !== PRODUCTION,
@@ -32,3 +32,25 @@ export const mainTypeOrmModuleAsyncOptions: TypeOrmModuleAsyncOptions = {
         timezone   : 'Z',
     } ),
 };
+
+export const boardTypeOrmModuleAsyncOptions: TypeOrmModuleAsyncOptions = {
+    imports   : [ ConfigModule ],
+    inject    : [ ConfigService ],
+    name      : BOARD,
+    useFactory: ( configService: ConfigService ) => ( {
+        type       : 'mariadb',
+        host       : configService.get<string>( 'DB_CONTAINER_NAME' ),
+        password   : configService.get<string>( 'DB_ROOT_PASSWORD' ),
+        dbName     : configService.get<string>( 'DB_NAME' ),
+        port       : +configService.get<number>( 'DB_PORT' ),
+        user       : configService.get<string>( 'DB_USER' ),
+        synchronize: process.env.NODE_ENV !== PRODUCTION,
+        logger     : new SqlLogger(),
+        logging    : process.env.NODE_ENV !== PRODUCTION,
+        entities   : [
+        
+        ],
+        timezone   : 'Z',
+    } ),
+};
+

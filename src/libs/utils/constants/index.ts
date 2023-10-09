@@ -8,6 +8,8 @@ export const COOKIE_REFRESH_TOKEN_NAME = 'refresh_token';
  * Database Connection Name
  */
 export const MAIN = 'main';
+export const PROJECT = 'project'
+export const BOARD = 'board'
 
 /**
  * Environment Name

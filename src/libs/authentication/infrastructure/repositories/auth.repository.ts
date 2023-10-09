@@ -1,7 +1,7 @@
 import { DataSource, Repository } from 'typeorm';
 import { InjectDataSource }       from '@nestjs/typeorm';
 import { RepositoryInject }       from '../../../utils/decoretors';
-import { MAIN }                   from '../../../utils/constants';
+import { PROJECT }                from '../../../utils/constants';
 import { transaction }            from '../../../database/orm/typeorm/transaction';
 import { RegisterUserDto }        from '../../presentation/dtos/auth.register.user.dto';
 import { UserEntity }             from '../../../../domain/users/infrastructure/entities/user.entity';
@@ -12,7 +12,7 @@ import { AuthEntity }             from '../entities/auth.entity';
 @RepositoryInject( AuthRepository )
 export class AuthRepository extends Repository<AuthEntity> {
     constructor(
-        @InjectDataSource( MAIN )
+        @InjectDataSource( PROJECT )
         private readonly mainDataSource: DataSource,
     ) {
         super( AuthEntity, mainDataSource.createEntityManager() );

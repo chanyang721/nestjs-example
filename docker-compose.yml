@@ -10,19 +10,18 @@ services:
       MYSQL_DATABASE: ${MYSQL_MAIN_DB_DATABASE}
       MYSQL_PASSWORD: ${MYSQL_DB_PASSWORD}
     ports:
-      - ${MYSQL_MAIN_DB_PORT}:${MYSQL_MAIN_DB_PORT}
+      - 6602:${MYSQL_MAIN_DB_PORT}
     volumes:
       - ./db_data/mysql_main_db:/var/libs/mysql
     networks:
       - backend
-
 
   mariadb:
     image: mariadb
     restart: always
     container_name: mariadb
     environment:
-      MARIADB_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+      MARIADB_ROOT_PASSWORD: ${DB_PASSWORD}
       MARIADB_DATABASE: ${DB_NAME}
       MARIADB_USER: ${DB_USER}
       MARIADB_PASSWORD: ${DB_PASSWORD}
@@ -60,9 +59,10 @@ services:
 
   server:
     container_name: main_server
-    working_dir: /app/server
+    working_dir: /app
     depends_on:
       - mysql_main_db
+      - mariadb
       - mongo_main_db
       - support_cache_redis
     build:
@@ -71,13 +71,15 @@ services:
     ports:
       - ${MAIN_SERVER_PORT}:${MAIN_SERVER_PORT}
     volumes:
-      - ./:/app/server
+      - ./:/app
     networks:
       - backend
 
 
 volumes:
   mysql_main_db:
+    driver: local
+  mariadb:
     driver: local
   mongo_main_db:
     driver: local
