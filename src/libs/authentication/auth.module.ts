@@ -1,7 +1,7 @@
 import { Module }                 from '@nestjs/common';
 import { PassportModule }         from '@nestjs/passport';
 import { JwtModule }              from '@nestjs/jwt';
-import { MAIN }                   from '../utils/constants';
+import { PROJECT }                from '../utils/constants';
 import { JwtService }             from '../utils/jwt/jwt.service';
 import { jwtModuleAsyncOptions }  from '../utils/jwt/jwt.module.option';
 import { HashingService }         from '../utils/hashing/hashing.service';
@@ -24,7 +24,7 @@ import { UserCommandRepository }  from '../../domain/users/infrastructure/reposi
         
         JwtModule.registerAsync( jwtModuleAsyncOptions ),
         
-        RepositoryModule.forFeature( [ UserCommandRepository, AuthRepository ], MAIN ),
+        RepositoryModule.forFeature( [ UserCommandRepository, AuthRepository ], PROJECT ),
     ],
     controllers: [
         AuthController,

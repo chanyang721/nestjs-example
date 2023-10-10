@@ -20,7 +20,7 @@ import { UserQueryRepository }   from './infrastructure/repositories/user.query.
         CqrsModule,
         
         RepositoryModule.forFeature( [ UserCommandRepository ], PROJECT ),
-        
+
         RepositoryModule.forFeature( [ UserQueryRepository ], PROJECT ),
         
         // MongooseModule.forFeature([
