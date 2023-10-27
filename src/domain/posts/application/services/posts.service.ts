@@ -1,5 +1,5 @@
 import { HttpException, HttpStatus, Injectable, Logger } from '@nestjs/common';
-import { JwtPayLoadDto }                                 from '../../../../libs/utils/jwt/interface/jwt.payload.interface';
+import { JwtPayLoadDto }                                 from '../../../../libs/helpers/jwt/interface/jwt.payload.interface';
 import { CreatePostDto }                                 from '../../presentation/dtos/create-post.dto';
 import { UpdatePostDto }                                 from '../../presentation/dtos/update-post.dto';
 import { SearchPostsBySearchAndWhereOptionsDto }         from '../../presentation/dtos/search.posts.by.where.options.dto';

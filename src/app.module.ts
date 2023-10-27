@@ -1,15 +1,15 @@
-import { Module }                 from '@nestjs/common';
-import { ConfigModule }           from '@nestjs/config';
-import { HealthCheckerModule }    from './libs/utils/health-checker/health-checker.module';
-import { configOptions }          from './libs/core-fundamentals/options/config.options';
-import { httpModuleAsyncOptions } from './libs/core-fundamentals/options/http.mudule.options';
-import { AuthModule }             from './libs/authentication/auth.module';
-import { HttpModule }             from './libs/utils/http/http.module';
-import { DatabaseModule }         from './libs/database/database.module';
-import { UserModule }             from './domain/users/user.module';
-import { ProjectModule }          from './domain/projects/project.module';
-// import { PostsModule }            from './domain/posts/posts.module';
+import { Module }                 from "@nestjs/common";
+import { ConfigModule }           from "@nestjs/config";
+import { ProjectModule }          from "./domain/projects/project.module";
+import { UserModule }             from "./domain/users/user.module";
+import { AuthModule }             from "./libs/authentication/auth.module";
+import { DatabaseModule }         from "./libs/database/database.module";
+import { HealthCheckerModule }    from "./libs/helpers/health-checker/health-checker.module";
+import { HttpModule }             from "./libs/infra/http/http.module";
+import { httpModuleAsyncOptions } from "./libs/infra/http/options/http.mudule.options";
 
+
+// import { PostsModule }            from './domain/posts/posts.module';
 
 
 @Module( {
@@ -17,7 +17,7 @@ import { ProjectModule }          from './domain/projects/project.module';
         /**
          * Core Libs Modules
          */
-        ConfigModule.forRoot( configOptions ),
+        ConfigModule.forRoot( { isGlobal: true } ),
         HttpModule.registerAsync( httpModuleAsyncOptions ),
         HealthCheckerModule,
         DatabaseModule,
@@ -27,11 +27,11 @@ import { ProjectModule }          from './domain/projects/project.module';
          * Domain Modules
          */
         UserModule, // users
-        ProjectModule, // 3b modeling projects
+        ProjectModule // projects
         // PostsModule // boards
     ],
     controllers: [],
-    providers  : [],
+    providers  : []
 } )
 export class AppModule {
 }

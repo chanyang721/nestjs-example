@@ -1,8 +1,8 @@
 import { Body, Controller, Post, UploadedFiles, UseInterceptors } from '@nestjs/common';
 import { ApiBearerAuth, ApiTags }                                 from '@nestjs/swagger';
-import { AnyFilesInterceptor }                                    from '@nestjs/platform-express';
-import { multerOptions }                                          from '../../../../libs/utils/multer/options';
-import { ProjectService }                                         from '../../application/services/project.service';
+import { AnyFilesInterceptor } from '@nestjs/platform-express';
+import { multerOptions }       from '../../../../libs/helpers/multer/options';
+import { ProjectService }      from '../../application/services/project.service';
 import { IProjectController }                                     from '../interfaces/project.controller.interface';
 import { CreateProjectDto }                                       from '../dtos/create-project.dto';
 

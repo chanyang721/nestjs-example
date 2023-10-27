@@ -10,17 +10,17 @@ import { FileEntity }                  from '../../../../../domain/projects/infr
 
 
 
-export const projectTypeOrmModuleAsyncOptions: TypeOrmModuleAsyncOptions = {
+export const typeOrmModuleAsyncOptions: TypeOrmModuleAsyncOptions = {
     imports   : [ ConfigModule ],
     inject    : [ ConfigService ],
     name      : PROJECT,
     useFactory: ( configService: ConfigService ) => ( {
         type       : 'mysql',
-        host       : configService.get<string>( 'MYSQL_MAIN_CONTAINER_NAME' ),
-        port       : +configService.get<number>( 'MYSQL_MAIN_DB_PORT' ),
-        username   : configService.get<string>( 'MYSQL_DB_USERNAME' ),
-        password   : configService.get<string>( 'MYSQL_DB_PASSWORD' ),
-        database   : configService.get<string>( 'MYSQL_MAIN_DB_DATABASE' ),
+        host       : configService.get<string>( 'DB_CONTAINER_NAME' ),
+        port       : +configService.get<number>( 'DB_PORT' ),
+        username   : configService.get<string>( 'DB_USERNAME' ),
+        password   : configService.get<string>( 'DB_PASSWORD' ),
+        database   : configService.get<string>( 'DB_DATABASE' ),
         synchronize: process.env.NODE_ENV !== PRODUCTION,
         logger     : new SqlLogger(),
         logging    : process.env.NODE_ENV !== PRODUCTION,
@@ -32,25 +32,3 @@ export const projectTypeOrmModuleAsyncOptions: TypeOrmModuleAsyncOptions = {
         timezone   : 'Z',
     } ),
 };
-
-export const boardTypeOrmModuleAsyncOptions: TypeOrmModuleAsyncOptions = {
-    imports   : [ ConfigModule ],
-    inject    : [ ConfigService ],
-    name      : BOARD,
-    useFactory: ( configService: ConfigService ) => ( {
-        type       : 'mariadb',
-        host       : configService.get<string>( 'DB_CONTAINER_NAME' ),
-        password   : configService.get<string>( 'DB_ROOT_PASSWORD' ),
-        dbName     : configService.get<string>( 'DB_NAME' ),
-        port       : +configService.get<number>( 'DB_PORT' ),
-        user       : configService.get<string>( 'DB_USER' ),
-        synchronize: process.env.NODE_ENV !== PRODUCTION,
-        logger     : new SqlLogger(),
-        logging    : process.env.NODE_ENV !== PRODUCTION,
-        entities   : [
-        
-        ],
-        timezone   : 'Z',
-    } ),
-};
-

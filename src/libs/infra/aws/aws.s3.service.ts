@@ -1,6 +1,6 @@
 import AWS                                               from 'aws-sdk';
 import { HttpException, HttpStatus, Injectable, Logger } from '@nestjs/common';
-import { CommonConfigService }                           from '../configuration/common.config.service';
+import { CommonConfigService }                           from '../../config/common.config.service';
 import { ManagedUpload }                                 from 'aws-sdk/lib/s3/managed_upload';
 
 

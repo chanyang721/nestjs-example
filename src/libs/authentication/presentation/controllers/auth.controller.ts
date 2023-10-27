@@ -2,11 +2,11 @@ import type { Response }                                             from 'expre
 import { Body, Controller, Get, Post, Req, Res, UseGuards }          from '@nestjs/common';
 import { ApiTags }                                                   from '@nestjs/swagger';
 import { COOKIE_ACCESS_TOKEN_NAME, COOKIE_REFRESH_TOKEN_NAME }       from '../../../utils/constants';
-import { COOKIE_ACCESS_TOKEN_OPTIONS, COOKIE_REFRESH_TOKEN_OPTIONS } from '../../../utils/jwt/options';
+import { COOKIE_ACCESS_TOKEN_OPTIONS, COOKIE_REFRESH_TOKEN_OPTIONS } from '../../../helpers/jwt/options';
 import { Public }                                                    from '../../../utils/decoretors';
-import { LocalAuthGuard }                                            from '../../../core-fundamentals/guards/local/local.auth.guard';
-import { JwtAuthRefreshGuard }                                       from '../../../core-fundamentals/guards/local/jwt.refresh.guard';
-import { RegisterUserDto }                                           from '../dtos/auth.register.user.dto';
+import { LocalAuthGuard }      from '../../../fundamentals/guards/local/local.auth.guard';
+import { JwtAuthRefreshGuard } from '../../../fundamentals/guards/local/jwt.refresh.guard';
+import { RegisterUserDto }     from '../dtos/auth.register.user.dto';
 import { LoginDto }                                                  from '../dtos/login.dto';
 import { TokenDto }                                                  from '../dtos/token.dto';
 import { ApiRegisterDecorator }                                      from '../swagger-decoretors/api.register.decorator';

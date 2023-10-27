@@ -2,9 +2,9 @@ import { Request }                                                     from 'exp
 import { ExtractJwt }                                                  from 'passport-jwt';
 import { ExecutionContext, Injectable, Logger, UnauthorizedException } from '@nestjs/common';
 import { AuthGuard }                                                   from '@nestjs/passport';
-import { COOKIE_ACCESS_TOKEN_NAME, COOKIE_REFRESH_TOKEN_NAME }         from '../../../utils/constants';
-import { COOKIE_ACCESS_TOKEN_OPTIONS, COOKIE_REFRESH_TOKEN_OPTIONS }   from '../../../utils/jwt/options';
-import { JwtService }                                                  from '../../../utils/jwt/jwt.service';
+import { COOKIE_ACCESS_TOKEN_NAME, COOKIE_REFRESH_TOKEN_NAME }       from '../../../utils/constants';
+import { COOKIE_ACCESS_TOKEN_OPTIONS, COOKIE_REFRESH_TOKEN_OPTIONS } from '../../../helpers/jwt/options';
+import { JwtService }                                                from '../../../helpers/jwt/jwt.service';
 
 
 

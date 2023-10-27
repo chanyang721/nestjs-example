@@ -1,6 +1,6 @@
 import { HttpException, HttpStatus, Injectable, Logger } from '@nestjs/common';
-import { JwtService }                                    from '../../../utils/jwt/jwt.service';
-import { HashingService }                                from '../../../utils/hashing/hashing.service';
+import { JwtService }                                    from '../../../helpers/jwt/jwt.service';
+import { HashingService }                                from '../../../helpers/hashing/hashing.service';
 import { LoginDto }                                      from '../../presentation/dtos/login.dto';
 import { RegisterUserDto }                               from '../../presentation/dtos/auth.register.user.dto';
 import { AuthRepository }                                from '../../infrastructure/repositories/auth.repository';

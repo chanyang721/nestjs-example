@@ -1,7 +1,7 @@
 import { EntityManager, Repository }                     from 'typeorm';
 import { InjectRepository }                              from '@nestjs/typeorm';
 import { HttpException, HttpStatus, Injectable, Logger } from '@nestjs/common';
-import { JwtPayLoadDto }                                 from '../../../../libs/utils/jwt/interface/jwt.payload.interface';
+import { JwtPayLoadDto }                                 from '../../../../libs/helpers/jwt/interface/jwt.payload.interface';
 import { CreateCommentsOrReplyDto }                      from '../../presentation/dtos/create.comment.dto';
 import { UpdateCommentsOrReplyDto }                      from '../../presentation/dtos/update.comment.dto';
 import { PagenationOptionsDto }                          from '../../presentation/dtos/pagenation-options.dto';

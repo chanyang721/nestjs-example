@@ -3,9 +3,9 @@ import { ApiBearerAuth, ApiTags }                                 from '@nestjs/
 import { AnyFilesInterceptor }                                    from '@nestjs/platform-express';
 import { UpdateUserDto }                                          from '../dtos/update.user.dto';
 import { IUserController }                                        from '../interfaces/user.controller.interface';
-import { UserService }                                            from '../../application/services/user.service';
-import { multerOptions }                                          from '../../../../libs/utils/multer/options';
-import { Public }                                                 from '../../../../libs/utils/decoretors';
+import { UserService }   from '../../application/services/user.service';
+import { multerOptions } from '../../../../libs/helpers/multer/options';
+import { Public }        from '../../../../libs/utils/decoretors';
 
 
 
