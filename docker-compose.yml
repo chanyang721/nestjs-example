@@ -7,6 +7,7 @@ services:
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_USER: ${DB_USER}
       MYSQL_DATABASE: ${DB_DATABASE}
       MYSQL_PASSWORD: ${DB_PASSWORD}
     ports:
@@ -51,7 +52,7 @@ services:
       - cache_redis
     build:
       context: .
-      dockerfile: Dockerfile.yarn
+      dockerfile: Dockerfile
     ports:
       - ${SERVER_PORT}:${SERVER_PORT}
     volumes:

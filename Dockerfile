@@ -8,8 +8,6 @@ RUN yarn install --frozen-lockfile
 
 COPY . .
 
-RUN yarn
-
 RUN yarn build
 
 
@@ -25,5 +23,5 @@ RUN yarn install --production --frozen-lockfile
 
 COPY --from=builder /app/dist ./dist
 
-EXPOSE 23139
+EXPOSE 8080
 ENTRYPOINT [ "yarn", "run", "start:dev" ]

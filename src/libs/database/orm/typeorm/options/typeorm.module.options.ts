@@ -16,9 +16,9 @@ export const typeOrmModuleAsyncOptions: TypeOrmModuleAsyncOptions = {
     name      : PROJECT,
     useFactory: ( configService: ConfigService ) => ( {
         type       : 'mysql',
-        host       : configService.get<string>( 'DB_CONTAINER_NAME' ),
-        port       : +configService.get<number>( 'DB_PORT' ),
-        username   : configService.get<string>( 'DB_USERNAME' ),
+        host       : configService.get<string>( 'DB_CONTAINER_HOST' ),
+        port       : configService.get<number>( 'DB_PORT' ),
+        username   : configService.get<string>( 'DB_USER' ),
         password   : configService.get<string>( 'DB_PASSWORD' ),
         database   : configService.get<string>( 'DB_DATABASE' ),
         synchronize: process.env.NODE_ENV !== PRODUCTION,
