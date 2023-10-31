@@ -6,7 +6,7 @@
 .env*
 
 # container data
-/db_data
+/data
 
 # Logs
 logs

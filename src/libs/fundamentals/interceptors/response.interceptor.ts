@@ -1,6 +1,6 @@
 import { CallHandler, ExecutionContext, Injectable, Logger, NestInterceptor } from "@nestjs/common";
 import { map, Observable }                                                    from "rxjs";
-import { DefaultResponseDto }                                                 from "./dto/default.response.dto";
+import { IResponse }                                                          from "./interface/response.interface";
 
 
 
@@ -10,13 +10,13 @@ export class ResponseInterceptor implements NestInterceptor {
     
     
     intercept( context: ExecutionContext, next: CallHandler ): Observable<any> {
-        const response = context.switchToHttp()
-                                .getResponse();
-        
         return next.handle()
-                   .pipe( map( ( data: any ) => ( {
-                       statusCode: response.statusCode,
-                       data      : data
-                   } ) as DefaultResponseDto ) );
+                   .pipe( map( ( response: IResponse<any> ) => {
+                       return {
+                           statusCode: response.statusCode,
+                           message   : response?.message,
+                           data      : response.data
+                       };
+                   } ) );
     }
 }

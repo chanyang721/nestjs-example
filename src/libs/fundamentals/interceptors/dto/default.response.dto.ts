@@ -1,11 +1,12 @@
 import { ApiProperty } from "@nestjs/swagger";
+import { IResponse }   from "../interface/response.interface";
 
 
 
 /**
  * @description API 응답 디폴트 DTO
  */
-export class DefaultResponseDto {
+export class ResponseDto implements IResponse<any> {
     @ApiProperty( {
         type       : Number,
         description: "API 응답 상태 코드",
@@ -13,6 +14,14 @@ export class DefaultResponseDto {
         example    : 200
     } )
     statusCode: number;
+    
+    @ApiProperty({
+        type: String,
+        description: '응답 메시지',
+        required: true,
+        example: '생성에 성공했습니다'
+    })
+    message: string
     
     @ApiProperty( {
         type       : null,
