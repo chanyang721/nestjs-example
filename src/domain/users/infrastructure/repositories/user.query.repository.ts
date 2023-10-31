@@ -1,9 +1,9 @@
-import { Connection, Model }             from 'mongoose';
-import { Injectable }                    from '@nestjs/common';
-import { InjectConnection, InjectModel } from '@nestjs/mongoose';
-import { RepositoryInject }              from '../../../../libs/utils/decoretors';
-import { MAIN, PROJECT }                 from '../../../../libs/utils/constants';
-import { UserModel }                     from '../schemas/user.schema';
+import { Injectable }                    from "@nestjs/common";
+import { InjectConnection, InjectModel } from "@nestjs/mongoose";
+import { Connection, Model }             from "mongoose";
+import { PROJECT }                       from "../../../../libs/utils/constants";
+import { RepositoryInject }              from "../../../../libs/utils/decoretors";
+import { UserModel }                     from "../schemas/user.schema";
 
 
 
@@ -12,19 +12,19 @@ import { UserModel }                     from '../schemas/user.schema';
 export class UserQueryRepository {
     
     constructor(
-        @InjectConnection( PROJECT )
-        private readonly connection: Connection,
-        @InjectModel( UserModel.name, PROJECT )
-        private readonly userModel: Model<UserModel>,
+      @InjectConnection( PROJECT )
+      private readonly connection: Connection,
+      @InjectModel( UserModel.name, PROJECT )
+      private readonly userModel: Model<UserModel>
     ) {
     }
     
     
     public async findUserInfoWithAuth( body: any ) {
         const test = this.connection
-                         .collection( 'project' )
+                         .collection( "project" )
                          .find( {
-                             id: body.id,
+                             id: body.id
                          } );
         
         

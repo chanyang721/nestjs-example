@@ -1,13 +1,15 @@
-import { HttpException, HttpStatus, Injectable, Logger } from '@nestjs/common';
-import { JwtPayLoadDto }                                 from '../../../../libs/helpers/jwt/interface/jwt.payload.interface';
-import { CreatePostDto }                                 from '../../presentation/dtos/create-post.dto';
-import { UpdatePostDto }                                 from '../../presentation/dtos/update-post.dto';
-import { SearchPostsBySearchAndWhereOptionsDto }         from '../../presentation/dtos/search.posts.by.where.options.dto';
-import { PagenationOptionsDto }                          from '../../presentation/dtos/pagenation-options.dto';
-import { SearchOptionsDto }                              from '../../presentation/dtos/search-options.dto';
-import { PostsRepository }                               from '../../infrastructrue/repositories/posts.repository';
-import { PostsEntity }                                   from '../../infrastructrue/entities/posts.entity';
-import { IdAndMessageDto }                               from '../../../../libs/utils/common/dtos/common-id-and-message.dto';
+import { CACHE_MANAGER }                                         from "@nestjs/cache-manager";
+import { HttpException, HttpStatus, Inject, Injectable, Logger } from "@nestjs/common";
+import { Cache }                                                 from "cache-manager";
+import { JwtPayLoadDto }                                         from "../../../../libs/helpers/jwt/interface/jwt.payload.interface";
+import { IdAndMessageDto }                                       from "../../../../libs/utils/common/dtos/common-id-and-message.dto";
+import { PostsEntity }                                           from "../../infrastructrue/entities/posts.entity";
+import { PostsRepository }                                       from "../../infrastructrue/repositories/posts.repository";
+import { CreatePostDto }                                         from "../../presentation/dtos/create-post.dto";
+import { PagenationOptionsDto }                                  from "../../presentation/dtos/pagenation-options.dto";
+import { SearchOptionsDto }                                      from "../../presentation/dtos/search-options.dto";
+import { SearchPostsBySearchAndWhereOptionsDto }                 from "../../presentation/dtos/search.posts.by.where.options.dto";
+import { UpdatePostDto }                                         from "../../presentation/dtos/update-post.dto";
 
 
 
@@ -17,7 +19,9 @@ export class PostsService {
     
     
     constructor(
-        private readonly postsRepository: PostsRepository,
+      private readonly postsRepository: PostsRepository,
+      @Inject( CACHE_MANAGER )
+      private readonly cacheManager: Cache
     ) {
     }
     
@@ -28,7 +32,7 @@ export class PostsService {
             
             return new IdAndMessageDto( {
                 id     : 1,
-                message: true,
+                message: true
             } );
         }
         catch ( error ) {
@@ -41,9 +45,8 @@ export class PostsService {
     async findPostByIdWithAllInfo( postId: number ): Promise<PostsEntity> {
         try {
             const post = await this.postsRepository.findOnePostById( postId );
-            
             if ( !post ) {
-                throw new HttpException( '존재하지 않는 게시글입니다', HttpStatus.BAD_REQUEST );
+                throw new HttpException( "존재하지 않는 게시글입니다", HttpStatus.BAD_REQUEST );
             }
             
             return post;
@@ -59,7 +62,7 @@ export class PostsService {
         try {
             const post = await this.postsRepository.findOnePostById( updatePostDto.id );
             if ( !post ) {
-                throw new HttpException( '존재하지 않는 게시글입니다', HttpStatus.BAD_REQUEST );
+                throw new HttpException( "존재하지 않는 게시글입니다", HttpStatus.BAD_REQUEST );
             }
             
             // const isSameWriter = user.nickname === post.writer.nickname;
@@ -71,7 +74,7 @@ export class PostsService {
             
             return new IdAndMessageDto( {
                 id     : updatePostDto.id,
-                message: true,
+                message: true
             } );
         }
         catch ( error ) {

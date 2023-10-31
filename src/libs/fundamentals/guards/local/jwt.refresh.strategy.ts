@@ -1,22 +1,22 @@
-import { HttpException, HttpStatus, Injectable, Logger } from '@nestjs/common';
-import { ConfigService }                                 from '@nestjs/config';
-import { PassportStrategy }                              from '@nestjs/passport';
-import { ExtractJwt, Strategy }      from 'passport-jwt';
-import { JwtService }                from '../../../helpers/jwt/jwt.service';
-import { COOKIE_REFRESH_TOKEN_NAME } from '../../../utils/constants';
-import { AuthService }                                   from '../../../authentication/application/services/auth.service';
+import { HttpException, HttpStatus, Injectable, Logger } from "@nestjs/common";
+import { ConfigService }                                 from "@nestjs/config";
+import { PassportStrategy }                              from "@nestjs/passport";
+import { ExtractJwt, Strategy }                          from "passport-jwt";
+import { AuthService }                                   from "../../../authentication/application/services/auth.service";
+import { JwtService }                                    from "../../../helpers/jwt/jwt.service";
+import { COOKIE_REFRESH_TOKEN_NAME }                     from "../../../utils/constants";
 
 
 
 @Injectable()
-export class JwtAuthRefreshStrategy extends PassportStrategy( Strategy, 'jwt-refresh-token' ) {
+export class JwtAuthRefreshStrategy extends PassportStrategy( Strategy, "jwt-refresh-token" ) {
     private readonly logger = new Logger( JwtAuthRefreshStrategy.name );
     
     
     constructor(
-        private readonly configService: ConfigService,
-        private readonly jwtService: JwtService,
-        private readonly authService: AuthService,
+      private readonly configService: ConfigService,
+      private readonly jwtService: JwtService,
+      private readonly authService: AuthService
     ) {
         super( {
             jwtFromRequest   : ExtractJwt.fromExtractors( [
@@ -25,10 +25,10 @@ export class JwtAuthRefreshStrategy extends PassportStrategy( Strategy, 'jwt-ref
                         throw new HttpException( `${ COOKIE_REFRESH_TOKEN_NAME } 속성 정보가 cookie에 없습니다`, HttpStatus.BAD_REQUEST );
                     }
                     return request?.cookies?.refresh_token;
-                },
+                }
             ] ),
-            secretOrKey      : configService.get( 'JWT_SECRET' ),
-            passReqToCallback: true,
+            secretOrKey      : configService.get( "JWT_SECRET" ),
+            passReqToCallback: true
         } );
     }
     

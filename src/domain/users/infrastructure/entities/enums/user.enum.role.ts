@@ -1,13 +1,13 @@
 export enum UserRole {
-    UNKNOWN = 'UNKNOWN',
+    UNKNOWN = "UNKNOWN",
     
-    ADMIN = 'ADMIN',
+    ADMIN = "ADMIN",
     
-    OWNER = 'OWNER',
+    OWNER = "OWNER",
     
-    MENBER = 'MENBER',
+    MENBER = "MENBER",
     
-    GUEST = 'GUEST',
+    GUEST = "GUEST",
     
-    CLIENT = 'CLIENT',
+    CLIENT = "CLIENT",
 }

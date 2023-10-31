@@ -1,6 +1,6 @@
 export class FindUserQuery {
     constructor(
-        public userId: string,
+      public userId: string
     ) {
     }
 }

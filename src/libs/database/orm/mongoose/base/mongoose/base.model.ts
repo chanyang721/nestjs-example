@@ -1,5 +1,5 @@
-import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Timestamps }                  from './timestamps.model';
+import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
+import { Timestamps }                  from "./timestamps.model";
 
 
 

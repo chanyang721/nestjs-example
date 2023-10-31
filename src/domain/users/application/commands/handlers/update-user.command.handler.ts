@@ -1,22 +1,22 @@
-import { CommandHandler, EventPublisher, ICommandHandler } from '@nestjs/cqrs';
-import { UpdateUserCommand }                               from '../implements';
-import { UserCommandRepository }                           from '../../../infrastructure/repositories/user.command.repository';
-import { UserAggregate }                                   from '../../events/aggregates/user.aggregate';
+import { CommandHandler, EventPublisher, ICommandHandler } from "@nestjs/cqrs";
+import { UserCommandRepository }                           from "../../../infrastructure/repositories/user.command.repository";
+import { UserAggregate }                                   from "../../events/aggregates/user.aggregate";
+import { UpdateUserCommand }                               from "../implements";
 
 
 
 @CommandHandler( UpdateUserCommand )
 export class UpdateUserCommandHandler implements ICommandHandler<UpdateUserCommand> {
     constructor(
-        private readonly userRepository: UserCommandRepository,
-        private readonly eventPublisher: EventPublisher,
+      private readonly userRepository: UserCommandRepository,
+      private readonly eventPublisher: EventPublisher
     ) {
     }
     
     
     public async execute( command: UpdateUserCommand ) {
         const updatedUserInfo = this.eventPublisher.mergeObjectContext(
-            await this.userRepository.updateUser( command.updateUserDto ),
+          await this.userRepository.updateUser( command.updateUserDto )
         );
         
         const UserModel = this.eventPublisher.mergeClassContext( UserAggregate );

@@ -1,6 +1,6 @@
-import { Injectable }          from '@nestjs/common';
-import bcrypt                  from 'bcryptjs';
-import { CommonConfigService } from '../../config/common.config.service';
+import { Injectable }          from "@nestjs/common";
+import bcrypt                  from "bcryptjs";
+import { CommonConfigService } from "../../config/common.config.service";
 
 
 

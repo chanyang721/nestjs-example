@@ -1,16 +1,16 @@
-import { DataSource, DataSourceOptions }   from 'typeorm';
-import { DynamicModule, Module, Provider } from '@nestjs/common';
-import { getDataSourceToken }              from '@nestjs/typeorm';
+import { DynamicModule, Module, Provider } from "@nestjs/common";
+import { getDataSourceToken }              from "@nestjs/typeorm";
+import { DataSource, DataSourceOptions }   from "typeorm";
 
 
 
 @Module( {} )
 export class RepositoryModule {
     public static forFeature<T extends new ( ...args: any[] ) => any>(
-        repositories: T[],
-        connectionName: string | DataSource | DataSourceOptions,
+      repositories: T[],
+      connectionName: string | DataSource | DataSourceOptions
     ): DynamicModule {
-        console.log( 'RepositoryModule.forFeature', repositories, connectionName );
+        console.log( "RepositoryModule.forFeature", repositories, connectionName );
         const providers: Provider[] = [];
         
         for ( const repository of repositories ) {
@@ -19,7 +19,7 @@ export class RepositoryModule {
                 provide   : repository,
                 useFactory: ( dataSource: DataSource ): typeof repository => {
                     return new repository( dataSource );
-                },
+                }
             } );
             
         }
@@ -27,7 +27,7 @@ export class RepositoryModule {
         return {
             exports  : providers,
             providers: providers,
-            module   : RepositoryModule,
+            module   : RepositoryModule
         };
     }
 }

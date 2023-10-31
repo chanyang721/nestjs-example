@@ -1,8 +1,8 @@
-import { PickType }         from '@nestjs/swagger';
-import { ProjectEntityDto } from './project.entity.dto';
+import { PickType }         from "@nestjs/swagger";
+import { ProjectEntityDto } from "./project.entity.dto";
 
 
 
-export class CreateProjectDto extends PickType( ProjectEntityDto, [ 'name' ] ) {
+export class CreateProjectDto extends PickType( ProjectEntityDto, [ "name" ] ) {
 
 }

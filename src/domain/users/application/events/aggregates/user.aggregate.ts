@@ -1,12 +1,12 @@
-import { AggregateRoot }   from '@nestjs/cqrs';
-import { UpdateUserEvent } from '../implements';
-import { UpdateUserDto }   from '../../../presentation/dtos/update.user.dto';
+import { AggregateRoot }   from "@nestjs/cqrs";
+import { UpdateUserDto }   from "../../../presentation/dtos/update.user.dto";
+import { UpdateUserEvent } from "../implements";
 
 
 
 export class UserAggregate extends AggregateRoot {
     constructor(
-        public readonly updateUserDto: UpdateUserDto,
+      public readonly updateUserDto: UpdateUserDto
     ) {
         super();
         this.autoCommit = true;

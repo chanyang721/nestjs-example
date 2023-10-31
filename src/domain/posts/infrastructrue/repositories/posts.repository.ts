@@ -1,13 +1,12 @@
-import { EntityManager, Repository }                     from 'typeorm';
-import { InjectRepository }                              from '@nestjs/typeorm';
-import { HttpException, HttpStatus, Injectable, Logger } from '@nestjs/common';
-import { JwtPayLoadDto }                                 from '../../../../libs/helpers/jwt/interface/jwt.payload.interface';
-import { PagenationOptionsDto }                          from '../../presentation/dtos/pagenation-options.dto';
-import { CreatePostDto }                                 from '../../presentation/dtos/create-post.dto';
-import { UpdatePostDto }                                 from '../../presentation/dtos/update-post.dto';
-import { SearchOptionsDto }                              from '../../presentation/dtos/search-options.dto';
-import { UserEntity }                                    from '../../../users/infrastructure/entities/user.entity';
-import { PostsEntity }                                   from '../entities/posts.entity';
+import { HttpException, HttpStatus, Injectable, Logger } from "@nestjs/common";
+import { InjectRepository }                              from "@nestjs/typeorm";
+import { EntityManager, Repository }                     from "typeorm";
+import { JwtPayLoadDto }                                 from "../../../../libs/helpers/jwt/interface/jwt.payload.interface";
+import { CreatePostDto }                                 from "../../presentation/dtos/create-post.dto";
+import { PagenationOptionsDto }                          from "../../presentation/dtos/pagenation-options.dto";
+import { SearchOptionsDto }                              from "../../presentation/dtos/search-options.dto";
+import { UpdatePostDto }                                 from "../../presentation/dtos/update-post.dto";
+import { PostsEntity }                                   from "../entities/posts.entity";
 
 
 
@@ -17,9 +16,9 @@ export class PostsRepository {
     
     
     constructor(
-        @InjectRepository( PostsEntity )
-        private readonly postsRepository: Repository<PostsEntity>,
-        private readonly em: EntityManager,
+      @InjectRepository( PostsEntity )
+      private readonly postsRepository: Repository<PostsEntity>,
+      private readonly em: EntityManager
     ) {
     }
     
@@ -47,7 +46,7 @@ export class PostsRepository {
             //     id        : postId,
             //     is_deleted: false,
             // } );
-            return new PostsEntity({})
+            return new PostsEntity( {} );
         }
         catch ( error ) {
             this.logger.error( error );
@@ -71,7 +70,7 @@ export class PostsRepository {
     
     
     async findPostsBySearchAndWhereOptions( pagenationOptions: PagenationOptionsDto,
-        searchOptions: SearchOptionsDto ): Promise<PostsEntity[]> {
+      searchOptions: SearchOptionsDto ): Promise<PostsEntity[]> {
         // const qb = this.em.qb(PostsEntity)
         // qb.select( [
         //   "p.id",
@@ -127,7 +126,7 @@ export class PostsRepository {
         
         try {
             // return await this.em.execute( qb );
-            return [ new PostsEntity( {} )]
+            return [ new PostsEntity( {} ) ];
         }
         catch ( error ) {
             this.logger.error( error );

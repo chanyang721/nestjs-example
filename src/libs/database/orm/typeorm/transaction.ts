@@ -1,11 +1,11 @@
-import { DataSource, QueryRunner } from 'typeorm';
+import { DataSource, QueryRunner } from "typeorm";
 
 
 
 export async function transaction<Input, Output>(
-    dataSources: DataSource[],
-    tryBlock: ( ...queryRunners: QueryRunner[] ) => Promise<Output>,
-    catchBlock?: () => void,
+  dataSources: DataSource[],
+  tryBlock: ( ...queryRunners: QueryRunner[] ) => Promise<Output>,
+  catchBlock?: () => void
 ): Promise<Output> {
     const queryRunners: QueryRunner[] = [];
     for ( const dataSource of dataSources ) {

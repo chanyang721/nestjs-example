@@ -1,5 +1,5 @@
-import { HttpStatus, UnprocessableEntityException } from '@nestjs/common';
-import { ValidationPipeOptions }                    from '@nestjs/common/pipes/validation.pipe';
+import { HttpStatus, UnprocessableEntityException } from "@nestjs/common";
+import { ValidationPipeOptions }                    from "@nestjs/common/pipes/validation.pipe";
 
 
 
@@ -15,5 +15,5 @@ export const validationPipeOptions: ValidationPipeOptions = {
     /**
      * Exception Factory to catch Validation Error in Exception Filter
      * */
-    exceptionFactory: ( errors ) => new UnprocessableEntityException( errors ),
+    exceptionFactory: ( errors ) => new UnprocessableEntityException( errors )
 };
