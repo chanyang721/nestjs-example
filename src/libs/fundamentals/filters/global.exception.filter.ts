@@ -1,8 +1,8 @@
-import { ArgumentsHost, Catch, ExceptionFilter, HttpException, HttpStatus, Logger, UnprocessableEntityException, ValidationError } from '@nestjs/common';
-import type { Request, Response }                                                                                                  from 'express';
-import { TypeORMError }                                                                                                            from 'typeorm';
-import { MongooseError }                                                                                                           from 'mongoose';
-import { GlobalResponseError }                                                                                                     from './global.response.error';
+import { ArgumentsHost, Catch, ExceptionFilter, HttpException, HttpStatus, Logger, UnprocessableEntityException, ValidationError } from "@nestjs/common";
+import type { Request, Response }                                                                                                  from "express";
+import { MongooseError }                                                                                                           from "mongoose";
+import { TypeORMError }                                                                                                            from "typeorm";
+import { GlobalResponseError }                                                                                                     from "./global.response.error";
 
 
 
@@ -21,10 +21,10 @@ export class GlobalExceptionFilter<T = HttpException | Error> implements Excepti
          * TODO: 아래 if 문에서 아무것도 걸리지 않는 경우에 exceptionCode, message 정보가 나타나지 않는 문제 있음
          */
         let exceptionCode: string = exception.constructor.name,
-            // @ts-ignore
-            message: string = exception.message || exception.response.message || exception.response.error || exception.response || exception,
-            statusCode: number = HttpStatus.INTERNAL_SERVER_ERROR,
-            errors: any;
+          // @ts-ignore
+          message: string = exception.message || exception.response.message || exception.response.error || exception.response || exception,
+          statusCode: number = HttpStatus.INTERNAL_SERVER_ERROR,
+          errors: any;
         console.log( exception );
         
         /**
@@ -85,7 +85,7 @@ export class GlobalExceptionFilter<T = HttpException | Error> implements Excepti
                     message,
                     method: request.method,
                     path  : request.url,
-                    errors,
+                    errors
                 } ) );
     }
     

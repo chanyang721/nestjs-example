@@ -1,4 +1,4 @@
-import { ApiProperty } from '@nestjs/swagger';
+import { ApiProperty } from "@nestjs/swagger";
 
 
 
@@ -8,16 +8,16 @@ import { ApiProperty } from '@nestjs/swagger';
 export class DefaultResponseDto {
     @ApiProperty( {
         type       : Number,
-        description: 'API 응답 상태 코드',
+        description: "API 응답 상태 코드",
         required   : true,
-        example    : 200,
+        example    : 200
     } )
     statusCode: number;
     
     @ApiProperty( {
         type       : null,
-        description: 'API 응답 데이터를 담은 속성',
-        required   : true,
+        description: "API 응답 데이터를 담은 속성",
+        required   : true
     } )
     data: any;
 }

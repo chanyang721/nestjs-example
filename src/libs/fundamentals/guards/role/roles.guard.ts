@@ -7,28 +7,28 @@ import { ROLES_KEY }                                                      from "
 
 @Injectable()
 export class RolesGuard implements CanActivate {
-  constructor( private reflector: Reflector ) {
-  }
-  
-  
-  canActivate( context: ExecutionContext ): boolean {
-    const requiredRoles = this.reflector.getAllAndOverride<UserRole[]>( ROLES_KEY, [
-      context.getHandler(),
-      context.getClass()
-    ] );
-    
-    if ( !requiredRoles ) {
-      return true;
+    constructor( private reflector: Reflector ) {
     }
     
-    const { user } = context.switchToHttp()
-                            .getRequest();
     
-    const isSameRole = requiredRoles.some( ( role ) => user.role?.includes( role ) );
-    if ( !isSameRole ) {
-      throw new BadRequestException( "권한이 없습니다" );
+    canActivate( context: ExecutionContext ): boolean {
+        const requiredRoles = this.reflector.getAllAndOverride<UserRole[]>( ROLES_KEY, [
+            context.getHandler(),
+            context.getClass()
+        ] );
+        
+        if ( !requiredRoles ) {
+            return true;
+        }
+        
+        const { user } = context.switchToHttp()
+                                .getRequest();
+        
+        const isSameRole = requiredRoles.some( ( role ) => user.role?.includes( role ) );
+        if ( !isSameRole ) {
+            throw new BadRequestException( "권한이 없습니다" );
+        }
+        
+        return isSameRole;
     }
-    
-    return isSameRole;
-  }
 }

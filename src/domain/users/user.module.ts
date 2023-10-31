@@ -14,28 +14,28 @@ import { UserController }        from "./presentation/controllers/user.controlle
 
 
 @Module( {
-  imports    : [
-    CqrsModule,
-    
-    RepositoryModule.forFeature( [ UserCommandRepository ], PROJECT ),
-    
-    RepositoryModule.forFeature( [ UserQueryRepository ], PROJECT )
-    
-    // MongooseModule.forFeature([
-    //     {
-    //         name  : UserModel.name,
-    //         schema: UserSchema,
-    //     },
-    // ], MAIN),
-  ],
-  controllers: [ UserController ],
-  providers  : [
-    UserService,
-    ...UserCommandHandlers,
-    ...UserQueryHandlers,
-    ...UserEventHandlers,
-    UserSagas
-  ]
+    imports    : [
+        CqrsModule,
+        
+        RepositoryModule.forFeature( [ UserCommandRepository ], PROJECT ),
+        
+        RepositoryModule.forFeature( [ UserQueryRepository ], PROJECT )
+        
+        // MongooseModule.forFeature([
+        //     {
+        //         name  : UserModel.name,
+        //         schema: UserSchema,
+        //     },
+        // ], MAIN),
+    ],
+    controllers: [ UserController ],
+    providers  : [
+        UserService,
+        ...UserCommandHandlers,
+        ...UserQueryHandlers,
+        ...UserEventHandlers,
+        UserSagas
+    ]
 } )
 export class UserModule {
 }

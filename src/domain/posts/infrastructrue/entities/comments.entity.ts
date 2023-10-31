@@ -1,56 +1,53 @@
-
-import { PostsEntity }                                                  from './posts.entity';
-import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
-
+import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { PostsEntity }                                                  from "./posts.entity";
 
 
-@Entity( { name: 'comment' } )
+
+@Entity( { name: "comment" } )
 export class CommentsEntity {
     @PrimaryGeneratedColumn()
     id: number;
     
     @Column( {
-        type    : 'varchar',
+        type    : "varchar",
         length  : 500,
         nullable: false,
-        comment : '댓글 내용',
+        comment : "댓글 내용"
     } )
     content: string;
     
     @Column( {
-        type    : 'varchar',
+        type    : "varchar",
         length  : 10,
-        nullable: false,
+        nullable: false
     } )
     writer: string;
     
     @Column( {
-        type   : 'varchar',
+        type   : "varchar",
         length : 27,
-        comment: '데이터 생성 날짜',
+        comment: "데이터 생성 날짜"
     } )
     created_at: string = new Date().toISOString();
     
     @Column( {
-        type    : 'varchar',
+        type    : "varchar",
         length  : 27,
         nullable: true,
-        comment : '마지막 데이터 수정 날짜',
+        comment : "마지막 데이터 수정 날짜"
     } )
     updated_at: string = new Date().toISOString();
     
     @Column( {
-        type    : 'boolean',
+        type    : "boolean",
         length  : 27,
         nullable: false,
         default : false,
-        comment : '데이터 삭제 정보',
+        comment : "데이터 삭제 정보"
     } )
     is_deleted: boolean;
     
-    @ManyToOne( () => PostsEntity, {
-
-    } )
+    @ManyToOne( () => PostsEntity, {} )
     post: PostsEntity;
     
     
@@ -58,7 +55,7 @@ export class CommentsEntity {
     replies: CommentsEntity[];
     
     @ManyToOne( () => CommentsEntity, {
-        nullable  : true,
+        nullable: true
     } )
     parent: CommentsEntity;
     

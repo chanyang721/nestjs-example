@@ -1,1 +1,1 @@
-export * from './update.user.event';
+export * from "./update.user.event";

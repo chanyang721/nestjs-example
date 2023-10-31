@@ -1,9 +1,9 @@
-import { Injectable }                                          from '@nestjs/common';
-import { JwtService as OriginJwtService, JwtSignOptions }      from '@nestjs/jwt';
-import { COOKIE_ACCESS_TOKEN_NAME, COOKIE_REFRESH_TOKEN_NAME } from '../../utils/constants';
-import { CommonConfigService }                                 from '../../config/common.config.service';
-import { TokenDto }                                            from '../../authentication/presentation/dtos/token.dto';
-import { JwtPayLoadDto }                                       from './interface/jwt.payload.interface';
+import { Injectable }                                          from "@nestjs/common";
+import { JwtService as OriginJwtService, JwtSignOptions }      from "@nestjs/jwt";
+import { TokenDto }                                            from "../../authentication/presentation/dtos/token.dto";
+import { CommonConfigService }                                 from "../../config/common.config.service";
+import { COOKIE_ACCESS_TOKEN_NAME, COOKIE_REFRESH_TOKEN_NAME } from "../../utils/constants";
+import { JwtPayLoadDto }                                       from "./interface/jwt.payload.interface";
 
 
 
@@ -13,7 +13,7 @@ export class JwtService {
     
     
     constructor( private readonly originJwtService: OriginJwtService,
-        private readonly commonConfigService: CommonConfigService,
+      private readonly commonConfigService: CommonConfigService
     ) {
     }
     
@@ -21,11 +21,6 @@ export class JwtService {
     async refreshAccessToken( user: any ) {
         const { access_token } = await this.getTokens( user.id );
         return { access_token };
-    }
-    
-    
-    private async generateToken( payload: JwtPayLoadDto, options: JwtSignOptions ) {
-        return this.originJwtService.sign( payload, options );
     }
     
     
@@ -40,22 +35,15 @@ export class JwtService {
         
         tokens.access_token = await this.generateToken( payload, {
             expiresIn: this.jwtConfig.accessTokenExpiresIn,
-            subject  : COOKIE_ACCESS_TOKEN_NAME,
+            subject  : COOKIE_ACCESS_TOKEN_NAME
         } );
         
         tokens.refresh_token = await this.generateToken( payload, {
             expiresIn: this.jwtConfig.refreshTokenExpiresIn,
-            subject  : COOKIE_REFRESH_TOKEN_NAME,
+            subject  : COOKIE_REFRESH_TOKEN_NAME
         } );
         
         return tokens;
-    }
-    
-    
-    private async generatePayload( payload: any ): Promise<JwtPayLoadDto> {
-        return {
-            id: payload.id,
-        };
     }
     
     
@@ -69,7 +57,19 @@ export class JwtService {
             return false;
         }
         catch ( e ) {
-            return e.name === 'TokenExpiredError';
+            return e.name === "TokenExpiredError";
         }
+    }
+    
+    
+    private async generateToken( payload: JwtPayLoadDto, options: JwtSignOptions ) {
+        return this.originJwtService.sign( payload, options );
+    }
+    
+    
+    private async generatePayload( payload: any ): Promise<JwtPayLoadDto> {
+        return {
+            id: payload.id
+        };
     }
 }

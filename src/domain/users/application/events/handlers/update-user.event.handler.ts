@@ -1,22 +1,22 @@
-import { EventsHandler, IEventHandler } from '@nestjs/cqrs';
-import { UpdateUserEvent }              from '../implements';
-import { UserCommandRepository }        from '../../../infrastructure/repositories/user.command.repository';
+import { EventsHandler, IEventHandler } from "@nestjs/cqrs";
+import { UserCommandRepository }        from "../../../infrastructure/repositories/user.command.repository";
+import { UpdateUserEvent }              from "../implements";
 
 
 
 @EventsHandler( UpdateUserEvent )
 export class UpdateUserEventHandler implements IEventHandler<UpdateUserEvent> {
     constructor(
-        /**
-         * Repository, Message Queue, etc injection
-         */
-        private readonly userRepository: UserCommandRepository,
+      /**
+       * Repository, Message Queue, etc injection
+       */
+      private readonly userRepository: UserCommandRepository
     ) {
     }
     
     
     handle( event: UpdateUserEvent ) {
-        console.log( 'UpdateUserEvent :', event );
+        console.log( "UpdateUserEvent :", event );
         /**
          * The event handler only mutates the aggregate state, no logic there!
          */

@@ -1,4 +1,4 @@
-import { RepositoryInject } from '../../../../libs/utils/decoretors';
+import { RepositoryInject } from "../../../../libs/utils/decoretors";
 
 
 

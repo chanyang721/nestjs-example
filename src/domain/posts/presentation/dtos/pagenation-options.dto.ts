@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
+import { IsNotEmpty, IsString } from "class-validator";
 
 
 
@@ -14,10 +14,10 @@ export class PagenationOptionsDto {
     // @IsString()
     // sort?: string = 'desc';
     
-    constructor(input: PagenationOptionsDto) {
+    constructor( input: PagenationOptionsDto ) {
         // this.limit = input.limit
         // this.offset = input.offset
         // this.sort = input.sort
-        Object.assign(this, input)
+        Object.assign( this, input );
     }
 }

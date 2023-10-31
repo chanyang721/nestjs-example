@@ -1,17 +1,17 @@
 export enum AuthenticationPlatform {
-    FIREBASE = 'FIREBASE',
+    FIREBASE = "FIREBASE",
     
-    COGNITO = 'COGNITO',
+    COGNITO = "COGNITO",
     
-    GOOGLE = 'GOOGLE',
+    GOOGLE = "GOOGLE",
     
-    FACEBOOK = 'FACEBOOK',
+    FACEBOOK = "FACEBOOK",
     
-    APPLE = 'APPLE',
+    APPLE = "APPLE",
     
-    KAKAO = 'KAKAO',
+    KAKAO = "KAKAO",
     
-    NAVER = 'NAVER',
+    NAVER = "NAVER",
     
-    ORIGIN = 'ORIGIN'
+    ORIGIN = "ORIGIN"
 }

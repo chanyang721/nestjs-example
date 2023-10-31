@@ -1,15 +1,15 @@
-import { IsOptional, IsString }  from 'class-validator';
-import { ApiProperty, PickType } from '@nestjs/swagger';
-import { AuthEntityDto }         from './auth.entity.dto';
+import { ApiProperty, PickType } from "@nestjs/swagger";
+import { IsOptional, IsString }  from "class-validator";
+import { AuthEntityDto }         from "./auth.entity.dto";
 
 
 
-export class RegisterUserDto extends PickType( AuthEntityDto, [ 'uid', 'platform' ] ) {
+export class RegisterUserDto extends PickType( AuthEntityDto, [ "uid", "platform" ] ) {
     @ApiProperty( {
-        type       : 'varchar',
-        description: '인증 서버의 id_token의 name attribute',
+        type       : "varchar",
+        description: "인증 서버의 id_token의 name attribute",
         required   : true,
-        example    : '난이름',
+        example    : "난이름"
     } )
     @IsString()
     @IsOptional()

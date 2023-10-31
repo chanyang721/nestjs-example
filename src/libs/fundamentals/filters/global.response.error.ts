@@ -6,8 +6,8 @@ export const GlobalResponseError = ( data: IResponseErrorInput ): IResponseError
         path         : data.path,
         message      : data.message,
         timestamp    : new Date().toISOString(),
-        errors       : data.errors,
-    },
+        errors       : data.errors
+    }
 } );
 
 

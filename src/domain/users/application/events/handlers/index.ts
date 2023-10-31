@@ -1,4 +1,4 @@
-import { UpdateUserEventHandler } from './update-user.event.handler';
+import { UpdateUserEventHandler } from "./update-user.event.handler";
 
 
 

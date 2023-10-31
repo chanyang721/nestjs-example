@@ -1,11 +1,11 @@
-import { HttpException, HttpStatus, Injectable, Logger } from '@nestjs/common';
-import { JwtService }                                    from '../../../helpers/jwt/jwt.service';
-import { HashingService }                                from '../../../helpers/hashing/hashing.service';
-import { LoginDto }                                      from '../../presentation/dtos/login.dto';
-import { RegisterUserDto }                               from '../../presentation/dtos/auth.register.user.dto';
-import { AuthRepository }                                from '../../infrastructure/repositories/auth.repository';
-import { TokenDto }                                      from '../../presentation/dtos/token.dto';
-import { AuthEntityDto }                                 from '../../presentation/dtos/auth.entity.dto';
+import { HttpException, HttpStatus, Injectable, Logger } from "@nestjs/common";
+import { HashingService }                                from "../../../helpers/hashing/hashing.service";
+import { JwtService }                                    from "../../../helpers/jwt/jwt.service";
+import { AuthRepository }                                from "../../infrastructure/repositories/auth.repository";
+import { AuthEntityDto }                                 from "../../presentation/dtos/auth.entity.dto";
+import { RegisterUserDto }                               from "../../presentation/dtos/auth.register.user.dto";
+import { LoginDto }                                      from "../../presentation/dtos/login.dto";
+import { TokenDto }                                      from "../../presentation/dtos/token.dto";
 
 
 
@@ -15,9 +15,9 @@ export class AuthService {
     
     
     constructor(
-        private readonly authRepository: AuthRepository,
-        private readonly jwtService: JwtService,
-        private readonly hashingService: HashingService,
+      private readonly authRepository: AuthRepository,
+      private readonly jwtService: JwtService,
+      private readonly hashingService: HashingService
     ) {
     }
     
@@ -40,22 +40,22 @@ export class AuthService {
     }
     
     
-    public async refreshAccessToken( user: any, refresh_token: string ): Promise<Pick<TokenDto, 'access_token'>> {
+    public async refreshAccessToken( user: any, refresh_token: string ): Promise<Pick<TokenDto, "access_token">> {
         const auth = await this.authRepository.findByUid( user.uid );
         if ( !auth ) {
-            throw new HttpException( 'User not found', HttpStatus.NOT_FOUND );
+            throw new HttpException( "User not found", HttpStatus.NOT_FOUND );
         }
         
         const isRefreshTokenMatching = await this.hashingService.compare( refresh_token, auth.currentRefreshToken );
         if ( !isRefreshTokenMatching ) {
-            throw new HttpException( 'Refresh token mismatch', HttpStatus.UNAUTHORIZED );
+            throw new HttpException( "Refresh token mismatch", HttpStatus.UNAUTHORIZED );
         }
         
         const refreshedAccessToken: string = await this.jwtService.getTokens( auth )
                                                        .then( tokens => tokens.access_token );
         
         return {
-            access_token: refreshedAccessToken,
+            access_token: refreshedAccessToken
         };
     }
 }

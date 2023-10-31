@@ -1,6 +1,6 @@
-import firebase                from 'firebase-admin';
-import { Injectable }          from '@nestjs/common';
-import { CommonConfigService } from '../../../../config/common.config.service';
+import { Injectable }          from "@nestjs/common";
+import firebase                from "firebase-admin";
+import { CommonConfigService } from "../../../../config/common.config.service";
 
 
 
@@ -12,8 +12,8 @@ export class FirebaseService {
     constructor( private readonly commonConfigService: CommonConfigService ) {
         this.firebaseClient = firebase.initializeApp( {
             credential: firebase.credential.cert(
-                commonConfigService.accessFirebaseConfig,
-            ),
+              commonConfigService.accessFirebaseConfig
+            )
         } );
     }
     
