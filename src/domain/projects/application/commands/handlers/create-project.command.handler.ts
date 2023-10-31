@@ -1,14 +1,14 @@
-import { CommandHandler, EventPublisher, ICommandHandler } from '@nestjs/cqrs';
-import { CreateProjectCommand }                            from '../implements/create-project.command';
-import { ProjectCommandRepository }                        from '../../../infrastructure/repositories/project.command.repository';
+import { CommandHandler, EventPublisher, ICommandHandler } from "@nestjs/cqrs";
+import { ProjectCommandRepository }                        from "../../../infrastructure/repositories/project.command.repository";
+import { CreateProjectCommand }                            from "../implements/create-project.command";
 
 
 
 @CommandHandler( CreateProjectCommand )
 export class CreateProjectCommandHandler implements ICommandHandler<CreateProjectCommand> {
     constructor(
-        private readonly projectRepository: ProjectCommandRepository,
-        private readonly eventPublisher: EventPublisher,
+      private readonly projectRepository: ProjectCommandRepository,
+      private readonly eventPublisher: EventPublisher
     ) {
     }
     

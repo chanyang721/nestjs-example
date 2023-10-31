@@ -1,12 +1,11 @@
-import { EntityManager, Repository }                     from 'typeorm';
-import { InjectRepository }                              from '@nestjs/typeorm';
-import { HttpException, HttpStatus, Injectable, Logger } from '@nestjs/common';
-import { JwtPayLoadDto }                                 from '../../../../libs/helpers/jwt/interface/jwt.payload.interface';
-import { CreateCommentsOrReplyDto }                      from '../../presentation/dtos/create.comment.dto';
-import { UpdateCommentsOrReplyDto }                      from '../../presentation/dtos/update.comment.dto';
-import { PagenationOptionsDto }                          from '../../presentation/dtos/pagenation-options.dto';
-import { CommentsEntity }                                from '../entities/comments.entity';
-import { PostsEntity }                                   from '../entities/posts.entity';
+import { HttpException, HttpStatus, Injectable, Logger } from "@nestjs/common";
+import { InjectRepository }                              from "@nestjs/typeorm";
+import { EntityManager, Repository }                     from "typeorm";
+import { JwtPayLoadDto }                                 from "../../../../libs/helpers/jwt/interface/jwt.payload.interface";
+import { CreateCommentsOrReplyDto }                      from "../../presentation/dtos/create.comment.dto";
+import { PagenationOptionsDto }                          from "../../presentation/dtos/pagenation-options.dto";
+import { UpdateCommentsOrReplyDto }                      from "../../presentation/dtos/update.comment.dto";
+import { CommentsEntity }                                from "../entities/comments.entity";
 
 
 
@@ -16,9 +15,9 @@ export class CommentsRepository {
     
     
     constructor(
-        @InjectRepository( CommentsEntity )
-        private readonly commentsRepository: Repository<CommentsEntity>,
-        private readonly em: EntityManager,
+      @InjectRepository( CommentsEntity )
+      private readonly commentsRepository: Repository<CommentsEntity>,
+      private readonly em: EntityManager
     ) {
     }
     
@@ -81,7 +80,7 @@ export class CommentsRepository {
     
     
     async findCommentsByPostId( postId: number,
-        pagenationOptionsDto: PagenationOptionsDto ): Promise<CommentsEntity[]> {
+      pagenationOptionsDto: PagenationOptionsDto ): Promise<CommentsEntity[]> {
         // const qb = await this.em.qb( CommentsEntity );
         // const comments = await this.em.find( PostsEntity, {
         //   id: postId,
@@ -91,7 +90,7 @@ export class CommentsRepository {
         //   offset: Number(pagenationOptionsDto.offset),
         //   fields: [ 'comments' ],
         // } );
-        
+        //
         // const knex = this.em.getKnex();
         // const sql = `
         //       SELECT
@@ -107,7 +106,7 @@ export class CommentsRepository {
         //       LIMIT :limit
         //       OFFSET :offset
         // `;
-        //
+        
         // const qb = knex.raw( sql, {
         //     id    : postId,
         //     limit : +pagenationOptionsDto.limit,

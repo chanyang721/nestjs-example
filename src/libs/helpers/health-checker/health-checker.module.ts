@@ -7,10 +7,10 @@ import { TerminusLogger }          from "./terminus-logger.service";
 
 @Module( {
     imports    : [
-      TerminusModule.forRoot( {
-          logger: TerminusLogger,
-          errorLogStyle: 'pretty',
-      } )
+        TerminusModule.forRoot( {
+            logger       : TerminusLogger,
+            errorLogStyle: "pretty"
+        } )
     ],
     controllers: [ HealthCheckerController ],
     providers  : []

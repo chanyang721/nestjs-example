@@ -1,15 +1,14 @@
-import { Injectable }           from '@nestjs/common';
-import { CommandBus, QueryBus } from '@nestjs/cqrs';
-import { UpdateUserDto }        from '../../presentation/dtos/update.user.dto';
-import { UpdateUserCommand }    from '../commands/implements';
+import { Injectable }           from "@nestjs/common";
+import { CommandBus, QueryBus } from "@nestjs/cqrs";
+import { UpdateUserCommand }    from "../commands/implements";
 
 
 
 @Injectable()
 export class UserService {
     constructor(
-        private readonly commandBus: CommandBus,
-        private readonly queryBus: QueryBus,
+      private readonly commandBus: CommandBus,
+      private readonly queryBus: QueryBus
     ) {
     }
     

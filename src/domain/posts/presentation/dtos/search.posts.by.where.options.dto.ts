@@ -1,11 +1,11 @@
-import { IsEnum, IsNotEmpty, IsNumber, IsOptional, IsString } from 'class-validator';
+import { IsEnum, IsNotEmpty, IsOptional, IsString } from "class-validator";
 
 
 
 export enum PostsSearchOptions {
-    title = 'title',
-    content = 'content',
-    writer = 'writer'
+    title = "title",
+    content = "content",
+    writer = "writer"
 }
 
 
@@ -27,5 +27,5 @@ export class SearchPostsBySearchAndWhereOptionsDto {
     offset!: string;
     
     @IsString()
-    sort?: string = 'desc';
+    sort?: string = "desc";
 }

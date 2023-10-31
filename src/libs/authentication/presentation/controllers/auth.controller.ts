@@ -1,25 +1,25 @@
-import type { Response }                                             from 'express';
-import { Body, Controller, Get, Post, Req, Res, UseGuards }          from '@nestjs/common';
-import { ApiTags }                                                   from '@nestjs/swagger';
-import { COOKIE_ACCESS_TOKEN_NAME, COOKIE_REFRESH_TOKEN_NAME }       from '../../../utils/constants';
-import { COOKIE_ACCESS_TOKEN_OPTIONS, COOKIE_REFRESH_TOKEN_OPTIONS } from '../../../helpers/jwt/options';
-import { Public }                                                    from '../../../utils/decoretors';
-import { LocalAuthGuard }      from '../../../fundamentals/guards/local/local.auth.guard';
-import { JwtAuthRefreshGuard } from '../../../fundamentals/guards/local/jwt.refresh.guard';
-import { RegisterUserDto }     from '../dtos/auth.register.user.dto';
-import { LoginDto }                                                  from '../dtos/login.dto';
-import { TokenDto }                                                  from '../dtos/token.dto';
-import { ApiRegisterDecorator }                                      from '../swagger-decoretors/api.register.decorator';
-import { ApiLoginDecorator }                                         from '../swagger-decoretors/api.login.decorator';
-import { ApiRefreshDecorator }                                       from '../swagger-decoretors/api.refresh.decorator';
-import { IAuthController }                                           from '../interfaces/auth.controller.interface';
-import { AuthService }                                               from '../../application/services/auth.service';
+import { Body, Controller, Get, Post, Req, Res, UseGuards }          from "@nestjs/common";
+import { ApiTags }                                                   from "@nestjs/swagger";
+import type { Response }                                             from "express";
+import { JwtAuthRefreshGuard }                                       from "../../../fundamentals/guards/local/jwt.refresh.guard";
+import { LocalAuthGuard }                                            from "../../../fundamentals/guards/local/local.auth.guard";
+import { COOKIE_ACCESS_TOKEN_OPTIONS, COOKIE_REFRESH_TOKEN_OPTIONS } from "../../../helpers/jwt/options";
+import { COOKIE_ACCESS_TOKEN_NAME, COOKIE_REFRESH_TOKEN_NAME }       from "../../../utils/constants";
+import { Public }                                                    from "../../../utils/decoretors";
+import { AuthService }                                               from "../../application/services/auth.service";
+import { RegisterUserDto }                                           from "../dtos/auth.register.user.dto";
+import { LoginDto }                                                  from "../dtos/login.dto";
+import { TokenDto }                                                  from "../dtos/token.dto";
+import { IAuthController }                                           from "../interfaces/auth.controller.interface";
+import { ApiLoginDecorator }                                         from "../swagger-decoretors/api.login.decorator";
+import { ApiRefreshDecorator }                                       from "../swagger-decoretors/api.refresh.decorator";
+import { ApiRegisterDecorator }                                      from "../swagger-decoretors/api.register.decorator";
 
 
 
 @Public()
-@ApiTags( 'auth' )
-@Controller( 'auth' )
+@ApiTags( "auth" )
+@Controller( "auth" )
 export class AuthController implements IAuthController {
     constructor( private readonly authService: AuthService ) {
     }
@@ -30,11 +30,11 @@ export class AuthController implements IAuthController {
      * @param registerUserDto RegisterUserDto
      * @return any
      */
-    @Post( 'register' )
+    @Post( "register" )
     @ApiRegisterDecorator()
     @UseGuards( LocalAuthGuard )
     async register(
-        @Body() registerUserDto: RegisterUserDto,
+      @Body() registerUserDto: RegisterUserDto
     ): Promise<any> {
         return await this.authService.register( registerUserDto );
     }
@@ -46,11 +46,11 @@ export class AuthController implements IAuthController {
      * @param res Request with users
      * @returns TokenDto
      * */
-    @Post( 'login' )
+    @Post( "login" )
     @ApiLoginDecorator()
     async login(
-        @Body() loginDto: LoginDto,
-        @Res( { passthrough: true } ) res: Response,
+      @Body() loginDto: LoginDto,
+      @Res( { passthrough: true } ) res: Response
     ): Promise<TokenDto> {
         const tokens: TokenDto = await this.authService.login( loginDto );
         
@@ -66,12 +66,12 @@ export class AuthController implements IAuthController {
      * @param req Request with users
      * @returns TokenDto
      */
-    @Get( 'refresh' )
+    @Get( "refresh" )
     @ApiRefreshDecorator()
     @UseGuards( JwtAuthRefreshGuard )
     async refresh(
-        @Req() req: any,
-    ): Promise<Pick<TokenDto, 'access_token'>> {
+      @Req() req: any
+    ): Promise<Pick<TokenDto, "access_token">> {
         return await this.authService.refreshAccessToken( req.user, req.cookie.refresh_token );
     }
 }

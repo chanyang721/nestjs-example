@@ -1,19 +1,19 @@
-import { DataSource, Repository } from 'typeorm';
-import { InjectDataSource }       from '@nestjs/typeorm';
-import { RepositoryInject }       from '../../../utils/decoretors';
-import { PROJECT }                from '../../../utils/constants';
-import { transaction }            from '../../../database/orm/typeorm/transaction';
-import { RegisterUserDto }        from '../../presentation/dtos/auth.register.user.dto';
-import { UserEntity }             from '../../../../domain/users/infrastructure/entities/user.entity';
-import { AuthEntity }             from '../entities/auth.entity';
+import { InjectDataSource }       from "@nestjs/typeorm";
+import { DataSource, Repository } from "typeorm";
+import { UserEntity }             from "../../../../domain/users/infrastructure/entities/user.entity";
+import { transaction }            from "../../../database/orm/typeorm/transaction";
+import { PROJECT }                from "../../../utils/constants";
+import { RepositoryInject }       from "../../../utils/decoretors";
+import { RegisterUserDto }        from "../../presentation/dtos/auth.register.user.dto";
+import { AuthEntity }             from "../entities/auth.entity";
 
 
 
 @RepositoryInject( AuthRepository )
 export class AuthRepository extends Repository<AuthEntity> {
     constructor(
-        @InjectDataSource( PROJECT )
-        private readonly mainDataSource: DataSource,
+      @InjectDataSource( PROJECT )
+      private readonly mainDataSource: DataSource
     ) {
         super( AuthEntity, mainDataSource.createEntityManager() );
     }
@@ -21,23 +21,23 @@ export class AuthRepository extends Repository<AuthEntity> {
     
     async registerUser( registerUserDto: RegisterUserDto ): Promise<AuthEntity> {
         return await transaction<AuthEntity, AuthEntity>(
-            [ this.mainDataSource ],
-            async ( mainQueryRunner ) => {
-                const user = new UserEntity( { uid: registerUserDto.uid } );
-                user.auth = new AuthEntity( registerUserDto );
-                
-                const createdUser = await mainQueryRunner.manager.save( user );
-                return createdUser.auth;
-            }, async () => {
-                /**
-                 * catch black logic without transaction rollback and throw error
-                 */
-            } );
+          [ this.mainDataSource ],
+          async ( mainQueryRunner ) => {
+              const user = new UserEntity( { uid: registerUserDto.uid } );
+              user.auth = new AuthEntity( registerUserDto );
+              
+              const createdUser = await mainQueryRunner.manager.save( user );
+              return createdUser.auth;
+          }, async () => {
+              /**
+               * catch black logic without transaction rollback and throw error
+               */
+          } );
     }
     
     
     public async findByUid( uid: string ): Promise<any> {
-        const qb = await this.getQueryBuilderByAliasWhereUid( 'auth', uid );
+        const qb = await this.getQueryBuilderByAliasWhereUid( "auth", uid );
         return await qb.getOne();
     }
     

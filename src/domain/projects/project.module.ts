@@ -15,22 +15,22 @@ import { ProjectController }           from "./presentation/controllers/project.
 
 
 @Module( {
-  imports    : [
-    CqrsModule,
-    
-    RepositoryModule.forFeature( [ ProjectCommandRepository ], PROJECT ),
-    
-    RepositoryModule.forFeature( [ ProjectQueryRepository ], PROJECT ),
-    
-    MongooseModule.forFeature( [ { name: ProjectModel.name, schema: ProjectSchema } ], MAIN )
-  ],
-  controllers: [ ProjectController ],
-  providers  : [
-    ProjectService,
-    ...ProjectCommandHandlers,
-    ...ProjectQueryHandlers,
-    ...ProjectEventHandlers,
-  ]
+    imports    : [
+        CqrsModule,
+        
+        RepositoryModule.forFeature( [ ProjectCommandRepository ], PROJECT ),
+        
+        RepositoryModule.forFeature( [ ProjectQueryRepository ], PROJECT ),
+        
+        MongooseModule.forFeature( [ { name: ProjectModel.name, schema: ProjectSchema } ], MAIN )
+    ],
+    controllers: [ ProjectController ],
+    providers  : [
+        ProjectService,
+        ...ProjectCommandHandlers,
+        ...ProjectQueryHandlers,
+        ...ProjectEventHandlers
+    ]
 } )
 export class ProjectModule {
 }

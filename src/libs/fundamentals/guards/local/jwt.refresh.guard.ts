@@ -1,15 +1,15 @@
-import { Request }                                                     from 'express';
-import { ExtractJwt }                                                  from 'passport-jwt';
-import { ExecutionContext, Injectable, Logger, UnauthorizedException } from '@nestjs/common';
-import { AuthGuard }                                                   from '@nestjs/passport';
-import { COOKIE_ACCESS_TOKEN_NAME, COOKIE_REFRESH_TOKEN_NAME }       from '../../../utils/constants';
-import { COOKIE_ACCESS_TOKEN_OPTIONS, COOKIE_REFRESH_TOKEN_OPTIONS } from '../../../helpers/jwt/options';
-import { JwtService }                                                from '../../../helpers/jwt/jwt.service';
+import { ExecutionContext, Injectable, Logger, UnauthorizedException } from "@nestjs/common";
+import { AuthGuard }                                                   from "@nestjs/passport";
+import { Request }                                                     from "express";
+import { ExtractJwt }                                                  from "passport-jwt";
+import { JwtService }                                                  from "../../../helpers/jwt/jwt.service";
+import { COOKIE_ACCESS_TOKEN_OPTIONS, COOKIE_REFRESH_TOKEN_OPTIONS }   from "../../../helpers/jwt/options";
+import { COOKIE_ACCESS_TOKEN_NAME, COOKIE_REFRESH_TOKEN_NAME }         from "../../../utils/constants";
 
 
 
 @Injectable()
-export class JwtAuthRefreshGuard extends AuthGuard( 'jwt-refresh-token' ) {
+export class JwtAuthRefreshGuard extends AuthGuard( "jwt-refresh-token" ) {
     private logger = new Logger( JwtAuthRefreshGuard.name );
     
     
@@ -28,7 +28,7 @@ export class JwtAuthRefreshGuard extends AuthGuard( 'jwt-refresh-token' ) {
             const access_token = ExtractJwt.fromExtractors( [ this.cookieAccessTokenExtractor ] )( request );
             const expiredToken = await this.jwtService.isExpiredToken( access_token );
             if ( !expiredToken ) {
-                throw new UnauthorizedException( 'Access token in the cookie is not expired' );
+                throw new UnauthorizedException( "Access token in the cookie is not expired" );
             }
             
             else if ( expiredToken ) {
@@ -37,7 +37,7 @@ export class JwtAuthRefreshGuard extends AuthGuard( 'jwt-refresh-token' ) {
                 if ( expiredToken ) {
                     response.clearCookie( COOKIE_ACCESS_TOKEN_NAME, COOKIE_ACCESS_TOKEN_OPTIONS );
                     response.clearCookie( COOKIE_REFRESH_TOKEN_NAME, COOKIE_REFRESH_TOKEN_OPTIONS );
-                    throw new UnauthorizedException( 'Refresh token in the cookie is expired' );
+                    throw new UnauthorizedException( "Refresh token in the cookie is expired" );
                 }
             }
             
@@ -54,13 +54,19 @@ export class JwtAuthRefreshGuard extends AuthGuard( 'jwt-refresh-token' ) {
     }
     
     
+    handleRequest( err, user, info ) {
+        if ( err || !user ) throw new UnauthorizedException();
+        return user;
+    }
+    
+    
     private cookieAccessTokenExtractor( request: Request ): string | null {
         let token = null;
         if ( request && request.cookies ) {
             token = request.cookies[ COOKIE_ACCESS_TOKEN_NAME ];
         }
         if ( !token ) {
-            throw new UnauthorizedException( 'Access token is not set in cookie' );
+            throw new UnauthorizedException( "Access token is not set in cookie" );
         }
         
         return token;
@@ -73,16 +79,10 @@ export class JwtAuthRefreshGuard extends AuthGuard( 'jwt-refresh-token' ) {
             token = request.cookies[ COOKIE_REFRESH_TOKEN_NAME ];
         }
         if ( !token ) {
-            throw new UnauthorizedException( 'Refresh token is not set in cookie' );
+            throw new UnauthorizedException( "Refresh token is not set in cookie" );
         }
         
         return token;
     };
-    
-    
-    handleRequest( err, user, info ) {
-        if ( err || !user ) throw new UnauthorizedException();
-        return user;
-    }
     
 }

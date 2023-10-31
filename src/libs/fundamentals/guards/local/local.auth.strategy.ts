@@ -1,8 +1,8 @@
-import { HttpException, HttpStatus, Injectable, UnauthorizedException } from '@nestjs/common';
-import { PassportStrategy }                                             from '@nestjs/passport';
-import { Strategy }                                                     from 'passport-local';
-import { FirebaseService }                                              from '../../../authentication/infrastructure/platforms/firebase/firebase.service';
-import { RegisterUserDto }                                              from '../../../authentication/presentation/dtos/auth.register.user.dto';
+import { HttpException, HttpStatus, Injectable, UnauthorizedException } from "@nestjs/common";
+import { PassportStrategy }                                             from "@nestjs/passport";
+import { Strategy }                                                     from "passport-local";
+import { FirebaseService }                                              from "../../../authentication/infrastructure/platforms/firebase/firebase.service";
+import { RegisterUserDto }                                              from "../../../authentication/presentation/dtos/auth.register.user.dto";
 
 
 
@@ -12,11 +12,11 @@ export class LocalAuthStrategy extends PassportStrategy( Strategy ) {
     
     
     constructor(
-        private readonly firebaseService: FirebaseService,
+      private readonly firebaseService: FirebaseService
     ) {
         super( {
-            usernameField: 'uid',
-            passwordField: 'id_token',
+            usernameField: "uid",
+            passwordField: "id_token"
         } );
         this.firebaseClient = firebaseService.getFirebaseClient();
     }
@@ -28,18 +28,18 @@ export class LocalAuthStrategy extends PassportStrategy( Strategy ) {
                                              .verifyIdToken( id_token );
             
             if ( decodedFirebaseToken.uid !== uid ) {
-                throw new UnauthorizedException( 'firebase uid is not matched with users uid in db' );
+                throw new UnauthorizedException( "firebase uid is not matched with users uid in db" );
             }
             
             return {
-                uid, ...decodedFirebaseToken,
+                uid, ...decodedFirebaseToken
             } as RegisterUserDto;
         }
         catch ( e ) {
-            if ( e.code === 'auth/argument-error' ) {
-                throw new HttpException( 'firebase id token is expired', HttpStatus.UNAUTHORIZED );
+            if ( e.code === "auth/argument-error" ) {
+                throw new HttpException( "firebase id token is expired", HttpStatus.UNAUTHORIZED );
             }
-            throw new HttpException( 'firebase id token is invalid', HttpStatus.UNAUTHORIZED );
+            throw new HttpException( "firebase id token is invalid", HttpStatus.UNAUTHORIZED );
         }
     }
 }

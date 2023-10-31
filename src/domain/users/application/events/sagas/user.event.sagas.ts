@@ -1,6 +1,6 @@
-import { map, Observable } from 'rxjs';
-import { Injectable }      from '@nestjs/common';
-import { ofType, Saga }    from '@nestjs/cqrs';
+import { Injectable }      from "@nestjs/common";
+import { ofType, Saga }    from "@nestjs/cqrs";
+import { map, Observable } from "rxjs";
 
 
 
@@ -9,10 +9,10 @@ export class UserSagas {
     @Saga()
     updateUser = ( events$: Observable<any> ): Observable<void> => {
         return events$.pipe(
-            ofType(),
-            map( ( event ) => {
-            
-            } ) );
+          ofType(),
+          map( ( event ) => {
+          
+          } ) );
     };
     
     // @Saga()

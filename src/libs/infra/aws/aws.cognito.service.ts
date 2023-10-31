@@ -1,5 +1,5 @@
-import { Injectable }          from '@nestjs/common';
-import { CommonConfigService } from '../../config/common.config.service';
+import { Injectable }          from "@nestjs/common";
+import { CommonConfigService } from "../../config/common.config.service";
 
 
 
@@ -9,7 +9,7 @@ export class CognitoService {
     
     
     constructor(
-        private readonly commonConfigService: CommonConfigService,
+      private readonly commonConfigService: CommonConfigService
     ) {
         /**
          * TODO: Implement cognito client

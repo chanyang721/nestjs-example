@@ -1,11 +1,11 @@
-import { HttpException, HttpStatus, Injectable, Logger } from '@nestjs/common';
-import { JwtPayLoadDto }                                 from '../../../../libs/helpers/jwt/interface/jwt.payload.interface';
-import { CreateCommentsOrReplyDto }                      from '../../presentation/dtos/create.comment.dto';
-import { CommentsRepository }                            from '../../infrastructrue/repositories/comments.repository';
-import { UpdateCommentsOrReplyDto }                      from '../../presentation/dtos/update.comment.dto';
-import { PagenationOptionsDto }                          from '../../presentation/dtos/pagenation-options.dto';
-import { CommentsEntity }                                from '../../infrastructrue/entities/comments.entity';
-import { IdAndMessageDto }                               from '../../../../libs/utils/common/dtos/common-id-and-message.dto';
+import { HttpException, HttpStatus, Injectable, Logger } from "@nestjs/common";
+import { JwtPayLoadDto }                                 from "../../../../libs/helpers/jwt/interface/jwt.payload.interface";
+import { IdAndMessageDto }                               from "../../../../libs/utils/common/dtos/common-id-and-message.dto";
+import { CommentsEntity }                                from "../../infrastructrue/entities/comments.entity";
+import { CommentsRepository }                            from "../../infrastructrue/repositories/comments.repository";
+import { CreateCommentsOrReplyDto }                      from "../../presentation/dtos/create.comment.dto";
+import { PagenationOptionsDto }                          from "../../presentation/dtos/pagenation-options.dto";
+import { UpdateCommentsOrReplyDto }                      from "../../presentation/dtos/update.comment.dto";
 
 
 
@@ -15,7 +15,7 @@ export class CommentsService {
     
     
     constructor(
-        private readonly commentsRepository: CommentsRepository,
+      private readonly commentsRepository: CommentsRepository
     ) {
     }
     
@@ -26,7 +26,7 @@ export class CommentsService {
             
             return {
                 id     : 1,
-                message: true,
+                message: true
             };
         }
         catch ( error ) {
@@ -37,11 +37,11 @@ export class CommentsService {
     
     
     async updateComment( user: JwtPayLoadDto,
-        updateCommentsOrReplyDto: UpdateCommentsOrReplyDto ): Promise<IdAndMessageDto> {
+      updateCommentsOrReplyDto: UpdateCommentsOrReplyDto ): Promise<IdAndMessageDto> {
         try {
             const comment = await this.commentsRepository.findCommentById( updateCommentsOrReplyDto.id );
             if ( !comment ) {
-                throw new HttpException( '존재하지 않는 댓글입니다', HttpStatus.BAD_REQUEST );
+                throw new HttpException( "존재하지 않는 댓글입니다", HttpStatus.BAD_REQUEST );
             }
             
             // const isSameWriter = user.nickname === comment.writer;
@@ -53,7 +53,7 @@ export class CommentsService {
             
             return {
                 id     : updateCommentsOrReplyDto.id,
-                message: true,
+                message: true
             };
         }
         catch ( error ) {
@@ -64,7 +64,7 @@ export class CommentsService {
     
     
     async findCommentsByPostId( postId: number,
-        pagenationOptionsDto: PagenationOptionsDto ): Promise<CommentsEntity[]> {
+      pagenationOptionsDto: PagenationOptionsDto ): Promise<CommentsEntity[]> {
         try {
             return await this.commentsRepository.findCommentsByPostId( postId, pagenationOptionsDto );
         }
