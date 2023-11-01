@@ -2,6 +2,7 @@
 export const GlobalErrorException = ( response: IBaseException ): IBaseExceptionFormat => ( {
     error: {
         statusCode   : response.statusCode,
+        errorCode    : response.errorCode,
         exceptionCode: response.exceptionCode,
         method       : response.method,
         path         : response.path,
@@ -19,6 +20,7 @@ export interface IBaseExceptionFormat {
 
 export interface IBaseException {
     statusCode: number;
+    errorCode: string;
     exceptionCode: string;
     method: string;
     path: string;
