@@ -1,14 +1,15 @@
 import { ArgumentsHost, Catch, ExceptionFilter, HttpException, HttpStatus, Logger, UnprocessableEntityException, ValidationError } from "@nestjs/common";
 import type { Request, Response }                                                                                                  from "express";
 import { MongooseError }                                                                                                           from "mongoose";
-import { TypeORMError }         from "typeorm";
-import { BaseException }        from "./error/exceptions/base/base.exception";
-import { GlobalErrorException } from "./error/exceptions/interfaces/global.error.execption";
+import { TypeORMError }                                                                                                            from "typeorm";
+import { BaseException }                                                                                                           from "./error/exceptions/base/base.exception";
+import { UnCatchException }                                                                                                        from "./error/exceptions/base/uncatch.exception";
+import { GlobalErrorException }                                                                                                    from "./error/exceptions/interfaces/global.error.execption";
 
 
 
 @Catch()
-export class GlobalExceptionFilter<T = BaseException | HttpException> implements ExceptionFilter {
+export class GlobalExceptionFilter<T = BaseException | HttpException | Error> implements ExceptionFilter {
     private readonly logger = new Logger( GlobalExceptionFilter.name );
     
     
@@ -17,13 +18,14 @@ export class GlobalExceptionFilter<T = BaseException | HttpException> implements
         const request = ctx.getRequest<Request>();
         const response = ctx.getResponse<Response>();
         
+        const res = exception instanceof BaseException ? exception : new UnCatchException();
         
         /**
-         * Default Error Exception Filter
+         * Default Error Exception Setting
          */
-        let exceptionCode: string = exception.constructor.name,
           // @ts-ignore
-          message: string = exception.message || exception.response.message || exception.response.error || exception.response || exception,
+        let message: string = exception.message || exception.response.message || exception.response.error || exception.response,
+          exceptionCode: string = exception.constructor.name,
           statusCode: number = HttpStatus.INTERNAL_SERVER_ERROR,
           errors: any;
         console.log( exception );
@@ -40,16 +42,16 @@ export class GlobalExceptionFilter<T = BaseException | HttpException> implements
             const validationErrorsMessage = error.message;
             errors = this.setValidationErrorMessages( validationErrorsMessage );
         }
-          
-          // /**
-          //  * Axios Exception Filter
-          //  * TODO: Axios Exception Filter 전용 Exception 생성
-          //  */
-          // else if ( exception instanceof HttpException ) {
-          //     statusCode = ( exception as HttpException ).getStatus();
-          //     exceptionCode = ( exception as HttpException ).name;
-          //     message = ( exception as HttpException ).message;
-          // }
+        
+        /**
+         * Axios Exception Filter
+         * TODO: Axios Exception Filter 전용 Exception 생성
+         */
+        else if ( exception instanceof HttpException ) {
+            statusCode = ( exception as HttpException ).getStatus();
+            exceptionCode = ( exception as HttpException ).name;
+            message = ( exception as HttpException ).message;
+        }
         
         
         /**
@@ -82,15 +84,14 @@ export class GlobalExceptionFilter<T = BaseException | HttpException> implements
         }
         
         
-        this.logger.error( GlobalErrorException( { statusCode, errorCode: '0001', exceptionCode, message, method: request.method, path: request.url, errors } ) );
+        this.logger.error( GlobalErrorException( { statusCode, exceptionCode, message, method: request.method, path: request.url, errors } ) );
         response.status( statusCode )
                 .json( GlobalErrorException( {
-                    errorCode: "0001",
                     statusCode,
                     exceptionCode,
                     message,
-                    method   : request.method,
-                    path     : request.url,
+                    method: request.method,
+                    path  : request.url,
                     errors
                 } ) );
     }
