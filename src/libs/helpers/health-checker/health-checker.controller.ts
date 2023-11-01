@@ -16,7 +16,7 @@ export class HealthCheckerController {
     
     /**
      *  {
-     *     "status": 'error' | 'ok' | 'shutting_down',
+     *     "codes": 'error' | 'ok' | 'shutting_down',
      * }
      * */
     @Get()
