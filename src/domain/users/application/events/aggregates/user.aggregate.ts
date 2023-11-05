@@ -1,6 +1,6 @@
 import { AggregateRoot }   from "@nestjs/cqrs";
 import { UpdateUserDto }   from "../../../presentation/dtos/update.user.dto";
-import { UpdateUserEvent } from "../implements";
+import { UpdateUserEventImplement } from "../handlers/update-user.event.handler";
 
 
 
@@ -26,6 +26,6 @@ export class UserAggregate extends AggregateRoot {
          * 이벤트 발행 이 후, 해당 event handler 에서 비즈니스 로직 처리
          * Aggregate method then creates an event and calls this When or Apply method to handle the event
          */
-        this.apply( new UpdateUserEvent( this.updateUserDto ) );
+        this.apply( new UpdateUserEventImplement( this.updateUserDto ) );
     }
 }

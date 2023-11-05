@@ -18,6 +18,7 @@ export class UserEntity extends BaseEntity {
         default : UserRole.UNKNOWN,
         comment : "유저 권한"
     } ) role: UserRole;
+    
     @Column( {
         type    : "varchar",
         length  : 46,

@@ -1,3 +1,3 @@
-export interface IUserController {
+export interface IUserControllerAdapter {
 
 }

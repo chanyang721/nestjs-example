@@ -1,10 +1,10 @@
-import { ConfigService }          from "@nestjs/config";
 import { NestFactory }            from "@nestjs/core";
 import { NestExpressApplication } from "@nestjs/platform-express";
 import compression                from "compression";
 import cookieParser               from "cookie-parser";
 import helmet                     from "helmet";
 import { AppModule }              from "./app.module";
+import { CommonConfigService }    from "./libs/config/common.config.service";
 import { fundamentals }           from "./libs/fundamentals";
 import { setupSwagger }           from "./libs/utils/swagger";
 
@@ -12,6 +12,7 @@ import { setupSwagger }           from "./libs/utils/swagger";
 
 async function bootstrap() {
     const app = await NestFactory.create<NestExpressApplication>( AppModule );
+    const { serverConfig } = app.get( CommonConfigService );
     
     app.enableCors( {
         origin     : true, // TODO 도메인 수정
@@ -30,10 +31,12 @@ async function bootstrap() {
     
     await setupSwagger( app );
     
-    await app.listen( app.get( ConfigService )
-                         .get( "SERVER_PORT" ) );
+    await app.listen( serverConfig.SERVER.PORT );
     
-    console.info( `Server is running on: ${ await app.getUrl() }` );
+    console.info( `
+        Server is running on: ${ await app.getUrl() } \n
+        Node Environment    : ${ serverConfig.NODE_ENV } \n
+    ` );
     
     return app;
 }

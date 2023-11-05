@@ -1,12 +1,19 @@
 import { CommandHandler, EventPublisher, ICommandHandler } from "@nestjs/cqrs";
 import { UserCommandRepository }                           from "../../../infrastructure/repositories/user.command.repository";
+import { UpdateUserDto }                                   from "../../../presentation/dtos/update.user.dto";
 import { UserAggregate }                                   from "../../events/aggregates/user.aggregate";
-import { UpdateUserCommand }                               from "../implements";
 
 
 
-@CommandHandler( UpdateUserCommand )
-export class UpdateUserCommandHandler implements ICommandHandler<UpdateUserCommand> {
+export class UpdateUserCommandImplement {
+    constructor(
+      public readonly updateUserDto: UpdateUserDto
+    ) {
+    }
+}
+
+@CommandHandler( UpdateUserCommandImplement )
+export class UpdateUserCommandHandler implements ICommandHandler<UpdateUserCommandImplement> {
     constructor(
       private readonly userRepository: UserCommandRepository,
       private readonly eventPublisher: EventPublisher
@@ -14,7 +21,7 @@ export class UpdateUserCommandHandler implements ICommandHandler<UpdateUserComma
     }
     
     
-    public async execute( command: UpdateUserCommand ) {
+    public async execute( command: UpdateUserCommandImplement ) {
         const updatedUserInfo = this.eventPublisher.mergeObjectContext(
           await this.userRepository.updateUser( command.updateUserDto )
         );

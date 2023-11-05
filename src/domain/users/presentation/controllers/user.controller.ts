@@ -5,7 +5,7 @@ import { multerOptions }                                          from "../../..
 import { Public }                                                 from "../../../../libs/utils/decoretors";
 import { UserService }                                            from "../../application/services/user.service";
 import { UpdateUserDto }                                          from "../dtos/update.user.dto";
-import { IUserController }                                        from "../interfaces/user.controller.interface";
+import { IUserControllerAdapter }                                        from "../interfaces/user.controller.interface";
 
 
 
@@ -13,7 +13,8 @@ import { IUserController }                                        from "../inter
 @ApiBearerAuth()
 @ApiTags( "user" )
 @Controller( "users" )
-export class UserController implements IUserController {
+export class UserController
+  implements IUserControllerAdapter {
     constructor(
       private readonly userService: UserService
     ) {

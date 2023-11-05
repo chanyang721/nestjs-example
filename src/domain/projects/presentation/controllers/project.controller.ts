@@ -4,14 +4,15 @@ import { ApiBearerAuth, ApiTags }                                 from "@nestjs/
 import { multerOptions }                                          from "../../../../libs/helpers/multer/options";
 import { ProjectService }                                         from "../../application/services/project.service";
 import { CreateProjectDto }                                       from "../dtos/create-project.dto";
-import { IProjectController }                                     from "../interfaces/project.controller.interface";
+import { IProjectControllerAdapter }                                     from "../interfaces/project.controller.interface";
 
 
 
 @ApiBearerAuth()
 @ApiTags( "projects" )
 @Controller( "projects" )
-export class ProjectController implements IProjectController {
+export class ProjectController
+  implements IProjectControllerAdapter {
     constructor( private readonly projectService: ProjectService ) {
     }
     

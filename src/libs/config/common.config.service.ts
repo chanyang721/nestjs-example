@@ -1,5 +1,6 @@
 import { Injectable }    from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
+import { PRODUCTION }    from "../utils/constants";
 
 
 
@@ -10,6 +11,15 @@ export class CommonConfigService {
     ) {
     }
     
+    
+    get serverConfig() {
+        return {
+            NODE_ENV: this.configService.get<string>( "NODE_ENV" ),
+            SERVER  : {
+                PORT: this.configService.get<number>( "SERVER_PORT" )
+            }
+        };
+    }
     
     get accessAwsConfig() {
         return {

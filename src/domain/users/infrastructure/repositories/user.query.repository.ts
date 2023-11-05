@@ -4,12 +4,14 @@ import { Connection, Model }             from "mongoose";
 import { PROJECT }                       from "../../../../libs/utils/constants";
 import { RepositoryInject }              from "../../../../libs/utils/decoretors";
 import { UserModel }                     from "../schemas/user.schema";
+import { IUserQueryRepositoryAdapter } from "../interfaces/user.repository.interface";
 
 
 
 @Injectable()
 @RepositoryInject( UserQueryRepository )
-export class UserQueryRepository {
+export class UserQueryRepository
+  implements IUserQueryRepositoryAdapter {
     
     constructor(
       @InjectConnection( PROJECT )

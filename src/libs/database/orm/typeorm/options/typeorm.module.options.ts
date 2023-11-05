@@ -11,7 +11,7 @@ import { SqlLogger }                   from "./typeorm.logger.options";
 
 
 export const typeOrmModuleAsyncOptions: TypeOrmModuleAsyncOptions = {
-    imports   : [ ConfigModule ],
+    // imports   : [ ConfigModule ],
     inject    : [ ConfigService ],
     name      : PROJECT,
     useFactory: ( configService: ConfigService ) => ( {
