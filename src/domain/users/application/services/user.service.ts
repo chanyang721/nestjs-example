@@ -1,6 +1,6 @@
-import { Injectable }           from "@nestjs/common";
-import { CommandBus, QueryBus } from "@nestjs/cqrs";
-import { UpdateUserCommand }    from "../commands/implements";
+import { Injectable }                 from "@nestjs/common";
+import { CommandBus, QueryBus }       from "@nestjs/cqrs";
+import { UpdateUserCommandImplement } from "../commands/handlers/update-user.command.handler";
 
 
 
@@ -14,6 +14,6 @@ export class UserService {
     
     
     public async updateUser( updateUserDto: any ): Promise<any> {
-        return await this.commandBus.execute( new UpdateUserCommand( updateUserDto ) );
+        return await this.commandBus.execute( new UpdateUserCommandImplement( updateUserDto ) );
     }
 }

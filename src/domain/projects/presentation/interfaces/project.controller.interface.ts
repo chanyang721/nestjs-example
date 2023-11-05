@@ -1,3 +1,3 @@
-export interface IProjectController {
+export interface IProjectControllerAdapter {
 
 }

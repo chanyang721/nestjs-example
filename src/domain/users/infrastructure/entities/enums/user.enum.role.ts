@@ -9,5 +9,5 @@ export enum UserRole {
     
     GUEST = "GUEST",
     
-    CLIENT = "CLIENT",
+    CLIENT = "CLIENT"
 }

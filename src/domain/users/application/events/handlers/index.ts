@@ -2,4 +2,6 @@ import { UpdateUserEventHandler } from "./update-user.event.handler";
 
 
 
-export const UserEventHandlers = [ UpdateUserEventHandler ];
+export const UserEventHandlers = [
+  UpdateUserEventHandler
+];
