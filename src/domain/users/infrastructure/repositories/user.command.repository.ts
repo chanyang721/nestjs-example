@@ -1,13 +1,13 @@
+import { Injectable }                    from "@nestjs/common";
 import { InjectDataSource }              from "@nestjs/typeorm";
 import { DataSource, Repository }        from "typeorm";
 import { PROJECT }                       from "../../../../libs/utils/constants";
-import { RepositoryInject }              from "../../../../libs/utils/decoretors";
 import { UserEntity }                    from "../entities/user.entity";
 import { IUserCommandRepositoryAdapter } from "../interfaces/user.repository.interface";
 
 
 
-@RepositoryInject( UserCommandRepository )
+@Injectable()
 export class UserCommandRepository extends Repository<UserEntity>
   implements IUserCommandRepositoryAdapter {
     
