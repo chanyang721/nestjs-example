@@ -2,14 +2,12 @@ import { Injectable }                    from "@nestjs/common";
 import { InjectConnection, InjectModel } from "@nestjs/mongoose";
 import { Connection, Model }             from "mongoose";
 import { PROJECT }                       from "../../../../libs/utils/constants";
-import { RepositoryInject }              from "../../../../libs/utils/decoretors";
+import { IUserQueryRepositoryAdapter }   from "../interfaces/user.repository.interface";
 import { UserModel }                     from "../schemas/user.schema";
-import { IUserQueryRepositoryAdapter } from "../interfaces/user.repository.interface";
 
 
 
 @Injectable()
-@RepositoryInject( UserQueryRepository )
 export class UserQueryRepository
   implements IUserQueryRepositoryAdapter {
     
