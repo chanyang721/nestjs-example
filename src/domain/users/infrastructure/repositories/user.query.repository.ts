@@ -12,9 +12,9 @@ export class UserQueryRepository
   implements IUserQueryRepositoryAdapter {
     
     constructor(
-      @InjectConnection( PROJECT )
+      @InjectConnection()
       private readonly connection: Connection,
-      @InjectModel( UserModel.name, PROJECT )
+      @InjectModel( UserModel.name )
       private readonly userModel: Model<UserModel>
     ) {
     }

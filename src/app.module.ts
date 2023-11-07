@@ -5,7 +5,6 @@ import { ProjectModule }          from "./domain/projects/project.module";
 import { UserModule }             from "./domain/users/user.module";
 import { AuthModule }             from "./libs/authentication/auth.module";
 import { RedisCacheModule }       from "./libs/cache/cache.module";
-import { CommonConfigService }    from "./libs/config/common.config.service";
 import { DatabaseModule }         from "./libs/database/database.module";
 import { HealthCheckerModule }    from "./libs/helpers/health-checker/health-checker.module";
 import { HttpModule }             from "./libs/infra/http/http.module";

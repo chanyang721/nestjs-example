@@ -12,10 +12,10 @@ import { IProjectRepositoryAdapter }     from "../interfaces/project.repository.
 export class ProjectCommandRepository extends Repository<ProjectEntity>
   implements IProjectRepositoryAdapter {
     constructor(
-      @InjectDataSource( PROJECT )
-      private readonly mainDataSource: DataSource
+      @InjectDataSource()
+      private readonly dataSource: DataSource
     ) {
-        super( ProjectEntity, mainDataSource.createEntityManager() );
+        super( ProjectEntity, dataSource.createEntityManager() );
     }
     
     

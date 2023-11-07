@@ -3,7 +3,6 @@ import { JwtModule }              from "@nestjs/jwt";
 import { PassportModule }         from "@nestjs/passport";
 import { UserCommandRepository }  from "../../domain/users/infrastructure/repositories/user.command.repository";
 import { CommonConfigService }    from "../config/common.config.service";
-import { RepositoryModule }       from "../database/orm/typeorm/repository.module";
 import { JwtAuthGlobalStrategy }  from "../fundamentals/guards/global/jwt.auth.global.strategy";
 import { JwtAuthRefreshStrategy } from "../fundamentals/guards/local/jwt.refresh.strategy";
 import { LocalAuthStrategy }      from "../fundamentals/guards/local/local.auth.strategy";
@@ -24,7 +23,7 @@ import { AuthController }         from "./presentation/controllers/auth.controll
         
         JwtModule.registerAsync( jwtModuleAsyncOptions ),
         
-        RepositoryModule.forFeature( [ UserCommandRepository, AuthRepository ], PROJECT )
+        // RepositoryModule.forFeature( [ UserCommandRepository, AuthRepository ], PROJECT )
     ],
     controllers: [
         AuthController
@@ -36,7 +35,9 @@ import { AuthController }         from "./presentation/controllers/auth.controll
         
         JwtService, HashingService,
         
-        JwtAuthGlobalStrategy, LocalAuthStrategy, JwtAuthRefreshStrategy
+        JwtAuthGlobalStrategy, LocalAuthStrategy, JwtAuthRefreshStrategy,
+        
+        UserCommandRepository, AuthRepository
     ]
 } )
 export class AuthModule {
