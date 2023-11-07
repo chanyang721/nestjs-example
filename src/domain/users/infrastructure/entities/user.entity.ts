@@ -25,6 +25,7 @@ export class UserEntity extends BaseEntity {
         nullable: false,
         comment : "유저 썸네일 S3 key"
     } ) thumbnail: string;
+    
     /**
      * Table Relations
      */

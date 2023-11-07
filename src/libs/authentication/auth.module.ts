@@ -24,7 +24,7 @@ import { AuthController }         from "./presentation/controllers/auth.controll
         
         JwtModule.registerAsync( jwtModuleAsyncOptions ),
         
-        RepositoryModule.forFeature( [ UserCommandRepository, AuthRepository ], PROJECT )
+        // RepositoryModule.forFeature( [ UserCommandRepository, AuthRepository ], PROJECT )
     ],
     controllers: [
         AuthController
@@ -36,7 +36,9 @@ import { AuthController }         from "./presentation/controllers/auth.controll
         
         JwtService, HashingService,
         
-        JwtAuthGlobalStrategy, LocalAuthStrategy, JwtAuthRefreshStrategy
+        JwtAuthGlobalStrategy, LocalAuthStrategy, JwtAuthRefreshStrategy,
+        
+        UserCommandRepository, AuthRepository
     ]
 } )
 export class AuthModule {
