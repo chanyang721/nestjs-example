@@ -1,8 +1,6 @@
 import { Module }                from "@nestjs/common";
 import { CqrsModule }            from "@nestjs/cqrs";
 import { TypeOrmModule }         from "@nestjs/typeorm";
-import { RepositoryModule }      from "../../libs/database/orm/typeorm/repository.module";
-import { PROJECT }               from "../../libs/utils/constants";
 import { UserCommandHandlers }   from "./application/commands/handlers";
 import { UserEventHandlers }     from "./application/events/handlers";
 import { UserSagas }             from "./application/events/sagas/user.event.sagas";
@@ -35,11 +33,11 @@ import { UserController }        from "./presentation/controllers/user.controlle
     providers  : [
         UserService,
         ...UserCommandHandlers,
-        ...UserQueryHandlers,
-        ...UserEventHandlers,
-        UserSagas,
+        // ...UserQueryHandlers,
+        // ...UserEventHandlers,
+        // UserSagas,
         UserCommandRepository,
-        UserQueryRepository
+        // UserQueryRepository
     ]
 } )
 export class UserModule {

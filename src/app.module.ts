@@ -9,10 +9,6 @@ import { DatabaseModule }         from "./libs/database/database.module";
 import { HealthCheckerModule }    from "./libs/helpers/health-checker/health-checker.module";
 import { HttpModule }             from "./libs/infra/http/http.module";
 import { httpModuleAsyncOptions } from "./libs/infra/http/options/http.mudule.options";
-import { TransactionsModule } from './transactions/transactions.module';
-import { ContractsModule }    from './domain/wallets/contracts/contracts.module';
-import { RewardsModule }      from './rewards/rewards.module';
-import { WalletsModule }          from './domain/wallets/wallets.module';
 
 
 
@@ -33,7 +29,9 @@ import { WalletsModule }          from './domain/wallets/wallets.module';
          */
         UserModule, // users
         ProjectModule, // projects
-        PostsModule, WalletsModule, TransactionsModule, ContractsModule, RewardsModule // boards
+        PostsModule // boards
+        
+        // WalletsModule, TransactionsModule, ContractsModule, RewardsModule
     ],
     controllers: [],
     providers  : []

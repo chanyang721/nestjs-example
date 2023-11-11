@@ -7,7 +7,8 @@ import { IUserCommandRepositoryAdapter } from "../interfaces/user.repository.int
 
 @Injectable()
 export class UserCommandRepository extends Repository<UserEntity>
-  implements IUserCommandRepositoryAdapter {
+  // implements IUserCommandRepositoryAdapter
+{
     
     constructor(
       @InjectDataSource()

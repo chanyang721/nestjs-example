@@ -19,7 +19,7 @@ import { typeOrmModuleAsyncOptions }      from "./orm/typeorm/options/typeorm.mo
         /**
          * Query MongoDB Database
          */
-        MongooseModule.forRootAsync( mainMongooseModuleAsyncOptions )
+        // MongooseModule.forRootAsync( mainMongooseModuleAsyncOptions )
     ],
     providers: [  ]
 } )

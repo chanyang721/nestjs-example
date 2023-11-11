@@ -50,7 +50,6 @@ export class CommentsEntity {
     @ManyToOne( () => PostsEntity, {} )
     post: PostsEntity;
     
-    
     @OneToMany( () => CommentsEntity, comment => comment.parent )
     replies: CommentsEntity[];
     
