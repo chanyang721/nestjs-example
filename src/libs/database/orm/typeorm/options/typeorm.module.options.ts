@@ -1,10 +1,10 @@
 import { ConfigModule, ConfigService } from "@nestjs/config";
-import { TypeOrmModuleAsyncOptions }   from "@nestjs/typeorm";
-import { FileEntity }                  from "../../../../../domain/projects/infrastructure/entities/file.entity";
-import { GroupEntity }                 from "../../../../../domain/projects/infrastructure/entities/group.entity";
-import { ProjectEntity }               from "../../../../../domain/projects/infrastructure/entities/project.entity";
-import { UserEntity }                  from "../../../../../domain/users/infrastructure/entities/user.entity";
-import { AuthEntity }                  from "../../../../authentication/infrastructure/entities/auth.entity";
+import { TypeOrmModuleAsyncOptions } from "@nestjs/typeorm";
+import { FileEntity }                from "../../../../../domains/boards/projects/infrastructure/entities/file.entity";
+import { GroupEntity }               from "../../../../../domains/boards/projects/infrastructure/entities/group.entity";
+import { ProjectEntity }             from "../../../../../domains/boards/projects/infrastructure/entities/project.entity";
+import { UserEntity }                from "../../../../../domains/users/infrastructure/entities/user.entity";
+import { AuthEntity }                from "../../../../authentication/infrastructure/entities/auth.entity";
 import { PRODUCTION, PROJECT }         from "../../../../utils/constants";
 import { SqlLogger }                   from "./typeorm.logger.options";
 

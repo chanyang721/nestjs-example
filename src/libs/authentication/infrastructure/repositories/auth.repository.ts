@@ -1,6 +1,6 @@
 import { InjectDataSource }       from "@nestjs/typeorm";
 import { DataSource, Repository } from "typeorm";
-import { UserEntity }             from "../../../../domain/users/infrastructure/entities/user.entity";
+import { UserEntity }             from "../../../../domains/users/infrastructure/entities/user.entity";
 import { transaction }            from "../../../database/orm/typeorm/transaction";
 import { RepositoryInject }       from "../../../utils/decoretors";
 import { RegisterUserDto }        from "../../presentation/dtos/auth.register.user.dto";
