@@ -1,8 +1,9 @@
-import { Column, Entity, OneToMany, OneToOne } from "typeorm";
-import { AuthEntity }                          from "../../../../libs/authentication/infrastructure/entities/auth.entity";
-import { BaseEntity }                          from "../../../../libs/database/orm/typeorm/base/base.entity";
-import { ProjectEntity }                       from "../../../boards/projects/infrastructure/entities/project.entity";
-import { UserRole }                            from "./enums/user.enum.role";
+import { Column, Entity, OneToMany, OneToOne, Unique } from "typeorm";
+import { AuthEntity }                                  from "../../../../libs/authentication/infrastructure/entities/auth.entity";
+import { BaseEntity }                                  from "../../../../libs/database/orm/typeorm/base/base.entity";
+import { CommentsEntity }                              from "../../../boards/posts/infrastructrue/entities/comments.entity";
+import { ProjectEntity }                               from "../../../boards/projects/infrastructure/entities/project.entity";
+import { UserRole }                                    from "./enums/user.enum.role";
 
 
 
@@ -12,19 +13,18 @@ export class UserEntity extends BaseEntity {
      * Table Columns
      */
     @Column( {
-        type    : "enum",
-        enum    : UserRole,
-        nullable: false,
-        default : UserRole.UNKNOWN,
-        comment : "유저 권한"
-    } ) role: UserRole;
+        type   : "enum",
+        enum   : UserRole,
+        default: UserRole.UNKNOWN,
+        comment: "유저 권한"
+    } )
+    role: UserRole;
     
-    @Column( {
-        type    : "varchar",
-        length  : 46,
-        nullable: false,
-        comment : "유저 썸네일 S3 key"
-    } ) thumbnail: string;
+    @Column( { length: 46, comment: "유저 썸네일 S3 key" } )
+    thumbnail: string;
+    
+    @Column( { unique: true, length: 30, comment: "유저 닉네임" } )
+    nickname: string;
     
     /**
      * Table Relations
@@ -40,6 +40,12 @@ export class UserEntity extends BaseEntity {
       project => project.user,
       { cascade: true } )
     projects: ProjectEntity[];
+    
+    @OneToMany(
+      () => CommentsEntity,
+      comment => comment.writer
+    )
+    comments: CommentsEntity[];
     
     
     /**

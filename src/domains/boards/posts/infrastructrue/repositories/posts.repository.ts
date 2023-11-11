@@ -1,7 +1,8 @@
 import { HttpException, HttpStatus, Injectable, Logger } from "@nestjs/common";
 import { InjectRepository }                              from "@nestjs/typeorm";
-import { EntityManager, Repository }                     from "typeorm";
+import { DataSource, Repository }                        from "typeorm";
 import { JwtPayLoadDto }                                 from "../../../../../libs/helpers/jwt/interface/jwt.payload.interface";
+import { UserEntity }                                    from "../../../../users/infrastructure/entities/user.entity";
 import { CreatePostDto }                                 from "../../presentation/dtos/create-post.dto";
 import { PagenationOptionsDto }                          from "../../presentation/dtos/pagenation-options.dto";
 import { SearchOptionsDto }                              from "../../presentation/dtos/search-options.dto";
@@ -11,27 +12,25 @@ import { PostsEntity }                                   from "../entities/posts
 
 
 @Injectable()
-export class PostsRepository {
+export class PostsRepository extends Repository<PostsEntity> {
     private readonly logger = new Logger( PostsRepository.name );
     
     
     constructor(
       @InjectRepository( PostsEntity )
       private readonly postsRepository: Repository<PostsEntity>,
-      private readonly em: EntityManager
+      private readonly dataSource: DataSource
     ) {
+        super( PostsEntity, dataSource.createEntityManager() );
     }
     
     
-    async createPost( user: JwtPayLoadDto, createPostDto: CreatePostDto ) {
-        // const qb = this.em.qb( PostsEntity );
-        // const newPost = new PostsEntity( createPostDto );
-        // newPost.writer = new UserEntity( user );
-        //
-        // qb.insert( newPost );
+    async createPost( user: JwtPayLoadDto, createPostDto: CreatePostDto ): Promise<PostsEntity> {
+        const newPost = new PostsEntity( createPostDto );
+        newPost.writer = new UserEntity( user );
         
         try {
-            // return await qb.execute();
+            return await this.postsRepository.save( newPost );
         }
         catch ( error ) {
             this.logger.error( error );
@@ -40,13 +39,13 @@ export class PostsRepository {
     }
     
     
-    async findOnePostById( postId: number ): Promise<PostsEntity> {
+    async findOnePostById( postId: string ): Promise<PostsEntity> {
         try {
-            // return await this.em.findOne( PostsEntity, {
-            //     id        : postId,
-            //     is_deleted: false,
-            // } );
-            return new PostsEntity( {} );
+            const updatedPost = await this.postsRepository.findOne( {
+                where: { id: postId }
+            } );
+            
+            return updatedPost
         }
         catch ( error ) {
             this.logger.error( error );

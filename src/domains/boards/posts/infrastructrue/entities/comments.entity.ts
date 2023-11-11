@@ -1,53 +1,53 @@
-import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
-import { PostsEntity }                                                  from "./posts.entity";
+import { IsBoolean, IsNotEmpty, IsOptional, IsString, IsUUID, MaxLength, MinLength } from "class-validator";
+import { Column, Entity, Index, JoinColumn, ManyToOne, OneToMany }                   from "typeorm";
+import { BaseEntity }                                                                from "../../../../../libs/database/orm/typeorm/base/base.entity";
+import { UserEntity }                                       from "../../../../users/infrastructure/entities/user.entity";
+import { PostsEntity }                                      from "./posts.entity";
 
 
 
 @Entity( { name: "comment" } )
-export class CommentsEntity {
-    @PrimaryGeneratedColumn()
-    id: number;
-    
-    @Column( {
-        type    : "varchar",
-        length  : 500,
-        nullable: false,
-        comment : "댓글 내용"
-    } )
+export class CommentsEntity extends BaseEntity {
+    /* columns */
+    @IsString()
+    @IsNotEmpty()
+    @MinLength( 1 )
+    @MaxLength( 500 )
+    @Column( { length: 500, comment: "댓글 내용" } )
     content: string;
     
-    @Column( {
-        type    : "varchar",
-        length  : 10,
-        nullable: false
-    } )
-    writer: string;
+    @IsString()
+    @IsNotEmpty()
+    @Column( { comment: "user nick name FK" } )
+    @Index()
+    writer_name: string;
     
-    @Column( {
-        type   : "varchar",
-        length : 27,
-        comment: "데이터 생성 날짜"
-    } )
-    created_at: string = new Date().toISOString();
+    @IsUUID()
+    @IsNotEmpty()
+    @Column( { comment: "post id FK" } )
+    post_id: number;
     
-    @Column( {
-        type    : "varchar",
-        length  : 27,
-        nullable: true,
-        comment : "마지막 데이터 수정 날짜"
-    } )
-    updated_at: string = new Date().toISOString();
+    @IsUUID()
+    @IsOptional()
+    @Column( { nullable: true, comment: "comment parent id FK" } )
+    parent_comment_id: number;
     
-    @Column( {
-        type    : "boolean",
-        length  : 27,
-        nullable: false,
-        default : false,
-        comment : "데이터 삭제 정보"
-    } )
+    @IsBoolean()
+    @IsOptional()
+    @Column( { default: false, comment: "데이터 삭제 정보" } )
     is_deleted: boolean;
     
-    @ManyToOne( () => PostsEntity, {} )
+    /* relations */
+    @ManyToOne( () => UserEntity, user => user.comments, {
+        nullable: false
+    } )
+    @JoinColumn( { name: "writer_name", referencedColumnName: "nickname" } )
+    writer: UserEntity;
+    
+    @ManyToOne( () => PostsEntity, {
+        nullable: false
+    } )
+    @JoinColumn( { name: "post_id" } )
     post: PostsEntity;
     
     @OneToMany( () => CommentsEntity, comment => comment.parent )
@@ -56,10 +56,13 @@ export class CommentsEntity {
     @ManyToOne( () => CommentsEntity, {
         nullable: true
     } )
+    @JoinColumn( { name: "parent_comment_id" } )
     parent: CommentsEntity;
     
     
+    /* contractor */
     constructor( commentInput: any ) {
+        super();
         Object.assign( this, commentInput );
     }
 }

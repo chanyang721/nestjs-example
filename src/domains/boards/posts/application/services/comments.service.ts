@@ -1,6 +1,6 @@
 import { HttpException, HttpStatus, Injectable, Logger } from "@nestjs/common";
+import { ResponseDto }                                   from "../../../../../libs/fundamentals/interceptors/response/dto/response.dto";
 import { JwtPayLoadDto }                                 from "../../../../../libs/helpers/jwt/interface/jwt.payload.interface";
-import { IdAndMessageDto }                               from "../../../../../libs/utils/common/dtos/common-id-and-message.dto";
 import { CommentsEntity }                                from "../../infrastructrue/entities/comments.entity";
 import { CommentsRepository }                            from "../../infrastructrue/repositories/comments.repository";
 import { CreateCommentsOrReplyDto }                      from "../../presentation/dtos/create.comment.dto";
@@ -20,13 +20,14 @@ export class CommentsService {
     }
     
     
-    async createComment( user: JwtPayLoadDto, createCommentDto: CreateCommentsOrReplyDto ): Promise<IdAndMessageDto> {
+    async createComment( user: JwtPayLoadDto, createCommentDto: CreateCommentsOrReplyDto ): Promise<ResponseDto> {
         try {
-            const comment = await this.commentsRepository.createComment( user, createCommentDto );
+            const comment = await this.commentsRepository.createComment( createCommentDto );
             
             return {
-                id     : 1,
-                message: true
+                statusCode: HttpStatus.CREATED,
+                message: '생성 성공',
+                data: !!comment
             };
         }
         catch ( error ) {
@@ -36,24 +37,22 @@ export class CommentsService {
     }
     
     
-    async updateComment( user: JwtPayLoadDto,
-      updateCommentsOrReplyDto: UpdateCommentsOrReplyDto ): Promise<IdAndMessageDto> {
+    async updateComment(
+      user: JwtPayLoadDto,
+      updateCommentsOrReplyDto: UpdateCommentsOrReplyDto
+    ): Promise<ResponseDto> {
         try {
             const comment = await this.commentsRepository.findCommentById( updateCommentsOrReplyDto.id );
             if ( !comment ) {
                 throw new HttpException( "존재하지 않는 댓글입니다", HttpStatus.BAD_REQUEST );
             }
             
-            // const isSameWriter = user.nickname === comment.writer;
-            // if ( !isSameWriter ) {
-            //     throw new HttpException( '작성자만 수정 가능합니다', HttpStatus.UNAUTHORIZED );
-            // }
-            
             await this.commentsRepository.updateComment( updateCommentsOrReplyDto );
             
             return {
-                id     : updateCommentsOrReplyDto.id,
-                message: true
+                statusCode: HttpStatus.OK,
+                message: '수정 성공',
+                data: !!comment
             };
         }
         catch ( error ) {
@@ -63,7 +62,8 @@ export class CommentsService {
     }
     
     
-    async findCommentsByPostId( postId: number,
+    async findCommentsByPostId(
+      postId: string,
       pagenationOptionsDto: PagenationOptionsDto ): Promise<CommentsEntity[]> {
         try {
             return await this.commentsRepository.findCommentsByPostId( postId, pagenationOptionsDto );
@@ -75,7 +75,7 @@ export class CommentsService {
     }
     
     
-    async findRepliesByParent( parent: number, pagenationOptionsDto: PagenationOptionsDto ): Promise<CommentsEntity[]> {
+    async findRepliesByParent( parent: string, pagenationOptionsDto: PagenationOptionsDto ): Promise<CommentsEntity[]> {
         try {
             return await this.commentsRepository.findRepliesByParent( parent, pagenationOptionsDto );
         }

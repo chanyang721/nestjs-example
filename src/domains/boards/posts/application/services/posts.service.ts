@@ -1,9 +1,9 @@
 import { CACHE_MANAGER }                                         from "@nestjs/cache-manager";
 import { HttpException, HttpStatus, Inject, Injectable, Logger } from "@nestjs/common";
 import { Cache }                                                 from "cache-manager";
-import { JwtPayLoadDto }                                         from "../../../../../libs/helpers/jwt/interface/jwt.payload.interface";
-import { IdAndMessageDto }                                       from "../../../../../libs/utils/common/dtos/common-id-and-message.dto";
-import { PostsEntity }                                           from "../../infrastructrue/entities/posts.entity";
+import { ResponseDto }                                           from "../../../../../libs/fundamentals/interceptors/response/dto/response.dto";
+import { JwtPayLoadDto } from "../../../../../libs/helpers/jwt/interface/jwt.payload.interface";
+import { PostsEntity }   from "../../infrastructrue/entities/posts.entity";
 import { PostsRepository }                                       from "../../infrastructrue/repositories/posts.repository";
 import { CreatePostDto }                                         from "../../presentation/dtos/create-post.dto";
 import { PagenationOptionsDto }                                  from "../../presentation/dtos/pagenation-options.dto";
@@ -26,13 +26,14 @@ export class PostsService {
     }
     
     
-    public async createPost( user: JwtPayLoadDto, createPostDto: CreatePostDto ): Promise<IdAndMessageDto> {
+    public async createPost( user: JwtPayLoadDto, createPostDto: CreatePostDto ): Promise<ResponseDto> {
         try {
             const newPost = await this.postsRepository.createPost( user, createPostDto );
             
-            return new IdAndMessageDto( {
-                id     : 1,
-                message: true
+            return new ResponseDto( {
+                statusCode: HttpStatus.CREATED,
+                message: '생성 성공',
+                data: !!newPost
             } );
         }
         catch ( error ) {
@@ -42,7 +43,7 @@ export class PostsService {
     }
     
     
-    async findPostByIdWithAllInfo( postId: number ): Promise<PostsEntity> {
+    async findPostByIdWithAllInfo( postId: string ): Promise<PostsEntity> {
         try {
             const post = await this.postsRepository.findOnePostById( postId );
             if ( !post ) {
@@ -58,23 +59,19 @@ export class PostsService {
     }
     
     
-    async updatePost( user: JwtPayLoadDto, updatePostDto: UpdatePostDto ): Promise<IdAndMessageDto> {
+    async updatePost( user: JwtPayLoadDto, updatePostDto: UpdatePostDto ): Promise<ResponseDto> {
         try {
             const post = await this.postsRepository.findOnePostById( updatePostDto.id );
             if ( !post ) {
                 throw new HttpException( "존재하지 않는 게시글입니다", HttpStatus.BAD_REQUEST );
             }
             
-            // const isSameWriter = user.nickname === post.writer.nickname;
-            // if ( !isSameWriter ) {
-            //     throw new HttpException( '작성자만 수정 가능합니다', HttpStatus.UNAUTHORIZED );
-            // }
-            
             await this.postsRepository.updatePostById( post, updatePostDto );
             
-            return new IdAndMessageDto( {
-                id     : updatePostDto.id,
-                message: true
+            return new ResponseDto( {
+                statusCode: HttpStatus.OK,
+                message: '수정 성공',
+                data: !!post
             } );
         }
         catch ( error ) {
@@ -86,10 +83,10 @@ export class PostsService {
     
     async findPostsBySearchAndWhereOptions( searchPostsBySearchAndWhereOptionsDto: SearchPostsBySearchAndWhereOptionsDto ): Promise<PostsEntity[]> {
         try {
-            const pagenationOptions = new PagenationOptionsDto( searchPostsBySearchAndWhereOptionsDto );
+            const pageOptions = new PagenationOptionsDto( searchPostsBySearchAndWhereOptionsDto );
             const searchOptions = new SearchOptionsDto( searchPostsBySearchAndWhereOptionsDto );
             
-            const posts = await this.postsRepository.findPostsBySearchAndWhereOptions( pagenationOptions, searchOptions );
+            const posts = await this.postsRepository.findPostsBySearchAndWhereOptions( pageOptions, searchOptions );
             
             return posts;
         }

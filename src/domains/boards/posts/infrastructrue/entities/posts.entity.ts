@@ -1,53 +1,35 @@
-import { Column, Entity, Index, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
-import { UserEntity }                                                          from "../../../../users/infrastructure/entities/user.entity";
-import { CommentsEntity }                                                      from "./comments.entity";
+import { IsOptional, IsString, MaxLength, MinLength }              from "class-validator";
+import { Column, Entity, Index, JoinColumn, ManyToOne, OneToMany } from "typeorm";
+import { BaseEntity }                                              from "../../../../../libs/database/orm/typeorm/base/base.entity";
+import { UserEntity }                                              from "../../../../users/infrastructure/entities/user.entity";
+import { CommentsEntity }                                          from "./comments.entity";
 
 
 
 @Entity( { name: "post" } )
-export class PostsEntity {
-    @PrimaryGeneratedColumn()
-    id: number;
+@Index('idx_user_1', [ 'writer' ])
+export class PostsEntity extends BaseEntity {
     
-    @Column( {
-        type    : "varchar",
-        length  : 40,
-        nullable: false,
-        comment : "게시글 제목"
-    } )
-    @Index()
+    @IsString()
+    @IsOptional()
+    @MinLength( 1 )
+    @MaxLength( 40 )
+    @Column( { length: 40, comment: "게시글 제목" } )
     title: string;
     
-    @Column( {
-        type    : "varchar",
-        length  : 2000,
-        nullable: false,
-        comment : "게시글 내용"
-    } )
+    
+    @Column( { comment: "user id FK" } )
     @Index()
+    writer_name: string;
+    
+    @IsString()
+    @IsOptional()
+    @MinLength( 1 )
+    @MaxLength( 2000 )
+    @Column( { type: 'longtext', comment : "게시글 내용" } )
     content: string;
     
-    @Column( {
-        type   : "varchar",
-        length : 27,
-        comment: "데이터 생성 날짜"
-    } )
-    created_at: string = new Date().toISOString();
-    
-    @Column( {
-        type    : "varchar",
-        length  : 27,
-        nullable: true,
-        comment : "마지막 데이터 수정 날짜"
-    } )
-    updated_at: string = new Date().toISOString();
-    
-    @Column( {
-        type    : "boolean",
-        nullable: false,
-        default : false,
-        comment : "데이터 삭제 정보"
-    } )
+    @Column( { default : false, comment : "데이터 삭제 정보" } )
     is_deleted: boolean;
     
     
@@ -55,6 +37,7 @@ export class PostsEntity {
         nullable: false,
         cascade : true
     } )
+    @JoinColumn( { name: "writer_name", referencedColumnName: "nickname" } )
     writer: UserEntity;
     
     
@@ -65,6 +48,7 @@ export class PostsEntity {
     
     
     constructor( postInput: any ) {
+        super();
         Object.assign( this, postInput );
     }
 }

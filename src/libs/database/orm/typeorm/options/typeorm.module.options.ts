@@ -1,5 +1,7 @@
 import { ConfigModule, ConfigService } from "@nestjs/config";
 import { TypeOrmModuleAsyncOptions } from "@nestjs/typeorm";
+import { CommentsEntity }              from "../../../../../domains/boards/posts/infrastructrue/entities/comments.entity";
+import { PostsEntity }                 from "../../../../../domains/boards/posts/infrastructrue/entities/posts.entity";
 import { FileEntity }                from "../../../../../domains/boards/projects/infrastructure/entities/file.entity";
 import { GroupEntity }               from "../../../../../domains/boards/projects/infrastructure/entities/group.entity";
 import { ProjectEntity }             from "../../../../../domains/boards/projects/infrastructure/entities/project.entity";
@@ -26,6 +28,8 @@ export const typeOrmModuleAsyncOptions: TypeOrmModuleAsyncOptions = {
         logging    : process.env.NODE_ENV !== PRODUCTION,
         entities   : [
             AuthEntity, UserEntity,
+          
+            PostsEntity, CommentsEntity,
             
             ProjectEntity, GroupEntity, FileEntity
         ],

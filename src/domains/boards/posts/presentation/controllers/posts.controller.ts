@@ -1,18 +1,17 @@
-import { Body, Controller, Get, Param, Patch, Post, Query } from "@nestjs/common";
-import { JwtPayLoadDto }                                    from "../../../../../libs/helpers/jwt/interface/jwt.payload.interface";
-import { IdAndMessageDto }                                  from "../../../../../libs/utils/common/dtos/common-id-and-message.dto";
-import { CurrentUser, Public }                              from "../../../../../libs/utils/decoretors";
-import { CommentsService }                                  from "../../application/services/comments.service";
-import { PostsService }                                     from "../../application/services/posts.service";
-import { CommentsEntity }                                   from "../../infrastructrue/entities/comments.entity";
-import { PostsEntity }                                      from "../../infrastructrue/entities/posts.entity";
-import { CreatePostDto }                                    from "../dtos/create-post.dto";
-import { CreateCommentsOrReplyDto }                         from "../dtos/create.comment.dto";
-import { PagenationOptionsDto }                             from "../dtos/pagenation-options.dto";
-import { ParamsIdDto }                                      from "../dtos/params-id.dto";
-import { SearchPostsBySearchAndWhereOptionsDto }            from "../dtos/search.posts.by.where.options.dto";
-import { UpdatePostDto }                                    from "../dtos/update-post.dto";
-import { UpdateCommentsOrReplyDto }                         from "../dtos/update.comment.dto";
+import { Body, Controller, Get, Param, ParseUUIDPipe, Patch, Post, Query } from "@nestjs/common";
+import { ResponseDto }                                                     from "../../../../../libs/fundamentals/interceptors/response/dto/response.dto";
+import { JwtPayLoadDto }                                                   from "../../../../../libs/helpers/jwt/interface/jwt.payload.interface";
+import { CurrentUser, Public }                                             from "../../../../../libs/utils/decoretors";
+import { CommentsService }                                                 from "../../application/services/comments.service";
+import { PostsService }                                                    from "../../application/services/posts.service";
+import { CommentsEntity }                                                  from "../../infrastructrue/entities/comments.entity";
+import { PostsEntity }                                                     from "../../infrastructrue/entities/posts.entity";
+import { CreatePostDto }                                                   from "../dtos/create-post.dto";
+import { CreateCommentsOrReplyDto }                                        from "../dtos/create.comment.dto";
+import { PagenationOptionsDto }                                            from "../dtos/pagenation-options.dto";
+import { SearchPostsBySearchAndWhereOptionsDto }                           from "../dtos/search.posts.by.where.options.dto";
+import { UpdatePostDto }                                                   from "../dtos/update-post.dto";
+import { UpdateCommentsOrReplyDto }                                        from "../dtos/update.comment.dto";
 
 
 
@@ -37,9 +36,9 @@ export class PostsController {
     @Public()
     @Get( "/:id" )
     async findPost(
-      @Param() params: ParamsIdDto
+      @Param( "id", ParseUUIDPipe ) postId: string
     ): Promise<PostsEntity> {
-        return this.postsService.findPostByIdWithAllInfo( +params.id );
+        return this.postsService.findPostByIdWithAllInfo( postId );
     }
     
     
@@ -47,7 +46,7 @@ export class PostsController {
     async createPost(
       @Body() createPostDto: CreatePostDto,
       @CurrentUser() user: JwtPayLoadDto
-    ): Promise<IdAndMessageDto> {
+    ): Promise<ResponseDto> {
         return this.postsService.createPost( user, createPostDto );
     }
     
@@ -56,7 +55,7 @@ export class PostsController {
     async updatePost(
       @Body() updatePostDto: UpdatePostDto,
       @CurrentUser() user: JwtPayLoadDto
-    ): Promise<IdAndMessageDto> {
+    ): Promise<ResponseDto> {
         return this.postsService.updatePost( user, updatePostDto );
     }
     
@@ -67,20 +66,20 @@ export class PostsController {
     @Public()
     @Get( "/:id/comments" )
     async findComments(
-      @Param() params: ParamsIdDto,
+      @Param( "id", ParseUUIDPipe ) postId: string,
       @Query() pagenationOptionsDto: PagenationOptionsDto
     ): Promise<CommentsEntity[]> {
-        return this.commentService.findCommentsByPostId( +params.id, pagenationOptionsDto );
+        return this.commentService.findCommentsByPostId( postId, pagenationOptionsDto );
     }
     
     
     @Public()
     @Get( "/comments/:id/replies" )
     async findReplies(
-      @Param() parent: ParamsIdDto,
+  @Param( "id", ParseUUIDPipe ) commentId: string,
       @Query() pagenationOptionsDto: PagenationOptionsDto
     ): Promise<CommentsEntity[]> {
-        return this.commentService.findRepliesByParent( +parent.id, pagenationOptionsDto );
+        return this.commentService.findRepliesByParent( commentId, pagenationOptionsDto );
     }
     
     
@@ -88,7 +87,7 @@ export class PostsController {
     async createCommentsOrReply(
       @Body() createCommentsOrReplyDto: CreateCommentsOrReplyDto,
       @CurrentUser() user: JwtPayLoadDto
-    ): Promise<IdAndMessageDto> {
+    ): Promise<ResponseDto> {
         return this.commentService.createComment( user, createCommentsOrReplyDto );
     }
     
@@ -97,7 +96,7 @@ export class PostsController {
     async updateCommentsOrReply(
       @Body() updateCommentsOrReplyDto: UpdateCommentsOrReplyDto,
       @CurrentUser() user: JwtPayLoadDto
-    ): Promise<IdAndMessageDto> {
+    ): Promise<ResponseDto> {
         return this.commentService.updateComment( user, updateCommentsOrReplyDto );
     }
 }

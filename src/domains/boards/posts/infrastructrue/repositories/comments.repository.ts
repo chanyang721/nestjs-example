@@ -1,7 +1,6 @@
 import { HttpException, HttpStatus, Injectable, Logger } from "@nestjs/common";
 import { InjectRepository }                              from "@nestjs/typeorm";
-import { EntityManager, Repository }                     from "typeorm";
-import { JwtPayLoadDto }                                 from "../../../../../libs/helpers/jwt/interface/jwt.payload.interface";
+import { DataSource, Repository }                        from "typeorm";
 import { CreateCommentsOrReplyDto }                      from "../../presentation/dtos/create.comment.dto";
 import { PagenationOptionsDto }                          from "../../presentation/dtos/pagenation-options.dto";
 import { UpdateCommentsOrReplyDto }                      from "../../presentation/dtos/update.comment.dto";
@@ -10,35 +9,26 @@ import { CommentsEntity }                                from "../entities/comme
 
 
 @Injectable()
-export class CommentsRepository {
+export class CommentsRepository extends Repository<CommentsEntity> {
     private readonly logger = new Logger( CommentsRepository.name );
     
     
     constructor(
       @InjectRepository( CommentsEntity )
       private readonly commentsRepository: Repository<CommentsEntity>,
-      private readonly em: EntityManager
+      private readonly dataSource: DataSource
     ) {
+        super( CommentsEntity, dataSource.createEntityManager() );
     }
     
     
-    async createComment( user: JwtPayLoadDto, createCommentsOrReplyDto: CreateCommentsOrReplyDto ) {
-        // const qb = this.em.qb( CommentsEntity );
-        // const { post_id, parent } = createCommentsOrReplyDto;
-        //
-        // const commentData = {
-        //     ...createCommentsOrReplyDto,
-        //     writer: user.nickname,
-        //     post  : new PostsEntity( { id: post_id } ),
-        //     parent: new CommentsEntity( { id: parent } ),
-        // };
-        //
-        // const newComment = new CommentsEntity( commentData );
-        //
-        // qb.insert( newComment );
-        
+    async createComment( createCommentsOrReplyDto: CreateCommentsOrReplyDto ) {
         try {
-            // return await qb.execute();
+            const newComment = await this.commentsRepository.save(
+              createCommentsOrReplyDto
+            );
+            
+            return newComment;
         }
         catch ( error ) {
             this.logger.error( error );
@@ -47,13 +37,11 @@ export class CommentsRepository {
     }
     
     
-    async findCommentById( commentId: number ): Promise<CommentsEntity> {
+    async findCommentById( commentId: string ): Promise<CommentsEntity> {
         try {
-            // return await this.em.findOne( CommentsEntity, {
-            //     id        : commentId,
-            //     is_deleted: false,
-            // } );
-            return new CommentsEntity( {} );
+            return await this.commentsRepository.findOne( {
+                where: { id: commentId }
+            } );
         }
         catch ( error ) {
             this.logger.error( error );
@@ -79,7 +67,8 @@ export class CommentsRepository {
     }
     
     
-    async findCommentsByPostId( postId: number,
+    async findCommentsByPostId(
+      postId: string,
       pagenationOptionsDto: PagenationOptionsDto ): Promise<CommentsEntity[]> {
         // const qb = await this.em.qb( CommentsEntity );
         // const comments = await this.em.find( PostsEntity, {
@@ -124,7 +113,7 @@ export class CommentsRepository {
     }
     
     
-    async findRepliesByParent( parent: number, pagenationOptionsDto: PagenationOptionsDto ): Promise<CommentsEntity[]> {
+    async findRepliesByParent( parent: string, pagenationOptionsDto: PagenationOptionsDto ): Promise<CommentsEntity[]> {
         // const knex = this.em.getKnex();
         // const sql = `
         //       SELECT

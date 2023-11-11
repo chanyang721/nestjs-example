@@ -15,13 +15,13 @@ export class ResponseDto implements IResponse<any> {
     } )
     statusCode: number;
     
-    @ApiProperty({
-        type: String,
-        description: '응답 메시지',
-        required: true,
-        example: '생성에 성공했습니다'
-    })
-    message: string
+    @ApiProperty( {
+        type       : String,
+        description: "응답 메시지",
+        required   : true,
+        example    : "생성에 성공했습니다"
+    } )
+    message: string;
     
     @ApiProperty( {
         type       : null,
@@ -29,4 +29,11 @@ export class ResponseDto implements IResponse<any> {
         required   : true
     } )
     data: any;
+    
+    
+    constructor( response: ResponseDto ) {
+        this.statusCode = response.statusCode;
+        this.message = response.message;
+        this.data = response.data;
+    }
 }

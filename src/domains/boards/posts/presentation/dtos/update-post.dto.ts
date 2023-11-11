@@ -1,26 +1,7 @@
-import { IsBoolean, IsNotEmpty, IsNumber, IsOptional, IsString, MaxLength, MinLength } from "class-validator";
+import { PickType }    from "@nestjs/mapped-types";
+import { PostsEntity } from "../../infrastructrue/entities/posts.entity";
 
 
 
-export class UpdatePostDto {
-    @IsNumber()
-    @IsNotEmpty()
-    id!: number;
-    
-    @IsString()
-    @IsOptional()
-    @MinLength( 1 )
-    @MaxLength( 40 )
-    title: string;
-    
-    @IsString()
-    @IsOptional()
-    @MinLength( 1 )
-    @MaxLength( 2000 )
-    content: string;
-    
-    
-    @IsBoolean()
-    @IsOptional()
-    is_deleted: boolean;
+export class UpdatePostDto extends PickType( PostsEntity, [ "id", "title", "content" ] ) {
 }
