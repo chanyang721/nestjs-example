@@ -1,9 +1,10 @@
-import { Column, Entity, OneToMany, OneToOne, Unique } from "typeorm";
-import { AuthEntity }                                  from "../../../../libs/authentication/infrastructure/entities/auth.entity";
-import { BaseEntity }                                  from "../../../../libs/database/orm/typeorm/base/base.entity";
-import { CommentsEntity }                              from "../../../boards/posts/infrastructrue/entities/comments.entity";
-import { ProjectEntity }                               from "../../../boards/projects/infrastructure/entities/project.entity";
-import { UserRole }                                    from "./enums/user.enum.role";
+import { Column, Entity, JoinColumn, OneToMany, OneToOne } from "typeorm";
+import { AuthEntity }                                      from "../../../../libs/authentication/infrastructure/entities/auth.entity";
+import { BaseEntity }                                      from "../../../../libs/database/orm/typeorm/base/base.entity";
+import { WalletEntity }                                    from "../../../blockchains/wallets/entities/wallet.entity";
+import { CommentsEntity }                                  from "../../../boards/posts/infrastructrue/entities/comments.entity";
+import { ProjectEntity }                                   from "../../../boards/projects/infrastructure/entities/project.entity";
+import { UserRole }                                        from "./enums/user.enum.role";
 
 
 
@@ -34,6 +35,10 @@ export class UserEntity extends BaseEntity {
       ( auth ) => auth.user,
       { cascade: true } )
     auth: AuthEntity;
+    
+    // @OneToOne( () => WalletEntity )
+    // @JoinColumn( { name: "wallet_id" } )
+    // wallet: WalletEntity;
     
     @OneToMany(
       () => ProjectEntity,

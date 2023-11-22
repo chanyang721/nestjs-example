@@ -1,6 +1,6 @@
-import { DataSource, Repository } from "typeorm";
 import { Logger }                 from "@nestjs/common";
 import { InjectRepository }       from "@nestjs/typeorm";
+import { DataSource, Repository } from "typeorm";
 import { CommentsEntity }         from "../../boards/posts/infrastructrue/entities/comments.entity";
 import { Contract }               from "./entities/contract.entity";
 
@@ -9,7 +9,6 @@ import { Contract }               from "./entities/contract.entity";
 export class ContractsRepository extends Repository<Contract> {
     private readonly logger = new Logger( ContractsRepository.name );
     
-    
     constructor(
       @InjectRepository( CommentsEntity )
       private readonly contractsRepository: Repository<Contract>,
@@ -17,4 +16,6 @@ export class ContractsRepository extends Repository<Contract> {
     ) {
         super( Contract, dataSource.createEntityManager() );
     }
+    
+    
 }

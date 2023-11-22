@@ -76,7 +76,7 @@ export class PostsController {
     @Public()
     @Get( "/comments/:id/replies" )
     async findReplies(
-  @Param( "id", ParseUUIDPipe ) commentId: string,
+      @Param( "id", ParseUUIDPipe ) commentId: string,
       @Query() pagenationOptionsDto: PagenationOptionsDto
     ): Promise<CommentsEntity[]> {
         return this.commentService.findRepliesByParent( commentId, pagenationOptionsDto );

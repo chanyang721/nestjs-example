@@ -7,7 +7,7 @@ import { CommentsEntity }                                          from "./comme
 
 
 @Entity( { name: "post" } )
-@Index('idx_user_1', [ 'writer' ])
+@Index( "idx_user_1", [ "writer" ] )
 export class PostsEntity extends BaseEntity {
     
     @IsString()
@@ -26,10 +26,10 @@ export class PostsEntity extends BaseEntity {
     @IsOptional()
     @MinLength( 1 )
     @MaxLength( 2000 )
-    @Column( { type: 'longtext', comment : "게시글 내용" } )
+    @Column( { type: "longtext", comment: "게시글 내용" } )
     content: string;
     
-    @Column( { default : false, comment : "데이터 삭제 정보" } )
+    @Column( { default: false, comment: "데이터 삭제 정보" } )
     is_deleted: boolean;
     
     

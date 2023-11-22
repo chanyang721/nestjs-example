@@ -1,20 +1,21 @@
 import { ConfigModule, ConfigService } from "@nestjs/config";
-import { TypeOrmModuleAsyncOptions } from "@nestjs/typeorm";
+import { TypeOrmModuleAsyncOptions }   from "@nestjs/typeorm";
+import { WalletEntity }                from "../../../../../domains/blockchains/wallets/entities/wallet.entity";
 import { CommentsEntity }              from "../../../../../domains/boards/posts/infrastructrue/entities/comments.entity";
 import { PostsEntity }                 from "../../../../../domains/boards/posts/infrastructrue/entities/posts.entity";
-import { FileEntity }                from "../../../../../domains/boards/projects/infrastructure/entities/file.entity";
-import { GroupEntity }               from "../../../../../domains/boards/projects/infrastructure/entities/group.entity";
-import { ProjectEntity }             from "../../../../../domains/boards/projects/infrastructure/entities/project.entity";
-import { UserEntity }                from "../../../../../domains/users/infrastructure/entities/user.entity";
-import { AuthEntity }                from "../../../../authentication/infrastructure/entities/auth.entity";
-import { PRODUCTION, PROJECT }         from "../../../../utils/constants";
+import { FileEntity }                  from "../../../../../domains/boards/projects/infrastructure/entities/file.entity";
+import { GroupEntity }                 from "../../../../../domains/boards/projects/infrastructure/entities/group.entity";
+import { ProjectEntity }               from "../../../../../domains/boards/projects/infrastructure/entities/project.entity";
+import { UserEntity }                  from "../../../../../domains/users/infrastructure/entities/user.entity";
+import { AuthEntity }                  from "../../../../authentication/infrastructure/entities/auth.entity";
+import { PRODUCTION }                  from "../../../../utils/constants";
 import { SqlLogger }                   from "./typeorm.logger.options";
 
 
 
 export const typeOrmModuleAsyncOptions: TypeOrmModuleAsyncOptions = {
-    imports   : [ ConfigModule ],
-    inject    : [ ConfigService ],
+    imports: [ ConfigModule ],
+    inject : [ ConfigService ],
     // name      : PROJECT,
     useFactory: ( configService: ConfigService ) => ( {
         type       : "mysql",
@@ -28,10 +29,32 @@ export const typeOrmModuleAsyncOptions: TypeOrmModuleAsyncOptions = {
         logging    : process.env.NODE_ENV !== PRODUCTION,
         entities   : [
             AuthEntity, UserEntity,
-          
+            
             PostsEntity, CommentsEntity,
             
-            ProjectEntity, GroupEntity, FileEntity
+            ProjectEntity, GroupEntity, FileEntity,
+        ],
+        timezone   : "Z"
+    } )
+};
+
+
+
+export const blockChainTypeOrmModuleAsyncOptions: TypeOrmModuleAsyncOptions = {
+    imports: [ ConfigModule ],
+    inject : [ ConfigService ],
+    useFactory: ( configService: ConfigService ) => ( {
+        type       : "mysql",
+        host       : configService.get<string>( "DB_CONTAINER_HOST" ),
+        port       : configService.get<number>( "DB_PORT" ),
+        username   : configService.get<string>( "DB_USER" ),
+        password   : configService.get<string>( "DB_PASSWORD" ),
+        database   : configService.get<string>( "DB_DATABASE" ),
+        synchronize: process.env.NODE_ENV !== PRODUCTION,
+        logger     : new SqlLogger(),
+        logging    : process.env.NODE_ENV !== PRODUCTION,
+        entities   : [
+            WalletEntity
         ],
         timezone   : "Z"
     } )

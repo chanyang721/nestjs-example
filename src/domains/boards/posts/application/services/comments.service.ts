@@ -26,8 +26,8 @@ export class CommentsService {
             
             return {
                 statusCode: HttpStatus.CREATED,
-                message: '생성 성공',
-                data: !!comment
+                message   : "생성 성공",
+                data      : !!comment
             };
         }
         catch ( error ) {
@@ -51,8 +51,8 @@ export class CommentsService {
             
             return {
                 statusCode: HttpStatus.OK,
-                message: '수정 성공',
-                data: !!comment
+                message   : "수정 성공",
+                data      : !!comment
             };
         }
         catch ( error ) {
@@ -64,7 +64,8 @@ export class CommentsService {
     
     async findCommentsByPostId(
       postId: string,
-      pagenationOptionsDto: PagenationOptionsDto ): Promise<CommentsEntity[]> {
+      pagenationOptionsDto: PagenationOptionsDto
+    ): Promise<CommentsEntity[]> {
         try {
             return await this.commentsRepository.findCommentsByPostId( postId, pagenationOptionsDto );
         }

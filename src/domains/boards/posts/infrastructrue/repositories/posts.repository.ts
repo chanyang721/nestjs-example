@@ -45,7 +45,7 @@ export class PostsRepository extends Repository<PostsEntity> {
                 where: { id: postId }
             } );
             
-            return updatedPost
+            return updatedPost;
         }
         catch ( error ) {
             this.logger.error( error );

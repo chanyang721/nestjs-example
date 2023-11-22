@@ -2,8 +2,8 @@ import { CACHE_MANAGER }                                         from "@nestjs/c
 import { HttpException, HttpStatus, Inject, Injectable, Logger } from "@nestjs/common";
 import { Cache }                                                 from "cache-manager";
 import { ResponseDto }                                           from "../../../../../libs/fundamentals/interceptors/response/dto/response.dto";
-import { JwtPayLoadDto } from "../../../../../libs/helpers/jwt/interface/jwt.payload.interface";
-import { PostsEntity }   from "../../infrastructrue/entities/posts.entity";
+import { JwtPayLoadDto }                                         from "../../../../../libs/helpers/jwt/interface/jwt.payload.interface";
+import { PostsEntity }                                           from "../../infrastructrue/entities/posts.entity";
 import { PostsRepository }                                       from "../../infrastructrue/repositories/posts.repository";
 import { CreatePostDto }                                         from "../../presentation/dtos/create-post.dto";
 import { PagenationOptionsDto }                                  from "../../presentation/dtos/pagenation-options.dto";
@@ -32,8 +32,8 @@ export class PostsService {
             
             return new ResponseDto( {
                 statusCode: HttpStatus.CREATED,
-                message: '생성 성공',
-                data: !!newPost
+                message   : "생성 성공",
+                data      : !!newPost
             } );
         }
         catch ( error ) {
@@ -70,8 +70,8 @@ export class PostsService {
             
             return new ResponseDto( {
                 statusCode: HttpStatus.OK,
-                message: '수정 성공',
-                data: !!post
+                message   : "수정 성공",
+                data      : !!post
             } );
         }
         catch ( error ) {

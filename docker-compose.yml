@@ -58,6 +58,7 @@ services:
       - ${SERVER_PORT}:${SERVER_PORT}
     volumes:
       - ./:/app
+    command: sh -c 'yarn install && yarn build && yarn start:prod'
     networks:
       - backend
 
