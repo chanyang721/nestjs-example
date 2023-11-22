@@ -1,17 +1,11 @@
-## 설치
-    - yarn
-
 ## 환경 변수 설정 방법
-
     - root => touch .env
 
 ## 개발 서버 실행
-
     - docker compose up
 
 
 ## Directory Structure
-
     - document: 서비스 관련 문서화 파일
     - src 
         - domains: 서비스 도메인 모듈
@@ -33,7 +27,6 @@
                     - repositories
         - lib: 서비스 실행 시 필요한 라이브러리 모듈
             - authentication: 인증 모듈
-
             - cache: redis 연결 모듈
             - database: ORM and db 연결 모듈
             - configuration: 환경 변수 모듈
@@ -62,7 +55,29 @@
 ## Domain Modeling Document
 
 ## Git Usage
+```mermaid
+---
+title: Example Git diagram
+---
+gitGraph
+    commit
+    commit
+    branch dev
+    checkout dev
+    commit
+    branch feature
+    checkout feature
+    commit
+    commit
+    checkout dev
+    merge feature
+    checkout main
+    merge dev
+    commit
+    commit
+```
 
 ## Deployment Strategy
+
 
 ## Infrastructure
