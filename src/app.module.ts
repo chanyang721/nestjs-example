@@ -32,8 +32,8 @@ import { httpModuleAsyncOptions } from "./libs/infra/http/options/http.mudule.op
          */
         UserModule,
         BoardsModule,
-        BlockchainsModule,
-        EcrfModule
+        // BlockchainsModule,
+        // EcrfModule
     ],
     controllers: [],
     providers  : []

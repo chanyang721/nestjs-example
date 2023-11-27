@@ -1,8 +1,6 @@
-import { Module }                         from "@nestjs/common";
-import { MongooseModule }                 from "@nestjs/mongoose";
-import { TypeOrmModule }                  from "@nestjs/typeorm";
-import { CommonConfigService } from "../config/common.config.service";
-import { blockChainTypeOrmModuleAsyncOptions, typeOrmModuleAsyncOptions } from "./orm/typeorm/options/typeorm.module.options";
+import { Module }                    from "@nestjs/common";
+import { TypeOrmModule }             from "@nestjs/typeorm";
+import { typeOrmModuleAsyncOptions } from "./orm/typeorm/options/typeorm.module.options";
 
 
 
@@ -11,8 +9,8 @@ import { blockChainTypeOrmModuleAsyncOptions, typeOrmModuleAsyncOptions } from "
         /**
          * Command RDBMS Database
          */
-        TypeOrmModule.forRootAsync( typeOrmModuleAsyncOptions ),
-        TypeOrmModule.forRootAsync( blockChainTypeOrmModuleAsyncOptions ),
+        TypeOrmModule.forRootAsync( typeOrmModuleAsyncOptions )
+        // TypeOrmModule.forRootAsync( blockChainTypeOrmModuleAsyncOptions ),
         
         
         /**
@@ -20,7 +18,7 @@ import { blockChainTypeOrmModuleAsyncOptions, typeOrmModuleAsyncOptions } from "
          */
         // MongooseModule.forRootAsync( mainMongooseModuleAsyncOptions )
     ],
-    providers: [  ]
+    providers: []
 } )
 export class DatabaseModule {
 }

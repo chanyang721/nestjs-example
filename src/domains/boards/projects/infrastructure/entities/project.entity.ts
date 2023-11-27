@@ -14,7 +14,13 @@ export class ProjectEntity extends BaseEntity {
         comment : "프로젝트 이름",
         length  : 100,
         nullable: false
-    } ) name: string;
+    } )
+    name: string;
+    
+    @Column( { type: "uuid" } )
+    user_id: string;
+    
+    
     /**
      * Table Relations
      */
@@ -26,10 +32,12 @@ export class ProjectEntity extends BaseEntity {
       } )
     @JoinColumn( { name: "user_id" } )
     user: UserEntity;
+    
     @OneToMany(
       () => GroupEntity,
-      group => group.project,
-      { cascade: true } )
+      group => group.project, {
+          cascade: true
+      } )
     groups: GroupEntity[];
     
     

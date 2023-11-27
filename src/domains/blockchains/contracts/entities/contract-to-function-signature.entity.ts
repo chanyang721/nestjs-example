@@ -15,17 +15,13 @@ export class ContractToFunctionSignature extends BaseEntity {
     
     @ManyToOne(
       () => Contract,
-      contract => contract.contract_to_function_signatures, {
-          nullable: false
-      } )
+      contract => contract.contract_to_function_signatures )
     @JoinColumn( { name: "contract_id" } )
     contract: Contract;
     
     @ManyToOne(
       () => FunctionSignature,
-      functionSignature => functionSignature.contract_to_function_signatures, {
-          nullable: false
-      } )
+      functionSignature => functionSignature.contract_to_function_signatures )
     @JoinColumn( { name: "function_signature_id" } )
     function_signature: FunctionSignature;
 }

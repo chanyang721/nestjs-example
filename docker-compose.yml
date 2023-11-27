@@ -12,45 +12,45 @@ services:
       MYSQL_DATABASE: ${DB_DATABASE}
       MYSQL_PASSWORD: ${DB_PASSWORD}
     ports:
-      - ${DB_PORT}:${DB_PORT}
+      - 6603:${DB_PORT}
     volumes:
       - ./data/mysql_db:/var/lib/mysql
     networks:
       - backend
 
-  mongo_db:
-    image: mongo:latest
-    container_name: ${MONGO_DB_CONTAINER_HOST}
-    restart: always
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME}
-      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
-      MONGO_INITDB_DATABASE: ${MONGO_INITDB_DATABASE}
-    ports:
-      - ${MONGO_DB_PORT}:${MONGO_DB_PORT}
-    volumes:
-      - ./data/mongo_db:/var/lib/mongodb
-    networks:
-      - backend
-
-  cache_redis:
-    image: redis:7.0-alpine
-    container_name: ${REDIS_CONTAINER_HOST}
-    restart: always
-    ports:
-      - ${REDIS_PORT}:${REDIS_PORT}
-    volumes:
-      - ./data/cache_redis:/data
-    networks:
-      - backend
+#  mongo_db:
+#    image: mongo:latest
+#    container_name: ${MONGO_DB_CONTAINER_HOST}
+#    restart: always
+#    environment:
+#      MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME}
+#      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
+#      MONGO_INITDB_DATABASE: ${MONGO_INITDB_DATABASE}
+#    ports:
+#      - ${MONGO_DB_PORT}:${MONGO_DB_PORT}
+#    volumes:
+#      - ./data/mongo_db:/var/lib/mongodb
+#    networks:
+#      - backend
+#
+#  cache_redis:
+#    image: redis:7.0-alpine
+#    container_name: ${REDIS_CONTAINER_HOST}
+#    restart: always
+#    ports:
+#      - ${REDIS_PORT}:${REDIS_PORT}
+#    volumes:
+#      - ./data/cache_redis:/data
+#    networks:
+#      - backend
 
   server:
     container_name: main_server
     working_dir: /app
     depends_on:
       - mysql_db
-      - mongo_db
-      - cache_redis
+#      - mongo_db
+#      - cache_redis
     build:
       context: .
       dockerfile: Dockerfile
@@ -58,7 +58,7 @@ services:
       - ${SERVER_PORT}:${SERVER_PORT}
     volumes:
       - ./:/app
-    command: sh -c 'yarn install && yarn build && yarn start:prod'
+    command: sh -c 'yarn install && yarn build && yarn start:dev'
     networks:
       - backend
 
@@ -66,10 +66,10 @@ services:
 volumes:
   mysql_db:
     driver: local
-  mongo_db:
-    driver: local
-  cache_redis:
-    driver: local
+#  mongo_db:
+#    driver: local
+#  cache_redis:
+#    driver: local
 
 
 networks:
