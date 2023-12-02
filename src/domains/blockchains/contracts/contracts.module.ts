@@ -11,7 +11,11 @@ import { FunctionSignature }           from "./entities/function-signature.entit
 
 @Module( {
     imports    : [
-        TypeOrmModule.forFeature( [ Contract, FunctionSignature, ContractToFunctionSignature ] )
+        TypeOrmModule.forFeature( [
+            Contract,
+            FunctionSignature,
+            ContractToFunctionSignature
+        ] )
     ],
     controllers: [ ContractsController ],
     providers  : [ ContractsService, ContractsRepository ]

@@ -13,5 +13,4 @@ import { WalletsModule } from "./wallets/wallets.module";
     ],
     providers: []
 } )
-export class BlockchainsModule {
-}
+export class BlockchainsModule {}

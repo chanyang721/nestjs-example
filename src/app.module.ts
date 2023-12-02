@@ -32,7 +32,7 @@ import { httpModuleAsyncOptions } from "./libs/infra/http/options/http.mudule.op
          */
         UserModule,
         BoardsModule,
-        // BlockchainsModule,
+        BlockchainsModule,
         // EcrfModule
     ],
     controllers: [],

@@ -17,6 +17,7 @@ export class Transaction extends BaseEntity {
     
     @Column()
     to_address: string
+    
     @Column()
     is_fee_delegation: boolean
     

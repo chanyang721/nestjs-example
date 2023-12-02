@@ -39,9 +39,7 @@ export const typeOrmModuleAsyncOptions: TypeOrmModuleAsyncOptions = {
             ProjectEntity, GroupEntity, FileEntity,
             
             WalletEntity,
-            Contract,
-            ContractToFunctionSignature,
-            FunctionSignature,
+            Contract, ContractToFunctionSignature, FunctionSignature,
             Transaction
         ],
         timezone   : "Z"
