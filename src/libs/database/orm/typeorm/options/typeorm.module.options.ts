@@ -32,7 +32,25 @@ export const typeOrmModuleAsyncOptions: TypeOrmModuleAsyncOptions = {
         logging    : process.env.NODE_ENV !== PRODUCTION,
         entities   : [
             AuthEntity, UserEntity,
-            
+        ],
+        timezone   : "Z"
+    } )
+};
+
+export const boardTypeOrmModuleAsyncOptions: TypeOrmModuleAsyncOptions = {
+    imports: [ ConfigModule ],
+    inject : [ ConfigService ],
+    useFactory: ( configService: ConfigService ) => ( {
+        type       : "mysql",
+        host       : configService.get<string>( "DB_CONTAINER_HOST" ),
+        port       : configService.get<number>( "DB_PORT" ),
+        username   : configService.get<string>( "DB_USER" ),
+        password   : configService.get<string>( "DB_PASSWORD" ),
+        database   : configService.get<string>( "DB_DATABASE_BOARD" ),
+        synchronize: process.env.NODE_ENV !== PRODUCTION,
+        logger     : new SqlLogger(),
+        logging    : process.env.NODE_ENV !== PRODUCTION,
+        entities   : [
             PostsEntity, CommentsEntity,
             
             ProjectEntity, GroupEntity, FileEntity,
@@ -40,6 +58,7 @@ export const typeOrmModuleAsyncOptions: TypeOrmModuleAsyncOptions = {
         timezone   : "Z"
     } )
 };
+
 
 export const dAppTypeOrmModuleAsyncOptions: TypeOrmModuleAsyncOptions = {
     imports: [ ConfigModule ],

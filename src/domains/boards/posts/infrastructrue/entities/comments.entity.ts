@@ -1,7 +1,6 @@
 import { IsBoolean, IsNotEmpty, IsOptional, IsString, IsUUID, MaxLength, MinLength } from "class-validator";
 import { Column, Entity, Index, JoinColumn, ManyToOne, OneToMany }                   from "typeorm";
 import { BaseEntity }                                                                from "../../../../../libs/database/orm/typeorm/base/base.entity";
-import { UserEntity }                                                                from "../../../../users/infrastructure/entities/user.entity";
 import { PostsEntity }                                                               from "./posts.entity";
 
 
@@ -38,11 +37,11 @@ export class CommentsEntity extends BaseEntity {
     is_deleted: boolean;
     
     /* relations */
-    @ManyToOne( () => UserEntity, user => user.comments, {
-        nullable: false
-    } )
-    @JoinColumn( { name: "writer_name", referencedColumnName: "nickname" } )
-    writer: UserEntity;
+    // @ManyToOne( () => UserEntity, user => user.comments, {
+    //     nullable: false
+    // } )
+    // @JoinColumn( { name: "writer_name", referencedColumnName: "nickname" } )
+    // writer: UserEntity;
     
     @ManyToOne( () => PostsEntity, {
         nullable: false

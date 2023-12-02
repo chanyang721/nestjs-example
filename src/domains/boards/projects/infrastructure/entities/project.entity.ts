@@ -21,17 +21,17 @@ export class ProjectEntity extends BaseEntity {
     user_id: string;
     
     
-    /**
-     * Table Relations
-     */
-    @ManyToOne(
-      () => UserEntity,
-      user => user.projects, {
-          onDelete: "CASCADE",
-          onUpdate: "CASCADE"
-      } )
-    @JoinColumn( { name: "user_id" } )
-    user: UserEntity;
+    // /**
+    //  * Table Relations
+    //  */
+    // @ManyToOne(
+    //   () => UserEntity,
+    //   user => user.projects, {
+    //       onDelete: "CASCADE",
+    //       onUpdate: "CASCADE"
+    //   } )
+    // @JoinColumn( { name: "user_id" } )
+    // user: UserEntity;
     
     @OneToMany(
       () => GroupEntity,

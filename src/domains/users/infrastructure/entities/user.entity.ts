@@ -36,21 +36,22 @@ export class UserEntity extends BaseEntity {
       { cascade: true } )
     auth: AuthEntity;
     
+    
     // @OneToOne( () => WalletEntity )
     // @JoinColumn( { name: "wallet_id" } )
     // wallet: WalletEntity;
     
-    @OneToMany(
-      () => ProjectEntity,
-      project => project.user,
-      { cascade: true } )
-    projects: ProjectEntity[];
+    // @OneToMany(
+    //   () => ProjectEntity,
+    //   project => project.user,
+    //   { cascade: true } )
+    // projects: ProjectEntity[];
     
-    @OneToMany(
-      () => CommentsEntity,
-      comment => comment.writer
-    )
-    comments: CommentsEntity[];
+    // @OneToMany(
+    //   () => CommentsEntity,
+    //   comment => comment.writer
+    // )
+    // comments: CommentsEntity[];
     
     
     /**

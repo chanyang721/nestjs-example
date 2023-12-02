@@ -27,7 +27,6 @@ export class PostsRepository extends Repository<PostsEntity> {
     
     async createPost( user: JwtPayLoadDto, createPostDto: CreatePostDto ): Promise<PostsEntity> {
         const newPost = new PostsEntity( createPostDto );
-        newPost.writer = new UserEntity( user );
         
         try {
             return await this.postsRepository.save( newPost );

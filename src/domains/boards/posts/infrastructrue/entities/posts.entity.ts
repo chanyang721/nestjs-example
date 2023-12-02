@@ -7,7 +7,7 @@ import { CommentsEntity }                                          from "./comme
 
 
 @Entity( { name: "post" } )
-@Index( "idx_user_1", [ "writer" ] )
+// @Index( "idx_user_1", [ "writer" ] )
 export class PostsEntity extends BaseEntity {
     
     @IsString()
@@ -32,13 +32,14 @@ export class PostsEntity extends BaseEntity {
     @Column( { default: false, comment: "데이터 삭제 정보" } )
     is_deleted: boolean;
     
-    
-    @ManyToOne( () => UserEntity, {
-        nullable: false,
-        cascade : true
-    } )
-    @JoinColumn( { name: "writer_name", referencedColumnName: "nickname" } )
-    writer: UserEntity;
+    @Column({ type: 'uuid' })
+    user_id: string
+    // @ManyToOne( () => UserEntity, {
+    //     nullable: false,
+    //     cascade : true
+    // } )
+    // @JoinColumn( { name: "writer_name", referencedColumnName: "nickname" } )
+    // writer: UserEntity;
     
     
     @OneToMany( () => CommentsEntity, comment => comment.post, {
