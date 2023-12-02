@@ -20,7 +20,6 @@ import { SqlLogger }                   from "./typeorm.logger.options";
 export const typeOrmModuleAsyncOptions: TypeOrmModuleAsyncOptions = {
     imports: [ ConfigModule ],
     inject : [ ConfigService ],
-    // name      : PROJECT,
     useFactory: ( configService: ConfigService ) => ( {
         type       : "mysql",
         host       : configService.get<string>( "DB_CONTAINER_HOST" ),
@@ -37,9 +36,29 @@ export const typeOrmModuleAsyncOptions: TypeOrmModuleAsyncOptions = {
             PostsEntity, CommentsEntity,
             
             ProjectEntity, GroupEntity, FileEntity,
-            
+        ],
+        timezone   : "Z"
+    } )
+};
+
+export const dAppTypeOrmModuleAsyncOptions: TypeOrmModuleAsyncOptions = {
+    imports: [ ConfigModule ],
+    inject : [ ConfigService ],
+    useFactory: ( configService: ConfigService ) => ( {
+        type       : "mysql",
+        host       : configService.get<string>( "DB_CONTAINER_HOST" ),
+        port       : configService.get<number>( "DB_PORT" ),
+        username   : configService.get<string>( "DB_USER" ),
+        password   : configService.get<string>( "DB_PASSWORD" ),
+        database   : configService.get<string>( "DB_DATABASE_DAPP" ),
+        synchronize: process.env.NODE_ENV !== PRODUCTION,
+        logger     : new SqlLogger(),
+        logging    : process.env.NODE_ENV !== PRODUCTION,
+        entities   : [
             WalletEntity,
-            Contract, ContractToFunctionSignature, FunctionSignature,
+            Contract,
+            ContractToFunctionSignature,
+            FunctionSignature,
             Transaction
         ],
         timezone   : "Z"

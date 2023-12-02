@@ -11,10 +11,13 @@ services:
       MYSQL_PORT: ${DB_PORT}
       MYSQL_DATABASE: ${DB_DATABASE}
       MYSQL_PASSWORD: ${DB_PASSWORD}
+      TZ: Asia/Seoul
     ports:
       - 6603:${DB_PORT}
     volumes:
       - ./data/mysql_db:/var/lib/mysql
+      - ./src/libs/database/init:/docker-entrypoint-initdb.d
+
     networks:
       - backend
 

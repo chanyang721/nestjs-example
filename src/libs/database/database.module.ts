@@ -1,6 +1,6 @@
 import { Module }                    from "@nestjs/common";
-import { TypeOrmModule }             from "@nestjs/typeorm";
-import { typeOrmModuleAsyncOptions } from "./orm/typeorm/options/typeorm.module.options";
+import { TypeOrmModule }                                            from "@nestjs/typeorm";
+import { dAppTypeOrmModuleAsyncOptions, typeOrmModuleAsyncOptions } from "./orm/typeorm/options/typeorm.module.options";
 
 
 
@@ -9,8 +9,8 @@ import { typeOrmModuleAsyncOptions } from "./orm/typeorm/options/typeorm.module.
         /**
          * Command RDBMS Database
          */
-        TypeOrmModule.forRootAsync( typeOrmModuleAsyncOptions )
-        // TypeOrmModule.forRootAsync( blockChainTypeOrmModuleAsyncOptions ),
+        TypeOrmModule.forRootAsync( typeOrmModuleAsyncOptions ),
+        TypeOrmModule.forRootAsync( dAppTypeOrmModuleAsyncOptions )
         
         
         /**
