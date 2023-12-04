@@ -2,6 +2,7 @@ import { Module }                 from "@nestjs/common";
 import { TypeOrmModule }          from "@nestjs/typeorm";
 import { Transaction }            from "./entities/transaction.entity";
 import { TransactionsController } from "./transactions.controller";
+import { TransactionsRepository } from "./transactions.repository";
 import { TransactionsService }    from "./transactions.service";
 
 
@@ -11,7 +12,7 @@ import { TransactionsService }    from "./transactions.service";
         TypeOrmModule.forFeature( [ Transaction ] )
     ],
     controllers: [ TransactionsController ],
-    providers  : [ TransactionsService ]
+    providers  : [ TransactionsService, TransactionsRepository ]
 } )
 export class TransactionsModule {
 }

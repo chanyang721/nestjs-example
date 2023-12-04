@@ -40,8 +40,6 @@ export class AwsS3Service {
     public async uploadFiles( files: Express.MulterS3.File[], key: string ): Promise<any> {
         this.logger.debug( `[ AWS S3 ]: Uploading files ${ files.map( file => file.originalname )
                                                                 .join( ", " ) } to bucket ${ this.AWS_S3_BUCKET }` );
-        
-        
     }
     
     
