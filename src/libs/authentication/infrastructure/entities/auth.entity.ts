@@ -16,19 +16,25 @@ export class AuthEntity extends BaseEntity {
         unique  : true,
         nullable: false,
         comment : "인증 서버 유저 아이디"
-    } ) uid: string;
+    } )
+    uid: string;
+    
     @Column( {
         type   : "enum",
         enum   : AuthenticationPlatform,
         default: AuthenticationPlatform.FIREBASE,
         comment: "인증 플랫폼 이름"
-    } ) platform: AuthenticationPlatform;
+    } )
+    platform: AuthenticationPlatform;
+    
     @Column( {
         type    : "varchar",
         length  : 150,
         nullable: true,
         comment : "엑세스 토콘 리프레시용 토큰"
-    } ) current_refresh_token: string;
+    } )
+    current_refresh_token: string;
+    
     /**
      * Table Relations
      */
@@ -38,7 +44,7 @@ export class AuthEntity extends BaseEntity {
     @JoinColumn( { name: "user_id" } )
     user: UserEntity;
     
-
+    
     /**
      * Constructor Function
      */

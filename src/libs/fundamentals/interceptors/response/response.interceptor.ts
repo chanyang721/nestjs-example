@@ -1,6 +1,6 @@
 import { CallHandler, ExecutionContext, Injectable, Logger, NestInterceptor } from "@nestjs/common";
-import { map, Observable } from "rxjs";
-import { IResponse }       from "./interface/response.interface";
+import { map, Observable }                                                    from "rxjs";
+import { IResponse }                                                          from "./dto/response.dto";
 
 
 

@@ -46,7 +46,7 @@ export class PostsController {
     async createPost(
       @Body() createPostDto: CreatePostDto,
       @CurrentUser() user: JwtPayLoadDto
-    ): Promise<ResponseDto> {
+    ): Promise<ResponseDto<boolean>> {
         return this.postsService.createPost( user, createPostDto );
     }
     
@@ -55,7 +55,7 @@ export class PostsController {
     async updatePost(
       @Body() updatePostDto: UpdatePostDto,
       @CurrentUser() user: JwtPayLoadDto
-    ): Promise<ResponseDto> {
+    ): Promise<ResponseDto<boolean>> {
         return this.postsService.updatePost( user, updatePostDto );
     }
     
@@ -87,7 +87,7 @@ export class PostsController {
     async createCommentsOrReply(
       @Body() createCommentsOrReplyDto: CreateCommentsOrReplyDto,
       @CurrentUser() user: JwtPayLoadDto
-    ): Promise<ResponseDto> {
+    ): Promise<ResponseDto<boolean>> {
         return this.commentService.createComment( user, createCommentsOrReplyDto );
     }
     
@@ -96,7 +96,7 @@ export class PostsController {
     async updateCommentsOrReply(
       @Body() updateCommentsOrReplyDto: UpdateCommentsOrReplyDto,
       @CurrentUser() user: JwtPayLoadDto
-    ): Promise<ResponseDto> {
+    ): Promise<ResponseDto<boolean>> {
         return this.commentService.updateComment( user, updateCommentsOrReplyDto );
     }
 }

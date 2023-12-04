@@ -20,7 +20,7 @@ export class CommentsService {
     }
     
     
-    async createComment( user: JwtPayLoadDto, createCommentDto: CreateCommentsOrReplyDto ): Promise<ResponseDto> {
+    async createComment( user: JwtPayLoadDto, createCommentDto: CreateCommentsOrReplyDto ): Promise<ResponseDto<boolean>> {
         try {
             const comment = await this.commentsRepository.createComment( createCommentDto );
             
@@ -40,7 +40,7 @@ export class CommentsService {
     async updateComment(
       user: JwtPayLoadDto,
       updateCommentsOrReplyDto: UpdateCommentsOrReplyDto
-    ): Promise<ResponseDto> {
+    ): Promise<ResponseDto<boolean>> {
         try {
             const comment = await this.commentsRepository.findCommentById( updateCommentsOrReplyDto.id );
             if ( !comment ) {

@@ -26,7 +26,7 @@ export class PostsService {
     }
     
     
-    public async createPost( user: JwtPayLoadDto, createPostDto: CreatePostDto ): Promise<ResponseDto> {
+    public async createPost( user: JwtPayLoadDto, createPostDto: CreatePostDto ): Promise<ResponseDto<boolean>> {
         try {
             const newPost = await this.postsRepository.createPost( user, createPostDto );
             
@@ -59,7 +59,7 @@ export class PostsService {
     }
     
     
-    async updatePost( user: JwtPayLoadDto, updatePostDto: UpdatePostDto ): Promise<ResponseDto> {
+    async updatePost( user: JwtPayLoadDto, updatePostDto: UpdatePostDto ): Promise<ResponseDto<boolean>> {
         try {
             const post = await this.postsRepository.findOnePostById( updatePostDto.id );
             if ( !post ) {

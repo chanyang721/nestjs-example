@@ -5,7 +5,7 @@ import { TokenDto }               from "../dtos/token.dto";
 
 
 
-export interface IAuthController {
+export interface IAuthControllerAdapter {
     register( registerUserDto: RegisterUserDto ): Promise<any>;
     
     

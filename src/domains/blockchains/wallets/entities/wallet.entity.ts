@@ -9,8 +9,7 @@ export class WalletEntity extends BaseEntity {
     @Column( { length: 66 } )
     address: string;
     
-    @Column()
+    @Column({ type: 'uuid' })
     @Index()
     user_id: string;
-    
 }
