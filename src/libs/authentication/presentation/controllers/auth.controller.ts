@@ -1,28 +1,31 @@
-import { Body, Controller, Get, Post, Req, Res, UseGuards }          from "@nestjs/common";
-import { ApiTags }                                                   from "@nestjs/swagger";
-import type { Response }                                             from "express";
-import { JwtAuthRefreshGuard }                                       from "../../../fundamentals/guards/local/jwt.refresh.guard";
-import { LocalAuthGuard }                                            from "../../../fundamentals/guards/local/local.auth.guard";
-import { COOKIE_ACCESS_TOKEN_OPTIONS, COOKIE_REFRESH_TOKEN_OPTIONS } from "../../../helpers/jwt/options";
-import { COOKIE_ACCESS_TOKEN_NAME, COOKIE_REFRESH_TOKEN_NAME }       from "../../../utils/constants";
-import { Public }                                                    from "../../../utils/decoretors";
-import { AuthService }                                               from "../../application/services/auth.service";
-import { RegisterUserDto }                                           from "../dtos/auth.register.user.dto";
-import { LoginDto }                                                  from "../dtos/login.dto";
-import { TokenDto }                                                  from "../dtos/token.dto";
-import { IAuthControllerAdapter }                                    from "../interfaces/auth.controller.interface";
-import { ApiLoginDecorator }                                         from "../swagger-decoretors/api.login.decorator";
-import { ApiRefreshDecorator }                                       from "../swagger-decoretors/api.refresh.decorator";
-import { ApiRegisterDecorator }                                      from "../swagger-decoretors/api.register.decorator";
+import { CacheInterceptor }                                                  from "@nestjs/cache-manager";
+import { Body, Controller, Get, Post, Req, Res, UseGuards, UseInterceptors } from "@nestjs/common";
+import { ApiTags }                                                           from "@nestjs/swagger";
+import type { Response }                                                     from "express";
+import { JwtAuthRefreshGuard }                                               from "../../../fundamentals/guards/local/jwt.refresh.guard";
+import { LocalAuthGuard }                                                    from "../../../fundamentals/guards/local/local.auth.guard";
+import { COOKIE_ACCESS_TOKEN_OPTIONS, COOKIE_REFRESH_TOKEN_OPTIONS }         from "../../../helpers/jwt/options";
+import { COOKIE_ACCESS_TOKEN_NAME, COOKIE_REFRESH_TOKEN_NAME }               from "../../../utils/constants";
+import { Public }                                                            from "../../../utils/decoretors";
+import { AuthService }                                                       from "../../application/services/auth.service";
+import { RegisterUserDto }                                                   from "../dtos/auth.register.user.dto";
+import { LoginDto }                                                          from "../dtos/login.dto";
+import { TokenDto }                                                          from "../dtos/token.dto";
+import { IAuthControllerAdapter }                                            from "../interfaces/auth.controller.interface";
+import { ApiLoginDecorator }                                                 from "../swagger-decoretors/api.login.decorator";
+import { ApiRefreshDecorator }                                               from "../swagger-decoretors/api.refresh.decorator";
+import { ApiRegisterDecorator }                                              from "../swagger-decoretors/api.register.decorator";
 
 
 
 @Public()
 @ApiTags( "auth" )
 @Controller( "auth" )
+@UseInterceptors( CacheInterceptor )
 export class AuthController implements IAuthControllerAdapter {
     constructor( private readonly authService: AuthService ) {
     }
+    
     
     @Post( "register" )
     @ApiRegisterDecorator()
@@ -32,6 +35,7 @@ export class AuthController implements IAuthControllerAdapter {
     ): Promise<any> {
         return await this.authService.register( registerUserDto );
     }
+    
     
     @Post( "login" )
     @ApiLoginDecorator()
@@ -46,6 +50,7 @@ export class AuthController implements IAuthControllerAdapter {
         
         return tokens;
     }
+    
     
     @Get( "refresh" )
     @ApiRefreshDecorator()

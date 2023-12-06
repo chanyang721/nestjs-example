@@ -14,11 +14,18 @@ export class UserModel extends BaseModel {
         required: true
     } )
     name: string;
+    
+    @Prop( {
+        type    : String,
+        required: true
+    } )
+    address: string;
 }
 
 
 export const UserSchema = SchemaFactory.createForClass( UserModel );
 
-// UserSchema.virtual('id').get(function (this: UserDocument) {
-//   return this._id;
-// });
+UserSchema.virtual( "id" )
+          .get( function( this: UserDocument ) {
+              return this._id;
+          } );

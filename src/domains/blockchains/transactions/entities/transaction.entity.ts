@@ -6,23 +6,23 @@ import { FunctionSignature }        from "../../contracts/entities/function-sign
 
 @Entity({ name: 'transaction' })
 export class Transaction extends BaseEntity {
-    @Column()
+    @Column({ length: 66, comment: 'transaction hash' })
     txHash: string
     
-    @Column()
+    @Column({ comment: 'block 넘버링' })
     block_number: number
     
-    @Column()
+    @Column({ length: 66, comment: 'user address' })
     from_address: string
     
-    @Column()
+    @Column({ length: 66, comment: 'contract address' })
     to_address: string
     
-    @Column()
+    @Column({ comment: '위임 수수료 존재 여부' })
     is_fee_delegation: boolean
     
-    @Column()
-    reward: string
+    @Column({ type: 'decimal', precision: 16, scale: 6 })
+    reward: number
     
     @Column({ type: "timestamp" })
     txTimestamp: Date

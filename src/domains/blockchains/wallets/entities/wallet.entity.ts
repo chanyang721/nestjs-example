@@ -12,4 +12,5 @@ export class WalletEntity extends BaseEntity {
     @Column({ type: 'uuid' })
     @Index()
     user_id: string;
+    
 }

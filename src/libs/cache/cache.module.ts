@@ -15,7 +15,11 @@ import { cacheModuleAsyncOptions }       from "./options/cache.module.options";
         /**
          * local caching
          */
-        CacheModule.register( { isGlobal: true } ),
+        CacheModule.register( {
+            isGlobal: true,
+            ttl: 10,
+            max: 10
+        } ),
     ],
     providers: [
         {

@@ -9,6 +9,7 @@ export const setupSwagger = async ( app: NestExpressApplication ): Promise<void>
     const config = new DocumentBuilder()
       .setTitle( "Be Free API" )
       .setDescription( "Be Free API description" )
+      .setBasePath('/api')
       .setVersion( "1.0" )
       .addBearerAuth( {
           type        : "http",
