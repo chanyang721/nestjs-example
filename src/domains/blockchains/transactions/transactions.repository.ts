@@ -7,9 +7,9 @@ import { Transaction }            from "./entities/transaction.entity";
 @Injectable()
 export class TransactionsRepository extends Repository<Transaction> {
     constructor(
+      private readonly dataSource: DataSource,
       @InjectRepository(Transaction)
       private readonly transactionsRepository: Repository<Transaction>,
-      private readonly dataSource: DataSource
     ) {
         super(Transaction, dataSource.createEntityManager());
     }

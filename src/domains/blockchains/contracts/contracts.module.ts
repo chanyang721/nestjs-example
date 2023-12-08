@@ -4,8 +4,10 @@ import { ContractsController }         from "./contracts.controller";
 import { ContractsRepository }         from "./contracts.repository";
 import { ContractsService }            from "./contracts.service";
 import { ContractToFunctionSignature } from "./entities/contract-to-function-signature.entity";
+import { ContractToToken }             from "./entities/contract-to-token.entity";
 import { Contract }                    from "./entities/contract.entity";
 import { FunctionSignature }           from "./entities/function-signature.entity";
+import { Token }                       from "./entities/token.entity";
 
 
 
@@ -13,6 +15,8 @@ import { FunctionSignature }           from "./entities/function-signature.entit
     imports    : [
         TypeOrmModule.forFeature( [
             Contract,
+            ContractToToken,
+            Token,
             FunctionSignature,
             ContractToFunctionSignature
         ] )

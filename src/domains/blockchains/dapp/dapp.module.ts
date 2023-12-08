@@ -3,6 +3,7 @@ import { DappService } from './dapp.service';
 import { DappController } from './dapp.controller';
 
 @Module({
+  imports: [],
   controllers: [DappController],
   providers: [DappService]
 })

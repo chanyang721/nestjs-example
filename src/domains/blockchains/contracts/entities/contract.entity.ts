@@ -1,30 +1,59 @@
-import { Column, Entity, OneToMany }   from "typeorm";
-import { BaseEntity }                  from "../../../../libs/database/orm/typeorm/base/base.entity";
-import { ContractToFunctionSignature } from "./contract-to-function-signature.entity";
+import { Column, Entity, Index, JoinColumn, OneToMany, OneToOne } from "typeorm";
+import { BaseEntity }                                             from "../../../../libs/database/orm/typeorm/base/base.entity";
+import { Transaction }                                            from "../../transactions/entities/transaction.entity";
+import { ContractToFunctionSignature }                            from "./contract-to-function-signature.entity";
+import { ContractToToken }                                        from "./contract-to-token.entity";
+import { ContractTypeEnum }                                       from "./enums";
+import { Token }                                                  from "./token.entity";
 
 
 
 @Entity( { name: "contract" } )
 export class Contract extends BaseEntity {
-    @Column( { length: 20, comment: '이름' } )
+    /*
+     * Columns
+     * */
+    @Column( { length: 20, comment: "이름" } )
     name: string;
     
-    @Column( { length: 66, comment: '주소' } )
+    @Column( { length: 66, unique: true, comment: "주소" } )
+    @Index()
     address: string;
     
-    @Column( { length: 20, nullable: true, comment: '별칭' } )
-    label: string;
+    @Column( {
+        type   : "enum",
+        enum   : ContractTypeEnum,
+        default: ContractTypeEnum.ADDRESS_CONTRACT
+    } )
+    @Index()
+    type: ContractTypeEnum;
     
-    @Column({ default: false, comment: '인증 여부' })
+    @Column( { default: false, comment: "검증 여부" } )
     is_verified: boolean;
     
-    @Column( { default: true, comment: '활성화 상태' } )
+    @Column( { default: true, comment: "활성화 상태" } )
     is_active: boolean;
+    
+    @Column( { type: "uuid", comment: "token contract tracker fk" } )
+    tracker: string;
+    
+    /*
+     * Relations
+     * */
+    @OneToOne( () => Token )
+    @JoinColumn( { name: "tracker" } )
+    token: Token;
     
     @OneToMany(
       () => ContractToFunctionSignature,
-      ContractToFunctionSignature => ContractToFunctionSignature.contract, {
-          cascade: true
-      } )
+      contractToFunctionSignature => contractToFunctionSignature.contract )
     contract_to_function_signatures: ContractToFunctionSignature[];
+    
+    @OneToMany(
+      () => ContractToToken,
+      contractToToken => contractToToken.contract )
+    contract_to_tokens: ContractToToken[];
+    
+    @OneToMany( () => Transaction, transaction => transaction.contract)
+    transactions: Transaction[];
 }

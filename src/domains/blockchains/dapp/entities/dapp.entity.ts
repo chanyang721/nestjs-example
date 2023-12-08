@@ -8,7 +8,7 @@ export class Dapp extends BaseEntity {
     @Column({ length: 60, comment: 'dapp 이름' })
     name: string;
     
-    @Column({ length: 'dapp service url' })
+    @Column({ length: 255 })
     url: string;
     
     @Column({ length: 200, comment: 'dapp logo image' })

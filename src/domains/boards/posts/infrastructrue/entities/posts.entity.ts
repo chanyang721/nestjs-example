@@ -7,7 +7,6 @@ import { CommentsEntity }                                          from "./comme
 
 
 @Entity( { name: "post" } )
-// @Index( "idx_user_1", [ "writer" ] )
 export class PostsEntity extends BaseEntity {
     
     @IsString()
@@ -16,7 +15,6 @@ export class PostsEntity extends BaseEntity {
     @MaxLength( 40 )
     @Column( { length: 40, comment: "게시글 제목" } )
     title: string;
-    
     
     @Column( { comment: "user id FK" } )
     @Index()
@@ -33,14 +31,8 @@ export class PostsEntity extends BaseEntity {
     is_deleted: boolean;
     
     @Column({ type: 'uuid' })
+    @Index()
     user_id: string
-    // @ManyToOne( () => UserEntity, {
-    //     nullable: false,
-    //     cascade : true
-    // } )
-    // @JoinColumn( { name: "writer_name", referencedColumnName: "nickname" } )
-    // writer: UserEntity;
-    
     
     @OneToMany( () => CommentsEntity, comment => comment.post, {
         nullable: true

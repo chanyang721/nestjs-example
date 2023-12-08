@@ -37,6 +37,7 @@ export class CommentsEntity extends BaseEntity {
     is_deleted: boolean;
     
     /* relations */
+
     // @ManyToOne( () => UserEntity, user => user.comments, {
     //     nullable: false
     // } )

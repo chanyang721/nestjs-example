@@ -1,8 +1,11 @@
 import { ConfigModule, ConfigService } from "@nestjs/config";
 import { TypeOrmModuleAsyncOptions }   from "@nestjs/typeorm";
 import { ContractToFunctionSignature } from "../../../../../domains/blockchains/contracts/entities/contract-to-function-signature.entity";
+import { ContractToToken }             from "../../../../../domains/blockchains/contracts/entities/contract-to-token.entity";
 import { Contract }                    from "../../../../../domains/blockchains/contracts/entities/contract.entity";
 import { FunctionSignature }           from "../../../../../domains/blockchains/contracts/entities/function-signature.entity";
+import { Token }                       from "../../../../../domains/blockchains/contracts/entities/token.entity";
+import { Dapp }                        from "../../../../../domains/blockchains/dapp/entities/dapp.entity";
 import { Transaction }                 from "../../../../../domains/blockchains/transactions/entities/transaction.entity";
 import { Wallet }                      from "../../../../../domains/blockchains/wallets/entities/wallet.entity";
 import { CommentsEntity }              from "../../../../../domains/boards/posts/infrastructrue/entities/comments.entity";
@@ -76,9 +79,10 @@ export const dAppTypeOrmModuleAsyncOptions: TypeOrmModuleAsyncOptions = {
         logging    : process.env.NODE_ENV !== PRODUCTION,
         entities   : [
             Wallet,
+            Dapp,
             Contract,
-            ContractToFunctionSignature,
-            FunctionSignature,
+                ContractToToken, Token,
+                ContractToFunctionSignature, FunctionSignature,
             Transaction
         ],
         timezone   : "Z"
