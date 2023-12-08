@@ -4,12 +4,13 @@ import { ContractToFunctionSignature } from "../../../../../domains/blockchains/
 import { Contract }                    from "../../../../../domains/blockchains/contracts/entities/contract.entity";
 import { FunctionSignature }           from "../../../../../domains/blockchains/contracts/entities/function-signature.entity";
 import { Transaction }                 from "../../../../../domains/blockchains/transactions/entities/transaction.entity";
-import { WalletEntity }                from "../../../../../domains/blockchains/wallets/entities/wallet.entity";
+import { Wallet }                      from "../../../../../domains/blockchains/wallets/entities/wallet.entity";
 import { CommentsEntity }              from "../../../../../domains/boards/posts/infrastructrue/entities/comments.entity";
 import { PostsEntity }                 from "../../../../../domains/boards/posts/infrastructrue/entities/posts.entity";
 import { FileEntity }                  from "../../../../../domains/boards/projects/infrastructure/entities/file.entity";
 import { GroupEntity }                 from "../../../../../domains/boards/projects/infrastructure/entities/group.entity";
 import { ProjectEntity }               from "../../../../../domains/boards/projects/infrastructure/entities/project.entity";
+import { ProfileEntity }               from "../../../../../domains/users/infrastructure/entities/profile.entity";
 import { UserEntity }                  from "../../../../../domains/users/infrastructure/entities/user.entity";
 import { AuthEntity }                  from "../../../../authentication/infrastructure/entities/auth.entity";
 import { PRODUCTION }                  from "../../../../utils/constants";
@@ -18,8 +19,8 @@ import { SqlLogger }                   from "./typeorm.logger.options";
 
 
 export const typeOrmModuleAsyncOptions: TypeOrmModuleAsyncOptions = {
-    imports: [ ConfigModule ],
-    inject : [ ConfigService ],
+    imports   : [ ConfigModule ],
+    inject    : [ ConfigService ],
     useFactory: ( configService: ConfigService ) => ( {
         type       : "mysql",
         host       : configService.get<string>( "DB_CONTAINER_HOST" ),
@@ -31,15 +32,15 @@ export const typeOrmModuleAsyncOptions: TypeOrmModuleAsyncOptions = {
         logger     : new SqlLogger(),
         logging    : process.env.NODE_ENV !== PRODUCTION,
         entities   : [
-            AuthEntity, UserEntity,
+            AuthEntity, UserEntity, ProfileEntity
         ],
         timezone   : "Z"
     } )
 };
 
 export const boardTypeOrmModuleAsyncOptions: TypeOrmModuleAsyncOptions = {
-    imports: [ ConfigModule ],
-    inject : [ ConfigService ],
+    imports   : [ ConfigModule ],
+    inject    : [ ConfigService ],
     useFactory: ( configService: ConfigService ) => ( {
         type       : "mysql",
         host       : configService.get<string>( "DB_CONTAINER_HOST" ),
@@ -53,7 +54,7 @@ export const boardTypeOrmModuleAsyncOptions: TypeOrmModuleAsyncOptions = {
         entities   : [
             PostsEntity, CommentsEntity,
             
-            ProjectEntity, GroupEntity, FileEntity,
+            ProjectEntity, GroupEntity, FileEntity
         ],
         timezone   : "Z"
     } )
@@ -61,8 +62,8 @@ export const boardTypeOrmModuleAsyncOptions: TypeOrmModuleAsyncOptions = {
 
 
 export const dAppTypeOrmModuleAsyncOptions: TypeOrmModuleAsyncOptions = {
-    imports: [ ConfigModule ],
-    inject : [ ConfigService ],
+    imports   : [ ConfigModule ],
+    inject    : [ ConfigService ],
     useFactory: ( configService: ConfigService ) => ( {
         type       : "mysql",
         host       : configService.get<string>( "DB_CONTAINER_HOST" ),
@@ -74,7 +75,7 @@ export const dAppTypeOrmModuleAsyncOptions: TypeOrmModuleAsyncOptions = {
         logger     : new SqlLogger(),
         logging    : process.env.NODE_ENV !== PRODUCTION,
         entities   : [
-            WalletEntity,
+            Wallet,
             Contract,
             ContractToFunctionSignature,
             FunctionSignature,

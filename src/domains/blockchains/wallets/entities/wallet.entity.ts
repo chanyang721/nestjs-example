@@ -4,13 +4,11 @@ import { BaseEntity }                    from "../../../../libs/database/orm/typ
 
 
 @Entity( { name: "wallet" } )
-export class WalletEntity extends BaseEntity {
-    
+export class Wallet extends BaseEntity {
     @Column( { length: 66 } )
     address: string;
     
     @Column({ type: 'uuid' })
     @Index()
     user_id: string;
-    
 }

@@ -21,11 +21,11 @@ export class Transaction extends BaseEntity {
     @Column({ comment: '위임 수수료 존재 여부' })
     is_fee_delegation: boolean
     
-    @Column({ type: 'decimal', precision: 16, scale: 6 })
+    @Column({ type: 'decimal', precision: 24, scale: 6 })
     reward: number
     
     @Column({ type: "timestamp" })
-    txTimestamp: Date
+    tx_timestamp: Date
     
     @Column()
     function_signature_id: number

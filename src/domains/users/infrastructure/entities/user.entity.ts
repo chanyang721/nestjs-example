@@ -1,10 +1,9 @@
-import { Column, Entity, JoinColumn, OneToMany, OneToOne } from "typeorm";
-import { AuthEntity }                                      from "../../../../libs/authentication/infrastructure/entities/auth.entity";
-import { BaseEntity }                                      from "../../../../libs/database/orm/typeorm/base/base.entity";
-import { WalletEntity }                                    from "../../../blockchains/wallets/entities/wallet.entity";
-import { CommentsEntity }                                  from "../../../boards/posts/infrastructrue/entities/comments.entity";
-import { ProjectEntity }                                   from "../../../boards/projects/infrastructure/entities/project.entity";
-import { UserRole }                                        from "./enums/user.enum.role";
+import { Column, Entity, JoinColumn, OneToOne } from "typeorm";
+import { AuthEntity }                           from "../../../../libs/authentication/infrastructure/entities/auth.entity";
+import { BaseEntity }                           from "../../../../libs/database/orm/typeorm/base/base.entity";
+import { UserRole }                             from "./enums/user.enum.role";
+import { GenderEnum }                           from "./enums/user.gender.enum";
+import { ProfileEntity }                        from "./profile.entity";
 
 
 
@@ -21,11 +20,22 @@ export class UserEntity extends BaseEntity {
     } )
     role: UserRole;
     
-    @Column( { length: 46, comment: "유저 썸네일 S3 key" } )
-    thumbnail: string;
+    @Column( { length: 20 } )
+    name: string;
     
-    @Column( { unique: true, length: 30, comment: "유저 닉네임" } )
-    nickname: string;
+    @Column( {
+        type   : "enum",
+        enum   : GenderEnum,
+        comment: "유저 성별"
+    } )
+    gender: GenderEnum;
+    
+    @Column()
+    age: number;
+    
+    
+    @Column()
+    profile_id: string;
     
     /**
      * Table Relations
@@ -37,21 +47,9 @@ export class UserEntity extends BaseEntity {
     auth: AuthEntity;
     
     
-    // @OneToOne( () => WalletEntity )
-    // @JoinColumn( { name: "wallet_id" } )
-    // wallet: WalletEntity;
-    
-    // @OneToMany(
-    //   () => ProjectEntity,
-    //   project => project.user,
-    //   { cascade: true } )
-    // projects: ProjectEntity[];
-    
-    // @OneToMany(
-    //   () => CommentsEntity,
-    //   comment => comment.writer
-    // )
-    // comments: CommentsEntity[];
+    @OneToOne( () => ProfileEntity )
+    @JoinColumn( { name: "profile_id" } )
+    profile: ProfileEntity;
     
     
     /**

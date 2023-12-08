@@ -12,11 +12,14 @@ export class Contract extends BaseEntity {
     @Column( { length: 66, comment: '주소' } )
     address: string;
     
-    @Column( { default: true, comment: '활성화 상태' } )
-    is_active: boolean;
-    
     @Column( { length: 20, nullable: true, comment: '별칭' } )
     label: string;
+    
+    @Column({ default: false, comment: '인증 여부' })
+    is_verified: boolean;
+    
+    @Column( { default: true, comment: '활성화 상태' } )
+    is_active: boolean;
     
     @OneToMany(
       () => ContractToFunctionSignature,
