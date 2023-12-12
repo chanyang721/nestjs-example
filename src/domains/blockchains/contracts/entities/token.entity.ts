@@ -1,6 +1,5 @@
-import { Column, Entity, OneToMany } from "typeorm";
-import { BaseEntity }                from "../../../../libs/database/orm/typeorm/base/base.entity";
-import { ContractToToken }           from "./contract-to-token.entity";
+import { Column, Entity }                          from "typeorm";
+import { BaseEntity }                              from "../../../../libs/database/orm/typeorm/base/base.entity";
 import { ContractStandardEnum, TokenContractType } from "./enums";
 
 
@@ -21,8 +20,4 @@ export class Token extends BaseEntity {
         comment: "ERC-20 등"
     } )
     standard: ContractStandardEnum.ERC20;
-    
-    
-    @OneToMany(() => ContractToToken, contractToToken => contractToToken.token)
-    contract_to_tokens: ContractToToken[]
 }

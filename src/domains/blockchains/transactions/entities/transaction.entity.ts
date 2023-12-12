@@ -1,9 +1,8 @@
-import { Column, Entity, JoinColumn, ManyToOne, OneToOne } from "typeorm";
-import { BaseEntity }                                      from "../../../../libs/database/orm/typeorm/base/base.entity";
+import { Column, DataSource, Entity, JoinColumn, ManyToOne, OneToOne, ViewEntity } from "typeorm";
+import { BaseEntity }                                                              from "../../../../libs/database/orm/typeorm/base/base.entity";
 import { Contract }                                        from "../../contracts/entities/contract.entity";
 import { FunctionSignature }                               from "../../contracts/entities/function-signature.entity";
 import { Wallet }                                          from "../../wallets/entities/wallet.entity";
-
 
 
 @Entity( { name: "transaction" } )
@@ -13,9 +12,6 @@ export class Transaction extends BaseEntity {
      * */
     @Column( { length: 66, comment: "transaction hash" } )
     txHash: string;
-    
-    @Column( { comment: "block 넘버링" } )
-    block_number: number;
     
     @Column( { length: 66, comment: "user address" } )
     from_address: string;
@@ -29,9 +25,18 @@ export class Transaction extends BaseEntity {
     @Column( { type: "decimal", precision: 24, scale: 6 } )
     reward: number;
     
+    /*
+    * Index Columns
+    * */
+    @Column( { comment: "block 넘버링" } )
+    block_number: number;
+    
     @Column( { type: "timestamp" } )
     tx_timestamp: Date;
     
+    /*
+    * FK
+    * */
     @Column()
     function_signature_id: string;
     
@@ -39,12 +44,12 @@ export class Transaction extends BaseEntity {
     contract_id: string;
     
     @Column()
-    token_id: string;
+    wallet_id: string;
     
     /*
      * Relations
      * */
-    @OneToOne( () => FunctionSignature )
+    @OneToOne( () => FunctionSignature, { eager: true } )
     @JoinColumn( { name: "function_signature_id" } )
     function_signature: FunctionSignature;
     
@@ -53,6 +58,6 @@ export class Transaction extends BaseEntity {
     contract: Contract;
     
     @ManyToOne( () => Wallet, wallet => wallet.transactions)
-    @JoinColumn( { name: "token_id" } )
+    @JoinColumn( { name: "wallet_id" } )
     wallet: Wallet;
 }

@@ -7,13 +7,12 @@ import { Transaction }                              from "../../transactions/ent
 @Entity( { name: "wallet" } )
 export class Wallet extends BaseEntity {
     @Column( { length: 66, unique: true, comment: '유저 주소' } )
-    @Index()
     address: string;
     
     @Column({ type: 'uuid' })
     @Index()
     user_id: string;
     
-    @OneToMany(() => Transaction, transaction => transaction.to_address)
+    @OneToMany(() => Transaction, transaction => transaction.wallet)
     transactions: Transaction[]
 }

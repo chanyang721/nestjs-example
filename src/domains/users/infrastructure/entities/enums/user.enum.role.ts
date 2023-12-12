@@ -5,7 +5,7 @@ export enum UserRole {
     
     OWNER = "OWNER",
     
-    MENBER = "MENBER",
+    MEMBER = "MEMBER",
     
     GUEST = "GUEST",
     

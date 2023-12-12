@@ -2,7 +2,6 @@ import { Column, Entity, Index, JoinColumn, OneToMany, OneToOne } from "typeorm"
 import { BaseEntity }                                             from "../../../../libs/database/orm/typeorm/base/base.entity";
 import { Transaction }                                            from "../../transactions/entities/transaction.entity";
 import { ContractToFunctionSignature }                            from "./contract-to-function-signature.entity";
-import { ContractToToken }                                        from "./contract-to-token.entity";
 import { ContractTypeEnum }                                       from "./enums";
 import { Token }                                                  from "./token.entity";
 
@@ -17,7 +16,6 @@ export class Contract extends BaseEntity {
     name: string;
     
     @Column( { length: 66, unique: true, comment: "주소" } )
-    @Index()
     address: string;
     
     @Column( {
@@ -40,7 +38,7 @@ export class Contract extends BaseEntity {
     /*
      * Relations
      * */
-    @OneToOne( () => Token )
+    @OneToOne( () => Token, { eager: true })
     @JoinColumn( { name: "tracker" } )
     token: Token;
     
@@ -49,11 +47,6 @@ export class Contract extends BaseEntity {
       contractToFunctionSignature => contractToFunctionSignature.contract )
     contract_to_function_signatures: ContractToFunctionSignature[];
     
-    @OneToMany(
-      () => ContractToToken,
-      contractToToken => contractToToken.contract )
-    contract_to_tokens: ContractToToken[];
-    
-    @OneToMany( () => Transaction, transaction => transaction.contract)
+    @OneToMany( () => Transaction, transaction => transaction.contract )
     transactions: Transaction[];
 }

@@ -1,7 +1,6 @@
 import { ConfigModule, ConfigService } from "@nestjs/config";
 import { TypeOrmModuleAsyncOptions }   from "@nestjs/typeorm";
 import { ContractToFunctionSignature } from "../../../../../domains/blockchains/contracts/entities/contract-to-function-signature.entity";
-import { ContractToToken }             from "../../../../../domains/blockchains/contracts/entities/contract-to-token.entity";
 import { Contract }                    from "../../../../../domains/blockchains/contracts/entities/contract.entity";
 import { FunctionSignature }           from "../../../../../domains/blockchains/contracts/entities/function-signature.entity";
 import { Token }                       from "../../../../../domains/blockchains/contracts/entities/token.entity";
@@ -81,7 +80,7 @@ export const dAppTypeOrmModuleAsyncOptions: TypeOrmModuleAsyncOptions = {
             Wallet,
             Dapp,
             Contract,
-                ContractToToken, Token,
+                Token,
                 ContractToFunctionSignature, FunctionSignature,
             Transaction
         ],
