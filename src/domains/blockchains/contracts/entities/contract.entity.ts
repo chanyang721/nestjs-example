@@ -15,6 +15,15 @@ export class Contract extends BaseEntity {
     @Column( { length: 20, comment: "이름" } )
     name: string;
     
+    @Column( { default: false, comment: "검증 여부" } )
+    is_verified: boolean;
+    
+    @Column( { default: true, comment: "활성화 상태" } )
+    is_active: boolean;
+    
+    /*
+     * Index Columns
+     * */
     @Column( { length: 66, unique: true, comment: "주소" } )
     address: string;
     
@@ -26,19 +35,17 @@ export class Contract extends BaseEntity {
     @Index()
     type: ContractTypeEnum;
     
-    @Column( { default: false, comment: "검증 여부" } )
-    is_verified: boolean;
-    
-    @Column( { default: true, comment: "활성화 상태" } )
-    is_active: boolean;
-    
+    /*
+     * FK Columns
+     * */
     @Column( { type: "uuid", comment: "token contract tracker fk" } )
     tracker: string;
+    
     
     /*
      * Relations
      * */
-    @OneToOne( () => Token, { eager: true })
+    @OneToOne( () => Token, { eager: true } )
     @JoinColumn( { name: "tracker" } )
     token: Token;
     
@@ -49,4 +56,5 @@ export class Contract extends BaseEntity {
     
     @OneToMany( () => Transaction, transaction => transaction.contract )
     transactions: Transaction[];
+    
 }

@@ -26,9 +26,9 @@ export class Dapp extends BaseEntity {
     /*
      * Index Columns
      * */
+
     
     /*
     * Relations
     * */
-    
 }
