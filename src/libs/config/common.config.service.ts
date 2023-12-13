@@ -36,6 +36,14 @@ export class CommonConfigService {
         };
     }
     
+    get accessOpenApiKey() {
+        return {
+            apiKey: this.configService.get<string>("OPENAI_API_KEY"),
+            organization: this.configService.get<string>("OPENAI_ORGANIZATION"),
+            model: this.configService.get<string>('OPENAI_API_MODEL')
+        }
+    }
+    
     
     get accessAwsSnsConfig() {
         return {};

@@ -2,6 +2,7 @@ import { Module }                 from "@nestjs/common";
 import { ConfigModule }           from "@nestjs/config";
 import { BlockchainsModule }      from "./domains/blockchains/blockchains.module";
 import { BoardsModule }           from "./domains/boards/boards.module";
+import { ShortsModule }           from "./domains/shorts/shorts.module";
 import { UserModule }             from "./domains/users/user.module";
 import { AuthModule }             from "./libs/authentication/auth.module";
 import { RedisCacheModule }       from "./libs/cache/cache.module";
@@ -29,7 +30,8 @@ import { httpModuleAsyncOptions } from "./libs/infra/http/options/http.mudule.op
          */
         UserModule,
         BoardsModule,
-        BlockchainsModule
+        BlockchainsModule,
+        ShortsModule
     ],
     controllers: [],
     providers  : []
