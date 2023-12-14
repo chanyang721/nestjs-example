@@ -1,27 +1,29 @@
-import { InjectDataSource }       from "@nestjs/typeorm";
-import { DataSource, Repository } from "typeorm";
-import { UserEntity }             from "../../../../domain/users/infrastructure/entities/user.entity";
-import { transaction }            from "../../../database/orm/typeorm/transaction";
-import { PROJECT }                from "../../../utils/constants";
-import { RepositoryInject }       from "../../../utils/decoretors";
-import { RegisterUserDto }        from "../../presentation/dtos/auth.register.user.dto";
-import { AuthEntity }             from "../entities/auth.entity";
+import { InjectDataSource }                 from "@nestjs/typeorm";
+import { DataSource, Repository }           from "typeorm";
+import { UserEntity }                       from "../../../../domains/users/infrastructure/entities/user.entity";
+import { transaction }                      from "../../../database/orm/typeorm/transaction";
+import { RepositoryInject }                 from "../../../utils/decoretors";
+import { RegisterUserDto }                  from "../../presentation/dtos/auth.register.user.dto";
+import { AuthEntity }                       from "../entities/auth.entity";
+import { IAuthenticationRepositoryAdapter } from "../interfaces/authentication.repository.interface";
 
 
 
 @RepositoryInject( AuthRepository )
-export class AuthRepository extends Repository<AuthEntity> {
+export class AuthRepository extends Repository<AuthEntity>
+  implements IAuthenticationRepositoryAdapter {
+    
     constructor(
-      @InjectDataSource( PROJECT )
-      private readonly mainDataSource: DataSource
+      @InjectDataSource()
+      private readonly dataSource: DataSource
     ) {
-        super( AuthEntity, mainDataSource.createEntityManager() );
+        super( AuthEntity, dataSource.createEntityManager() );
     }
     
     
     async registerUser( registerUserDto: RegisterUserDto ): Promise<AuthEntity> {
         return await transaction<AuthEntity, AuthEntity>(
-          [ this.mainDataSource ],
+          [ this.dataSource ],
           async ( mainQueryRunner ) => {
               const user = new UserEntity( { uid: registerUserDto.uid } );
               user.auth = new AuthEntity( registerUserDto );

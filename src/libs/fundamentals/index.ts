@@ -1,9 +1,9 @@
-import { RequestMethod }          from "@nestjs/common";
-import { NestExpressApplication } from "@nestjs/platform-express";
-import { globalExceptionFilters } from "./filters";
-import { globalGuards }           from "./guards";
-import { globalInterceptors }     from "./interceptors";
-import { globalPipes }            from "./pipes";
+import { RequestMethod, VersioningType } from "@nestjs/common";
+import { NestExpressApplication }        from "@nestjs/platform-express";
+import { globalExceptionFilters }        from "./filters";
+import { globalGuards }                  from "./guards";
+import { globalInterceptors }            from "./interceptors";
+import { globalPipes }                   from "./pipes";
 
 
 
@@ -25,6 +25,7 @@ export const fundamentals = async ( app: NestExpressApplication ) => {
     /**
      * Global Settings
      * */
+    /* Global Prefix */
     app.setGlobalPrefix( "api", {
         exclude: [
             {
@@ -34,4 +35,9 @@ export const fundamentals = async ( app: NestExpressApplication ) => {
         ]
     } );
     
+    /* Global Versioning */
+    app.enableVersioning( {
+        type  : VersioningType.HEADER,
+        header: "version"
+    } );
 };

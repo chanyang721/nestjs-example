@@ -11,6 +11,15 @@ export class CommonConfigService {
     }
     
     
+    get serverConfig() {
+        return {
+            NODE_ENV: this.configService.get<string>( "NODE_ENV" ),
+            SERVER  : {
+                PORT: this.configService.get<number>( "SERVER_PORT" )
+            }
+        };
+    }
+    
     get accessAwsConfig() {
         return {
             region         : this.configService.get<string>( "AWS_REGION" ),
@@ -25,6 +34,14 @@ export class CommonConfigService {
             region    : this.configService.get<string>( "AWS_REGION" ),
             bucketName: this.configService.get<string>( "AWS_S3_BUCKET_NAME" )
         };
+    }
+    
+    get accessOpenApiKey() {
+        return {
+            apiKey: this.configService.get<string>("OPENAI_API_KEY"),
+            organization: this.configService.get<string>("OPENAI_ORGANIZATION"),
+            model: this.configService.get<string>('OPENAI_API_MODEL')
+        }
     }
     
     

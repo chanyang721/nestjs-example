@@ -5,8 +5,8 @@ import { cacheModuleAsyncOptions }       from "./options/cache.module.options";
 
 
 
-@Module({
-    imports: [
+@Module( {
+    imports  : [
         /**
          * infra caching
          */
@@ -15,7 +15,7 @@ import { cacheModuleAsyncOptions }       from "./options/cache.module.options";
         /**
          * local caching
          */
-        CacheModule.register( { isGlobal: true } ),
+        CacheModule.register( { isGlobal: true } )
     ],
     providers: [
         {
@@ -23,7 +23,7 @@ import { cacheModuleAsyncOptions }       from "./options/cache.module.options";
             useClass: CacheInterceptor
         }
     ]
-})
+} )
 export class RedisCacheModule {
 
 }

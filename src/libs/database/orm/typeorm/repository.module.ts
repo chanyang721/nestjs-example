@@ -12,7 +12,7 @@ export class RepositoryModule {
     ): DynamicModule {
         console.log( "RepositoryModule.forFeature", repositories, connectionName );
         const providers: Provider[] = [];
-        
+
         for ( const repository of repositories ) {
             providers.push( {
                 inject    : [ getDataSourceToken( connectionName ) ],
@@ -21,9 +21,9 @@ export class RepositoryModule {
                     return new repository( dataSource );
                 }
             } );
-            
+
         }
-        
+
         return {
             exports  : providers,
             providers: providers,

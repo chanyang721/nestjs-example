@@ -1,7 +1,8 @@
 import { Module }                 from "@nestjs/common";
 import { ConfigModule }           from "@nestjs/config";
-import { ProjectModule }          from "./domain/projects/project.module";
-import { UserModule }             from "./domain/users/user.module";
+import { BlockchainsModule }      from "./domains/blockchains/blockchains.module";
+import { BoardsModule }           from "./domains/boards/boards.module";
+import { UserModule }             from "./domains/users/user.module";
 import { AuthModule }             from "./libs/authentication/auth.module";
 import { RedisCacheModule }       from "./libs/cache/cache.module";
 import { DatabaseModule }         from "./libs/database/database.module";
@@ -9,8 +10,6 @@ import { HealthCheckerModule }    from "./libs/helpers/health-checker/health-che
 import { HttpModule }             from "./libs/infra/http/http.module";
 import { httpModuleAsyncOptions } from "./libs/infra/http/options/http.mudule.options";
 
-
-// import { PostsModule }            from './domain/posts/posts.module';
 
 
 @Module( {
@@ -28,9 +27,9 @@ import { httpModuleAsyncOptions } from "./libs/infra/http/options/http.mudule.op
         /**
          * Domain Modules
          */
-        UserModule, // users
-        ProjectModule // projects
-        // PostsModule // boards
+        UserModule,
+        BoardsModule,
+        BlockchainsModule
     ],
     controllers: [],
     providers  : []

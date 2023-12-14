@@ -19,7 +19,7 @@ export const multerOptions: MulterOptions = {
         else {
             callback( new HttpException( {
                 statusCode: HttpStatus.BAD_REQUEST,
-                message   : `${ fileExtension }는 지원하지 않는 파일 형식입니다. .glb 로 다시 시도해주세요`
+                message   : `${ fileExtension }는 지원하지 않는 파일 형식입니다. 다시 시도해주세요`
             }, HttpStatus.BAD_REQUEST ), false );
         }
     }
