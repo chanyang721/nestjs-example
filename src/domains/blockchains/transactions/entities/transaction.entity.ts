@@ -1,5 +1,5 @@
-import { Column, Entity, JoinColumn, ManyToOne, OneToOne } from "typeorm";
-import { BaseEntity }                                      from "../../../../libs/database/orm/typeorm/base/base.entity";
+import { Column, Entity, Index, JoinColumn, ManyToOne, OneToOne } from "typeorm";
+import { BaseEntity }                                             from "../../../../libs/database/orm/typeorm/base/base.entity";
 import { Contract }                                        from "../../contracts/entities/contract.entity";
 import { FunctionSignature }                               from "../../contracts/entities/function-signature.entity";
 import { Wallet }                                          from "../../wallets/entities/wallet.entity";
@@ -20,7 +20,7 @@ export class Transaction extends BaseEntity {
     @Column( { type: "decimal", precision: 24, scale: 6 } )
     reward: number;
     
-    @Column( { length: 66, comment: "user (=wallet) address" } )
+    @Column( { length: 66, comment: "user ( = wallet) address" } )
     from_address: string;
     
     @Column( { length: 66, comment: "contract address" } )
@@ -30,9 +30,11 @@ export class Transaction extends BaseEntity {
      * Index Columns
      * */
     @Column( { comment: "block 넘버링" } )
+    @Index()
     block_number: number;
     
     @Column( { type: "timestamp" } )
+    @Index()
     tx_timestamp: Date;
     
     /*

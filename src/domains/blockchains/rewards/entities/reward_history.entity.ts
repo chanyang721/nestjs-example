@@ -6,4 +6,6 @@ import { BaseEntity } from "../../../../libs/database/orm/typeorm/base/base.enti
 @Entity({ name: 'reward_history' })
 export class RewardHistory extends BaseEntity {
 
+
+
 }
