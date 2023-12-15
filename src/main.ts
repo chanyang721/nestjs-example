@@ -34,8 +34,8 @@ async function bootstrap() {
     await app.listen( serverConfig.SERVER.PORT );
     
     console.info( `
-        Server is running on: ${ await app.getUrl() } \n
-        Node Environment    : ${ serverConfig.NODE_ENV } \n
+        \n Server is running on: ${ await app.getUrl() }
+        \n Node Environment    : ${ serverConfig.NODE_ENV }
     ` );
     
     return app;

@@ -5,7 +5,7 @@ import { FunctionSignature }                     from "./function-signature.enti
 
 
 
-@Entity( { name: "contract-to-function-signature" } )
+@Entity( { name: "rel_contract_to_function_signature" } )
 export class RelContractToFunctionSignature extends BaseEntity {
     @Column()
     contract_id: string;

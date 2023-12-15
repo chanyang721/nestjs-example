@@ -1,10 +1,13 @@
 import { ApiProperty } from "@nestjs/swagger";
 
+
+
 export interface IResponse<ReturnData> {
     statusCode: number;
-    message: string
-    data: ReturnData
+    message: string;
+    data: ReturnData;
 }
+
 
 /**
  * @description API 응답 디폴트 DTO
@@ -27,12 +30,10 @@ export class ResponseDto<ReturnData> implements IResponse<ReturnData> {
     message: string;
     
     @ApiProperty( {
-        type       : null,
-        description: "API 응답 데이터를 담은 속성",
+        description: "API 응답 데이터",
         required   : true
     } )
     data: ReturnData;
-    
     
     constructor( response: ResponseDto<ReturnData> ) {
         this.statusCode = response.statusCode;

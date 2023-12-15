@@ -2,7 +2,7 @@ import { Column, Entity, Index, JoinColumn, ManyToOne, OneToOne } from "typeorm"
 import { BaseEntity }                                             from "../../../../libs/database/orm/typeorm/base/base.entity";
 import { Contract }                                               from "../../contracts/entities/contract.entity";
 import { FunctionSignature }                                      from "../../contracts/entities/function-signature.entity";
-import { Wallet }                                                 from "../../wallets/entities/wallet.entity";
+import { Account }                                                from "../../wallets/entities/account.entity";
 
 
 
@@ -12,7 +12,7 @@ export class Transaction extends BaseEntity {
      * Columns
      * */
     @Column( { length: 66, comment: "transaction hash" } )
-    txHash: string;
+    hash: string;
     
     @Column( { comment: "위임 수수료 존재 여부" } )
     is_fee_delegation: boolean;
@@ -20,7 +20,7 @@ export class Transaction extends BaseEntity {
     @Column( { type: "decimal", precision: 24, scale: 6 } )
     reward: number;
     
-    @Column( { length: 66, comment: "user ( = wallet) address" } )
+    @Column( { length: 66, comment: "account address" } )
     from_address: string;
     
     @Column( { length: 66, comment: "contract address" } )
@@ -47,7 +47,7 @@ export class Transaction extends BaseEntity {
     contract_id: string;
     
     @Column( { type: "uuid" } )
-    wallet_id: string;
+    account_id: string;
     
     /*
      * Relations
@@ -60,7 +60,7 @@ export class Transaction extends BaseEntity {
     @JoinColumn( { name: "contract_id" } )
     contract: Contract;
     
-    @ManyToOne( () => Wallet, wallet => wallet.transactions )
-    @JoinColumn( { name: "wallet_id" } )
-    wallet: Wallet;
+    @ManyToOne( () => Account, account => account.transactions )
+    @JoinColumn( { name: "account_id" } )
+    account: Account;
 }

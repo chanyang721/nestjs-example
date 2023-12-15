@@ -1,18 +1,22 @@
-import { Column, Entity, Index, OneToMany } from "typeorm";
-import { BaseEntity }                       from "../../../../libs/database/orm/typeorm/base/base.entity";
-import { Transaction }                      from "../../transactions/entities/transaction.entity";
+import { Column, Entity, OneToMany } from "typeorm";
+import { BaseEntity }                from "../../../../libs/database/orm/typeorm/base/base.entity";
+import { RelWalletAccount }          from "./rel-user-wallet.entity";
 
 
 
 @Entity( { name: "wallet" } )
 export class Wallet extends BaseEntity {
-    @Column( { length: 66, unique: true, comment: "유저 주소" } )
-    address: string;
+    @Column( { length: 15, comment: "연결된 지갑 이름" } )
+    name: string;
     
-    @Column( { type: "uuid" } )
-    @Index()
-    user_id: string;
+    @Column( { length: 255, comment: "아이콘 url" } )
+    icon: string;
     
-    @OneToMany( () => Transaction, transaction => transaction.wallet )
-    transactions: Transaction[];
+    @Column( { length: 255, comment: "스토어 앱 다운로드 딥 링크" } )
+    deep_link: string;
+    
+    @OneToMany(
+      () => RelWalletAccount,
+      rel_wallet_account => rel_wallet_account.wallet)
+    rel_wallet_accounts: RelWalletAccount[];
 }

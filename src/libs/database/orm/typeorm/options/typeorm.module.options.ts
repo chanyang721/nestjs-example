@@ -6,6 +6,8 @@ import { FunctionSignature }              from "../../../../../domains/blockchai
 import { Token }                          from "../../../../../domains/blockchains/contracts/entities/token.entity";
 import { Dapp }                           from "../../../../../domains/blockchains/dapp/entities/dapp.entity";
 import { Transaction }                    from "../../../../../domains/blockchains/transactions/entities/transaction.entity";
+import { Account }                        from "../../../../../domains/blockchains/wallets/entities/account.entity";
+import { RelWalletAccount }               from "../../../../../domains/blockchains/wallets/entities/rel-user-wallet.entity";
 import { Wallet }                         from "../../../../../domains/blockchains/wallets/entities/wallet.entity";
 import { CommentsEntity }                 from "../../../../../domains/boards/posts/infrastructrue/entities/comments.entity";
 import { PostsEntity }                    from "../../../../../domains/boards/posts/infrastructrue/entities/posts.entity";
@@ -29,14 +31,15 @@ export const typeOrmModuleAsyncOptions: TypeOrmModuleAsyncOptions = {
         port       : configService.get<number>( "DB_PORT" ),
         username   : configService.get<string>( "DB_USER" ),
         password   : configService.get<string>( "DB_PASSWORD" ),
-        database   : configService.get<string>( "DB_DATABASE" ),
+        database   : configService.get<string>( "DB_DATABASE_BOARD" ),
+        timezone   : "Z",
         synchronize: process.env.NODE_ENV !== PRODUCTION,
-        logger     : new SqlLogger(),
         logging    : process.env.NODE_ENV !== PRODUCTION,
+        logger     : new SqlLogger(),
         entities   : [
-            AuthEntity, UserEntity, ProfileEntity
-        ],
-        timezone   : "Z"
+            AuthEntity,
+            UserEntity, ProfileEntity
+        ]
     } )
 };
 
@@ -50,15 +53,15 @@ export const boardTypeOrmModuleAsyncOptions: TypeOrmModuleAsyncOptions = {
         username   : configService.get<string>( "DB_USER" ),
         password   : configService.get<string>( "DB_PASSWORD" ),
         database   : configService.get<string>( "DB_DATABASE_BOARD" ),
+        timezone   : "Z",
         synchronize: process.env.NODE_ENV !== PRODUCTION,
-        logger     : new SqlLogger(),
         logging    : process.env.NODE_ENV !== PRODUCTION,
+        logger     : new SqlLogger(),
         entities   : [
             PostsEntity, CommentsEntity,
             
             ProjectEntity, GroupEntity, FileEntity
-        ],
-        timezone   : "Z"
+        ]
     } )
 };
 
@@ -73,17 +76,17 @@ export const dAppTypeOrmModuleAsyncOptions: TypeOrmModuleAsyncOptions = {
         username   : configService.get<string>( "DB_USER" ),
         password   : configService.get<string>( "DB_PASSWORD" ),
         database   : configService.get<string>( "DB_DATABASE_DAPP" ),
-        synchronize: process.env.NODE_ENV !== PRODUCTION,
+        timezone   : configService.get<string>( "DB_TZ" ),
         logger     : new SqlLogger(),
+        synchronize: process.env.NODE_ENV !== PRODUCTION,
         logging    : process.env.NODE_ENV !== PRODUCTION,
         entities   : [
-            Wallet,
+            Wallet, RelWalletAccount, Account,
             Dapp,
             Contract,
             Token,
             RelContractToFunctionSignature, FunctionSignature,
             Transaction
-        ],
-        timezone   : "Z"
+        ]
     } )
 };
