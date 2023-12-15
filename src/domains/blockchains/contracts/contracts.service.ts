@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import { Injectable }          from "@nestjs/common";
 import { ContractsRepository } from "./contracts.repository";
 
 
@@ -8,7 +8,7 @@ export class ContractsService {
     
     
     constructor(
-        private readonly contractsRepository: ContractsRepository
+      private readonly contractsRepository: ContractsRepository
     ) {
     }
 }

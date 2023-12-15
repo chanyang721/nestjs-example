@@ -1,8 +1,8 @@
 import { Column, Entity, Index, JoinColumn, ManyToOne, OneToOne } from "typeorm";
 import { BaseEntity }                                             from "../../../../libs/database/orm/typeorm/base/base.entity";
-import { Contract }                                        from "../../contracts/entities/contract.entity";
-import { FunctionSignature }                               from "../../contracts/entities/function-signature.entity";
-import { Wallet }                                          from "../../wallets/entities/wallet.entity";
+import { Contract }                                               from "../../contracts/entities/contract.entity";
+import { FunctionSignature }                                      from "../../contracts/entities/function-signature.entity";
+import { Wallet }                                                 from "../../wallets/entities/wallet.entity";
 
 
 
@@ -43,11 +43,11 @@ export class Transaction extends BaseEntity {
     @Column( { length: 8, comment: "contract 의 function 별 signature ex) 74899a7p" } )
     func_signature: string;
     
-    @Column({ type: 'uuid' })
-    contract_id: string
+    @Column( { type: "uuid" } )
+    contract_id: string;
     
-    @Column({ type: 'uuid' })
-    wallet_id: string
+    @Column( { type: "uuid" } )
+    wallet_id: string;
     
     /*
      * Relations

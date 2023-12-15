@@ -1,22 +1,22 @@
-import { ConfigModule, ConfigService } from "@nestjs/config";
-import { TypeOrmModuleAsyncOptions }   from "@nestjs/typeorm";
-import { ContractToFunctionSignature } from "../../../../../domains/blockchains/contracts/entities/contract-to-function-signature.entity";
-import { Contract }                    from "../../../../../domains/blockchains/contracts/entities/contract.entity";
-import { FunctionSignature }           from "../../../../../domains/blockchains/contracts/entities/function-signature.entity";
-import { Token }                       from "../../../../../domains/blockchains/contracts/entities/token.entity";
-import { Dapp }                        from "../../../../../domains/blockchains/dapp/entities/dapp.entity";
-import { Transaction }                 from "../../../../../domains/blockchains/transactions/entities/transaction.entity";
-import { Wallet }                      from "../../../../../domains/blockchains/wallets/entities/wallet.entity";
-import { CommentsEntity }              from "../../../../../domains/boards/posts/infrastructrue/entities/comments.entity";
-import { PostsEntity }                 from "../../../../../domains/boards/posts/infrastructrue/entities/posts.entity";
-import { FileEntity }                  from "../../../../../domains/boards/projects/infrastructure/entities/file.entity";
-import { GroupEntity }                 from "../../../../../domains/boards/projects/infrastructure/entities/group.entity";
-import { ProjectEntity }               from "../../../../../domains/boards/projects/infrastructure/entities/project.entity";
-import { ProfileEntity }               from "../../../../../domains/users/infrastructure/entities/profile.entity";
-import { UserEntity }                  from "../../../../../domains/users/infrastructure/entities/user.entity";
-import { AuthEntity }                  from "../../../../authentication/infrastructure/entities/auth.entity";
-import { PRODUCTION }                  from "../../../../utils/constants";
-import { SqlLogger }                   from "./typeorm.logger.options";
+import { ConfigModule, ConfigService }    from "@nestjs/config";
+import { TypeOrmModuleAsyncOptions }      from "@nestjs/typeorm";
+import { RelContractToFunctionSignature } from "../../../../../domains/blockchains/contracts/entities/contract-to-function-signature.entity";
+import { Contract }                       from "../../../../../domains/blockchains/contracts/entities/contract.entity";
+import { FunctionSignature }              from "../../../../../domains/blockchains/contracts/entities/function-signature.entity";
+import { Token }                          from "../../../../../domains/blockchains/contracts/entities/token.entity";
+import { Dapp }                           from "../../../../../domains/blockchains/dapp/entities/dapp.entity";
+import { Transaction }                    from "../../../../../domains/blockchains/transactions/entities/transaction.entity";
+import { Wallet }                         from "../../../../../domains/blockchains/wallets/entities/wallet.entity";
+import { CommentsEntity }                 from "../../../../../domains/boards/posts/infrastructrue/entities/comments.entity";
+import { PostsEntity }                    from "../../../../../domains/boards/posts/infrastructrue/entities/posts.entity";
+import { FileEntity }                     from "../../../../../domains/boards/projects/infrastructure/entities/file.entity";
+import { GroupEntity }                    from "../../../../../domains/boards/projects/infrastructure/entities/group.entity";
+import { ProjectEntity }                  from "../../../../../domains/boards/projects/infrastructure/entities/project.entity";
+import { ProfileEntity }                  from "../../../../../domains/users/infrastructure/entities/profile.entity";
+import { UserEntity }                     from "../../../../../domains/users/infrastructure/entities/user.entity";
+import { AuthEntity }                     from "../../../../authentication/infrastructure/entities/auth.entity";
+import { PRODUCTION }                     from "../../../../utils/constants";
+import { SqlLogger }                      from "./typeorm.logger.options";
 
 
 
@@ -80,8 +80,8 @@ export const dAppTypeOrmModuleAsyncOptions: TypeOrmModuleAsyncOptions = {
             Wallet,
             Dapp,
             Contract,
-                Token,
-                ContractToFunctionSignature, FunctionSignature,
+            Token,
+            RelContractToFunctionSignature, FunctionSignature,
             Transaction
         ],
         timezone   : "Z"

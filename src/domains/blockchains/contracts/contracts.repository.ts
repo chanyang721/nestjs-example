@@ -13,7 +13,7 @@ export class ContractsRepository extends Repository<Contract> {
     constructor(
       private readonly dataSource: DataSource,
       @InjectRepository( Contract )
-      private readonly contractsRepository: Repository<Contract>,
+      private readonly contractsRepository: Repository<Contract>
     ) {
         super( Contract, dataSource.createEntityManager() );
     }

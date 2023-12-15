@@ -6,12 +6,12 @@ import { FunctionSignature }                     from "./function-signature.enti
 
 
 @Entity( { name: "contract-to-function-signature" } )
-export class ContractToFunctionSignature extends BaseEntity {
+export class RelContractToFunctionSignature extends BaseEntity {
     @Column()
     contract_id: string;
     
     @Column()
-    func_signature: string;
+    function_signature_id: string;
     
     @ManyToOne(
       () => Contract,
@@ -22,6 +22,6 @@ export class ContractToFunctionSignature extends BaseEntity {
     @ManyToOne(
       () => FunctionSignature,
       functionSignature => functionSignature.contract_to_function_signatures )
-    @JoinColumn( { name: "func_signature", referencedColumnName: 'signature' } )
+    @JoinColumn( { name: "function_signature_id" } )
     function_signature: FunctionSignature;
 }

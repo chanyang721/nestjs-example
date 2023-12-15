@@ -1,8 +1,7 @@
-import { IsOptional, IsString, MaxLength, MinLength }              from "class-validator";
-import { Column, Entity, Index, JoinColumn, ManyToOne, OneToMany } from "typeorm";
-import { BaseEntity }                                              from "../../../../../libs/database/orm/typeorm/base/base.entity";
-import { UserEntity }                                              from "../../../../users/infrastructure/entities/user.entity";
-import { CommentsEntity }                                          from "./comments.entity";
+import { IsOptional, IsString, MaxLength, MinLength } from "class-validator";
+import { Column, Entity, Index, OneToMany }           from "typeorm";
+import { BaseEntity }                                 from "../../../../../libs/database/orm/typeorm/base/base.entity";
+import { CommentsEntity }                             from "./comments.entity";
 
 
 
@@ -30,9 +29,9 @@ export class PostsEntity extends BaseEntity {
     @Column( { default: false, comment: "데이터 삭제 정보" } )
     is_deleted: boolean;
     
-    @Column({ type: 'uuid' })
+    @Column( { type: "uuid" } )
     @Index()
-    user_id: string
+    user_id: string;
     
     @OneToMany( () => CommentsEntity, comment => comment.post, {
         nullable: true

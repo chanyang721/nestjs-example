@@ -5,10 +5,11 @@ export enum ContractTypeEnum {
 
 
 export enum ContractStandardEnum {
-    ERC20 = 'ERC-20'
+    ERC20 = "ERC-20"
 }
 
+
 export enum TokenContractType {
-    NFT = 'NFT',
-    TOKEN = 'TOKEN'
+    NFT = "NFT",
+    TOKEN = "TOKEN"
 }

@@ -20,7 +20,8 @@ export class CommentsService {
     }
     
     
-    async createComment( user: JwtPayLoadDto, createCommentDto: CreateCommentsOrReplyDto ): Promise<ResponseDto<boolean>> {
+    async createComment( user: JwtPayLoadDto,
+      createCommentDto: CreateCommentsOrReplyDto ): Promise<ResponseDto<boolean>> {
         try {
             const comment = await this.commentsRepository.createComment( createCommentDto );
             

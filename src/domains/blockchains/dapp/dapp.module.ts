@@ -1,10 +1,13 @@
-import { Module } from '@nestjs/common';
-import { DappService } from './dapp.service';
-import { DappController } from './dapp.controller';
+import { Module }         from "@nestjs/common";
+import { DappController } from "./dapp.controller";
+import { DappService }    from "./dapp.service";
 
-@Module({
-  imports: [],
-  controllers: [DappController],
-  providers: [DappService]
-})
-export class DappModule {}
+
+
+@Module( {
+    imports    : [],
+    controllers: [ DappController ],
+    providers  : [ DappService ]
+} )
+export class DappModule {
+}

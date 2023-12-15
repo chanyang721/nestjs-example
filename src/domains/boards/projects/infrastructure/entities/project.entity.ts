@@ -1,7 +1,6 @@
-import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from "typeorm";
-import { BaseEntity }                                       from "../../../../../libs/database/orm/typeorm/base/base.entity";
-import { UserEntity }                                       from "../../../../users/infrastructure/entities/user.entity";
-import { GroupEntity }                                      from "./group.entity";
+import { Column, Entity, OneToMany } from "typeorm";
+import { BaseEntity }                from "../../../../../libs/database/orm/typeorm/base/base.entity";
+import { GroupEntity }               from "./group.entity";
 
 
 

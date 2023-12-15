@@ -1,7 +1,7 @@
 import { Column, Entity, Index, JoinColumn, OneToMany, OneToOne } from "typeorm";
 import { BaseEntity }                                             from "../../../../libs/database/orm/typeorm/base/base.entity";
 import { Transaction }                                            from "../../transactions/entities/transaction.entity";
-import { ContractToFunctionSignature }                            from "./contract-to-function-signature.entity";
+import { RelContractToFunctionSignature }                         from "./contract-to-function-signature.entity";
 import { ContractTypeEnum }                                       from "./enums";
 import { Token }                                                  from "./token.entity";
 
@@ -50,11 +50,10 @@ export class Contract extends BaseEntity {
     token: Token;
     
     @OneToMany(
-      () => ContractToFunctionSignature,
+      () => RelContractToFunctionSignature,
       contractToFunctionSignature => contractToFunctionSignature.contract )
-    contract_to_function_signatures: ContractToFunctionSignature[];
+    contract_to_function_signatures: RelContractToFunctionSignature[];
     
     @OneToMany( () => Transaction, transaction => transaction.contract )
     transactions: Transaction[];
-    
 }
