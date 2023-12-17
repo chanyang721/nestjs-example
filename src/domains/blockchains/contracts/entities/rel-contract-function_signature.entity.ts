@@ -5,8 +5,8 @@ import { FunctionSignature }                     from "./function-signature.enti
 
 
 
-@Entity( { name: "rel_contract_to_function_signature" } )
-export class RelContractToFunctionSignature extends BaseEntity {
+@Entity( { name: "rel_contract_function_signature" } )
+export class RelContractFunctionSignature extends BaseEntity {
     @Column()
     contract_id: string;
     
@@ -14,14 +14,14 @@ export class RelContractToFunctionSignature extends BaseEntity {
     function_signature_id: string;
     
     @ManyToOne(
-      () => Contract,
-      contract => contract.contract_to_function_signatures )
+    () => Contract,
+    contract => contract.rel_contract_function_signatures )
     @JoinColumn( { name: "contract_id" } )
     contract: Contract;
     
     @ManyToOne(
-      () => FunctionSignature,
-      functionSignature => functionSignature.contract_to_function_signatures )
+        () => FunctionSignature,
+        functionSignature => functionSignature.rel_contract_function_signatures )
     @JoinColumn( { name: "function_signature_id" } )
     function_signature: FunctionSignature;
 }

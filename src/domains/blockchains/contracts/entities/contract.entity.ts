@@ -1,8 +1,8 @@
 import { Column, Entity, Index, JoinColumn, OneToMany, OneToOne } from "typeorm";
 import { BaseEntity }                                             from "../../../../libs/database/orm/typeorm/base/base.entity";
 import { Transaction }                                            from "../../transactions/entities/transaction.entity";
-import { RelContractToFunctionSignature }                         from "./contract-to-function-signature.entity";
 import { ContractTypeEnum }                                       from "./enums";
+import { RelContractFunctionSignature }                           from "./rel-contract-function_signature.entity";
 import { Token }                                                  from "./token.entity";
 
 
@@ -15,6 +15,12 @@ export class Contract extends BaseEntity {
     @Column( { length: 20, comment: "이름" } )
     name: string;
     
+    @Column({ length: 500, comment: '깃허브 등 소스코드의 주소' })
+    source_code_url: string
+    
+    @Column({ length: 66, comment: '컨트랙트 배포 주소' })
+    deploy_hash: string
+    
     @Column( { default: false, comment: "검증 여부" } )
     is_verified: boolean;
     
@@ -24,7 +30,7 @@ export class Contract extends BaseEntity {
     /*
      * Index Columns
      * */
-    @Column( { length: 66, unique: true, comment: "주소" } )
+    @Column( { length: 66, unique: true, comment: "컨트랙트 주소" } )
     address: string;
     
     @Column( {
@@ -50,9 +56,9 @@ export class Contract extends BaseEntity {
     token: Token;
     
     @OneToMany(
-      () => RelContractToFunctionSignature,
-      contractToFunctionSignature => contractToFunctionSignature.contract )
-    contract_to_function_signatures: RelContractToFunctionSignature[];
+      () => RelContractFunctionSignature,
+      rel_contract_function_signature => rel_contract_function_signature.contract )
+    rel_contract_function_signatures: RelContractFunctionSignature[];
     
     @OneToMany( () => Transaction, transaction => transaction.contract )
     transactions: Transaction[];
