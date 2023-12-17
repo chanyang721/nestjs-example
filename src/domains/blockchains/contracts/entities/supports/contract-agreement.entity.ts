@@ -22,4 +22,7 @@ export class SupContractAgreement extends BaseEntity {
     
     @Column( { comment: "약관 동의 필수 여부" } )
     required: boolean;
+    
+    @Column({ length: 2, comment: '약관 동의 버전' })
+    version: string
 }
