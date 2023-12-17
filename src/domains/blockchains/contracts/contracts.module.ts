@@ -7,7 +7,7 @@ import { Contract }                     from "./entities/contract.entity";
 import { FunctionSignature }            from "./entities/function-signature.entity";
 import { ContractAgreementLog }         from "./entities/logs/contract-agreement-log.entity";
 import { RelContractFunctionSignature } from "./entities/rel-contract-function_signature.entity";
-import { SupContractAgreement }         from "./entities/supports/contract-agreement.entity";
+import { SupContractAgreement }         from "./entities/supports/sup-contract-agreement.entity";
 import { Token }                        from "./entities/token.entity";
 
 

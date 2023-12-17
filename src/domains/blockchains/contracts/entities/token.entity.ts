@@ -1,7 +1,14 @@
 import { Column, Entity }                          from "typeorm";
 import { BaseEntity }                              from "../../../../libs/database/orm/typeorm/base/base.entity";
-import { ContractStandardEnum, TokenContractType } from "./enums";
 
+export enum ContractStandardEnum {
+    ERC20 = "ERC-20"
+}
+
+export enum TokenContractType {
+    NFT = "NFT",
+    TOKEN = "TOKEN"
+}
 
 
 @Entity( { name: "token" } )

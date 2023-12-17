@@ -1,10 +1,16 @@
 import { Column, Entity, Index, JoinColumn, OneToMany, OneToOne } from "typeorm";
 import { BaseEntity }                                             from "../../../../libs/database/orm/typeorm/base/base.entity";
 import { Transaction }                                            from "../../transactions/entities/transaction.entity";
-import { ContractTypeEnum }                                       from "./enums";
 import { RelContractFunctionSignature }                           from "./rel-contract-function_signature.entity";
+import { SupContractAgreement }                                   from "./supports/sup-contract-agreement.entity";
 import { Token }                                                  from "./token.entity";
 
+
+
+export enum ContractTypeEnum {
+    ADDRESS_CONTRACT = "ADDRESS_CONTRACT",
+    TOKEN_CONTRACT = "TOKEN_CONTRACT",
+}
 
 
 @Entity( { name: "contract" } )
@@ -15,11 +21,11 @@ export class Contract extends BaseEntity {
     @Column( { length: 20, comment: "이름" } )
     name: string;
     
-    @Column({ length: 500, comment: '깃허브 등 소스코드의 주소' })
-    source_code_url: string
+    @Column( { length: 500, comment: "깃허브 등 소스코드의 주소" } )
+    source_code_url: string;
     
-    @Column({ length: 66, comment: '컨트랙트 배포 주소' })
-    deploy_hash: string
+    @Column( { length: 66, comment: "컨트랙트 배포 주소" } )
+    deploy_hash: string;
     
     @Column( { default: false, comment: "검증 여부" } )
     is_verified: boolean;
@@ -47,6 +53,9 @@ export class Contract extends BaseEntity {
     @Column( { type: "uuid", comment: "token contract tracker fk" } )
     tracker: string;
     
+    @Column( { type: "uuid", comment: "약관 동의 fk" } )
+    agreement_id: string;
+    
     
     /*
      * Relations
@@ -54,6 +63,11 @@ export class Contract extends BaseEntity {
     @OneToOne( () => Token, { eager: true } )
     @JoinColumn( { name: "tracker" } )
     token: Token;
+    
+    @OneToOne( () => SupContractAgreement )
+    @JoinColumn( { name: "agreement_id" } )
+    contract_agreement: SupContractAgreement;
+    
     
     @OneToMany(
       () => RelContractFunctionSignature,
