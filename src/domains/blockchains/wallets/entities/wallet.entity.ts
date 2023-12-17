@@ -1,6 +1,6 @@
 import { Column, Entity, OneToMany } from "typeorm";
-import { BaseEntity }                from "../../../../libs/database/orm/typeorm/base/base.entity";
-import { RelWalletAccount }          from "./rel-user-wallet.entity";
+import { BaseEntity }       from "../../../../libs/database/orm/typeorm/base/base.entity";
+import { RelWalletAccount } from "./rel-wallet-account.entity";
 
 
 

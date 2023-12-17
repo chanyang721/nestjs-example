@@ -1,24 +1,24 @@
-import { ConfigModule, ConfigService }    from "@nestjs/config";
-import { TypeOrmModuleAsyncOptions }      from "@nestjs/typeorm";
-import { RelContractToFunctionSignature } from "../../../../../domains/blockchains/contracts/entities/contract-to-function-signature.entity";
-import { Contract }                       from "../../../../../domains/blockchains/contracts/entities/contract.entity";
-import { FunctionSignature }              from "../../../../../domains/blockchains/contracts/entities/function-signature.entity";
-import { Token }                          from "../../../../../domains/blockchains/contracts/entities/token.entity";
-import { Dapp }                           from "../../../../../domains/blockchains/dapp/entities/dapp.entity";
-import { Transaction }                    from "../../../../../domains/blockchains/transactions/entities/transaction.entity";
-import { Account }                        from "../../../../../domains/blockchains/wallets/entities/account.entity";
-import { RelWalletAccount }               from "../../../../../domains/blockchains/wallets/entities/rel-user-wallet.entity";
-import { Wallet }                         from "../../../../../domains/blockchains/wallets/entities/wallet.entity";
-import { CommentsEntity }                 from "../../../../../domains/boards/posts/infrastructrue/entities/comments.entity";
-import { PostsEntity }                    from "../../../../../domains/boards/posts/infrastructrue/entities/posts.entity";
-import { FileEntity }                     from "../../../../../domains/boards/projects/infrastructure/entities/file.entity";
-import { GroupEntity }                    from "../../../../../domains/boards/projects/infrastructure/entities/group.entity";
-import { ProjectEntity }                  from "../../../../../domains/boards/projects/infrastructure/entities/project.entity";
-import { ProfileEntity }                  from "../../../../../domains/users/infrastructure/entities/profile.entity";
-import { UserEntity }                     from "../../../../../domains/users/infrastructure/entities/user.entity";
-import { AuthEntity }                     from "../../../../authentication/infrastructure/entities/auth.entity";
-import { PRODUCTION }                     from "../../../../utils/constants";
-import { SqlLogger }                      from "./typeorm.logger.options";
+import { ConfigModule, ConfigService }  from "@nestjs/config";
+import { TypeOrmModuleAsyncOptions }    from "@nestjs/typeorm";
+import { Contract }                     from "../../../../../domains/blockchains/contracts/entities/contract.entity";
+import { FunctionSignature }            from "../../../../../domains/blockchains/contracts/entities/function-signature.entity";
+import { RelContractFunctionSignature } from "../../../../../domains/blockchains/contracts/entities/rel-contract-function_signature.entity";
+import { Token }                        from "../../../../../domains/blockchains/contracts/entities/token.entity";
+import { Dapp }                         from "../../../../../domains/blockchains/dapp/entities/dapp.entity";
+import { Transaction }                  from "../../../../../domains/blockchains/transactions/entities/transaction.entity";
+import { Account }          from "../../../../../domains/blockchains/wallets/entities/account.entity";
+import { RelWalletAccount } from "../../../../../domains/blockchains/wallets/entities/rel-wallet-account.entity";
+import { Wallet }           from "../../../../../domains/blockchains/wallets/entities/wallet.entity";
+import { CommentsEntity }               from "../../../../../domains/boards/posts/infrastructrue/entities/comments.entity";
+import { PostsEntity }                  from "../../../../../domains/boards/posts/infrastructrue/entities/posts.entity";
+import { FileEntity }                   from "../../../../../domains/boards/projects/infrastructure/entities/file.entity";
+import { GroupEntity }                  from "../../../../../domains/boards/projects/infrastructure/entities/group.entity";
+import { ProjectEntity }                from "../../../../../domains/boards/projects/infrastructure/entities/project.entity";
+import { ProfileEntity }                from "../../../../../domains/users/infrastructure/entities/profile.entity";
+import { UserEntity }                   from "../../../../../domains/users/infrastructure/entities/user.entity";
+import { AuthEntity }                   from "../../../../authentication/infrastructure/entities/auth.entity";
+import { PRODUCTION }                   from "../../../../utils/constants";
+import { SqlLogger }                    from "./typeorm.logger.options";
 
 
 
@@ -76,7 +76,7 @@ export const dAppTypeOrmModuleAsyncOptions: TypeOrmModuleAsyncOptions = {
         username   : configService.get<string>( "DB_USER" ),
         password   : configService.get<string>( "DB_PASSWORD" ),
         database   : configService.get<string>( "DB_DATABASE_DAPP" ),
-        timezone   : configService.get<string>( "DB_TZ" ),
+        timezone   : configService.get<string>( "DB_TIMEZONE" ),
         logger     : new SqlLogger(),
         synchronize: process.env.NODE_ENV !== PRODUCTION,
         logging    : process.env.NODE_ENV !== PRODUCTION,
@@ -85,7 +85,7 @@ export const dAppTypeOrmModuleAsyncOptions: TypeOrmModuleAsyncOptions = {
             Dapp,
             Contract,
             Token,
-            RelContractToFunctionSignature, FunctionSignature,
+            RelContractFunctionSignature, FunctionSignature,
             Transaction
         ]
     } )

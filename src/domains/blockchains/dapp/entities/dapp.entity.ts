@@ -17,7 +17,7 @@ export class Dapp extends BaseEntity {
     @Column( { length: 200, comment: "dapp logo image" } )
     logo: string;
     
-    @Column( { length: 255, comment: "dapp 설명" } )
+    @Column( { length: 1000, comment: "dapp 설명" } )
     description: string;
     
     @Column( { length: 200, comment: "리워드 수령 주소" } )
@@ -31,5 +31,6 @@ export class Dapp extends BaseEntity {
     /*
      * Relations
      * */
+    
 }
 
