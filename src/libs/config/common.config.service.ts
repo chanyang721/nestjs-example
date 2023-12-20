@@ -20,6 +20,7 @@ export class CommonConfigService {
         };
     }
     
+    
     get accessAwsConfig() {
         return {
             region         : this.configService.get<string>( "AWS_REGION" ),
@@ -36,12 +37,13 @@ export class CommonConfigService {
         };
     }
     
+    
     get accessOpenApiKey() {
         return {
-            apiKey: this.configService.get<string>("OPENAI_API_KEY"),
-            organization: this.configService.get<string>("OPENAI_ORGANIZATION"),
-            model: this.configService.get<string>('OPENAI_API_MODEL')
-        }
+            apiKey      : this.configService.get<string>( "OPENAI_API_KEY" ),
+            organization: this.configService.get<string>( "OPENAI_ORGANIZATION" ),
+            model       : this.configService.get<string>( "OPENAI_API_MODEL" )
+        };
     }
     
     
@@ -82,6 +84,13 @@ export class CommonConfigService {
             tokenUri               : this.configService.get<string>( "FIREBASE_TOKEN_URI" ),
             authProviderX509CertUrl: this.configService.get<string>( "FIREBASE_AUTH_PROVIDER_X509_CERT_URL" ),
             clientC509CertUrl      : this.configService.get<string>( "FIREBASE_CLIENT_X509_CERT_URL" )
+        };
+    }
+    
+    
+    get accessAzureStorageConfig() {
+        return {
+            storageConnectionString: this.configService.get<string>( "AZURE_STORAGE_CONNECTION_STRING" )
         };
     }
     

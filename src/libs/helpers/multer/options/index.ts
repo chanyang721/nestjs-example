@@ -9,11 +9,12 @@ export const multerOptions: MulterOptions = {
         fileSize: 1024 * 1024 * 100, // 30MB,
         files   : 3
     },
-    fileFilter: ( request: Request, file: Express.MulterS3.File, callback: Function ): void => {
+    fileFilter: ( request: Request, file: Express.Multer.File, callback: Function ): void => {
         const fileName = file.originalname.split( "." );
         const fileExtension = fileName[ fileName.length - 1 ];
         
-        if ( file.mimetype.match( /\/(jpg|jpeg|png)$/ ) ) {
+        
+        if ( file.mimetype.match( /\/(pdf|png)$/ ) ) {
             callback( null, true );
         }
         else {

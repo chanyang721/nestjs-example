@@ -24,7 +24,7 @@ export class UserController
     @Post( "" )
     @UseInterceptors( AnyFilesInterceptor( multerOptions ) )
     public async updateUser(
-      @UploadedFiles() files: Express.MulterS3.File[],
+      @UploadedFiles() files: Express.Multer.File[],
       @Body() updateUserDto: UpdateUserDto
     ): Promise<any> {
         return await this.userService.updateUser( { thumbnail: files[ 0 ], ...updateUserDto } );

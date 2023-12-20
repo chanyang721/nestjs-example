@@ -2,7 +2,6 @@ import { Column, Entity, Index, JoinColumn, OneToMany, OneToOne } from "typeorm"
 import { BaseEntity }                                             from "../../../../libs/database/orm/typeorm/base/base.entity";
 import { Transaction }                                            from "../../transactions/entities/transaction.entity";
 import { RelContractFunctionSignature }                           from "./rel-contract-function_signature.entity";
-import { SupContractAgreement }                                   from "./supports/sup-contract-agreement.entity";
 import { Token }                                                  from "./token.entity";
 
 
@@ -26,6 +25,9 @@ export class Contract extends BaseEntity {
     
     @Column( { length: 66, comment: "컨트랙트 배포 주소" } )
     deploy_hash: string;
+    
+    @Column( { length: 255, comment: "audit pdf 저장 s3 주소" } )
+    audit_url: string;
     
     @Column( { default: false, comment: "검증 여부" } )
     is_verified: boolean;
@@ -63,10 +65,6 @@ export class Contract extends BaseEntity {
     @OneToOne( () => Token, { eager: true } )
     @JoinColumn( { name: "tracker" } )
     token: Token;
-    
-    @OneToOne( () => SupContractAgreement )
-    @JoinColumn( { name: "agreement_id" } )
-    contract_agreement: SupContractAgreement;
     
     
     @OneToMany(

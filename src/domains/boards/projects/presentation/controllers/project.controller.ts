@@ -20,8 +20,8 @@ export class ProjectController
     @Post( "" )
     @UseInterceptors( AnyFilesInterceptor( multerOptions ) )
     public async createProject(
-      @UploadedFiles() files: Express.MulterS3.File[],
-      @Body() createProjectDto: CreateProjectDto
+        @UploadedFiles() files: Express.Multer.File[],
+        @Body() createProjectDto: CreateProjectDto
     ): Promise<any> {
         return await this.projectService.createProject( { files, createProjectDto } );
     }

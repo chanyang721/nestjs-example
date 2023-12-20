@@ -3,7 +3,9 @@ import { TypeOrmModuleAsyncOptions }    from "@nestjs/typeorm";
 import { Contract }                     from "../../../../../domains/blockchains/contracts/entities/contract.entity";
 import { FunctionSignature }            from "../../../../../domains/blockchains/contracts/entities/function-signature.entity";
 import { RelContractFunctionSignature } from "../../../../../domains/blockchains/contracts/entities/rel-contract-function_signature.entity";
-import { Token }                        from "../../../../../domains/blockchains/contracts/entities/token.entity";
+import { ContractAgreementSup }         from "../../../../../domains/blockchains/contracts/entities/supports/contract-agreement-sup.entity";
+import { ContractTemp }                 from "../../../../../domains/blockchains/contracts/entities/temp/contract-temp.entits";
+import { Token }                from "../../../../../domains/blockchains/contracts/entities/token.entity";
 import { Dapp }                         from "../../../../../domains/blockchains/dapp/entities/dapp.entity";
 import { Transaction }                  from "../../../../../domains/blockchains/transactions/entities/transaction.entity";
 import { Account }          from "../../../../../domains/blockchains/wallets/entities/account.entity";
@@ -82,10 +84,15 @@ export const dAppTypeOrmModuleAsyncOptions: TypeOrmModuleAsyncOptions = {
         logging    : process.env.NODE_ENV !== PRODUCTION,
         entities   : [
             Wallet, RelWalletAccount, Account,
+
             Dapp,
-            Contract,
+
+            Contract, ContractTemp,
+                ContractAgreementSup,
+                RelContractFunctionSignature, FunctionSignature,
+
             Token,
-            RelContractFunctionSignature, FunctionSignature,
+            
             Transaction
         ]
     } )

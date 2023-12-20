@@ -1,6 +1,6 @@
 import { Column, Entity, Index, OneToMany } from "typeorm";
 import { BaseEntity }                       from "../../../../libs/database/orm/typeorm/base/base.entity";
-import { RelContractFunctionSignature } from "./rel-contract-function_signature.entity";
+import { RelContractFunctionSignature }     from "./rel-contract-function_signature.entity";
 
 
 
@@ -14,15 +14,13 @@ export class FunctionSignature extends BaseEntity {
     
     @Column( { comment: "수수료 위임 여부" } )
     is_fee_delegation: boolean;
-
+    
     
     /*
-    * Index Columns
-    * */
+     * Index Columns
+     * */
     @Column( { length: 8, unique: true, comment: "contract 의 function 별 signature: 74899a7p" } )
-    @Index()
     signature: string;
-    
     
     
     /*
