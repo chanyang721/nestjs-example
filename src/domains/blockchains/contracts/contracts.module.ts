@@ -5,10 +5,10 @@ import { ContractsRepository }          from "./contracts.repository";
 import { ContractsService }             from "./contracts.service";
 import { Contract }                     from "./entities/contract.entity";
 import { FunctionSignature }            from "./entities/function-signature.entity";
-import { ContractAgreementLog }         from "./entities/logs/contract-agreement-log.entity";
 import { RelContractFunctionSignature } from "./entities/rel-contract-function_signature.entity";
-import { ContractAgreementSup }         from "./entities/supports/contract-agreement-sup.entity";
-import { ContractTemp }                 from "./entities/temp/contract-temp.entits";
+import { TermsAgreementSup }            from "./entities/terms-agreement-sup.entity";
+import { ContractApplication }          from "./entities/contract-application.entits";
+import { TermsAgreement }      from "./entities/terms-agreement.entity";
 import { Token }                        from "./entities/token.entity";
 
 
@@ -19,15 +19,15 @@ import { Token }                        from "./entities/token.entity";
             /*
              * Service Entities
              * */
-            Contract, ContractTemp,
+            Contract, ContractApplication,
+            TermsAgreement,
             RelContractFunctionSignature, FunctionSignature,
             
             Token,
             /*
              * System Entities
              * */
-            ContractAgreementSup,
-            ContractAgreementLog
+            TermsAgreementSup
         ] )
     ],
     controllers: [ ContractsController ],

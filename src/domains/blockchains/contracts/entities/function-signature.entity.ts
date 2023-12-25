@@ -15,11 +15,14 @@ export class FunctionSignature extends BaseEntity {
     @Column( { comment: "수수료 위임 여부" } )
     is_fee_delegation: boolean;
     
+    @Column({ length: 255, comment: "함수 설명" })
+    description: string
+    
     
     /*
      * Index Columns
      * */
-    @Column( { length: 8, unique: true, comment: "contract 의 function 별 signature: 74899a7p" } )
+    @Column( { length: 8, unique: true, comment: "contract의 function 별 signature | ex) 74899a7p" } )
     signature: string;
     
     

@@ -1,13 +1,6 @@
 import { Column, Entity } from "typeorm";
 import { BaseEntity }     from "../../../../libs/database/orm/typeorm/base/base.entity";
 
-export enum DappStatus {
-    APPLY = "APPLY",
-    CHECK = "CHECK",
-    REVIEWING = "REVIEWING",
-    VERIFIED = "VERIFIED"
-}
-
 
 @Entity( { name: "dapp" } )
 export class Dapp extends BaseEntity {
@@ -29,15 +22,8 @@ export class Dapp extends BaseEntity {
     @Column( { length: 200, comment: "리워드 수령 주소" } )
     claim_address: string;
 
-    @Column({ length: 40, comment: 'dapp 인증 코드' })
+    @Column({ length: 15, comment: 'dapp 인증 코드, ex) boxer-00001' })
     verification_code: string;
-    
-    @Column({
-        type: 'enum',
-        enum: DappStatus,
-        default: DappStatus.APPLY
-    })
-    verify_status: DappStatus
     
     /*
      * Index Columns

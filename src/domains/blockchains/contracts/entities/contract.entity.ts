@@ -1,7 +1,7 @@
 import { Column, Entity, Index, JoinColumn, OneToMany, OneToOne } from "typeorm";
 import { BaseEntity }                                             from "../../../../libs/database/orm/typeorm/base/base.entity";
-import { Transaction }                                            from "../../transactions/entities/transaction.entity";
-import { RelContractFunctionSignature }                           from "./rel-contract-function_signature.entity";
+import { Transaction }                  from "../../transactions/entities/transaction.entity";
+import { RelContractFunctionSignature } from "./rel-contract-function_signature.entity";
 import { Token }                                                  from "./token.entity";
 
 
@@ -54,9 +54,6 @@ export class Contract extends BaseEntity {
      * */
     @Column( { type: "uuid", comment: "token contract tracker fk" } )
     tracker: string;
-    
-    @Column( { type: "uuid", comment: "약관 동의 fk" } )
-    agreement_id: string;
     
     
     /*

@@ -3,14 +3,16 @@ import { TypeOrmModuleAsyncOptions }    from "@nestjs/typeorm";
 import { Contract }                     from "../../../../../domains/blockchains/contracts/entities/contract.entity";
 import { FunctionSignature }            from "../../../../../domains/blockchains/contracts/entities/function-signature.entity";
 import { RelContractFunctionSignature } from "../../../../../domains/blockchains/contracts/entities/rel-contract-function_signature.entity";
-import { ContractAgreementSup }         from "../../../../../domains/blockchains/contracts/entities/supports/contract-agreement-sup.entity";
-import { ContractTemp }                 from "../../../../../domains/blockchains/contracts/entities/temp/contract-temp.entits";
-import { Token }                from "../../../../../domains/blockchains/contracts/entities/token.entity";
+import { TermsAgreementSup }            from "../../../../../domains/blockchains/contracts/entities/terms-agreement-sup.entity";
+import { ContractApplication }          from "../../../../../domains/blockchains/contracts/entities/contract-application.entits";
+import { TermsAgreement }      from "../../../../../domains/blockchains/contracts/entities/terms-agreement.entity";
+import { Token }                        from "../../../../../domains/blockchains/contracts/entities/token.entity";
 import { Dapp }                         from "../../../../../domains/blockchains/dapp/entities/dapp.entity";
+import { DappApplication }              from "../../../../../domains/blockchains/dapp/entities/dapp_application.entity";
 import { Transaction }                  from "../../../../../domains/blockchains/transactions/entities/transaction.entity";
-import { Account }          from "../../../../../domains/blockchains/wallets/entities/account.entity";
-import { RelWalletAccount } from "../../../../../domains/blockchains/wallets/entities/rel-wallet-account.entity";
-import { Wallet }           from "../../../../../domains/blockchains/wallets/entities/wallet.entity";
+import { Account }                      from "../../../../../domains/blockchains/wallets/entities/account.entity";
+import { RelWalletAccount }             from "../../../../../domains/blockchains/wallets/entities/rel-wallet-account.entity";
+import { Wallet }                       from "../../../../../domains/blockchains/wallets/entities/wallet.entity";
 import { CommentsEntity }               from "../../../../../domains/boards/posts/infrastructrue/entities/comments.entity";
 import { PostsEntity }                  from "../../../../../domains/boards/posts/infrastructrue/entities/posts.entity";
 import { FileEntity }                   from "../../../../../domains/boards/projects/infrastructure/entities/file.entity";
@@ -84,13 +86,13 @@ export const dAppTypeOrmModuleAsyncOptions: TypeOrmModuleAsyncOptions = {
         logging    : process.env.NODE_ENV !== PRODUCTION,
         entities   : [
             Wallet, RelWalletAccount, Account,
-
-            Dapp,
-
-            Contract, ContractTemp,
-                ContractAgreementSup,
-                RelContractFunctionSignature, FunctionSignature,
-
+            
+            Dapp, DappApplication,
+            
+            Contract, ContractApplication,
+            TermsAgreement, TermsAgreementSup,
+            RelContractFunctionSignature, FunctionSignature,
+            
             Token,
             
             Transaction
