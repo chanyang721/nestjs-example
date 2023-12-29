@@ -22,12 +22,8 @@ export class Dapp extends BaseEntity {
     @Column( { length: 200, comment: "리워드 수령 주소" } )
     claim_address: string;
 
-    @Column({ length: 15, comment: 'dapp 인증 코드, ex) boxer-00001' })
+    @Column({ length: 5, comment: 'dapp 인증 코드, ex) 00001' })
     verification_code: string;
-    
-    /*
-     * Index Columns
-     * */
     
     
     /*
@@ -35,4 +31,3 @@ export class Dapp extends BaseEntity {
      * */
     
 }
-

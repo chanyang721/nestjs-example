@@ -88,9 +88,10 @@ export class CommonConfigService {
     }
     
     
-    get accessAzureStorageConfig() {
+    get accessAzureConfig() {
         return {
-            storageConnectionString: this.configService.get<string>( "AZURE_STORAGE_CONNECTION_STRING" )
+            storageConnectionString           : this.configService.get<string>( "AZURE_STORAGE_CONNECTION_STRING" ),
+            emailCommunicationConnectionString: this.configService.get<string>( "AZURE_EMAIL_CONNECTION_STRING" )
         };
     }
     
@@ -131,6 +132,7 @@ export class CommonConfigService {
     }
     
 }
+
 
 
 

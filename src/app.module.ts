@@ -31,8 +31,6 @@ import { httpModuleAsyncOptions } from "./libs/infra/http/options/http.mudule.op
         BoardsModule,
         BlockchainsModule
     ],
-    controllers: [],
-    providers  : []
 } )
 export class AppModule {
 }

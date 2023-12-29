@@ -1,7 +1,7 @@
 import { Column, Entity, JoinColumn, ManyToOne } from "typeorm";
-import { BaseEntity }        from "../../../../libs/database/orm/typeorm/base/base.entity";
-import { TermsAgreementSup } from "./terms-agreement-sup.entity";
-import { ContractApplication }      from "./contract-application.entits";
+import { BaseEntity }          from "../../../../libs/database/orm/typeorm/base/base.entity";
+import { TermsAgreementSub }   from "./terms-agreement-sub.entity";
+import { ContractApplication } from "./contract-application.entits";
 
 
 
@@ -14,13 +14,13 @@ export class TermsAgreement extends BaseEntity {
     contract_application_id: string;
     
     @Column( { type: "uuid" } )
-    terms_agreement_sup_id: string;
+    terms_agreement_sub_id: string;
     
     @ManyToOne( () => ContractApplication )
     @JoinColumn( { name: "contract_application_id" } )
     contract_temp: ContractApplication;
     
-    @ManyToOne( () => TermsAgreementSup )
-    @JoinColumn( { name: "terms_agreement_sup_id" } )
-    terms_agreement_sup: TermsAgreementSup;
+    @ManyToOne( () => TermsAgreementSub )
+    @JoinColumn( { name: "terms_agreement_sub_id" } )
+    terms_agreement_sup: TermsAgreementSub;
 }

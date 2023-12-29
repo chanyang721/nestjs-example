@@ -3,7 +3,7 @@ import { TypeOrmModuleAsyncOptions }    from "@nestjs/typeorm";
 import { Contract }                     from "../../../../../domains/blockchains/contracts/entities/contract.entity";
 import { FunctionSignature }            from "../../../../../domains/blockchains/contracts/entities/function-signature.entity";
 import { RelContractFunctionSignature } from "../../../../../domains/blockchains/contracts/entities/rel-contract-function_signature.entity";
-import { TermsAgreementSup }            from "../../../../../domains/blockchains/contracts/entities/terms-agreement-sup.entity";
+import { TermsAgreementSub }            from "../../../../../domains/blockchains/contracts/entities/terms-agreement-sub.entity";
 import { ContractApplication }          from "../../../../../domains/blockchains/contracts/entities/contract-application.entits";
 import { TermsAgreement }      from "../../../../../domains/blockchains/contracts/entities/terms-agreement.entity";
 import { Token }                        from "../../../../../domains/blockchains/contracts/entities/token.entity";
@@ -90,7 +90,7 @@ export const dAppTypeOrmModuleAsyncOptions: TypeOrmModuleAsyncOptions = {
             Dapp, DappApplication,
             
             Contract, ContractApplication,
-            TermsAgreement, TermsAgreementSup,
+            TermsAgreement, TermsAgreementSub,
             RelContractFunctionSignature, FunctionSignature,
             
             Token,

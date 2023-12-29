@@ -1,14 +1,9 @@
-import { Column, Entity, JoinColumn, OneToMany, OneToOne } from "typeorm";
-import { DappApplication }                                 from "../../dapp/entities/dapp_application.entity";
+import { Column, Entity, JoinColumn, OneToOne } from "typeorm";
+import { DappApplication }                      from "../../dapp/entities/dapp_application.entity";
+import { Contract }                             from "./contract.entity";
+import { ApplicationProcessStatus }             from "./enums";
 
-import { Contract } from "./contract.entity";
 
-export enum ApplicationProcessStatus {
-    APPLY = "APPLY",
-    CHECK = "CHECK",
-    REVIEWING = "REVIEWING",
-    VERIFIED = "VERIFIED"
-}
 
 @Entity( { name: "contract_application" } )
 export class ContractApplication extends Contract {
@@ -20,7 +15,10 @@ export class ContractApplication extends Contract {
         enum   : ApplicationProcessStatus,
         default: ApplicationProcessStatus.APPLY
     } )
-    verify_status: ApplicationProcessStatus;
+    process_status: ApplicationProcessStatus;
+    
+    @Column( { comment: "신청서 번호" } )
+    application_number: number;
     
     /*
      * FK Column

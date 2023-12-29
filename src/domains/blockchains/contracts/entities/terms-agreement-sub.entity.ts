@@ -3,20 +3,20 @@ import { BaseEntity }     from "../../../../libs/database/orm/typeorm/base/base.
 
 
 
-export enum ContractAgreementName {
+export enum TermsAgreementName {
     Disclaimer = "면책 고지",
     CollectionOfPersonal = "개인정보 수집 동의",
 }
 
 
-@Entity( { name: "terms_agreement_sup" } )
-export class TermsAgreementSup extends BaseEntity {
+@Entity( { name: "terms_agreement_sub" } )
+export class TermsAgreementSub extends BaseEntity {
     @Column( {
         type   : "enum",
-        enum   : ContractAgreementName,
+        enum   : TermsAgreementName,
         comment: "약관 동의 종류"
     } )
-    name: ContractAgreementName;
+    name: TermsAgreementName;
     
     @Column( { length: 2000, comment: "약관 동의 내용" } )
     contents: string;

@@ -7,15 +7,16 @@ import { CommonConfigService }                from "../../config/common.config.s
 @Injectable()
 export class AzureStorageService {
     private readonly logger: Logger = new Logger( AzureStorageService.name );
-    private readonly AZURE_STORAGE_STRING: string;
+    private readonly AZURE_STORAGE_CONNECTION_STRING: string;
     private readonly blobServiceClient: BlobServiceClient;
     
     
     constructor(
         private readonly commonConfigService: CommonConfigService
     ) {
-        this.AZURE_STORAGE_STRING = this.commonConfigService.accessAzureStorageConfig.storageConnectionString;
-        // this.blobServiceClient = BlobServiceClient.fromConnectionString( this.AZURE_STORAGE_STRING );
+        this.AZURE_STORAGE_CONNECTION_STRING = this.commonConfigService.accessAzureConfig.storageConnectionString;
+        this.blobServiceClient = BlobServiceClient.fromConnectionString( this.AZURE_STORAGE_CONNECTION_STRING );
+        this.logger.log(this.blobServiceClient)
     }
     
     
