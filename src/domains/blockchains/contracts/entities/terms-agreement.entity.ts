@@ -1,7 +1,7 @@
 import { Column, Entity, JoinColumn, ManyToOne } from "typeorm";
 import { BaseEntity }          from "../../../../libs/database/orm/typeorm/base/base.entity";
 import { TermsAgreementSub }   from "./terms-agreement-sub.entity";
-import { ContractApplication } from "./contract-application.entits";
+import { ContractApplication } from "./contract-application.entity";
 
 
 

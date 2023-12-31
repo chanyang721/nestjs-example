@@ -9,8 +9,6 @@ import { ProjectModule } from "./projects/project.module";
         PostsModule,
         ProjectModule
     ],
-    controllers: [],
-    providers  : []
 } )
 export class BoardsModule {
 }

@@ -1,11 +1,11 @@
 import { ConfigModule, ConfigService }  from "@nestjs/config";
 import { TypeOrmModuleAsyncOptions }    from "@nestjs/typeorm";
+import { ContractApplication }          from "../../../../../domains/blockchains/contracts/entities/contract-application.entity";
 import { Contract }                     from "../../../../../domains/blockchains/contracts/entities/contract.entity";
 import { FunctionSignature }            from "../../../../../domains/blockchains/contracts/entities/function-signature.entity";
 import { RelContractFunctionSignature } from "../../../../../domains/blockchains/contracts/entities/rel-contract-function_signature.entity";
 import { TermsAgreementSub }            from "../../../../../domains/blockchains/contracts/entities/terms-agreement-sub.entity";
-import { ContractApplication }          from "../../../../../domains/blockchains/contracts/entities/contract-application.entits";
-import { TermsAgreement }      from "../../../../../domains/blockchains/contracts/entities/terms-agreement.entity";
+import { TermsAgreement }               from "../../../../../domains/blockchains/contracts/entities/terms-agreement.entity";
 import { Token }                        from "../../../../../domains/blockchains/contracts/entities/token.entity";
 import { Dapp }                         from "../../../../../domains/blockchains/dapp/entities/dapp.entity";
 import { DappApplication }              from "../../../../../domains/blockchains/dapp/entities/dapp_application.entity";

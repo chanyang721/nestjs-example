@@ -15,7 +15,6 @@ import { WalletsModule }      from "./wallets/wallets.module";
         TransactionsModule,
         RewardsModule
     ],
-    providers: []
 } )
 export class BlockchainsModule {
 }
