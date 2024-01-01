@@ -38,8 +38,8 @@ export const typeOrmModuleAsyncOptions: TypeOrmModuleAsyncOptions = {
         database   : configService.get<string>( "DB_DATABASE_BOARD" ),
         timezone   : "Z",
         synchronize: process.env.NODE_ENV !== PRODUCTION,
-        logging    : process.env.NODE_ENV !== PRODUCTION,
-        logger     : new SqlLogger(),
+        // logging    : process.env.NODE_ENV !== PRODUCTION,
+        // logger     : new SqlLogger(),
         entities   : [
             AuthEntity,
             UserEntity, ProfileEntity
@@ -59,8 +59,8 @@ export const boardTypeOrmModuleAsyncOptions: TypeOrmModuleAsyncOptions = {
         database   : configService.get<string>( "DB_DATABASE_BOARD" ),
         timezone   : "Z",
         synchronize: process.env.NODE_ENV !== PRODUCTION,
-        logging    : process.env.NODE_ENV !== PRODUCTION,
-        logger     : new SqlLogger(),
+        // logging    : process.env.NODE_ENV !== PRODUCTION,
+        // logger     : new SqlLogger(),
         entities   : [
             PostsEntity, CommentsEntity,
             
@@ -81,9 +81,9 @@ export const dAppTypeOrmModuleAsyncOptions: TypeOrmModuleAsyncOptions = {
         password   : configService.get<string>( "DB_PASSWORD" ),
         database   : configService.get<string>( "DB_DATABASE_DAPP" ),
         timezone   : configService.get<string>( "DB_TIMEZONE" ),
-        logger     : new SqlLogger(),
         synchronize: process.env.NODE_ENV !== PRODUCTION,
-        logging    : process.env.NODE_ENV !== PRODUCTION,
+        // logging    : process.env.NODE_ENV !== PRODUCTION,
+        // logger     : new SqlLogger(),
         entities   : [
             Wallet, RelWalletAccount, Account,
             
