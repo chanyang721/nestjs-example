@@ -10,6 +10,9 @@ export class RewardPolicy extends BaseEntity {
     @Column( { type: "json" } )
     policy: object;
     
+    @Column({ default: false, comment: '활설화 여부' })
+    is_active: boolean
+    
     @OneToOne( () => Reward )
     reward: Reward;
 }

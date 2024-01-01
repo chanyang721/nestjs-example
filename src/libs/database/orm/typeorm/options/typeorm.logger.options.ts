@@ -8,10 +8,9 @@ export class SqlLogger implements TypeOrmLogger {
     
     
     logQuery( query: string, parameters?: unknown[] ): any {
-        const startTime: number = new Date().getMilliseconds();
-        this.logger.debug( `--- Start --- ` );
-        this.logger.log( `${ query } -- Parameters: ${ this.stringifyParameters( parameters ) }` );
-        this.logger.debug( `--- End : ${ ( new Date().getMilliseconds() - startTime ) / 1000 } sec ---` );
+        console.time('logQuery')
+        this.logger.debug( `${ query } -- Parameters: ${ this.stringifyParameters( parameters ) }` );
+        console.timeEnd('logQuery')
     }
     
     

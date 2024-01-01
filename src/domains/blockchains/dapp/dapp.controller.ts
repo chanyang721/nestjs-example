@@ -3,6 +3,7 @@ import { AnyFilesInterceptor }                                   from "@nestjs/p
 import { HttpStatusCode }                                        from "axios";
 import { ResponseDto }                                           from "../../../libs/fundamentals/interceptors/response/dto/response.dto";
 import { multerOptions }                                         from "../../../libs/helpers/multer/options";
+import { Public }                                                from "../../../libs/utils/decoretors";
 import { DappService }                                           from "./dapp.service";
 import { Dapp }                                                  from "./entities/dapp.entity";
 
@@ -26,5 +27,11 @@ export class DappController {
             message: '',
             data: newDapp
         })
+    }
+    
+    @Public()
+    @Post('mail')
+    async sendMail () {
+        return this.dappService.sendMail()
     }
 }

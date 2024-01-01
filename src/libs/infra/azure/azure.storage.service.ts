@@ -16,7 +16,6 @@ export class AzureStorageService {
     ) {
         this.AZURE_STORAGE_CONNECTION_STRING = this.commonConfigService.accessAzureConfig.storageConnectionString;
         this.blobServiceClient = BlobServiceClient.fromConnectionString( this.AZURE_STORAGE_CONNECTION_STRING );
-        this.logger.log(this.blobServiceClient)
     }
     
     

@@ -4,7 +4,6 @@ import { BaseEntity as TypeOrmBaseEntity, Column, CreateDateColumn, PrimaryGener
 
 
 export abstract class BaseEntity extends TypeOrmBaseEntity {
-    
     @IsUUID()
     @IsOptional()
     @PrimaryGeneratedColumn( "uuid" )

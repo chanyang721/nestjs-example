@@ -11,6 +11,27 @@ export class CommonConfigService {
     }
     
     
+    get mailConfig() {
+        return {
+            transport: {
+                host  : this.configService.get<string>('MAIL_HOST'),
+                port  : this.configService.get<string>('MAIL_PORT'),
+                secure: this.configService.get<string>('MAILER_SECURE') === "true",
+                auth  : {
+                    user: this.configService.get<string>('MAIL_AUTH_USER'),
+                    pass: this.configService.get<string>('MAIL_AUTH_PASSWORD')
+                }
+            },
+            defaults : {
+                from: {
+                    name   : "No-reply",
+                    address: this.configService.get<string>('MAIL_FROM_ADDRESS')
+                }
+            }
+        };
+    }
+    
+    
     get serverConfig() {
         return {
             NODE_ENV: this.configService.get<string>( "NODE_ENV" ),
