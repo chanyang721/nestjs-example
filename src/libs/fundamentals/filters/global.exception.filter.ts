@@ -2,6 +2,7 @@ import { ArgumentsHost, Catch, ExceptionFilter, HttpException, HttpStatus, Logge
 import type { Request, Response }                                                                                                  from "express";
 import { MongooseError }                                                                                                           from "mongoose";
 import { TypeORMError }                                                                                                            from "typeorm";
+import { AxiosFetchFailedException }                                                                                               from "./error/exceptions/axios/axios.exception";
 import { BaseException }                                                                                                           from "./error/exceptions/base/base.exception";
 import { UnCatchException }                                                                                                        from "./error/exceptions/base/uncatch.exception";
 import { GlobalErrorException }                                                                                                    from "./error/exceptions/interfaces/global.error.execption";
@@ -17,6 +18,7 @@ export class GlobalExceptionFilter<T = BaseException | HttpException | Error> im
         const ctx = host.switchToHttp();
         const request = ctx.getRequest<Request>();
         const response = ctx.getResponse<Response>();
+        const stack = ( exception as Error ).stack;
         
         const res = exception instanceof BaseException ? exception : new UnCatchException();
         
@@ -26,7 +28,7 @@ export class GlobalExceptionFilter<T = BaseException | HttpException | Error> im
           // @ts-ignore
         let message: string = exception.message || exception.response.message || exception.response.error || exception.response,
           exceptionCode: string = exception.constructor.name,
-          statusCode: number = HttpStatus.INTERNAL_SERVER_ERROR,
+          httpStatus: number = HttpStatus.INTERNAL_SERVER_ERROR,
           errors: any;
         console.log( exception );
         
@@ -34,7 +36,7 @@ export class GlobalExceptionFilter<T = BaseException | HttpException | Error> im
          * Validation Error Exception Filter
          * */
         if ( exception instanceof UnprocessableEntityException ) {
-            statusCode = ( exception as UnprocessableEntityException ).getStatus(); // 422
+            httpStatus = ( exception as UnprocessableEntityException ).getStatus(); // 422
             exceptionCode = exception.constructor.name;
             message = ( exception as UnprocessableEntityException ).message;
             const error = exception.getResponse() as { message: ValidationError[] };
@@ -47,10 +49,10 @@ export class GlobalExceptionFilter<T = BaseException | HttpException | Error> im
          * Axios Exception Filter
          * TODO: Axios Exception Filter 전용 Exception 생성
          */
-        else if ( exception instanceof HttpException ) {
-            statusCode = ( exception as HttpException ).getStatus();
-            exceptionCode = ( exception as HttpException ).name;
-            message = ( exception as HttpException ).message;
+        else if ( exception instanceof AxiosFetchFailedException ) {
+            httpStatus = ( exception as AxiosFetchFailedException ).getStatus();
+            exceptionCode = ( exception as AxiosFetchFailedException ).name;
+            message = ( exception as AxiosFetchFailedException ).message;
         }
         
         
@@ -58,7 +60,7 @@ export class GlobalExceptionFilter<T = BaseException | HttpException | Error> im
          * Http Exception Filter
          * */
         else if ( exception instanceof HttpException ) {
-            statusCode = ( exception as HttpException ).getStatus();
+            httpStatus = ( exception as HttpException ).getStatus();
             exceptionCode = ( exception as HttpException ).name;
             message = ( exception as HttpException ).message;
         }
@@ -68,7 +70,7 @@ export class GlobalExceptionFilter<T = BaseException | HttpException | Error> im
          * TypeORM Error Exception Filter
          */
         if ( ( exception instanceof TypeORMError ) ) {
-            statusCode = HttpStatus.UNPROCESSABLE_ENTITY; // 422
+            httpStatus = HttpStatus.UNPROCESSABLE_ENTITY; // 422
             exceptionCode = ( exception as TypeORMError ).name;
             message = ( exception as TypeORMError ).message;
         }
@@ -78,22 +80,15 @@ export class GlobalExceptionFilter<T = BaseException | HttpException | Error> im
          * Mongoose Error Exception Filter
          */
         if ( ( exception instanceof MongooseError ) ) {
-            statusCode = HttpStatus.UNPROCESSABLE_ENTITY; // 422
+            httpStatus = HttpStatus.UNPROCESSABLE_ENTITY; // 422
             exceptionCode = ( exception as MongooseError ).name;
             message = ( exception as MongooseError ).message;
         }
         
+        const exceptionResponseBody = GlobalErrorException( { httpStatus, exceptionCode, message, method: request.method, path: request.url, errors } );
+        this.logger.error( exceptionResponseBody );
         
-        this.logger.error( GlobalErrorException( { statusCode, exceptionCode, message, method: request.method, path: request.url, errors } ) );
-        response.status( statusCode )
-                .json( GlobalErrorException( {
-                    statusCode,
-                    exceptionCode,
-                    message,
-                    method: request.method,
-                    path  : request.url,
-                    errors
-                } ) );
+        response.status( httpStatus ).json( exceptionResponseBody );
     }
     
     

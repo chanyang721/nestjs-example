@@ -1,8 +1,6 @@
 import { HttpStatus }    from "@nestjs/common";
 import { BaseException } from "../base/base.exception";
 
-
-
 export enum AuthErrorCodeEnum {
     EmailNotFound = "0001",
     NotAuthenticated = "0002",
@@ -12,6 +10,10 @@ export enum AuthErrorCodeEnum {
     JwtExpired = "0006",
     JwtInvalidSignature = "0007",
     UserNotFound = "0008",
+}
+
+export const AUTH_EXCEPTION_MESSAGE = {
+    A01: { code: 1000, message: "" }
 }
 
 

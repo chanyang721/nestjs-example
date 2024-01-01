@@ -4,16 +4,16 @@ import { IBaseException } from "../interfaces/global.error.execption";
 
 
 export class BaseException extends HttpException implements IBaseException {
-    constructor( exceptionCode: string, statusCode: number ) {
+    constructor( exceptionCode: string, httpStatus: number ) {
         
-        super( exceptionCode, statusCode );
+        super( exceptionCode, httpStatus );
         
         this.exceptionCode = exceptionCode;
-        this.statusCode = statusCode;
+        this.httpStatus = httpStatus;
     }
     
     
-    statusCode: number;
+    httpStatus: number;
     exceptionCode: string;
     method: string;
     path: string;
