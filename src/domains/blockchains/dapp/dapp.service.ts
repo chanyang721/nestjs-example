@@ -4,6 +4,8 @@ import { AZURE_STORAGE_CONTAINER_NAME } from "../../../libs/infra/azure/storage/
 import { MailService }                  from "../../../libs/infra/mail/mail.srevice";
 import { DappRepository }               from "./dapp.repository";
 import { RegisterDappDto }              from "./dtos/register-dapp.dto";
+import { SendMailDto }                  from "./dtos/send-mail.dto";
+import { DappApplication }              from "./entities/dapp_application.entity";
 
 
 
@@ -19,7 +21,7 @@ export class DappService {
     ) {
     }
     
-    async registerDapp( logo: Express.Multer.File, registerDappDto: RegisterDappDto ): Promise<any> {
+    async registerDapp( logo: Express.Multer.File, registerDappDto: RegisterDappDto ): Promise<DappApplication> {
         const logoKey = await this.azureStorageService.uploadFile( this.CONTAINER_NAME, logo.originalname, logo.buffer );
         
         const registeredDappApplication = await this.dappRepository.registerDapp({
@@ -27,11 +29,12 @@ export class DappService {
             logo: logoKey
         })
         
-        return registeredDappApplication
+        return registeredDappApplication;
     }
     
     
-    async sendMail() {
-        return this.mailService.sendMail( "", "", "" );
+    async sendMail(sendMailDto: SendMailDto): Promise<void> {
+        // 제목, 내용 template 가져오기
+        return this.mailService.sendMail( sendMailDto.to, "제목이에요", `<div>난 내용이야<div>` );
     }
 }

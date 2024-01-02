@@ -9,6 +9,9 @@ import { TermsAgreement }               from "../../../../../domains/blockchains
 import { Token }                        from "../../../../../domains/blockchains/contracts/entities/token.entity";
 import { Dapp }                         from "../../../../../domains/blockchains/dapp/entities/dapp.entity";
 import { DappApplication }              from "../../../../../domains/blockchains/dapp/entities/dapp_application.entity";
+import { RewardPolicy }                 from "../../../../../domains/blockchains/rewards/entities/reward-policy.entity";
+import { Reward }                       from "../../../../../domains/blockchains/rewards/entities/reward.entity";
+import { RewardHistory }                from "../../../../../domains/blockchains/rewards/entities/reward_history.entity";
 import { Transaction }                  from "../../../../../domains/blockchains/transactions/entities/transaction.entity";
 import { Account }                      from "../../../../../domains/blockchains/wallets/entities/account.entity";
 import { RelWalletAccount }             from "../../../../../domains/blockchains/wallets/entities/rel-wallet-account.entity";
@@ -92,6 +95,8 @@ export const dAppTypeOrmModuleAsyncOptions: TypeOrmModuleAsyncOptions = {
             Contract, ContractApplication,
             TermsAgreement, TermsAgreementSub,
             RelContractFunctionSignature, FunctionSignature,
+          
+            Reward, RewardPolicy, RewardHistory,
             
             Token,
             

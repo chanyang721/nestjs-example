@@ -6,13 +6,17 @@ import helmet                     from "helmet";
 import { AppModule }              from "./app.module";
 import { CommonConfigService }    from "./libs/config/common.config.service";
 import { fundamentals }           from "./libs/fundamentals";
+import { winstonLogger }          from "./libs/helpers/log/winston.logger";
 import { setupSwagger }           from "./libs/utils/swagger";
 
 
 
 async function bootstrap() {
-    const app = await NestFactory.create<NestExpressApplication>( AppModule );
+    const app = await NestFactory.create<NestExpressApplication>( AppModule, {
+        logger: winstonLogger
+    } );
     const { serverConfig } = app.get( CommonConfigService );
+    
     app.enableCors( {
         origin     : true, // TODO 도메인 수정
         methods    : [ "GET", "POST", "PATCH", "PUT", "DELETE", "OPTIONS" ],

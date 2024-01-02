@@ -11,7 +11,7 @@ export const fundamentals = async ( app: NestExpressApplication ) => {
     /**
      * Global Core Fundamentals
      * */
-    // app.use() // 글로벌 미들웨어 설정
+    // app.use(); // 미들웨어 설정
     
     app.useGlobalGuards( ...globalGuards );
     

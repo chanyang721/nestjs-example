@@ -6,6 +6,7 @@ import { multerOptions }                                                 from ".
 import { Public }                                                        from "../../../libs/utils/decoretors";
 import { DappService }                                                   from "./dapp.service";
 import { RegisterDappDto }                                               from "./dtos/register-dapp.dto";
+import { SendMailDto }                                                   from "./dtos/send-mail.dto";
 import { Dapp }                                                          from "./entities/dapp.entity";
 
 
@@ -26,11 +27,11 @@ export class DappController {
       @UploadedFile() logo: Express.Multer.File,
       @Body() registerDappDto: RegisterDappDto
     ): Promise<ResponseDto<Dapp>> {
-        this.logger.debug( "logo", logo );
         const newDapp: Dapp = await this.dappService.registerDapp( logo, registerDappDto );
+        
         return new ResponseDto( {
             statusCode: HttpStatusCode.Created,
-            message   : "",
+            message   : "Dapp 신청이 완료되었습니다",
             data      : newDapp
         } );
     }
@@ -38,7 +39,9 @@ export class DappController {
     
     @Public()
     @Post( "mail" )
-    async sendMail() {
-        return this.dappService.sendMail();
+    async sendMail(
+        @Body() sendMailDto: SendMailDto
+    ) {
+        return this.dappService.sendMail(sendMailDto);
     }
 }
