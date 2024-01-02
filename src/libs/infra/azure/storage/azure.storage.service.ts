@@ -26,6 +26,7 @@ export class AzureStorageService {
         const blockBlobClient = containerClient.getBlockBlobClient( blobName );
         const uploadBlobResponse = await blockBlobClient.upload( file, file.length );
         
-        return `File uploaded. ETag: ${ uploadBlobResponse.etag }, requestId: ${ uploadBlobResponse.requestId }`;
+        this.logger.debug(`File uploaded. ETag: ${ uploadBlobResponse.etag }, requestId: ${ uploadBlobResponse.requestId }`)
+        return uploadBlobResponse.requestId;
     }
 }

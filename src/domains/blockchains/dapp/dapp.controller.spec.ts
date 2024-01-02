@@ -1,4 +1,8 @@
 import { Test, TestingModule } from "@nestjs/testing";
+import { CommonConfigService } from "../../../libs/config/common.config.service";
+import { AzureStorageService } from "../../../libs/infra/azure/storage/azure.storage.service";
+import { MailModule }          from "../../../libs/infra/mail/mail.module";
+import { MailService }         from "../../../libs/infra/mail/mail.srevice";
 import { DappController }      from "./dapp.controller";
 import { DappService }         from "./dapp.service";
 
@@ -9,8 +13,9 @@ describe( "DappController", () => {
     
     beforeEach( async () => {
         const module: TestingModule = await Test.createTestingModule( {
+            imports    : [ MailModule ],
             controllers: [ DappController ],
-            providers  : [ DappService ]
+            providers  : [ DappService, AzureStorageService, MailService ]
         } )
                                                 .compile();
         

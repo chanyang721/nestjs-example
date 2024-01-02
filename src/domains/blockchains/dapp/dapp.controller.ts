@@ -21,13 +21,13 @@ export class DappController {
     
     @Public()
     @Post()
-    @UseInterceptors( FileInterceptor( "file", multerOptions ) )
+    @UseInterceptors( FileInterceptor( "logo", multerOptions ) )
     async registerDapp(
-      @UploadedFile() file: Express.Multer.File,
+      @UploadedFile() logo: Express.Multer.File,
       @Body() registerDappDto: RegisterDappDto
     ): Promise<ResponseDto<Dapp>> {
-        this.logger.debug( "file", file );
-        const newDapp: Dapp = await this.dappService.registerDapp( file, registerDappDto );
+        this.logger.debug( "logo", logo );
+        const newDapp: Dapp = await this.dappService.registerDapp( logo, registerDappDto );
         return new ResponseDto( {
             statusCode: HttpStatusCode.Created,
             message   : "",
