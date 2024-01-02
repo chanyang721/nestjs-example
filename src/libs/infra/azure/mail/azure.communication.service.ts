@@ -1,7 +1,7 @@
 import { EmailClient }            from "@azure/communication-email";
 import { DefaultAzureCredential } from "@azure/identity";
-import { Injectable }             from "@nestjs/common";
-import { CommonConfigService }    from "../../config/common.config.service";
+import { Injectable }          from "@nestjs/common";
+import { CommonConfigService } from "../../../config/common.config.service";
 
 
 

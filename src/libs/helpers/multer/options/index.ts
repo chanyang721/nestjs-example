@@ -7,12 +7,11 @@ import type { Request }              from "express";
 export const multerOptions: MulterOptions = {
     limits    : {
         fileSize: 1024 * 1024 * 100, // 30MB,
-        files   : 3
+        files   : 1
     },
     fileFilter: ( request: Request, file: Express.Multer.File, callback: Function ): void => {
         const fileName = file.originalname.split( "." );
         const fileExtension = fileName[ fileName.length - 1 ];
-        
         
         if ( file.mimetype.match( /\/(pdf|png)$/ ) ) {
             callback( null, true );

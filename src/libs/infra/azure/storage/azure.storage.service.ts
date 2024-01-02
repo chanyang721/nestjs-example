@@ -1,6 +1,6 @@
 import { BlobServiceClient, ContainerClient } from "@azure/storage-blob";
-import { Injectable, Logger }                 from "@nestjs/common";
-import { CommonConfigService }                from "../../config/common.config.service";
+import { Injectable, Logger }  from "@nestjs/common";
+import { CommonConfigService } from "../../../config/common.config.service";
 
 
 
