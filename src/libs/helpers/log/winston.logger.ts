@@ -2,20 +2,10 @@ import { LoggerService }            from "@nestjs/common";
 import { utilities, WinstonModule } from "nest-winston";
 import winston                      from "winston";
 import DailyRotateFile              from "winston-daily-rotate-file";
+import SlackHook                    from "winston-slack-webhook-transport";
+import { LOG_LEVEL, LOG_MAX_DAYS }                from "./enums/log.enum";
 
-export enum LOG_LEVEL {
-    INFO = 'info',
-    DEBUG = 'debug',
-    WARN = 'warn',
-    ERROR = 'error'
-}
 
-const enum LOG_MAX_DAYS {
-    INFO = '5d',
-    DEBUG = '5d',
-    WARN = '10d',
-    ERROR = '30d'
-}
 
 const dailyOptions = ( level: string, maxFiles: string ) => {
     return {
@@ -30,7 +20,7 @@ const dailyOptions = ( level: string, maxFiles: string ) => {
           winston.format.timestamp( { format: "YYYY-MM-DD hh:mm:ss.SSS A" } ),
           winston.format.json(),
           winston.format.printf( ( { timestamp, level, message, context, trace } ) => {
-              return `${ timestamp } || [${context}] ${ level }:: ${ message }${trace ? `\n    Error Stack: ${trace}` : ''}`;
+              return `[${ process.env.APP_NAME }] :: ${ level } :: ${ timestamp } [${ context }] ${ message }${ trace ? `\n    Error Stack: ${ trace }` : "" }`;
           } )
         )
     };
@@ -45,19 +35,45 @@ export const winstonLogger: LoggerService = WinstonModule.createLogger( {
             format          : process.env.NODE_ENV === "production"
               ? winston.format.simple()
               : winston.format.combine(
-                    winston.format.timestamp( { format: "YYYY-MM-DD hh:mm:ss.SSS A" } ),
-                    // winston.format.colorize({ all: true }),
-                    utilities.format.nestLike( process.env.APP_NAME, {
-                        colors     : true,
-                        prettyPrint: true
-                    } ),
-                    winston.format.printf( ( { timestamp, level, message, context, trace } ) => {
-                        return `${ timestamp } || [${context}] ${ level }:: ${ message }${trace ? `\n    Error Stack: ${trace}` : ''}`;
-                    } )
+                winston.format.timestamp( { format: "YYYY-MM-DD hh:mm:ss.SSS A" } ),
+                winston.format.colorize( { level: true, message: true } ),
+                winston.format.errors( { stack: true } ),
+                utilities.format.nestLike( process.env.APP_NAME, {
+                    colors     : true,
+                    prettyPrint: true
+                } )
+                // winston.format.printf( ( { timestamp, level, message, context, trace } ) => {
+                //     return `${ timestamp } || [${ context }] ${ level }:: ${ message }${ trace ? `\n    Error Stack: ${ trace }` : "" }`;
+                // } ),
               )
         } ),
+        
         new DailyRotateFile( dailyOptions( LOG_LEVEL.INFO, LOG_MAX_DAYS.INFO ) ),
         new DailyRotateFile( dailyOptions( LOG_LEVEL.WARN, LOG_MAX_DAYS.WARN ) ),
-        new DailyRotateFile( dailyOptions( LOG_LEVEL.ERROR, LOG_MAX_DAYS.ERROR ) )
+        new DailyRotateFile( dailyOptions( LOG_LEVEL.ERROR, LOG_MAX_DAYS.ERROR ) ),
+        
+        new SlackHook( {
+            webhookUrl: process.env.SLACK_WEBHOOK_URL,
+            channel   : "#logs",
+            username  : "LoggerBot",
+            level     : LOG_LEVEL.ERROR,
+            format    : winston.format.combine(
+              winston.format.timestamp(),
+              winston.format.printf( ( { timestamp, level, message, context, trace } ) => {
+                  return `${ timestamp } || [${ context }] ${ level }:: ${ message }${ trace ? `\n    Error Stack: ${ trace }` : "" }`;
+              } )
+            )
+        } )
+        
+        //     new winstonMongoDB.MongoDB( {
+        //         level     : LOG_LEVEL.INFO,
+        //         db        : 'mongodb://mongo_db:27017',
+        //         dbName: 'boxer',
+        //         collection: "logs",
+        //         format    : winston.format.combine(
+        //           winston.format.timestamp(),
+        //           winston.format.json()
+        //         )
+        //     } )
     ]
 } );
