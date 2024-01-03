@@ -1,30 +1,23 @@
-import { Column, Entity }                          from "typeorm";
-import { BaseEntity }                              from "../../../../libs/database/orm/typeorm/base/base.entity";
+import { Column, Entity }                         from "typeorm";
+import { BaseEntity }                             from "../../../../libs/database/orm/typeorm/base/base.entity";
+import { CONTRACT_STANDARD, TOKEN_CONTRACT_TYPE } from "./enums";
 
-export enum ContractStandardEnum {
-    ERC20 = "ERC-20"
-}
-
-export enum TokenContractType {
-    NFT = "NFT",
-    TOKEN = "TOKEN"
-}
 
 
 @Entity( { name: "token" } )
 export class Token extends BaseEntity {
     @Column( {
         type   : "enum",
-        enum   : TokenContractType,
+        enum   : TOKEN_CONTRACT_TYPE,
         comment: "NFT or TOKEN"
     } )
-    type: TokenContractType;
+    type: TOKEN_CONTRACT_TYPE;
     
     @Column( {
         type   : "enum",
-        enum   : ContractStandardEnum,
-        default: ContractStandardEnum.ERC20,
-        comment: "ERC-20 등"
+        enum   : CONTRACT_STANDARD,
+        default: CONTRACT_STANDARD.ERC_20,
+        comment: "ERC_20 등"
     } )
-    standard: ContractStandardEnum.ERC20;
+    standard: CONTRACT_STANDARD.ERC_20;
 }

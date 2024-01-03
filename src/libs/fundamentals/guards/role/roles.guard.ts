@@ -1,7 +1,7 @@
 import { BadRequestException, CanActivate, ExecutionContext, Injectable } from "@nestjs/common";
 import { Reflector } from "@nestjs/core";
-import { UserRole }  from "../../../../domains/users/infrastructure/entities/enums/user.enum.role";
-import { ROLES_KEY } from "../../../utils/decoretors/roles.decorator";
+import { USER_ROLE }                                                      from "../../../../domains/users/infrastructure/entities/enums";
+import { ROLES_KEY } from "../../../utils/decoretors";
 
 
 
@@ -12,7 +12,7 @@ export class RolesGuard implements CanActivate {
     
     
     canActivate( context: ExecutionContext ): boolean {
-        const requiredRoles = this.reflector.getAllAndOverride<UserRole[]>( ROLES_KEY, [
+        const requiredRoles = this.reflector.getAllAndOverride<USER_ROLE[]>( ROLES_KEY, [
             context.getHandler(),
             context.getClass()
         ] );

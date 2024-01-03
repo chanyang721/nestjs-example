@@ -1,6 +1,7 @@
-import { IsNotEmpty, IsString, Length, MaxLength, MinLength } from "class-validator";
-import { Column, Entity }                                     from "typeorm";
-import { BaseEntity }     from "../../../../libs/database/orm/typeorm/base/base.entity";
+import { IsBoolean, IsNotEmpty, IsString, Length, MaxLength, MinLength } from "class-validator";
+import { Column, Entity, OneToMany }                                     from "typeorm";
+import { BaseEntity }                                                    from "../../../../libs/database/orm/typeorm/base/base.entity";
+import { Contract }                                                      from "../../contracts/entities/contract.entity";
 
 
 @Entity( { name: "dapp" } )
@@ -47,11 +48,17 @@ export class Dapp extends BaseEntity {
     @IsNotEmpty()
     @MinLength(1)
     @MaxLength(5)
-    @Column({ length: 5, comment: 'dapp 인증 코드, ex) 00001' })
+    @Column({ length: 5, nullable: true, comment: 'dapp 인증 코드, ex) 00001' })
     verification_code: string;
     
+    @IsBoolean()
+    @IsNotEmpty()
+    @Column( { default: false, comment: "검증 여부" } )
+    is_verified: boolean;
     
     /*
      * Relations
      * */
+    @OneToMany(() => Contract, contract => contract.dapp)
+    contracts: Contract[]
 }

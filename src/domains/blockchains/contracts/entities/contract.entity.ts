@@ -1,15 +1,12 @@
-import { Column, Entity, Index, JoinColumn, OneToMany, OneToOne } from "typeorm";
-import { BaseEntity }                                             from "../../../../libs/database/orm/typeorm/base/base.entity";
-import { Transaction }                  from "../../transactions/entities/transaction.entity";
-import { RelContractFunctionSignature } from "./rel-contract-function_signature.entity";
-import { Token }                                                  from "./token.entity";
+import { Column, Entity, Index, JoinColumn, ManyToOne, OneToMany, OneToOne } from "typeorm";
+import { BaseEntity }                                                        from "../../../../libs/database/orm/typeorm/base/base.entity";
+import { Application }                                                       from "../../applications/entities/application.entity";
+import { Dapp }                                                              from "../../dapp/entities/dapp.entity";
+import { Transaction }                                                       from "../../transactions/entities/transaction.entity";
+import { CONTRACT_TYPE }                                                     from "./enums";
+import { RelContractFunctionSignature }                                      from "./rel-contract-function_signature.entity";
+import { Token }                                                             from "./token.entity";
 
-
-
-export enum ContractTypeEnum {
-    ADDRESS_CONTRACT = "ADDRESS_CONTRACT",
-    TOKEN_CONTRACT = "TOKEN_CONTRACT",
-}
 
 
 @Entity( { name: "contract" } )
@@ -24,9 +21,9 @@ export class Contract extends BaseEntity {
     source_code_url: string;
     
     @Column( { length: 66, comment: "컨트랙트 배포 주소" } )
-    deploy_hash: string;
+    deploy_tx_hash: string;
     
-    @Column( { length: 255, comment: "audit pdf 저장 s3 주소" } )
+    @Column( { length: 255, comment: "audit pdf 저장 url" } )
     audit_url: string;
     
     @Column( { default: false, comment: "검증 여부" } )
@@ -43,11 +40,11 @@ export class Contract extends BaseEntity {
     
     @Column( {
         type   : "enum",
-        enum   : ContractTypeEnum,
-        default: ContractTypeEnum.ADDRESS_CONTRACT
+        enum   : CONTRACT_TYPE,
+        default: CONTRACT_TYPE.ADDRESS_CONTRACT
     } )
     @Index()
-    type: ContractTypeEnum;
+    type: CONTRACT_TYPE;
     
     /*
      * FK Columns
@@ -55,15 +52,22 @@ export class Contract extends BaseEntity {
     @Column( { type: "uuid", comment: "token contract tracker fk" } )
     tracker: string;
     
+    @Column()
+    dapp_id: string;
+    
+    @Column( { nullable: true } )
+    application_id: string;
+    
     
     /*
      * Relations
      * */
+    /** OneToOne */
     @OneToOne( () => Token, { eager: true } )
     @JoinColumn( { name: "tracker" } )
     token: Token;
     
-    
+    /** OneToMany */
     @OneToMany(
       () => RelContractFunctionSignature,
       rel_contract_function_signature => rel_contract_function_signature.contract )
@@ -71,4 +75,15 @@ export class Contract extends BaseEntity {
     
     @OneToMany( () => Transaction, transaction => transaction.contract )
     transactions: Transaction[];
+    
+    /** ManyToOne */
+    @ManyToOne(() => Dapp, dapp => dapp.contracts)
+    @JoinColumn({ name: 'dapp_id' })
+    dapp: Dapp
+    
+    @ManyToOne( () => Application, {
+        nullable: true
+    } )
+    @JoinColumn( { name: "application_id" } )
+    application: Application;
 }

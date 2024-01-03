@@ -7,13 +7,12 @@ import { DappController }      from "./dapp.controller";
 import { DappRepository }      from "./dapp.repository";
 import { DappService }         from "./dapp.service";
 import { Dapp }                from "./entities/dapp.entity";
-import { DappApplication }     from "./entities/dapp_application.entity";
 
 
 
 @Module( {
     imports    : [
-        TypeOrmModule.forFeature( [ Dapp, DappApplication ] )
+        TypeOrmModule.forFeature( [ Dapp ] )
     ],
     controllers: [ DappController ],
     providers  : [

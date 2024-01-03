@@ -1,4 +1,4 @@
-export enum UserRole {
+export enum USER_ROLE {
     UNKNOWN = "UNKNOWN",
     
     ADMIN = "ADMIN",
@@ -10,4 +10,11 @@ export enum UserRole {
     GUEST = "GUEST",
     
     CLIENT = "CLIENT"
+}
+
+
+export enum USER_GENDER {
+    MAN = "MAN",
+    WOMAN = "WOMAN",
+    ETC = "ETC"
 }

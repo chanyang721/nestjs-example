@@ -1,8 +1,7 @@
 import { Column, Entity, JoinColumn, OneToOne } from "typeorm";
 import { AuthEntity }                           from "../../../../libs/authentication/infrastructure/entities/auth.entity";
 import { BaseEntity }                           from "../../../../libs/database/orm/typeorm/base/base.entity";
-import { UserRole }                             from "./enums/user.enum.role";
-import { GenderEnum }                           from "./enums/user.gender.enum";
+import { USER_GENDER, USER_ROLE }               from "./enums";
 import { ProfileEntity }                        from "./profile.entity";
 
 
@@ -14,21 +13,21 @@ export class UserEntity extends BaseEntity {
      */
     @Column( {
         type   : "enum",
-        enum   : UserRole,
-        default: UserRole.UNKNOWN,
+        enum   : USER_ROLE,
+        default: USER_ROLE.UNKNOWN,
         comment: "유저 권한"
     } )
-    role: UserRole;
+    role: USER_ROLE;
     
     @Column( { length: 20 } )
     name: string;
     
     @Column( {
         type   : "enum",
-        enum   : GenderEnum,
+        enum   : USER_GENDER,
         comment: "유저 성별"
     } )
-    gender: GenderEnum;
+    gender: USER_GENDER;
     
     @Column()
     age: number;
@@ -47,7 +46,9 @@ export class UserEntity extends BaseEntity {
     auth: AuthEntity;
     
     
-    @OneToOne( () => ProfileEntity )
+    @OneToOne( () => ProfileEntity, {
+        eager: true
+    })
     @JoinColumn( { name: "profile_id" } )
     profile: ProfileEntity;
     

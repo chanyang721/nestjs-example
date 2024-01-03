@@ -5,7 +5,7 @@ import { MailService }                  from "../../../libs/infra/mail/mail.srev
 import { DappRepository }               from "./dapp.repository";
 import { RegisterDappDto }              from "./dtos/register-dapp.dto";
 import { SendMailDto }                  from "./dtos/send-mail.dto";
-import { DappApplication }              from "./entities/dapp_application.entity";
+import { Dapp }                         from "./entities/dapp.entity";
 
 
 
@@ -21,7 +21,7 @@ export class DappService {
     ) {
     }
     
-    async registerDapp( logo: Express.Multer.File, registerDappDto: RegisterDappDto ): Promise<DappApplication> {
+    async registerDapp( logo: Express.Multer.File, registerDappDto: RegisterDappDto ): Promise<Dapp> {
         const logoKey = await this.azureStorageService.uploadFile( this.CONTAINER_NAME, logo.originalname, logo.buffer );
         
         const registeredDappApplication = await this.dappRepository.registerDapp({

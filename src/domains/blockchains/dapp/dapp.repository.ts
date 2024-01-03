@@ -1,9 +1,7 @@
 import { Injectable, Logger }     from "@nestjs/common";
-import { InjectRepository }       from "@nestjs/typeorm";
 import { DataSource, Repository } from "typeorm";
 import { RegisterDappDto }        from "./dtos/register-dapp.dto";
 import { Dapp }                   from "./entities/dapp.entity";
-import { DappApplication }        from "./entities/dapp_application.entity";
 
 
 
@@ -13,18 +11,16 @@ export class DappRepository extends Repository<Dapp> {
     
     
     constructor(
-      private readonly dataSource: DataSource,
-      @InjectRepository( Dapp )
-      private readonly dappApplicationRepository: Repository<DappApplication>
+        private readonly dataSource: DataSource
     ) {
         super( Dapp, dataSource.createEntityManager() );
     }
     
     
-    async registerDapp( registerDapp: RegisterDappDto ): Promise<DappApplication> {
-        const newDappApplication = await this.dappApplicationRepository.save( registerDapp );
+    async registerDapp( registerDapp: RegisterDappDto ): Promise<Dapp> {
+        const newDappApplication = await this.save( registerDapp );
         
-        this.logger.debug("newDappApplication :", newDappApplication.name);
+        this.logger.debug( "newDappApplication :", newDappApplication.name );
         return newDappApplication;
     }
 }

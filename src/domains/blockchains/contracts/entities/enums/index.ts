@@ -1,6 +1,13 @@
-export enum ApplicationProcessStatus {
-    APPLY = "APPLY",
-    CHECK = "CHECK",
-    REVIEWING = "REVIEWING",
-    VERIFIED = "VERIFIED"
+export enum CONTRACT_STANDARD {
+    ERC_20 = "ERC_20"
+}
+
+export enum TOKEN_CONTRACT_TYPE {
+    NFT = "NFT",
+    TOKEN = "TOKEN"
+}
+
+export enum CONTRACT_TYPE {
+    ADDRESS_CONTRACT = "ADDRESS_CONTRACT",
+    TOKEN_CONTRACT = "TOKEN_CONTRACT",
 }

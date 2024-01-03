@@ -1,14 +1,12 @@
 import { ConfigModule, ConfigService }  from "@nestjs/config";
 import { TypeOrmModuleAsyncOptions }    from "@nestjs/typeorm";
-import { ContractApplication }          from "../../../../../domains/blockchains/contracts/entities/contract-application.entity";
+import { Application }                  from "../../../../../domains/blockchains/applications/entities/application.entity";
+import { TermsAgreement }               from "../../../../../domains/blockchains/applications/entities/terms.agreement.entity";
 import { Contract }                     from "../../../../../domains/blockchains/contracts/entities/contract.entity";
 import { FunctionSignature }            from "../../../../../domains/blockchains/contracts/entities/function-signature.entity";
 import { RelContractFunctionSignature } from "../../../../../domains/blockchains/contracts/entities/rel-contract-function_signature.entity";
-import { TermsAgreementSub }            from "../../../../../domains/blockchains/contracts/entities/terms-agreement-sub.entity";
-import { TermsAgreement }               from "../../../../../domains/blockchains/contracts/entities/terms-agreement.entity";
 import { Token }                        from "../../../../../domains/blockchains/contracts/entities/token.entity";
 import { Dapp }                         from "../../../../../domains/blockchains/dapp/entities/dapp.entity";
-import { DappApplication }              from "../../../../../domains/blockchains/dapp/entities/dapp_application.entity";
 import { RewardPolicy }                 from "../../../../../domains/blockchains/rewards/entities/reward-policy.entity";
 import { Reward }                       from "../../../../../domains/blockchains/rewards/entities/reward.entity";
 import { RewardHistory }                from "../../../../../domains/blockchains/rewards/entities/reward_history.entity";
@@ -25,7 +23,6 @@ import { ProfileEntity }                from "../../../../../domains/users/infra
 import { UserEntity }                   from "../../../../../domains/users/infrastructure/entities/user.entity";
 import { AuthEntity }                   from "../../../../authentication/infrastructure/entities/auth.entity";
 import { PRODUCTION }                   from "../../../../utils/constants";
-import { SqlLogger }                    from "./typeorm.logger.options";
 
 
 
@@ -43,7 +40,7 @@ export const typeOrmModuleAsyncOptions: TypeOrmModuleAsyncOptions = {
         synchronize: process.env.NODE_ENV !== PRODUCTION,
         // logging    : process.env.NODE_ENV !== PRODUCTION,
         // logger     : new SqlLogger(),
-        entities   : [
+        entities: [
             AuthEntity,
             UserEntity, ProfileEntity
         ]
@@ -64,7 +61,7 @@ export const boardTypeOrmModuleAsyncOptions: TypeOrmModuleAsyncOptions = {
         synchronize: process.env.NODE_ENV !== PRODUCTION,
         // logging    : process.env.NODE_ENV !== PRODUCTION,
         // logger     : new SqlLogger(),
-        entities   : [
+        entities: [
             PostsEntity, CommentsEntity,
             
             ProjectEntity, GroupEntity, FileEntity
@@ -87,20 +84,23 @@ export const dAppTypeOrmModuleAsyncOptions: TypeOrmModuleAsyncOptions = {
         synchronize: process.env.NODE_ENV !== PRODUCTION,
         // logging    : process.env.NODE_ENV !== PRODUCTION,
         // logger     : new SqlLogger(),
-        entities   : [
-            Wallet, RelWalletAccount, Account,
+        entities: [
+            Transaction,
+
+            Wallet,
+            RelWalletAccount, Account,
             
-            Dapp, DappApplication,
+            Dapp,
             
-            Contract, ContractApplication,
-            TermsAgreement, TermsAgreementSub,
+            Contract, Token,
             RelContractFunctionSignature, FunctionSignature,
-          
-            Reward, RewardPolicy, RewardHistory,
+
+            Application,
+            TermsAgreement,
             
-            Token,
-            
-            Transaction
+            Reward,
+            RewardPolicy,
+            RewardHistory,
         ]
     } )
 };
