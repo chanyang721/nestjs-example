@@ -1,6 +1,5 @@
 import { Column, Entity, Index, JoinColumn, ManyToOne, OneToMany, OneToOne } from "typeorm";
 import { BaseEntity }                                                        from "../../../../libs/database/orm/typeorm/base/base.entity";
-import { Application }                                                       from "../../applications/entities/application.entity";
 import { Dapp }                                                              from "../../dapp/entities/dapp.entity";
 import { Transaction }                                                       from "../../transactions/entities/transaction.entity";
 import { CONTRACT_TYPE }                                                     from "./enums";
@@ -25,9 +24,6 @@ export class Contract extends BaseEntity {
     
     @Column( { length: 255, comment: "audit pdf 저장 url" } )
     audit_url: string;
-    
-    @Column( { default: false, comment: "검증 여부" } )
-    is_verified: boolean;
     
     @Column( { default: true, comment: "활성화 상태" } )
     is_active: boolean;
@@ -55,9 +51,6 @@ export class Contract extends BaseEntity {
     @Column()
     dapp_id: string;
     
-    @Column( { nullable: true } )
-    application_id: string;
-    
     
     /*
      * Relations
@@ -77,13 +70,7 @@ export class Contract extends BaseEntity {
     transactions: Transaction[];
     
     /** ManyToOne */
-    @ManyToOne(() => Dapp, dapp => dapp.contracts)
-    @JoinColumn({ name: 'dapp_id' })
-    dapp: Dapp
-    
-    @ManyToOne( () => Application, {
-        nullable: true
-    } )
-    @JoinColumn( { name: "application_id" } )
-    application: Application;
+    @ManyToOne( () => Dapp, dapp => dapp.contracts )
+    @JoinColumn( { name: "dapp_id" } )
+    dapp: Dapp;
 }

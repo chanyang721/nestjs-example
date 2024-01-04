@@ -4,8 +4,8 @@ import { TERMS_AGREEMENT_NAME } from "./enums";
 
 
 
-@Entity( { name: "terms_agreement" } )
-export class TermsAgreement extends BaseEntity {
+@Entity( { name: "application_terms_agreement" } )
+export class ApplicationTermsAgreement extends BaseEntity {
     @Column( {
         type   : "enum",
         enum   : TERMS_AGREEMENT_NAME,

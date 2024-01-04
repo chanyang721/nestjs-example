@@ -1,7 +1,10 @@
 import { ConfigModule, ConfigService }  from "@nestjs/config";
 import { TypeOrmModuleAsyncOptions }    from "@nestjs/typeorm";
-import { Application }                  from "../../../../../domains/blockchains/applications/entities/application.entity";
-import { TermsAgreement }               from "../../../../../domains/blockchains/applications/entities/terms.agreement.entity";
+import { ApplicationContractForm }      from "../../../../../domains/blockchains/applicationForms/entities/application.contract.form.entity";
+import { ApplicationDappForm }          from "../../../../../domains/blockchains/applicationForms/entities/application.dapp.form.entity";
+import { ApplicationForm }              from "../../../../../domains/blockchains/applicationForms/entities/application.form.entity";
+import { ApplicationFromProcessLog }    from "../../../../../domains/blockchains/applicationForms/entities/application.from.process.log.entity";
+import { ApplicationTermsAgreement }    from "../../../../../domains/blockchains/applicationForms/entities/application.terms.agreement.entity";
 import { Contract }                     from "../../../../../domains/blockchains/contracts/entities/contract.entity";
 import { FunctionSignature }            from "../../../../../domains/blockchains/contracts/entities/function-signature.entity";
 import { RelContractFunctionSignature } from "../../../../../domains/blockchains/contracts/entities/rel-contract-function_signature.entity";
@@ -86,7 +89,7 @@ export const dAppTypeOrmModuleAsyncOptions: TypeOrmModuleAsyncOptions = {
         // logger     : new SqlLogger(),
         entities: [
             Transaction,
-
+            
             Wallet,
             RelWalletAccount, Account,
             
@@ -94,13 +97,16 @@ export const dAppTypeOrmModuleAsyncOptions: TypeOrmModuleAsyncOptions = {
             
             Contract, Token,
             RelContractFunctionSignature, FunctionSignature,
-
-            Application,
-            TermsAgreement,
+            
+            ApplicationForm,
+            ApplicationDappForm,
+            ApplicationContractForm,
+            ApplicationFromProcessLog,
+            ApplicationTermsAgreement,
             
             Reward,
             RewardPolicy,
-            RewardHistory,
+            RewardHistory
         ]
     } )
 };

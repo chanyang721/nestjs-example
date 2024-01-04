@@ -1,13 +1,15 @@
-import { IsBoolean, IsNotEmpty, IsString, Length, MaxLength, MinLength } from "class-validator";
-import { Column, Entity, OneToMany }                                     from "typeorm";
-import { BaseEntity }                                                    from "../../../../libs/database/orm/typeorm/base/base.entity";
-import { Contract }                                                      from "../../contracts/entities/contract.entity";
+import { PickType }                                   from "@nestjs/mapped-types";
+import { IsNotEmpty, IsString, MaxLength, MinLength } from "class-validator";
+import { Column, Entity, PrimaryGeneratedColumn }     from "typeorm";
+import { BaseEntity }                             from "../../../../libs/database/orm/typeorm/base/base.entity";
+import { Dapp }                                   from "../../dapp/entities/dapp.entity";
 
 
-@Entity( { name: "dapp" } )
-export class Dapp extends BaseEntity {
+
+@Entity( { name: "application_dapp_form" } )
+export class ApplicationDappForm extends BaseEntity {
     /*
-     * Columns
+     * Dapp Columns
      * */
     @IsString()
     @IsNotEmpty()
@@ -44,16 +46,9 @@ export class Dapp extends BaseEntity {
     @Column( { length: 200, comment: "리워드 수령 주소" } )
     claim_address: string;
     
-    @IsString()
-    @IsNotEmpty()
-    @MinLength(1)
-    @MaxLength(5)
-    @Column({ length: 10, comment: 'dapp 인증 코드, ex) 00001' })
-    verification_code: string;
-    
     /*
-     * Relations
-     * */
-    @OneToMany(() => Contract, contract => contract.dapp)
-    contracts: Contract[]
+    * Application Dapp Columns
+    * */
+    @Column({ comment: 'dapp 승인 후 연결' })
+    dapp_id?: string;
 }
