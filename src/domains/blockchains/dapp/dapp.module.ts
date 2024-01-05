@@ -16,11 +16,14 @@ import { Dapp }                from "./entities/dapp.entity";
     ],
     controllers: [ DappController ],
     providers  : [
+        /*Service Layer*/
         DappService,
-        DappRepository,
         AzureStorageService,
         CommonConfigService,
-        MailService
+        MailService,
+        
+        /*Repository Layer*/
+        DappRepository,
     ]
 } )
 export class DappModule {
