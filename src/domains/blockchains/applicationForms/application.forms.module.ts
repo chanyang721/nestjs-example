@@ -18,7 +18,7 @@ import { ApplicationTermsAgreement }  from "./entities/application.terms.agreeme
             ApplicationForm,
             ApplicationFromProcessLog,
             ApplicationTermsAgreement
-        ] )
+        ] ),
     ],
     controllers: [ ApplicationFormsController ],
     providers  : [ ApplicationFormsService ]

@@ -15,8 +15,8 @@ import { WalletsModule }          from "./wallets/wallets.module";
         WalletsModule,
         ContractsModule,
         TransactionsModule,
-        RewardsModule,
         ApplicationFormsModule,
+        RewardsModule,
         
         MailModule
     ],
