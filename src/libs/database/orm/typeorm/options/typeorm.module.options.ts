@@ -1,11 +1,9 @@
 import { ConfigModule, ConfigService }  from "@nestjs/config";
 import { TypeOrmModuleAsyncOptions }    from "@nestjs/typeorm";
-import { Admin }                        from "../../../../../domains/blockchains/applicationForms/entities/admin.entity";
-import { Applicant }                    from "../../../../../domains/blockchains/applicationForms/entities/applicant.entity";
-import { ApplicationContractForm }      from "../../../../../domains/blockchains/applicationForms/entities/application-contract-form.entity";
-import { ApplicationDappForm }          from "../../../../../domains/blockchains/applicationForms/entities/application-dapp-form.entity";
-import { ApplicationForm }              from "../../../../../domains/blockchains/applicationForms/entities/application-form.entity";
-import { ApplicationFromProcessLog }    from "../../../../../domains/blockchains/applicationForms/entities/application-from-process-log.entity";
+import { ApplicationContractForm }      from "../../../../../domains/blockchains/applicationForms/entities/application.contract.form.entity";
+import { ApplicationDappForm }          from "../../../../../domains/blockchains/applicationForms/entities/application.dapp.form.entity";
+import { ApplicationForm }              from "../../../../../domains/blockchains/applicationForms/entities/application.form.entity";
+import { ApplicationFromProcessLog }    from "../../../../../domains/blockchains/applicationForms/entities/application.from.process.log.entity";
 import { ApplicationTermsAgreement }    from "../../../../../domains/blockchains/applicationForms/entities/application.terms.agreement.entity";
 import { Contract }                     from "../../../../../domains/blockchains/contracts/entities/contract.entity";
 import { FunctionSignature }            from "../../../../../domains/blockchains/contracts/entities/function-signature.entity";
@@ -100,16 +98,9 @@ export const dAppTypeOrmModuleAsyncOptions: TypeOrmModuleAsyncOptions = {
             Contract, Token,
             RelContractFunctionSignature, FunctionSignature,
             
-            // ApplicationForm,
-            // ApplicationDappForm,
-            // ApplicationContractForm,
-            // ApplicationFromProcessLog,
-            // ApplicationTermsAgreement,
-            Admin,
-            Applicant,
-            ApplicationContractForm,
-            ApplicationDappForm,
             ApplicationForm,
+            ApplicationDappForm,
+            ApplicationContractForm,
             ApplicationFromProcessLog,
             ApplicationTermsAgreement,
             
