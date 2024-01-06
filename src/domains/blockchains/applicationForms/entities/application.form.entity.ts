@@ -1,5 +1,6 @@
-import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from "typeorm";
-import { BaseEntity }                                       from "../../../../libs/database/orm/typeorm/base/base.entity";
+import { IsEnum, IsNotEmpty, IsString }                                from "class-validator";
+import { Column, Entity, Generated, JoinColumn, ManyToOne, OneToMany } from "typeorm";
+import { BaseEntity }                                                  from "../../../../libs/database/orm/typeorm/base/base.entity";
 import { Account }                                          from "../../wallets/entities/account.entity";
 import { ApplicationContractForm }                          from "./application.contract.form.entity";
 import { ApplicationDappForm }                              from "./application.dapp.form.entity";
@@ -13,6 +14,8 @@ export class ApplicationForm extends BaseEntity {
     /*
      * Columns
      * */
+    @IsEnum(APPLICATION_PROCESS_STATUS)
+    @IsNotEmpty()
     @Column( {
         type   : "enum",
         enum   : APPLICATION_PROCESS_STATUS,
@@ -21,8 +24,8 @@ export class ApplicationForm extends BaseEntity {
     } )
     process_status: APPLICATION_PROCESS_STATUS;
 
-    @Column( { length: 5, unique: true, comment: "신청서 번호, ex) 00001" } )
-    application_form_number: string;
+    @Column( { unique: true, comment: "신청서 번호, ex) 00001" } )
+    application_form_number: number;
 
     // @Column( { comment: "약관 동의 여부" } )
     // terms_agreement: boolean;

@@ -12,11 +12,6 @@ export enum AuthErrorCodeEnum {
     UserNotFound = "0008",
 }
 
-export const AUTH_EXCEPTION_MESSAGE = {
-    A01: { code: 1000, message: "" }
-}
-
-
 export class AuthEmailNotFoundException extends BaseException {
     constructor() {
         super( AuthErrorCodeEnum.EmailNotFound, HttpStatus.NOT_FOUND );

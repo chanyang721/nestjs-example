@@ -1,6 +1,7 @@
 import { Module }                     from "@nestjs/common";
 import { TypeOrmModule }              from "@nestjs/typeorm";
 import { ApplicationFormsController } from "./application.forms.controller";
+import { ApplicationFormsRepository } from "./application.forms.repository";
 import { ApplicationFormsService }    from "./application.forms.service";
 import { ApplicationContractForm }    from "./entities/application.contract.form.entity";
 import { ApplicationDappForm }        from "./entities/application.dapp.form.entity";
@@ -21,7 +22,7 @@ import { ApplicationTermsAgreement }  from "./entities/application.terms.agreeme
         ] ),
     ],
     controllers: [ ApplicationFormsController ],
-    providers  : [ ApplicationFormsService ]
+    providers  : [ ApplicationFormsService, ApplicationFormsRepository ]
 } )
 export class ApplicationFormsModule {
 }
