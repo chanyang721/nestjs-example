@@ -17,14 +17,16 @@ export class ApplicationFormsService {
     
     
     async getApplicationFormById( applicationFormId: string ): Promise<ApplicationForm> {
-        const newApplicationForm = await this.applicationFormRepository.findApplicationFormById( applicationFormId );
+        const applicationForm = await this.applicationFormRepository.findApplicationFormById( applicationFormId );
         
-        this.logger.debug( `[getApplicationFormById]: ${ newApplicationForm.id }` );
-        return newApplicationForm;
+        this.logger.debug( `[getApplicationFormById]: ${ applicationForm.id }` );
+        return applicationForm;
     }
     
     
-    async registerApplicationForm( registerApplicationFormDto: RegisterApplicationFormDto ): Promise<any> {
-    
+    async registerApplicationForm( registerApplicationFormDto: RegisterApplicationFormDto, files: Express.Multer.File[] ): Promise<any> {
+        const {  } = files;
+        
+        const newApplicationForm = await this.applicationFormRepository.createApplicationForm()
     }
 }

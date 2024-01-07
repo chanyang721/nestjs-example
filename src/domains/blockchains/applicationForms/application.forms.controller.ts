@@ -37,9 +37,10 @@ export class ApplicationFormsController {
     @Post( "" )
     @UseInterceptors( AnyFilesInterceptor( multerOptions ) )
     async registerApplicationForm(
+      @UploadedFiles() files: Express.Multer.File[],
       @Body() registerApplicationFormDto: RegisterApplicationFormDto
     ): Promise<ResponseDto<boolean>>  {
-        const newApplicationForm = await this.applicationFormsService.registerApplicationForm(registerApplicationFormDto)
+        const newApplicationForm = await this.applicationFormsService.registerApplicationForm(registerApplicationFormDto, files)
         
         return new ResponseDto( {
             statusCode: HttpStatusCode.Created,

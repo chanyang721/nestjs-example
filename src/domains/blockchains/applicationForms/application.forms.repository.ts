@@ -28,4 +28,10 @@ export class ApplicationFormsRepository extends Repository<ApplicationForm> {
             where: { id: applicationFormId }
         } );
     }
+    
+    
+    async createApplicationForm(): Promise<ApplicationForm> {
+        
+        return
+    }
 }

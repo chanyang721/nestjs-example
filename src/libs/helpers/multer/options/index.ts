@@ -6,7 +6,7 @@ import type { Request }              from "express";
 export const multerOptions: MulterOptions = {
     limits    : {
         fileSize: 1024 * 1024 * 100, // 30MB,
-        files   : 1
+        files   : 2
     },
     fileFilter: ( request: Request, file: Express.Multer.File, callback: Function ): void => {
         const fileName = file.originalname.split( "." );
