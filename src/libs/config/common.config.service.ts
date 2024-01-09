@@ -10,6 +10,14 @@ export class CommonConfigService {
     ) {
     }
     
+    get binanceConfig() {
+        return {
+            apiKey: this.configService.get<string>('BINANCE_API_KEY'),
+            secretKey: this.configService.get<string>('BINANCE_SECRET_KEY'),
+            baseUrl: this.configService.get<string>('BINANCE_BASE_URL')
+        }
+    }
+    
     
     get mailConfig() {
         return {
