@@ -1,5 +1,5 @@
-import { Injectable, OnModuleInit }     from "@nestjs/common";
-import { AzureStorageService }          from "../../../libs/infra/azure/storage/azure.storage.service";
+import { Injectable, NotFoundException, OnModuleInit } from "@nestjs/common";
+import { AzureStorageService }                         from "../../../libs/infra/azure/storage/azure.storage.service";
 import { AZURE_STORAGE_CONTAINER_NAME } from "../../../libs/infra/azure/storage/enums/azure.storage.enum";
 import { MailService }                  from "../../../libs/infra/mail/mail.srevice";
 import { DappRepository }               from "./dapp.repository";
@@ -36,5 +36,13 @@ export class DappService {
     async sendMail(sendMailDto: SendMailDto): Promise<void> {
         // 제목, 내용 template 가져오기
         return this.mailService.sendMail( sendMailDto.to, "제목이에요", `<div>난 내용이야<div>` );
+    }
+    
+    
+    async findDappByVerificationCode( code: string ): Promise<Dapp> {
+        const dapp = await this.dappRepository.findDappByVerificationCode(code)
+        if(!dapp) throw new NotFoundException('존재하지 않는 인증번호 입니다.')
+        
+        return dapp;
     }
 }

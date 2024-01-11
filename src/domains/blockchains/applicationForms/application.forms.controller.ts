@@ -18,8 +18,8 @@ export class ApplicationFormsController {
     }
     
     
-    @CacheKey( `application-form` )
-    @CacheTTL( 10_000 )
+    // @CacheKey( `application-form` )
+    // @CacheTTL( 10_000 )
     @Get( "/:id" )
     async getApplicationFormById(
       @Param( "id", ParseIntPipe ) applicationFormId: string

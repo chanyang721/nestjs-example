@@ -18,6 +18,14 @@ export class CommonConfigService {
         }
     }
     
+    get etherConnectConfig() {
+        return {
+            provider_env: this.configService.get<string>('provider_env'),
+            mainnet_url: this.configService.get<string>('MAINNET_URL'),
+            testnet_url: this.configService.get<string>('TESTNET_URL')
+        }
+    }
+    
     
     get mailConfig() {
         return {

@@ -27,6 +27,9 @@ export class ApplicationFormsService {
     async registerApplicationForm( registerApplicationFormDto: RegisterApplicationFormDto, files: Express.Multer.File[] ): Promise<any> {
         const {  } = files;
         
-        const newApplicationForm = await this.applicationFormRepository.createApplicationForm()
+        const newApplicationForm: ApplicationForm = await this.applicationFormRepository.createApplicationForm()
+        
+        this.logger.debug('')
+        return newApplicationForm
     }
 }

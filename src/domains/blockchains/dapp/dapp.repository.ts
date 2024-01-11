@@ -23,4 +23,13 @@ export class DappRepository extends Repository<Dapp> {
         this.logger.debug( "newDappApplication :", newDappApplication.name );
         return newDappApplication;
     }
+    
+    
+    async findDappByVerificationCode( code: string ): Promise<Dapp> {
+        const dapp = await this.findOne({
+            where: { verification_code: code }
+        })
+        
+        return dapp;
+    }
 }

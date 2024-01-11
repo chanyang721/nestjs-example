@@ -1,13 +1,14 @@
-import { Body, Controller, Logger, Post, UploadedFile, UseInterceptors } from "@nestjs/common";
-import { FileInterceptor }                                               from "@nestjs/platform-express";
-import { HttpStatusCode }                                                from "axios";
-import { ResponseDto }                                                   from "../../../libs/fundamentals/interceptors/response/dto/response.dto";
-import { multerOptions }                                                 from "../../../libs/helpers/multer/options";
-import { Public }                                                        from "../../../libs/utils/decoretors";
-import { DappService }                                                   from "./dapp.service";
-import { RegisterDappDto }                                               from "./dtos/register-dapp.dto";
-import { SendMailDto }                                                   from "./dtos/send-mail.dto";
-import { Dapp }                                                          from "./entities/dapp.entity";
+import { Body, Controller, Get, Logger, Param, ParseIntPipe, Post, UploadedFile, UseInterceptors } from "@nestjs/common";
+import { FileInterceptor }                                                                         from "@nestjs/platform-express";
+import { HttpStatusCode }                                                                          from "axios";
+import { ResponseDto }                                                                             from "../../../libs/fundamentals/interceptors/response/dto/response.dto";
+import { multerOptions }                                                                           from "../../../libs/helpers/multer/options";
+import { Public, Roles }                                                                           from "../../../libs/utils/decoretors";
+import { USER_ROLE }                                                                               from "../../users/infrastructure/entities/enums";
+import { DappService }                                                                             from "./dapp.service";
+import { RegisterDappDto }                                                                         from "./dtos/register-dapp.dto";
+import { SendMailDto }                                                                             from "./dtos/send-mail.dto";
+import { Dapp }                                                                                    from "./entities/dapp.entity";
 
 
 
@@ -19,8 +20,16 @@ export class DappController {
     constructor( private readonly dappService: DappService ) {
     }
     
-    
     @Public()
+    @Get('/:code')
+    async findDappByVerificationCode(
+        @Param('code', ParseIntPipe) code: string
+    ) {
+        return this.dappService.findDappByVerificationCode(code)
+    }
+    
+    
+    @Roles(USER_ROLE.ADMIN)
     @Post()
     @UseInterceptors( FileInterceptor( "logo", multerOptions ) )
     async registerDapp(
