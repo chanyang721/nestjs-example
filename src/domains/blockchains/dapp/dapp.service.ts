@@ -3,6 +3,7 @@ import { AzureStorageService }                         from "../../../libs/infra
 import { AZURE_STORAGE_CONTAINER_NAME } from "../../../libs/infra/azure/storage/enums/azure.storage.enum";
 import { MailService }                  from "../../../libs/infra/mail/mail.srevice";
 import { DappRepository }               from "./dapp.repository";
+import { DappDto }                                     from "./dtos/dapp.dto";
 import { RegisterDappDto }              from "./dtos/register-dapp.dto";
 import { SendMailDto }                  from "./dtos/send-mail.dto";
 import { Dapp }                         from "./entities/dapp.entity";
@@ -21,15 +22,15 @@ export class DappService {
     ) {
     }
     
-    async registerDapp( logo: Express.Multer.File, registerDappDto: RegisterDappDto ): Promise<Dapp> {
+    async registerDapp( logo: Express.Multer.File, registerDappDto: RegisterDappDto ): Promise<DappDto> {
         const logoKey = await this.azureStorageService.uploadFile( this.CONTAINER_NAME, logo.originalname, logo.buffer );
         
-        const registeredDappApplication = await this.dappRepository.registerDapp({
+        const newDapp: Dapp = await this.dappRepository.registerDapp({
             ...registerDappDto,
             logo: logoKey
         })
         
-        return registeredDappApplication;
+        return new DappDto(newDapp);
     }
     
     
@@ -39,10 +40,10 @@ export class DappService {
     }
     
     
-    async findDappByVerificationCode( code: string ): Promise<Dapp> {
-        const dapp = await this.dappRepository.findDappByVerificationCode(code)
-        if(!dapp) throw new NotFoundException('존재하지 않는 인증번호 입니다.')
+    async findDappByVerificationCode( code: string ): Promise<DappDto> {
+        const dapp: Dapp = await this.dappRepository.findDappByVerificationCode(code)
         
-        return dapp;
+        if(!dapp) throw new NotFoundException('존재하지 않는 인증번호 입니다.')
+        return new DappDto(dapp);
     }
 }

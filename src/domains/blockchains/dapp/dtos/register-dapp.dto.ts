@@ -9,4 +9,8 @@ export class RegisterDappDto extends PickType( Dapp, [
     "logo",
     "claim_address",
     "description"
-] ) {}
+] ) {
+    constructor() {
+        super();
+    }
+}

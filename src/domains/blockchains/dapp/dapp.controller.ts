@@ -6,9 +6,9 @@ import { multerOptions }                                                        
 import { Public, Roles }                                                                           from "../../../libs/utils/decoretors";
 import { USER_ROLE }                                                                               from "../../users/infrastructure/entities/enums";
 import { DappService }                                                                             from "./dapp.service";
+import { DappDto }                                                                                 from "./dtos/dapp.dto";
 import { RegisterDappDto }                                                                         from "./dtos/register-dapp.dto";
 import { SendMailDto }                                                                             from "./dtos/send-mail.dto";
-import { Dapp }                                                                                    from "./entities/dapp.entity";
 
 
 
@@ -20,23 +20,30 @@ export class DappController {
     constructor( private readonly dappService: DappService ) {
     }
     
+    
     @Public()
-    @Get('/:code')
+    @Get( "/:code" )
     async findDappByVerificationCode(
-        @Param('code', ParseIntPipe) code: string
-    ) {
-        return this.dappService.findDappByVerificationCode(code)
+      @Param( "code", ParseIntPipe ) code: string
+    ): Promise<ResponseDto<DappDto>> {
+        const dappDto: DappDto = await this.dappService.findDappByVerificationCode( code );
+        
+        return new ResponseDto( {
+            statusCode: HttpStatusCode.Ok,
+            message   : "인증이 완료되었습니다.",
+            data      : dappDto
+        } );
     }
     
     
-    @Roles(USER_ROLE.ADMIN)
+    @Roles( USER_ROLE.ADMIN )
     @Post()
-    @UseInterceptors( FileInterceptor( "logo", multerOptions ) )
+    @UseInterceptors( FileInterceptor( "file", multerOptions ) )
     async registerDapp(
-      @UploadedFile() logo: Express.Multer.File,
+      @UploadedFile() file: Express.Multer.File,
       @Body() registerDappDto: RegisterDappDto
-    ): Promise<ResponseDto<Dapp>> {
-        const newDapp: Dapp = await this.dappService.registerDapp( logo, registerDappDto );
+    ): Promise<ResponseDto<DappDto>> {
+        const newDapp: DappDto = await this.dappService.registerDapp( file, registerDappDto );
         
         return new ResponseDto( {
             statusCode: HttpStatusCode.Created,
@@ -47,10 +54,10 @@ export class DappController {
     
     
     @Public()
-    @Post( "mail" )
+    @Post( "email" )
     async sendMail(
-        @Body() sendMailDto: SendMailDto
+      @Body() sendMailDto: SendMailDto
     ) {
-        return this.dappService.sendMail(sendMailDto);
+        return this.dappService.sendMail( sendMailDto );
     }
 }

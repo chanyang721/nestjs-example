@@ -1,31 +1,31 @@
-import { ConfigModule, ConfigService }  from "@nestjs/config";
-import { TypeOrmModuleAsyncOptions }    from "@nestjs/typeorm";
-import { ApplicationContractForm }      from "../../../../../domains/blockchains/applicationForms/entities/application.contract.form.entity";
-import { ApplicationDappForm }          from "../../../../../domains/blockchains/applicationForms/entities/application.dapp.form.entity";
-import { ApplicationForm }              from "../../../../../domains/blockchains/applicationForms/entities/application.form.entity";
-import { ApplicationFromProcessLog }    from "../../../../../domains/blockchains/applicationForms/entities/application.from.process.log.entity";
-import { ApplicationTermsAgreement }    from "../../../../../domains/blockchains/applicationForms/entities/application.terms.agreement.entity";
-import { Contract }                     from "../../../../../domains/blockchains/contracts/entities/contract.entity";
-import { FunctionSignature }            from "../../../../../domains/blockchains/contracts/entities/function-signature.entity";
-import { RelContractFunctionSignature } from "../../../../../domains/blockchains/contracts/entities/rel-contract-function_signature.entity";
-import { Token }                        from "../../../../../domains/blockchains/contracts/entities/token.entity";
-import { Dapp }                         from "../../../../../domains/blockchains/dapp/entities/dapp.entity";
-import { RewardPolicy }                 from "../../../../../domains/blockchains/rewards/entities/reward-policy.entity";
-import { Reward }                       from "../../../../../domains/blockchains/rewards/entities/reward.entity";
-import { RewardHistory }                from "../../../../../domains/blockchains/rewards/entities/reward_history.entity";
-import { Transaction }                  from "../../../../../domains/blockchains/transactions/entities/transaction.entity";
-import { Account }                      from "../../../../../domains/blockchains/wallets/entities/account.entity";
-import { RelWalletAccount }             from "../../../../../domains/blockchains/wallets/entities/rel-wallet-account.entity";
-import { Wallet }                       from "../../../../../domains/blockchains/wallets/entities/wallet.entity";
-import { CommentsEntity }               from "../../../../../domains/boards/posts/infrastructrue/entities/comments.entity";
-import { PostsEntity }                  from "../../../../../domains/boards/posts/infrastructrue/entities/posts.entity";
-import { FileEntity }                   from "../../../../../domains/boards/projects/infrastructure/entities/file.entity";
-import { GroupEntity }                  from "../../../../../domains/boards/projects/infrastructure/entities/group.entity";
-import { ProjectEntity }                from "../../../../../domains/boards/projects/infrastructure/entities/project.entity";
-import { ProfileEntity }                from "../../../../../domains/users/infrastructure/entities/profile.entity";
-import { UserEntity }                   from "../../../../../domains/users/infrastructure/entities/user.entity";
-import { AuthEntity }                   from "../../../../authentication/infrastructure/entities/auth.entity";
-import { PRODUCTION }                   from "../../../../utils/constants";
+import { ConfigModule, ConfigService }   from "@nestjs/config";
+import { TypeOrmModuleAsyncOptions }     from "@nestjs/typeorm";
+import { ApplicationContractForm }       from "../../../../../domains/blockchains/applicationForms/entities/application.contract.form.entity";
+import { ApplicationDappForm }           from "../../../../../domains/blockchains/applicationForms/entities/application.dapp.form.entity";
+import { ApplicationForm }               from "../../../../../domains/blockchains/applicationForms/entities/application.form.entity";
+import { ApplicationFormTermsAgreement } from "../../../../../domains/blockchains/applicationForms/entities/application.form.terms.agreement.entity";
+import { ApplicationFormProcessLog }     from "../../../../../domains/blockchains/applicationForms/entities/application.from.process.log.entity";
+import { Contract }                      from "../../../../../domains/blockchains/contracts/entities/contract.entity";
+import { FunctionSignature }             from "../../../../../domains/blockchains/contracts/entities/function-signature.entity";
+import { RelContractFunctionSignature }  from "../../../../../domains/blockchains/contracts/entities/rel-contract-function_signature.entity";
+import { Token }                         from "../../../../../domains/blockchains/contracts/entities/token.entity";
+import { Dapp }                          from "../../../../../domains/blockchains/dapp/entities/dapp.entity";
+import { RewardPolicy }                  from "../../../../../domains/blockchains/rewards/entities/reward-policy.entity";
+import { Reward }                        from "../../../../../domains/blockchains/rewards/entities/reward.entity";
+import { RewardHistory }                 from "../../../../../domains/blockchains/rewards/entities/reward_history.entity";
+import { Transaction }                   from "../../../../../domains/blockchains/transactions/entities/transaction.entity";
+import { Account }                       from "../../../../../domains/blockchains/wallets/entities/account.entity";
+import { RelWalletAccount }              from "../../../../../domains/blockchains/wallets/entities/rel-wallet-account.entity";
+import { Wallet }                        from "../../../../../domains/blockchains/wallets/entities/wallet.entity";
+import { CommentsEntity }                from "../../../../../domains/boards/posts/infrastructrue/entities/comments.entity";
+import { PostsEntity }                   from "../../../../../domains/boards/posts/infrastructrue/entities/posts.entity";
+import { FileEntity }                    from "../../../../../domains/boards/projects/infrastructure/entities/file.entity";
+import { GroupEntity }                   from "../../../../../domains/boards/projects/infrastructure/entities/group.entity";
+import { ProjectEntity }                 from "../../../../../domains/boards/projects/infrastructure/entities/project.entity";
+import { ProfileEntity }                 from "../../../../../domains/users/infrastructure/entities/profile.entity";
+import { UserEntity }                    from "../../../../../domains/users/infrastructure/entities/user.entity";
+import { AuthEntity }                    from "../../../../authentication/infrastructure/entities/auth.entity";
+import { PRODUCTION }                    from "../../../../utils/constants";
 
 
 
@@ -101,8 +101,8 @@ export const dAppTypeOrmModuleAsyncOptions: TypeOrmModuleAsyncOptions = {
             ApplicationForm,
             ApplicationDappForm,
             ApplicationContractForm,
-            ApplicationFromProcessLog,
-            ApplicationTermsAgreement,
+            ApplicationFormProcessLog,
+            ApplicationFormTermsAgreement,
             
             Reward,
             RewardPolicy,

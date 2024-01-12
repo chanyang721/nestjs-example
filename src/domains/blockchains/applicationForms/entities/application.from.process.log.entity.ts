@@ -5,7 +5,7 @@ import { APPLICATION_PROCESS_STATUS }                                           
 
 
 @Entity( { name: "application_form_process_log" } )
-export class ApplicationFromProcessLog {
+export class ApplicationFormProcessLog {
     @PrimaryGeneratedColumn( "uuid" )
     id: string;
 

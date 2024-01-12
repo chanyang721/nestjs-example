@@ -26,7 +26,7 @@ export class DappRepository extends Repository<Dapp> {
     
     
     async findDappByVerificationCode( code: string ): Promise<Dapp> {
-        const dapp = await this.findOne({
+        const dapp: Dapp = await this.findOne({
             where: { verification_code: code }
         })
         

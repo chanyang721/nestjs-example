@@ -1,5 +1,4 @@
 import { Test, TestingModule } from "@nestjs/testing";
-import { CommonConfigService } from "../../../libs/config/common.config.service";
 import { AzureStorageService } from "../../../libs/infra/azure/storage/azure.storage.service";
 import { MailModule }          from "../../../libs/infra/mail/mail.module";
 import { MailService }         from "../../../libs/infra/mail/mail.srevice";
