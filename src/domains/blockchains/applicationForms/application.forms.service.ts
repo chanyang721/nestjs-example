@@ -24,12 +24,13 @@ export class ApplicationFormsService {
     }
     
     
-    async registerApplicationForm( registerApplicationFormDto: RegisterApplicationFormDto, files: Express.Multer.File[] ): Promise<any> {
-        const {  } = files;
+    async registerApplicationForm(
+      registerApplicationFormDto: RegisterApplicationFormDto,
+      files: Express.Multer.File[]
+    ): Promise<any> {
+        const newApplicationForm: ApplicationForm = await this.applicationFormRepository.registerApplicationForm();
         
-        const newApplicationForm: ApplicationForm = await this.applicationFormRepository.createApplicationForm()
-        
-        this.logger.debug('')
-        return newApplicationForm
+        this.logger.debug( "" );
+        return newApplicationForm;
     }
 }

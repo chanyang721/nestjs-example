@@ -12,13 +12,13 @@ export const multerOptions: MulterOptions = {
         const fileName = file.originalname.split( "." );
         const fileExtension = fileName[ fileName.length - 1 ];
         
-        if ( file.mimetype.match( /\/(pdf|png)$/ ) ) {
+        if ( file.mimetype.match( /\/(pdf|png|sgv)$/ ) ) {
             callback( null, true );
         }
         else {
             callback( new HttpException( {
                 statusCode: HttpStatus.BAD_REQUEST,
-                message   : `${ fileExtension }는 지원하지 않는 파일 형식입니다. 다시 시도해주세요`
+                message   : `${ file.mimetype }는 지원하지 않는 파일 형식입니다. 다시 시도해주세요`
             }, HttpStatus.BAD_REQUEST ), false );
         }
     }

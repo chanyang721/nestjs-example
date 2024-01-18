@@ -31,7 +31,6 @@ export class ApplicationFormsController {
         } );
     }
     
-    
     @Post( "" )
     @UseInterceptors( AnyFilesInterceptor( multerOptions ) )
     async registerApplicationForm(

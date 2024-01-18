@@ -30,7 +30,7 @@ export class ApplicationFormsRepository extends Repository<ApplicationForm> {
     }
     
     
-    async createApplicationForm(): Promise<ApplicationForm> {
+    async registerApplicationForm(): Promise<ApplicationForm> {
         
         return
     }
