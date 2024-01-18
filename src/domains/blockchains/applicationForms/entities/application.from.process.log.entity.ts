@@ -32,7 +32,7 @@ export class ApplicationFormProcessLog {
     @CreateDateColumn( { type: "timestamp" } )
     changed_at: Date;
 
-    @ManyToOne( () => ApplicationForm )
+    @ManyToOne( () => ApplicationForm, application_form => application_form.process_logs)
     @JoinColumn( { name: "application_form_id" } )
     application_form: ApplicationForm;
 }

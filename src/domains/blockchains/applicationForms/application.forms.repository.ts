@@ -1,8 +1,8 @@
 import { Injectable, Logger }      from "@nestjs/common";
 import { InjectRepository }        from "@nestjs/typeorm";
 import { DataSource, Repository }  from "typeorm";
-import { ApplicationContractForm } from "./entities/application.contract.form.entity";
-import { ApplicationDappForm }     from "./entities/application.dapp.form.entity";
+import { ApplicationFormContract } from "./entities/application.form.contract.entity";
+import { ApplicationFormDapp }     from "./entities/application.form.dapp.entity";
 import { ApplicationForm }         from "./entities/application.form.entity";
 
 
@@ -14,10 +14,10 @@ export class ApplicationFormsRepository extends Repository<ApplicationForm> {
     
     constructor(
       private readonly dataSource: DataSource,
-      @InjectRepository( ApplicationDappForm )
-      private readonly applicationDappFormRepository: Repository<ApplicationDappForm>,
-      @InjectRepository( ApplicationContractForm )
-      private readonly applicationContractFormRepository: Repository<ApplicationContractForm>
+      @InjectRepository( ApplicationFormDapp )
+      private readonly applicationDappFormRepository: Repository<ApplicationFormDapp>,
+      @InjectRepository( ApplicationFormContract )
+      private readonly applicationContractFormRepository: Repository<ApplicationFormContract>
     ) {
         super( ApplicationForm, dataSource.createEntityManager() );
     }

@@ -5,11 +5,12 @@ import { Injectable, Logger }                 from "@nestjs/common";
 
 @Injectable()
 export class AzureStorageService {
+    private readonly logger: Logger = new Logger( AzureStorageService.name );
     private readonly AZURE_STORAGE_CONNECTION_STRING: string;
     private readonly blobServiceClient: BlobServiceClient;
     
     
-    constructor( private readonly logger: Logger ) {
+    constructor() {
         this.AZURE_STORAGE_CONNECTION_STRING =
           process.env.AZURE_STORAGE_CONNECTION_STRING;
         

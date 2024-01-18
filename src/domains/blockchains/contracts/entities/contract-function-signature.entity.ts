@@ -12,12 +12,8 @@ export class FunctionSignature extends BaseEntity {
     @Column( { length: 30, comment: "함수 이름" } )
     name: string;
     
-    @Column( { comment: "수수료 위임 여부" } )
-    is_fee_delegation: boolean;
-    
     @Column({ length: 255, comment: "함수 설명" })
     description: string
-    
     
     /*
      * Index Columns

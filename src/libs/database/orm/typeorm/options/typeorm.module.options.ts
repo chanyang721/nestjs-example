@@ -1,13 +1,15 @@
 import { ConfigModule, ConfigService }   from "@nestjs/config";
 import { TypeOrmModuleAsyncOptions }     from "@nestjs/typeorm";
-import { ApplicationContractForm }       from "../../../../../domains/blockchains/applicationForms/entities/application.contract.form.entity";
-import { ApplicationDappForm }           from "../../../../../domains/blockchains/applicationForms/entities/application.dapp.form.entity";
+import { ApplicationFormContractAudit }  from "../../../../../domains/blockchains/applicationForms/entities/application.form.contract.audits.entity";
+import { ApplicationFormContract }       from "../../../../../domains/blockchains/applicationForms/entities/application.form.contract.entity";
+import { ApplicationFormContractFunctionSignature } from "../../../../../domains/blockchains/applicationForms/entities/application.form.contract.function.signature.entity";
+import { ApplicationFormDapp }           from "../../../../../domains/blockchains/applicationForms/entities/application.form.dapp.entity";
 import { ApplicationForm }               from "../../../../../domains/blockchains/applicationForms/entities/application.form.entity";
 import { ApplicationFormTermsAgreement } from "../../../../../domains/blockchains/applicationForms/entities/application.form.terms.agreement.entity";
 import { ApplicationFormProcessLog }     from "../../../../../domains/blockchains/applicationForms/entities/application.from.process.log.entity";
-import { Contract }                      from "../../../../../domains/blockchains/contracts/entities/contract.entity";
-import { FunctionSignature }             from "../../../../../domains/blockchains/contracts/entities/function-signature.entity";
-import { RelContractFunctionSignature }  from "../../../../../domains/blockchains/contracts/entities/rel-contract-function_signature.entity";
+import { Contract }                     from "../../../../../domains/blockchains/contracts/entities/contract.entity";
+import { FunctionSignature }            from "../../../../../domains/blockchains/contracts/entities/contract-function-signature.entity";
+import { RelContractFunctionSignature } from "../../../../../domains/blockchains/contracts/entities/rel-contract-function_signature.entity";
 import { Token }                         from "../../../../../domains/blockchains/contracts/entities/token.entity";
 import { Dapp }                          from "../../../../../domains/blockchains/dapp/entities/dapp.entity";
 import { RewardPolicy }                  from "../../../../../domains/blockchains/rewards/entities/reward-policy.entity";
@@ -99,8 +101,10 @@ export const dAppTypeOrmModuleAsyncOptions: TypeOrmModuleAsyncOptions = {
             RelContractFunctionSignature, FunctionSignature,
             
             ApplicationForm,
-            ApplicationDappForm,
-            ApplicationContractForm,
+            ApplicationFormDapp,
+            ApplicationFormContract,
+            ApplicationFormContractAudit,
+            ApplicationFormContractFunctionSignature,
             ApplicationFormProcessLog,
             ApplicationFormTermsAgreement,
             

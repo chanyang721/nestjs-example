@@ -1,11 +1,12 @@
 import { IsNotEmpty, IsString, MaxLength, MinLength } from "class-validator";
-import { Column, Entity }                             from "typeorm";
+import { Column, Entity, JoinColumn, OneToOne }       from "typeorm";
 import { BaseEntity }                                 from "../../../../libs/database/orm/typeorm/base/base.entity";
+import { ApplicationForm }                            from "./application.form.entity";
 
 
 
-@Entity( { name: "application_dapp_form" } )
-export class ApplicationDappForm extends BaseEntity {
+@Entity( { name: "application_form_dapp" } )
+export class ApplicationFormDapp extends BaseEntity {
     /*
      * Dapp Columns
      * */
@@ -49,4 +50,11 @@ export class ApplicationDappForm extends BaseEntity {
      * */
     @Column( { comment: "dapp 승인 후 연결" } )
     dapp_id?: string;
+    
+    /*
+     * Relations
+     * */
+    @OneToOne(() => ApplicationForm)
+    @JoinColumn({ name: 'application_form_id' })
+    application_form: ApplicationForm;
 }

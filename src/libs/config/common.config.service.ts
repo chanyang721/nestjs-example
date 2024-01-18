@@ -10,38 +10,40 @@ export class CommonConfigService {
     ) {
     }
     
+    
     get binanceConfig() {
         return {
-            apiKey: this.configService.get<string>('BINANCE_API_KEY'),
-            secretKey: this.configService.get<string>('BINANCE_SECRET_KEY'),
-            baseUrl: this.configService.get<string>('BINANCE_BASE_URL')
-        }
+            apiKey   : this.configService.get<string>( "BINANCE_API_KEY" ),
+            secretKey: this.configService.get<string>( "BINANCE_SECRET_KEY" ),
+            baseUrl  : this.configService.get<string>( "BINANCE_BASE_URL" )
+        };
     }
+    
     
     get etherConnectConfig() {
         return {
-            provider_env: this.configService.get<string>('provider_env'),
-            mainnet_url: this.configService.get<string>('MAINNET_URL'),
-            testnet_url: this.configService.get<string>('TESTNET_URL')
-        }
+            provider_env: this.configService.get<string>( "provider_env" ),
+            mainnet_url : this.configService.get<string>( "MAINNET_URL" ),
+            testnet_url : this.configService.get<string>( "TESTNET_URL" )
+        };
     }
     
     
     get mailConfig() {
         return {
             transport: {
-                host  : this.configService.get<string>('MAIL_HOST'),
-                port  : this.configService.get<string>('MAIL_PORT'),
-                secure: this.configService.get<string>('MAILER_SECURE') === "true",
+                host  : this.configService.get<string>( "MAIL_HOST" ),
+                port  : this.configService.get<string>( "MAIL_PORT" ),
+                secure: this.configService.get<string>( "MAILER_SECURE" ) === "true",
                 auth  : {
-                    user: this.configService.get<string>('MAIL_AUTH_USER'),
-                    pass: this.configService.get<string>('MAIL_AUTH_PASSWORD')
+                    user: this.configService.get<string>( "MAIL_AUTH_USER" ),
+                    pass: this.configService.get<string>( "MAIL_AUTH_PASSWORD" )
                 }
             },
             defaults : {
                 from: {
                     name   : "No-reply",
-                    address: this.configService.get<string>('MAIL_FROM_ADDRESS')
+                    address: this.configService.get<string>( "MAIL_FROM_ADDRESS" )
                 }
             }
         };
@@ -127,8 +129,14 @@ export class CommonConfigService {
     
     get accessAzureConfig() {
         return {
-            storageConnectionString           : this.configService.get<string>( "AZURE_STORAGE_CONNECTION_STRING" ),
-            emailCommunicationConnectionString: this.configService.get<string>( "AZURE_EMAIL_CONNECTION_STRING" )
+            storage: {
+                containerName   : this.configService.get<string>( "APPLICATION_STORAGE_CONTAINER_NAME" ),
+                connectionString: this.configService.get<string>( "AZURE_STORAGE_CONNECTION_STRING" )
+            },
+            email  : {
+                connectionString: this.configService.get<string>( "AZURE_EMAIL_CONNECTION_STRING" )
+            }
+            
         };
     }
     

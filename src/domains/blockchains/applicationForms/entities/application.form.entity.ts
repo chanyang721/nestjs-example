@@ -1,11 +1,11 @@
-import { IsEnum, IsNotEmpty }                               from "class-validator";
-import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from "typeorm";
-import { BaseEntity }                                       from "../../../../libs/database/orm/typeorm/base/base.entity";
-import { Account }                                          from "../../wallets/entities/account.entity";
-import { ApplicationContractForm }                          from "./application.contract.form.entity";
-import { ApplicationDappForm }                              from "./application.dapp.form.entity";
-import { ApplicationFormProcessLog }                        from "./application.from.process.log.entity";
-import { APPLICATION_PROCESS_STATUS }                       from "./enums";
+import { IsEnum, IsNotEmpty }                                         from "class-validator";
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne } from "typeorm";
+import { BaseEntity }                                                 from "../../../../libs/database/orm/typeorm/base/base.entity";
+import { Account }                                                    from "../../wallets/entities/account.entity";
+import { ApplicationFormContract }                                    from "./application.form.contract.entity";
+import { ApplicationFormDapp }                                        from "./application.form.dapp.entity";
+import { ApplicationFormProcessLog }                                  from "./application.from.process.log.entity";
+import { APPLICATION_PROCESS_STATUS }                                 from "./enums";
 
 
 
@@ -27,8 +27,8 @@ export class ApplicationForm extends BaseEntity {
     @Column( { unique: true, comment: "신청서 번호, ex) 00001" } )
     application_form_number: number;
     
-    // @Column( { comment: "약관 동의 여부" } )
-    // terms_agreement: boolean;
+    @Column( { comment: "약관 동의 여부" } )
+    terms_agreement: boolean;
     
     
     /*
@@ -43,15 +43,29 @@ export class ApplicationForm extends BaseEntity {
     /*
      * Relations
      * */
-    @OneToMany( () => ApplicationFormProcessLog, application_from_process_log => application_from_process_log.application_form )
-    application_from_process_logs: ApplicationFormProcessLog[];
+    @OneToOne(
+      () => ApplicationFormDapp,
+      ( applicationFormDapp ) => applicationFormDapp.application_form,
+      {
+          cascade: true
+      }
+    )
+    applicationFormDapp: ApplicationFormDapp;
     
-    @OneToMany( () => ApplicationContractForm, application_contract_form => application_contract_form.application_form )
-    application_contract_forms: ApplicationContractForm[];
+    @OneToMany(
+      () => ApplicationFormProcessLog,
+      ( applicationFormProcessLog ) => applicationFormProcessLog.application_form
+    )
+    process_logs: ApplicationFormProcessLog[];
     
-    @ManyToOne( () => ApplicationDappForm )
-    @JoinColumn( { name: "application_dapp_form_id" } )
-    application_dapp_form: ApplicationDappForm;
+    @OneToMany(
+      () => ApplicationFormContract,
+      ( applicationContractForm ) => applicationContractForm.application_form,
+      {
+          cascade: true
+      }
+    )
+    application_form_contracts: ApplicationFormContract[];
     
     @ManyToOne( () => Account )
     @JoinColumn( { name: "account_id" } )

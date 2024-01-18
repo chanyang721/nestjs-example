@@ -1,13 +1,15 @@
-import { Column, Entity, Index, JoinColumn, ManyToOne } from "typeorm";
-import { BaseEntity }                                   from "../../../../libs/database/orm/typeorm/base/base.entity";
+import { Column, Entity, Index, JoinColumn, ManyToOne, OneToMany } from "typeorm";
+import { BaseEntity }                                              from "../../../../libs/database/orm/typeorm/base/base.entity";
 import { Contract }                                     from "../../contracts/entities/contract.entity";
 import { CONTRACT_TYPE }                                from "../../contracts/entities/enums";
+import { ApplicationFormContractAudit }                 from "./application.form.contract.audits.entity";
+import { ApplicationFormContractFunctionSignature }                from "./application.form.contract.function.signature.entity";
 import { ApplicationForm }                              from "./application.form.entity";
 
 
 
-@Entity( { name: "application_contract_form" } )
-export class ApplicationContractForm extends BaseEntity {
+@Entity( { name: "application_form_contract" } )
+export class ApplicationFormContract extends BaseEntity {
     /*
      * Contract Entity Columns
      * */
@@ -23,8 +25,8 @@ export class ApplicationContractForm extends BaseEntity {
     @Column( { length: 255, comment: "audit pdf 저장 url" } )
     audit_url: string;
 
-    // @Column( { default: true, comment: "활성화 상태" } )
-    // is_active: boolean;
+    @Column( { default: true, comment: "활성화 상태" } )
+    is_active: boolean;
 
     @Column( { length: 66, comment: "컨트랙트 주소" } )
     address: string;
@@ -59,13 +61,30 @@ export class ApplicationContractForm extends BaseEntity {
     /*
      * Application Relations
      * */
-    @ManyToOne( () => ApplicationForm )
-    @JoinColumn( { name: "application_id" } )
-    application_form: ApplicationForm;
-
     @ManyToOne( () => Contract, {
         nullable: true
     } )
     @JoinColumn( { name: "contract_id" } )
     contract?: Contract;
+    
+    @ManyToOne(
+      () => ApplicationForm,
+      (application_form) => application_form.application_form_contracts,
+    )
+    @JoinColumn({ name: 'application_form_id' })
+    application_form: ApplicationForm;
+    
+    @OneToMany(
+      () => ApplicationFormContractAudit,
+      (applicationFormContractAudit) =>
+        applicationFormContractAudit.application_form_contract,
+      {
+          cascade: true,
+          nullable: true,
+      },
+    )
+    audits: ApplicationFormContractAudit[];
+    
+    @OneToMany(() => ApplicationFormContractFunctionSignature, applicationFormContractFunctionSignature => applicationFormContractFunctionSignature.contract)
+    application_form_contract_function_signatures: ApplicationFormContractFunctionSignature[]
 }

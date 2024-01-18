@@ -3,8 +3,10 @@ import { TypeOrmModule }                 from "@nestjs/typeorm";
 import { ApplicationFormsController }    from "./application.forms.controller";
 import { ApplicationFormsRepository }    from "./application.forms.repository";
 import { ApplicationFormsService }       from "./application.forms.service";
-import { ApplicationContractForm }       from "./entities/application.contract.form.entity";
-import { ApplicationDappForm }           from "./entities/application.dapp.form.entity";
+import { ApplicationFormContractAudit }  from "./entities/application.form.contract.audits.entity";
+import { ApplicationFormContract }       from "./entities/application.form.contract.entity";
+import { ApplicationFormContractFunctionSignature } from "./entities/application.form.contract.function.signature.entity";
+import { ApplicationFormDapp }           from "./entities/application.form.dapp.entity";
 import { ApplicationForm }               from "./entities/application.form.entity";
 import { ApplicationFormTermsAgreement } from "./entities/application.form.terms.agreement.entity";
 import { ApplicationFormProcessLog }     from "./entities/application.from.process.log.entity";
@@ -14,9 +16,11 @@ import { ApplicationFormProcessLog }     from "./entities/application.from.proce
 @Module( {
     imports    : [
         TypeOrmModule.forFeature( [
-            ApplicationContractForm,
-            ApplicationDappForm,
             ApplicationForm,
+            ApplicationFormDapp,
+            ApplicationFormContract,
+            ApplicationFormContractAudit,
+            ApplicationFormContractFunctionSignature,
             ApplicationFormProcessLog,
             ApplicationFormTermsAgreement
         ] )
