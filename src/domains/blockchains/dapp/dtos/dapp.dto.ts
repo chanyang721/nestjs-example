@@ -4,6 +4,7 @@ import { Dapp }     from "../entities/dapp.entity";
 
 
 export class DappDto extends PickType( Dapp, [
+    'id',
     "name",
     "url",
     "logo",
@@ -17,6 +18,7 @@ export class DappDto extends PickType( Dapp, [
         this.url = inputData.url
         this.logo = inputData.logo
         this.description = inputData.description
+        this.claim_address = inputData.claim_address
         this.verification_code = inputData.verification_code
     }
 }

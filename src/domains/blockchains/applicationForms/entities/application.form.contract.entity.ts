@@ -86,5 +86,5 @@ export class ApplicationFormContract extends BaseEntity {
     audits: ApplicationFormContractAudit[];
     
     @OneToMany(() => ApplicationFormContractFunctionSignature, applicationFormContractFunctionSignature => applicationFormContractFunctionSignature.contract)
-    application_form_contract_function_signatures: ApplicationFormContractFunctionSignature[]
+    function_signatures: ApplicationFormContractFunctionSignature[]
 }

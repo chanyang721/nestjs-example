@@ -3,6 +3,49 @@ import { MulterOptions }             from "@nestjs/platform-express/multer/inter
 import type { Request }              from "express";
 
 
+
+export const dappIconMulterOptions: MulterOptions = {
+    limits: {
+        fileSize: 1024 * 1024 * 10, // 10MB
+        files   : 1
+    },
+    fileFilter(
+      req: Request,
+      file: Express.Multer.File,
+      callback: ( error: ( Error | null ), acceptFile: boolean ) => void
+    ): void {
+        if ( file.mimetype.match( /\/(png|sgv)$/ ) ) {
+            callback( null, true );
+        }
+        
+        callback( new HttpException( {
+            statusCode: HttpStatus.BAD_REQUEST,
+            message   : `${ file.mimetype }는 지원하지 않는 파일 형식입니다. 다시 시도해주세요`
+        }, HttpStatus.BAD_REQUEST ), false );
+    }
+};
+
+export const contractAuditMulterOptions: MulterOptions = {
+    limits: {
+        fileSize: 1024 * 1024 * 40, // 40MB
+        files: 10
+    },
+    fileFilter(
+      req: Request,
+      file: Express.Multer.File,
+      callback: ( error: ( Error | null ), acceptFile: boolean ) => void
+    ): void {
+        if ( file.mimetype.match( /\/(pdf)$/ ) ) {
+            callback( null, true );
+        }
+        
+        callback( new HttpException( {
+            statusCode: HttpStatus.BAD_REQUEST,
+            message   : `${ file.mimetype }는 지원하지 않는 파일 형식입니다. 다시 시도해주세요`
+        }, HttpStatus.BAD_REQUEST ), false );
+    }
+}
+
 export const multerOptions: MulterOptions = {
     limits    : {
         fileSize: 1024 * 1024 * 100, // 30MB,
@@ -15,11 +58,11 @@ export const multerOptions: MulterOptions = {
         if ( file.mimetype.match( /\/(pdf|png|sgv)$/ ) ) {
             callback( null, true );
         }
-        else {
-            callback( new HttpException( {
-                statusCode: HttpStatus.BAD_REQUEST,
-                message   : `${ file.mimetype }는 지원하지 않는 파일 형식입니다. 다시 시도해주세요`
-            }, HttpStatus.BAD_REQUEST ), false );
-        }
+        
+        callback( new HttpException( {
+            statusCode: HttpStatus.BAD_REQUEST,
+            message   : `${ file.mimetype }는 지원하지 않는 파일 형식입니다. 다시 시도해주세요`
+        }, HttpStatus.BAD_REQUEST ), false );
+        
     }
 };

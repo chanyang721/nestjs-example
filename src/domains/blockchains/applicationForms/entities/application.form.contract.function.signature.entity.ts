@@ -30,7 +30,7 @@ export class ApplicationFormContractFunctionSignature extends BaseEntity {
     /*
      * Relations
      * */
-    @ManyToOne( () => ApplicationFormContract, applicationFormContract => applicationFormContract.application_form_contract_function_signatures )
+    @ManyToOne( () => ApplicationFormContract, applicationFormContract => applicationFormContract.function_signatures )
     @JoinColumn( { name: "contract_id" } )
     contract: ApplicationFormContract;
 }

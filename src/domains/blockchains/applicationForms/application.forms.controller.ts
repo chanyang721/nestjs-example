@@ -1,26 +1,36 @@
-import { Body, Controller, Get, Param, ParseIntPipe, Post, UploadedFiles, UseInterceptors } from "@nestjs/common";
-import { AnyFilesInterceptor }                                                              from "@nestjs/platform-express";
-import { HttpStatusCode }                                                                   from "axios";
-import { ResponseDto }                                                                      from "../../../libs/fundamentals/interceptors/response/dto/response.dto";
-import { multerOptions }                                                                    from "../../../libs/helpers/multer/options";
-import { ApplicationFormsService }                                                          from "./application.forms.service";
-import { RegisterApplicationFormDto }                                                       from "./dtos/register.application.form.dto";
+import { Body, Controller, Get, Param, ParseIntPipe, Patch, Post, UploadedFile, UploadedFiles, UseInterceptors } from "@nestjs/common";
+import { AnyFilesInterceptor, FileInterceptor }                                                                  from "@nestjs/platform-express";
+import { ApiBody, ApiConsumes, ApiParam }                                                                        from "@nestjs/swagger";
+import { HttpStatusCode }                                                                                        from "axios";
+import * as fs                                                                                                   from "fs";
+import hbs                                                                                                       from "hbs";
+import { ResponseDto }                                                                                           from "../../../libs/fundamentals/interceptors/response/dto/response.dto";
+import { contractAuditMulterOptions, dappIconMulterOptions, multerOptions }                                      from "../../../libs/helpers/multer/options";
+import { AzureCommunicationService }                                                                             from "../../../libs/infra/azure/mail/azure.communication.service";
+import { Public }                                                                                                from "../../../libs/utils/decoretors";
+import { ApplicationFormsService }                                                                               from "./application.forms.service";
+import { ApplicationFormContractDto }                                                                            from "./dtos/application.form.contract.dto";
+import { ApplicationFormDappDto }                                                                                from "./dtos/application.form.dapp.dto";
+import { RegisterApplicationFormDto }                                                                            from "./dtos/register.application.form.dto";
+import { TermAgreementDto }                                                                                      from "./dtos/terms.agreement.dto";
 
 
 
-@Controller( "applications-form" )
+@Public()
+@Controller( "applications-forms" )
 export class ApplicationFormsController {
     constructor(
-      private readonly applicationFormsService: ApplicationFormsService
+      private readonly applicationFormsService: ApplicationFormsService,
+      private readonly azureCommunicationService: AzureCommunicationService
     ) {
     }
     
     
-    // @CacheKey( `application-form` )
+    // @CacheKey( `application-forms` )
     // @CacheTTL( 10_000 )
-    @Get( "/:id" )
+    @Get( "/:application_form_id" )
     async getApplicationFormById(
-      @Param( "id", ParseIntPipe ) applicationFormId: string
+      @Param( "application_form_id", ParseIntPipe ) applicationFormId: string
     ): Promise<any> {
         const applicationForm = await this.applicationFormsService.getApplicationFormById( applicationFormId );
         
@@ -31,18 +41,106 @@ export class ApplicationFormsController {
         } );
     }
     
+    
     @Post( "" )
     @UseInterceptors( AnyFilesInterceptor( multerOptions ) )
+    @ApiConsumes( "multipart/form-data" )
+    @ApiBody( { type: RegisterApplicationFormDto } )
     async registerApplicationForm(
       @UploadedFiles() files: Express.Multer.File[],
       @Body() registerApplicationFormDto: RegisterApplicationFormDto
     ): Promise<ResponseDto<boolean>> {
-        const newApplicationForm = await this.applicationFormsService.registerApplicationForm( registerApplicationFormDto, files );
+        const newApplicationForm = await this.applicationFormsService.registerApplicationForm( files, registerApplicationFormDto );
         
         return new ResponseDto( {
             statusCode: HttpStatusCode.Created,
             message   : "신청서가 정상적으로 접수되었습니다.",
             data      : !!newApplicationForm
+        } );
+    }
+    
+    
+    @ApiParam( {
+        name   : "version",
+        type   : Number,
+        example: 1
+    } )
+    @Get( "/terms/:version" )
+    async getTermsAgreement(
+      @Param( "version", ParseIntPipe ) version: number
+    ): Promise<ResponseDto<TermAgreementDto[]>> {
+        const termsDto: TermAgreementDto[] =
+          await this.applicationFormsService.getTeemAgreements( version );
+        
+        return new ResponseDto( {
+            statusCode: HttpStatusCode.Ok,
+            message   : "최신 약관 동의 정보입니다.",
+            data      : termsDto
+        } );
+    }
+    
+    
+    @Post( "/dapps" )
+    @UseInterceptors( FileInterceptor( "file", dappIconMulterOptions ) )
+    @ApiConsumes( "multipart/form-data" )
+    async registerDappApplicationForm(
+      @UploadedFile( "file" ) file: Express.Multer.File,
+      @Body() registerApplicationFormDapp: ApplicationFormDappDto
+    ): Promise<ResponseDto<ApplicationFormDappDto>> {
+        const newApplicationFormDapp: ApplicationFormDappDto =
+          await this.applicationFormsService.registerApplicationFormDapp( file, registerApplicationFormDapp );
+        
+        return new ResponseDto( {
+            statusCode: HttpStatusCode.Created,
+            message   : "신규 dapp 신청서의 제출이 완료되었습니다.",
+            data      : newApplicationFormDapp
+        } );
+    }
+    
+    
+    @Post( "/dapps/contracts" )
+    @UseInterceptors( AnyFilesInterceptor( contractAuditMulterOptions ) )
+    @ApiConsumes( "multipart/form-data" )
+    async registerContractApplicationForm(
+      @Body() registerContractApplicationForms: ApplicationFormContractDto
+    ): Promise<ResponseDto<any>> {
+        // const newApplicationFormContracts: ApplicationFormContractDto[] =
+        
+        // return new ResponseDto({
+        //     statusCode: HttpStatusCode.Created,
+        //     message: '',
+        //     data: ''
+        // })
+        return;
+    }
+    
+    
+    @Patch( "" )
+    async changeApplicationFormProcess(): Promise<any> {
+        
+        
+        return;
+    }
+    
+    
+    @Post( "email" )
+    async sendEmailTest() {
+        const htmlFilePath = "/app/templates/email-template-kr.hbs";
+        const htmlTemplate = fs.readFileSync( htmlFilePath, "utf8" );
+        console.log(htmlTemplate)
+        const hbsTemplate = hbs.handlebars.compile(htmlTemplate);
+        console.log(hbsTemplate)
+        
+        // const result = await this.azureCommunicationService.sendEmail(
+        //   '',
+        //   [{ address: 'chanyang721@gmail.com' }],
+        //   'hello!'
+        // )
+        
+        return new ResponseDto( {
+            statusCode: HttpStatusCode.Ok,
+            message   : "메일 전송 완료",
+            data      : null
         } );
     }
 }

@@ -51,6 +51,9 @@ export class ApplicationFormDapp extends BaseEntity {
     @Column( { comment: "dapp 승인 후 연결" } )
     dapp_id?: string;
     
+    @Column({ comment: '신청서 id' })
+    application_form_id: string
+    
     /*
      * Relations
      * */
