@@ -127,9 +127,7 @@ export class ApplicationFormsController {
     async sendEmailTest() {
         const htmlFilePath = "/app/templates/email-template-kr.hbs";
         const htmlTemplate = fs.readFileSync( htmlFilePath, "utf8" );
-        console.log(htmlTemplate)
         const hbsTemplate = hbs.handlebars.compile(htmlTemplate);
-        console.log(hbsTemplate)
         
         // const result = await this.azureCommunicationService.sendEmail(
         //   '',
