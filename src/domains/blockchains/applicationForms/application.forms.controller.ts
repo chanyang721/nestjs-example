@@ -128,12 +128,23 @@ export class ApplicationFormsController {
         const htmlFilePath = "/app/templates/email-template-kr.hbs";
         const htmlTemplate = fs.readFileSync( htmlFilePath, "utf8" );
         const hbsTemplate = hbs.handlebars.compile(htmlTemplate);
+        const context = {
+            dappName: 'test dapp name',
+            dappCode: 'test dapp code',
+            contracts: [
+                { contractName: 'test name1', contractAddress: 'test address1' },
+                { contractName: 'test name2', contractAddress: 'test address2' },
+            ],
+            applicationFormCreateAt: new Date()
+        }
+        console.log("hbsTemplate :", hbsTemplate(context))
+        const content = hbsTemplate(context)
         
-        // const result = await this.azureCommunicationService.sendEmail(
-        //   '',
-        //   [{ address: 'chanyang721@gmail.com' }],
-        //   'hello!'
-        // )
+        const result = await this.azureCommunicationService.sendEmail(
+          'DoNotReply@',
+          [{ address: 'chanyang721@gmail.com' }],
+          content
+        )
         
         return new ResponseDto( {
             statusCode: HttpStatusCode.Ok,
