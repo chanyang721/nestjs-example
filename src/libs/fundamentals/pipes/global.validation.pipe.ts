@@ -1,5 +1,5 @@
 import { HttpStatus, UnprocessableEntityException } from "@nestjs/common";
-import { ValidationPipeOptions }                    from "@nestjs/common/pipes/validation.pipe";
+import { ValidationPipeOptions } from "@nestjs/common/pipes/validation.pipe";
 
 
 

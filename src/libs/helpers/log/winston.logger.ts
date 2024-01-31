@@ -1,9 +1,9 @@
-import { LoggerService }            from "@nestjs/common";
+import { LoggerService } from "@nestjs/common";
 import { utilities, WinstonModule } from "nest-winston";
-import winston                      from "winston";
-import DailyRotateFile              from "winston-daily-rotate-file";
-import SlackHook                    from "winston-slack-webhook-transport";
-import { LOG_LEVEL, LOG_MAX_DAYS }  from "./enums/log.enum";
+import winston from "winston";
+import DailyRotateFile from "winston-daily-rotate-file";
+import SlackHook from "winston-slack-webhook-transport";
+import { LOG_LEVEL, LOG_MAX_DAYS } from "./enums/log.enum";
 
 
 

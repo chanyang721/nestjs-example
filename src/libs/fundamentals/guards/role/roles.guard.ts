@@ -1,6 +1,6 @@
 import { BadRequestException, CanActivate, ExecutionContext, Injectable } from "@nestjs/common";
 import { Reflector } from "@nestjs/core";
-import { USER_ROLE }                                                      from "../../../../domains/users/infrastructure/entities/enums";
+import { USER_ROLE } from "../../../../domains/users/infrastructure/entities/enums";
 import { ROLES_KEY } from "../../../utils/decoretors";
 
 

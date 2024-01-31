@@ -1,6 +1,6 @@
 import { DynamicModule, Module, Provider } from "@nestjs/common";
-import { getDataSourceToken }              from "@nestjs/typeorm";
-import { DataSource, DataSourceOptions }   from "typeorm";
+import { getDataSourceToken } from "@nestjs/typeorm";
+import { DataSource, DataSourceOptions } from "typeorm";
 
 
 
@@ -12,7 +12,7 @@ export class RepositoryModule {
     ): DynamicModule {
         console.log( "RepositoryModule.forFeature", repositories, connectionName );
         const providers: Provider[] = [];
-
+        
         for ( const repository of repositories ) {
             providers.push( {
                 inject    : [ getDataSourceToken( connectionName ) ],
@@ -21,9 +21,9 @@ export class RepositoryModule {
                     return new repository( dataSource );
                 }
             } );
-
+            
         }
-
+        
         return {
             exports  : providers,
             providers: providers,

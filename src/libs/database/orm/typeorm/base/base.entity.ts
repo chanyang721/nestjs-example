@@ -1,4 +1,4 @@
-import { IsDateString, IsOptional, IsUUID }                                                            from "class-validator";
+import { IsDateString, IsOptional, IsUUID } from "class-validator";
 import { BaseEntity as TypeOrmBaseEntity, CreateDateColumn, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 
 

@@ -1,4 +1,4 @@
-import { PickType }       from "@nestjs/mapped-types";
+import { PickType } from "@nestjs/mapped-types";
 import { CommentsEntity } from "../../infrastructrue/entities/comments.entity";
 
 

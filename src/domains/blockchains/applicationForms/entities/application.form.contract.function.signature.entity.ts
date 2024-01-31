@@ -1,10 +1,10 @@
 import { Column, Entity, JoinColumn, ManyToOne } from "typeorm";
-import { BaseEntity }                            from "../../../../libs/database/orm/typeorm/base/base.entity";
-import { ApplicationFormContract }               from "./application.form.contract.entity";
+import { BaseEntity } from "../../../../libs/database/orm/typeorm/base/base.entity";
+import { ApplicationFormContract } from "./application.form.contract.entity";
 
 
 
-@Entity( {} )
+@Entity( { name: "application_form_contract_function_signature" } )
 export class ApplicationFormContractFunctionSignature extends BaseEntity {
     /*
      * Columns

@@ -1,11 +1,20 @@
-import { ArgumentsHost, Catch, ExceptionFilter, HttpException, HttpStatus, Logger, UnprocessableEntityException, ValidationError } from "@nestjs/common";
-import type { Request, Response }                                                                                                  from "express";
-import { MongooseError }                                                                                                           from "mongoose";
-import { TypeORMError }                                                                                                            from "typeorm";
-import { AxiosFetchFailedException }                                                                                               from "./error/exceptions/axios/axios.exception";
-import { BaseException }                                                                                                           from "./error/exceptions/base/base.exception";
-import { UnCatchException }                                                                                                        from "./error/exceptions/base/uncatch.exception";
-import { GlobalErrorException }                                                                                                    from "./error/exceptions/interfaces/global.error.execption";
+import {
+    ArgumentsHost,
+    Catch,
+    ExceptionFilter,
+    HttpException,
+    HttpStatus,
+    Logger,
+    UnprocessableEntityException,
+    ValidationError
+} from "@nestjs/common";
+import type { Request, Response } from "express";
+import { MongooseError } from "mongoose";
+import { TypeORMError } from "typeorm";
+import { AxiosFetchFailedException } from "./error/exceptions/axios/axios.exception";
+import { BaseException } from "./error/exceptions/base/base.exception";
+import { UnCatchException } from "./error/exceptions/base/uncatch.exception";
+import { GlobalErrorException } from "./error/exceptions/interfaces/global.error.execption";
 
 
 
@@ -88,7 +97,8 @@ export class GlobalExceptionFilter<T = BaseException | HttpException | Error> im
         const exceptionResponseBody = GlobalErrorException( { httpStatus, exceptionCode, message, method: request.method, path: request.url, errors } );
         this.logger.error( exceptionResponseBody );
         
-        response.status( httpStatus ).json( exceptionResponseBody );
+        response.status( httpStatus )
+                .json( exceptionResponseBody );
     }
     
     

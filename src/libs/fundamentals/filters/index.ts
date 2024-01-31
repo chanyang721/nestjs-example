@@ -1,4 +1,4 @@
-import { ExceptionFilter }       from "@nestjs/common";
+import { ExceptionFilter } from "@nestjs/common";
 import { GlobalExceptionFilter } from "./global.exception.filter";
 
 

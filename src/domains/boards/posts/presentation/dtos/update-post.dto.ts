@@ -1,4 +1,4 @@
-import { PickType }    from "@nestjs/mapped-types";
+import { PickType } from "@nestjs/mapped-types";
 import { PostsEntity } from "../../infrastructrue/entities/posts.entity";
 
 

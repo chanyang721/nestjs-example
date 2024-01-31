@@ -1,6 +1,6 @@
 import { EmailAddress, EmailClient } from "@azure/communication-email";
-import { DefaultAzureCredential }    from "@azure/identity";
-import { Injectable, Logger }        from "@nestjs/common";
+import { DefaultAzureCredential } from "@azure/identity";
+import { Injectable, Logger } from "@nestjs/common";
 
 
 

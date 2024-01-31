@@ -1,7 +1,7 @@
 import { Column, Entity, JoinColumn, OneToOne } from "typeorm";
-import { UserEntity }                           from "../../../../domains/users/infrastructure/entities/user.entity";
-import { BaseEntity }                           from "../../../database/orm/typeorm/base/base.entity";
-import { AuthenticationPlatform }               from "./enums/auth.enum.platform";
+import { UserEntity } from "../../../../domains/users/infrastructure/entities/user.entity";
+import { BaseEntity } from "../../../database/orm/typeorm/base/base.entity";
+import { AuthenticationPlatform } from "./enums/auth.enum.platform";
 
 
 

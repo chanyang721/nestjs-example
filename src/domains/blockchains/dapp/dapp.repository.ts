@@ -1,24 +1,24 @@
-import { Injectable, Logger }     from "@nestjs/common";
-import { DataSource, Repository } from "typeorm";
-import { RegisterDappDto }        from "./dtos/register-dapp.dto";
-import { Dapp }                   from "./entities/dapp.entity";
+import { Injectable, Logger } from "@nestjs/common";
+import { DataSource } from "typeorm";
+import { RegisterDappDto } from "./dtos/register-dapp.dto";
+import { Dapp } from "./entities/dapp.entity";
 
 
 
 @Injectable()
-export class DappRepository extends Repository<Dapp> {
+export class DappRepository {
     protected readonly logger: Logger = new Logger( DappRepository.name );
     
     
     constructor(
-        private readonly dataSource: DataSource
+      private readonly dataSource: DataSource
     ) {
-        super( Dapp, dataSource.createEntityManager() );
     }
     
     
     async registerDapp( registerDapp: RegisterDappDto ): Promise<Dapp> {
-        const newDappApplication = await this.save( registerDapp );
+        const newDappApplication: Dapp =
+          await this.dataSource.manager.save( Dapp, registerDapp );
         
         this.logger.debug( "newDappApplication :", newDappApplication.name );
         return newDappApplication;
@@ -26,9 +26,9 @@ export class DappRepository extends Repository<Dapp> {
     
     
     async findDappByVerificationCode( code: string ): Promise<Dapp> {
-        const dapp: Dapp = await this.findOne({
+        const dapp: Dapp = await this.dataSource.manager.findOne( Dapp, {
             where: { verification_code: code }
-        })
+        } );
         
         return dapp;
     }

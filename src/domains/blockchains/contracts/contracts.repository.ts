@@ -1,21 +1,16 @@
-import { Injectable, Logger }     from "@nestjs/common";
-import { InjectRepository }       from "@nestjs/typeorm";
-import { DataSource, Repository } from "typeorm";
-import { Contract }               from "./entities/contract.entity";
+import { Injectable, Logger } from "@nestjs/common";
+import { DataSource } from "typeorm";
 
 
 
 @Injectable()
-export class ContractsRepository extends Repository<Contract> {
+export class ContractsRepository {
     private readonly logger = new Logger( ContractsRepository.name );
     
     
     constructor(
-      private readonly dataSource: DataSource,
-      @InjectRepository( Contract )
-      private readonly contractsRepository: Repository<Contract>
+      private readonly dataSource: DataSource
     ) {
-        super( Contract, dataSource.createEntityManager() );
     }
     
     

@@ -1,6 +1,6 @@
 import { Column, Entity, OneToMany } from "typeorm";
-import { BaseEntity }                from "../../../../../libs/database/orm/typeorm/base/base.entity";
-import { GroupEntity }               from "./group.entity";
+import { BaseEntity } from "../../../../../libs/database/orm/typeorm/base/base.entity";
+import { GroupEntity } from "./group.entity";
 
 
 

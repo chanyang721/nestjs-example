@@ -1,7 +1,7 @@
 import { Column, Entity, Index, OneToMany } from "typeorm";
-import { BaseEntity }                       from "../../../../libs/database/orm/typeorm/base/base.entity";
-import { Transaction }                      from "../../transactions/entities/transaction.entity";
-import { RelWalletAccount }                 from "./rel-wallet-account.entity";
+import { BaseEntity } from "../../../../libs/database/orm/typeorm/base/base.entity";
+import { Transaction } from "../../transactions/entities/transaction.entity";
+import { RelWalletAccount } from "./rel-wallet-account.entity";
 
 
 
@@ -18,7 +18,7 @@ export class Account extends BaseEntity {
     transactions: Transaction[];
     
     @OneToMany(
-        () => RelWalletAccount,
-        rel_wallet_account => rel_wallet_account.account )
+      () => RelWalletAccount,
+      rel_wallet_account => rel_wallet_account.account )
     rel_wallet_accounts: RelWalletAccount[];
 }

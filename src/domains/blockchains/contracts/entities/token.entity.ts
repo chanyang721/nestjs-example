@@ -1,5 +1,5 @@
-import { Column, Entity }                         from "typeorm";
-import { BaseEntity }                             from "../../../../libs/database/orm/typeorm/base/base.entity";
+import { Column, Entity } from "typeorm";
+import { BaseEntity } from "../../../../libs/database/orm/typeorm/base/base.entity";
 import { CONTRACT_STANDARD, TOKEN_CONTRACT_TYPE } from "./enums";
 
 

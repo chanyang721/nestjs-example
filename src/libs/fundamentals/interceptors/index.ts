@@ -1,4 +1,4 @@
-import { NestInterceptor }     from "@nestjs/common/interfaces/features/nest-interceptor.interface";
+import { NestInterceptor } from "@nestjs/common/interfaces/features/nest-interceptor.interface";
 import { ResponseInterceptor } from "./response/response.interceptor";
 
 

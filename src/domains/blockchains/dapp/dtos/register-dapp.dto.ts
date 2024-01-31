@@ -1,5 +1,5 @@
 import { PickType } from "@nestjs/mapped-types";
-import { Dapp }     from "../entities/dapp.entity";
+import { Dapp } from "../entities/dapp.entity";
 
 
 

@@ -1,10 +1,10 @@
 import { PickType } from "@nestjs/mapped-types";
-import { Dapp }     from "../entities/dapp.entity";
+import { Dapp } from "../entities/dapp.entity";
 
 
 
 export class DappDto extends PickType( Dapp, [
-    'id',
+    "id",
     "name",
     "url",
     "logo",
@@ -12,13 +12,13 @@ export class DappDto extends PickType( Dapp, [
     "claim_address",
     "verification_code"
 ] ) {
-    constructor(inputData: Dapp) {
+    constructor( inputData: Dapp ) {
         super();
-        this.name = inputData.name
-        this.url = inputData.url
-        this.logo = inputData.logo
-        this.description = inputData.description
-        this.claim_address = inputData.claim_address
-        this.verification_code = inputData.verification_code
+        this.name = inputData.name;
+        this.url = inputData.url;
+        this.logo = inputData.logo;
+        this.description = inputData.description;
+        this.claim_address = inputData.claim_address;
+        this.verification_code = inputData.verification_code;
     }
 }

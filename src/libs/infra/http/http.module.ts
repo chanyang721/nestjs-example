@@ -1,6 +1,6 @@
-import { HttpModule as AxiosHttpModule, HttpService }          from "@nestjs/axios";
+import { HttpModule as AxiosHttpModule, HttpService } from "@nestjs/axios";
 import { Global, HttpException, Logger, Module, OnModuleInit } from "@nestjs/common";
-import { AxiosError, AxiosRequestConfig, AxiosResponse }       from "axios";
+import { AxiosError, AxiosRequestConfig, AxiosResponse } from "axios";
 
 
 

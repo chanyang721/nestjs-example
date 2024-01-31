@@ -1,5 +1,5 @@
 import { HttpModuleAsyncOptions } from "@nestjs/axios/dist/interfaces";
-import { ConfigService }          from "@nestjs/config";
+import { ConfigService } from "@nestjs/config";
 
 
 

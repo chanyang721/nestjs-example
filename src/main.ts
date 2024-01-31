@@ -1,13 +1,13 @@
-import { NestFactory }            from "@nestjs/core";
+import { NestFactory } from "@nestjs/core";
 import { NestExpressApplication } from "@nestjs/platform-express";
-import compression                from "compression";
-import cookieParser               from "cookie-parser";
-import helmet                     from "helmet";
-import { AppModule }              from "./app.module";
-import { CommonConfigService }    from "./libs/config/common.config.service";
-import { fundamentals }           from "./libs/fundamentals";
-import { winstonLogger }          from "./libs/helpers/log/winston.logger";
-import { setupSwagger }           from "./libs/utils/swagger";
+import compression from "compression";
+import cookieParser from "cookie-parser";
+import helmet from "helmet";
+import { AppModule } from "./app.module";
+import { CommonConfigService } from "./libs/config/common.config.service";
+import { fundamentals } from "./libs/fundamentals";
+import { winstonLogger } from "./libs/helpers/log/winston.logger";
+import { setupSwagger } from "./libs/utils/swagger";
 
 
 

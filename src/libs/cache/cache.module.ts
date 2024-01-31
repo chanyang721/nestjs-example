@@ -1,8 +1,8 @@
 import { CacheInterceptor, CacheModule } from "@nestjs/cache-manager";
-import { Module }                        from "@nestjs/common";
-import { ConfigService }                 from "@nestjs/config";
-import { APP_INTERCEPTOR }               from "@nestjs/core";
-import * as redisStore                   from "cache-manager-redis-store";
+import { Module } from "@nestjs/common";
+import { ConfigService } from "@nestjs/config";
+import { APP_INTERCEPTOR } from "@nestjs/core";
+import * as redisStore from "cache-manager-redis-store";
 
 
 
@@ -16,7 +16,7 @@ import * as redisStore                   from "cache-manager-redis-store";
                 host : configService.get<string>( "REDIS_CONTAINER_HOST" ),
                 port : configService.get<number>( "REDIS_PORT" ),
                 ttl  : configService.get<number>( "REDIS_TTL" ),
-                max  : configService.get<number>( "REDIS_MAX" ),
+                max  : configService.get<number>( "REDIS_MAX" )
                 // password: configService.get<string>( "REDIS_PASSWORD" ),
             } )
         } ),

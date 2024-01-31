@@ -1,4 +1,4 @@
-import { applyDecorators, HttpStatus }                     from "@nestjs/common";
+import { applyDecorators, HttpStatus } from "@nestjs/common";
 import { ApiBody, ApiConsumes, ApiOperation, ApiResponse } from "@nestjs/swagger";
 
 

@@ -1,6 +1,6 @@
-import { ApiParam, ApiProperty } from "@nestjs/swagger";
-import { Column, Entity }        from "typeorm";
-import { BaseEntity }           from "../../../../libs/database/orm/typeorm/base/base.entity";
+import { ApiProperty } from "@nestjs/swagger";
+import { Column, Entity } from "typeorm";
+import { BaseEntity } from "../../../../libs/database/orm/typeorm/base/base.entity";
 import { TERMS_AGREEMENT_NAME } from "./enums";
 
 

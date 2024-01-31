@@ -1,4 +1,4 @@
-import { PickType }                      from "@nestjs/mapped-types";
+import { PickType } from "@nestjs/mapped-types";
 import { ApplicationFormTermsAgreement } from "../entities/application.form.terms.agreement.entity";
 
 
@@ -17,7 +17,7 @@ export class TermAgreementDto extends PickType( ApplicationFormTermsAgreement, [
 ] ) {
     
     constructor( inputData: ApplicationFormTermsAgreement ) {
-        super()
+        super();
         this.name = inputData.name;
         this.contents = inputData.contents;
         this.required = inputData.required;

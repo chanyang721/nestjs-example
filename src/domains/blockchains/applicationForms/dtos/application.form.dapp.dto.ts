@@ -1,4 +1,4 @@
-import { PickType }            from "@nestjs/mapped-types";
+import { PickType } from "@nestjs/mapped-types";
 import { ApplicationFormDapp } from "../entities/application.form.dapp.entity";
 
 
@@ -9,7 +9,7 @@ export class ApplicationFormDappDto extends PickType( ApplicationFormDapp, [
     "description",
     "claim_address",
     "url",
-    'application_form_id'
+    "application_form_id"
 ] ) {
     
     constructor( inputData: ApplicationFormDappDto ) {
@@ -19,6 +19,6 @@ export class ApplicationFormDappDto extends PickType( ApplicationFormDapp, [
         this.logo = inputData.logo;
         this.description = inputData.description;
         this.claim_address = inputData.claim_address;
-        this.application_form_id = inputData.application_form_id
+        this.application_form_id = inputData.application_form_id;
     }
 }

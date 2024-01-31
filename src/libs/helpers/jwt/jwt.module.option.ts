@@ -1,6 +1,6 @@
 import { ConfigModule, ConfigService } from "@nestjs/config";
-import { JwtModuleAsyncOptions }       from "@nestjs/jwt";
-import { Algorithm }                   from "jsonwebtoken";
+import { JwtModuleAsyncOptions } from "@nestjs/jwt";
+import { Algorithm } from "jsonwebtoken";
 
 
 

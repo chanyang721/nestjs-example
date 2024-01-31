@@ -1,4 +1,4 @@
-import { ProjectEntity }    from "../../infrastructure/entities/project.entity";
+import { ProjectEntity } from "../../infrastructure/entities/project.entity";
 import { CreateProjectDto } from "../dtos/create-project.dto";
 
 

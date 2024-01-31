@@ -1,6 +1,6 @@
 import { CommandHandler, EventPublisher, ICommandHandler } from "@nestjs/cqrs";
-import { ProjectCommandRepository }                        from "../../../infrastructure/repositories/project.command.repository";
-import { CreateProjectDto }                                from "../../../presentation/dtos/create-project.dto";
+import { ProjectCommandRepository } from "../../../infrastructure/repositories/project.command.repository";
+import { CreateProjectDto } from "../../../presentation/dtos/create-project.dto";
 
 
 

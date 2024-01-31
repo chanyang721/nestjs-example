@@ -1,6 +1,6 @@
 import { Test, TestingModule } from "@nestjs/testing";
-import { ProjectService }      from "../../application/services/project.service";
-import { ProjectController }   from "./project.controller";
+import { ProjectService } from "../../application/services/project.service";
+import { ProjectController } from "./project.controller";
 
 
 

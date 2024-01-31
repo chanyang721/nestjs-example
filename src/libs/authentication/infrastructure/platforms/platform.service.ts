@@ -1,4 +1,4 @@
-import { Injectable }             from "@nestjs/common";
+import { Injectable } from "@nestjs/common";
 import { AuthenticationPlatform } from "../entities/enums/auth.enum.platform";
 
 

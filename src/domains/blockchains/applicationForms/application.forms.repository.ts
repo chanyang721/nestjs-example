@@ -1,11 +1,10 @@
-import { Injectable, Logger, NotFoundException } from "@nestjs/common";
-import { InjectRepository }                      from "@nestjs/typeorm";
-import { DataSource, Repository }  from "typeorm";
-import { DappDto }                               from "../dapp/dtos/dapp.dto";
-import { ApplicationFormDappDto }                from "./dtos/application.form.dapp.dto";
+import { Injectable, Logger } from "@nestjs/common";
+import { InjectRepository } from "@nestjs/typeorm";
+import { DataSource, Repository } from "typeorm";
+import { ApplicationFormDappDto } from "./dtos/application.form.dapp.dto";
 import { ApplicationFormContract } from "./entities/application.form.contract.entity";
-import { ApplicationFormDapp }     from "./entities/application.form.dapp.entity";
-import { ApplicationForm }         from "./entities/application.form.entity";
+import { ApplicationFormDapp } from "./entities/application.form.dapp.entity";
+import { ApplicationForm } from "./entities/application.form.entity";
 import { ApplicationFormTermsAgreement } from "./entities/application.form.terms.agreement.entity";
 
 
@@ -35,22 +34,24 @@ export class ApplicationFormsRepository extends Repository<ApplicationForm> {
     
     async registerApplicationForm(): Promise<ApplicationForm> {
         
-        return
+        return;
     }
     
     
-    async findTermsAgreements(version: number): Promise<ApplicationFormTermsAgreement[]> {
-        const terms: ApplicationFormTermsAgreement[] = await this.dataSource.getRepository(ApplicationFormTermsAgreement).find({
-            where: { is_active: true, version: version },
-        })
+    async findTermsAgreements( version: number ): Promise<ApplicationFormTermsAgreement[]> {
+        const terms: ApplicationFormTermsAgreement[] = await this.dataSource.getRepository( ApplicationFormTermsAgreement )
+                                                                 .find( {
+                                                                     where: { is_active: true, version: version }
+                                                                 } );
         
         return terms;
     }
     
     
     public async registerDappApplicationForm( registerDappApplicationForm: ApplicationFormDappDto ): Promise<ApplicationFormDapp> {
-        const newDappApplicationForm: ApplicationFormDapp = await this.dataSource.getRepository(ApplicationFormDapp).save(registerDappApplicationForm)
+        const newDappApplicationForm: ApplicationFormDapp = await this.dataSource.getRepository( ApplicationFormDapp )
+                                                                      .save( registerDappApplicationForm );
         
-        return newDappApplicationForm
+        return newDappApplicationForm;
     }
 }

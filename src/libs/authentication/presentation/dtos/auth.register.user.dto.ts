@@ -1,6 +1,6 @@
 import { ApiProperty, PickType } from "@nestjs/swagger";
-import { IsOptional, IsString }  from "class-validator";
-import { AuthEntityDto }         from "./auth.entity.dto";
+import { IsOptional, IsString } from "class-validator";
+import { AuthEntityDto } from "./auth.entity.dto";
 
 
 

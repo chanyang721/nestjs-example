@@ -1,7 +1,7 @@
-import { Injectable }             from "@nestjs/common";
-import { InjectRepository }       from "@nestjs/typeorm";
+import { Injectable } from "@nestjs/common";
+import { InjectRepository } from "@nestjs/typeorm";
 import { DataSource, Repository } from "typeorm";
-import { Transaction }            from "./entities/transaction.entity";
+import { Transaction } from "./entities/transaction.entity";
 
 
 

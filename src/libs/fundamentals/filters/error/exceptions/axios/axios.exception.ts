@@ -1,4 +1,4 @@
-import { HttpStatus }    from "@nestjs/common";
+import { HttpStatus } from "@nestjs/common";
 import { BaseException } from "../base/base.exception";
 
 

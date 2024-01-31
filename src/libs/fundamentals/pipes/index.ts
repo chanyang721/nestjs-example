@@ -1,5 +1,5 @@
 import { PipeTransform, ValidationPipe } from "@nestjs/common";
-import { validationPipeOptions }         from "./global.validation.pipe";
+import { validationPipeOptions } from "./global.validation.pipe";
 
 
 

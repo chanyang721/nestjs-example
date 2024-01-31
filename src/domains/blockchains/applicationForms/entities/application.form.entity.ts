@@ -1,11 +1,11 @@
-import { IsEnum, IsNotEmpty }                                         from "class-validator";
+import { IsEnum, IsNotEmpty } from "class-validator";
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne } from "typeorm";
-import { BaseEntity }                                                 from "../../../../libs/database/orm/typeorm/base/base.entity";
-import { Account }                                                    from "../../wallets/entities/account.entity";
-import { ApplicationFormContract }                                    from "./application.form.contract.entity";
-import { ApplicationFormDapp }                                        from "./application.form.dapp.entity";
-import { ApplicationFormProcessLog }                                  from "./application.from.process.log.entity";
-import { APPLICATION_PROCESS_STATUS }                                 from "./enums";
+import { BaseEntity } from "../../../../libs/database/orm/typeorm/base/base.entity";
+import { Account } from "../../wallets/entities/account.entity";
+import { ApplicationFormContract } from "./application.form.contract.entity";
+import { ApplicationFormDapp } from "./application.form.dapp.entity";
+import { ApplicationFormProcessLog } from "./application.from.process.log.entity";
+import { APPLICATION_PROCESS_STATUS } from "./enums";
 
 
 
@@ -29,6 +29,9 @@ export class ApplicationForm extends BaseEntity {
     
     @Column( { comment: "약관 동의 여부" } )
     terms_agreement: boolean;
+    
+    @Column( { default: false, comment: "신청서 승인 이 후 이메일 전송 여부" } )
+    is_sent_email: boolean;
     
     
     /*

@@ -1,6 +1,6 @@
-import { Column, Entity, Index, OneToMany } from "typeorm";
-import { BaseEntity }                       from "../../../../libs/database/orm/typeorm/base/base.entity";
-import { RelContractFunctionSignature }     from "./rel-contract-function_signature.entity";
+import { Column, Entity, OneToMany } from "typeorm";
+import { BaseEntity } from "../../../../libs/database/orm/typeorm/base/base.entity";
+import { RelContractFunctionSignature } from "./rel-contract-function_signature.entity";
 
 
 
@@ -12,8 +12,8 @@ export class FunctionSignature extends BaseEntity {
     @Column( { length: 30, comment: "함수 이름" } )
     name: string;
     
-    @Column({ length: 255, comment: "함수 설명" })
-    description: string
+    @Column( { length: 255, comment: "함수 설명" } )
+    description: string;
     
     /*
      * Index Columns

@@ -1,17 +1,17 @@
 import { Body, Controller, Get, Param, ParseUUIDPipe, Patch, Post, Query } from "@nestjs/common";
-import { ResponseDto }                                                     from "../../../../../libs/fundamentals/interceptors/response/dto/response.dto";
-import { JwtPayLoadDto }                                                   from "../../../../../libs/helpers/jwt/interface/jwt.payload.interface";
-import { CurrentUser, Public }                                             from "../../../../../libs/utils/decoretors";
-import { CommentsService }                                                 from "../../application/services/comments.service";
-import { PostsService }                                                    from "../../application/services/posts.service";
-import { CommentsEntity }                                                  from "../../infrastructrue/entities/comments.entity";
-import { PostsEntity }                                                     from "../../infrastructrue/entities/posts.entity";
-import { CreatePostDto }                                                   from "../dtos/create-post.dto";
-import { CreateCommentsOrReplyDto }                                        from "../dtos/create.comment.dto";
-import { PagenationOptionsDto }                                            from "../dtos/pagenation-options.dto";
-import { SearchPostsBySearchAndWhereOptionsDto }                           from "../dtos/search.posts.by.where.options.dto";
-import { UpdatePostDto }                                                   from "../dtos/update-post.dto";
-import { UpdateCommentsOrReplyDto }                                        from "../dtos/update.comment.dto";
+import { ResponseDto } from "../../../../../libs/fundamentals/interceptors/response/dto/response.dto";
+import { JwtPayLoadDto } from "../../../../../libs/helpers/jwt/interface/jwt.payload.interface";
+import { CurrentUser, Public } from "../../../../../libs/utils/decoretors";
+import { CommentsService } from "../../application/services/comments.service";
+import { PostsService } from "../../application/services/posts.service";
+import { CommentsEntity } from "../../infrastructrue/entities/comments.entity";
+import { PostsEntity } from "../../infrastructrue/entities/posts.entity";
+import { CreatePostDto } from "../dtos/create-post.dto";
+import { CreateCommentsOrReplyDto } from "../dtos/create.comment.dto";
+import { PagenationOptionsDto } from "../dtos/pagenation-options.dto";
+import { SearchPostsBySearchAndWhereOptionsDto } from "../dtos/search.posts.by.where.options.dto";
+import { UpdatePostDto } from "../dtos/update-post.dto";
+import { UpdateCommentsOrReplyDto } from "../dtos/update.comment.dto";
 
 
 

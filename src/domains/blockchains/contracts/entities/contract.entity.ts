@@ -1,10 +1,10 @@
 import { Column, Entity, Index, JoinColumn, ManyToOne, OneToMany, OneToOne } from "typeorm";
-import { BaseEntity }                                                        from "../../../../libs/database/orm/typeorm/base/base.entity";
-import { Dapp }                                                              from "../../dapp/entities/dapp.entity";
-import { Transaction }                                                       from "../../transactions/entities/transaction.entity";
-import { CONTRACT_TYPE }                                                     from "./enums";
-import { RelContractFunctionSignature }                                      from "./rel-contract-function_signature.entity";
-import { Token }                                                             from "./token.entity";
+import { BaseEntity } from "../../../../libs/database/orm/typeorm/base/base.entity";
+import { Dapp } from "../../dapp/entities/dapp.entity";
+import { Transaction } from "../../transactions/entities/transaction.entity";
+import { CONTRACT_TYPE } from "./enums";
+import { RelContractFunctionSignature } from "./rel-contract-function_signature.entity";
+import { Token } from "./token.entity";
 
 
 

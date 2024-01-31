@@ -1,4 +1,4 @@
-import { PickType }         from "@nestjs/swagger";
+import { PickType } from "@nestjs/swagger";
 import { ProjectEntityDto } from "./project.entity.dto";
 
 

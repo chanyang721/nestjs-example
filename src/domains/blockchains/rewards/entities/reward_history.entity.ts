@@ -1,4 +1,4 @@
-import { Entity }     from "typeorm";
+import { Entity } from "typeorm";
 import { BaseEntity } from "../../../../libs/database/orm/typeorm/base/base.entity";
 
 

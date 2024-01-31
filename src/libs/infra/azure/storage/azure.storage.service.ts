@@ -1,5 +1,5 @@
 import { BlobServiceClient, ContainerClient } from "@azure/storage-blob";
-import { Injectable, Logger }                 from "@nestjs/common";
+import { Injectable, Logger } from "@nestjs/common";
 
 
 
@@ -50,7 +50,7 @@ export class AzureStorageService {
     }
     
     
-    async deleteFile( containerName: string, filePath: string ) {
+    async deleteFile( containerName: string, filePath: string ): Promise<void> {
         const containerClient: ContainerClient =
           this.blobServiceClient.getContainerClient( containerName );
         const blobs = containerClient.listBlobsByHierarchy( containerName, {

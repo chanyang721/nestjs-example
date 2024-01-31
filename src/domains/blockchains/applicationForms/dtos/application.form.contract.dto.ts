@@ -3,23 +3,24 @@ import { ApplicationFormContract } from "../entities/application.form.contract.e
 
 
 
-export class ApplicationFormContractDto extends PickType(ApplicationFormContract, [
-  'name',
-  "source_code_url",
-  "deploy_tx_hash",
-  "audit_url",
-  'is_active',
-  'address',
-  "type",
-  'tracker',
-  "dapp_id",
-]) {
-  
-  application_form_id: string
-  
-  dapp_id: string
-  
-  constructor(inputData: ApplicationFormContract) {
-    super();
-  }
+export class ApplicationFormContractDto extends PickType( ApplicationFormContract, [
+    "name",
+    "source_code_url",
+    "deploy_tx_hash",
+    "audit_url",
+    "is_active",
+    "address",
+    "type",
+    "tracker",
+    "dapp_id"
+] ) {
+    
+    application_form_id: string;
+    
+    dapp_id: string;
+    
+    
+    constructor( inputData: ApplicationFormContract ) {
+        super();
+    }
 }

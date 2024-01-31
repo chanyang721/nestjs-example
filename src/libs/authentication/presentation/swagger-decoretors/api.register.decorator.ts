@@ -1,6 +1,6 @@
 import { applyDecorators, HttpStatus } from "@nestjs/common";
-import { ApiOperation, ApiResponse }   from "@nestjs/swagger";
-import { RegisterUserDto }             from "../dtos/auth.register.user.dto";
+import { ApiOperation, ApiResponse } from "@nestjs/swagger";
+import { RegisterUserDto } from "../dtos/auth.register.user.dto";
 
 
 

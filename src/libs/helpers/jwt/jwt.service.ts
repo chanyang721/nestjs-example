@@ -1,9 +1,9 @@
-import { Injectable }                                          from "@nestjs/common";
-import { JwtService as OriginJwtService, JwtSignOptions }      from "@nestjs/jwt";
-import { TokenDto }                                            from "../../authentication/presentation/dtos/token.dto";
-import { CommonConfigService }                                 from "../../config/common.config.service";
+import { Injectable } from "@nestjs/common";
+import { JwtService as OriginJwtService, JwtSignOptions } from "@nestjs/jwt";
+import { TokenDto } from "../../authentication/presentation/dtos/token.dto";
+import { CommonConfigService } from "../../config/common.config.service";
 import { COOKIE_ACCESS_TOKEN_NAME, COOKIE_REFRESH_TOKEN_NAME } from "../../utils/constants";
-import { JwtPayLoadDto }                                       from "./interface/jwt.payload.interface";
+import { JwtPayLoadDto } from "./interface/jwt.payload.interface";
 
 
 

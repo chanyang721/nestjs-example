@@ -1,7 +1,7 @@
 import { IsNotEmpty, IsString, MaxLength, MinLength } from "class-validator";
-import { Column, Entity, JoinColumn, OneToOne }       from "typeorm";
-import { BaseEntity }                                 from "../../../../libs/database/orm/typeorm/base/base.entity";
-import { ApplicationForm }                            from "./application.form.entity";
+import { Column, Entity, JoinColumn, OneToOne } from "typeorm";
+import { BaseEntity } from "../../../../libs/database/orm/typeorm/base/base.entity";
+import { ApplicationForm } from "./application.form.entity";
 
 
 
@@ -51,13 +51,13 @@ export class ApplicationFormDapp extends BaseEntity {
     @Column( { comment: "dapp 승인 후 연결" } )
     dapp_id?: string;
     
-    @Column({ comment: '신청서 id' })
-    application_form_id: string
+    @Column( { comment: "신청서 id" } )
+    application_form_id: string;
     
     /*
      * Relations
      * */
-    @OneToOne(() => ApplicationForm)
-    @JoinColumn({ name: 'application_form_id' })
+    @OneToOne( () => ApplicationForm )
+    @JoinColumn( { name: "application_form_id" } )
     application_form: ApplicationForm;
 }

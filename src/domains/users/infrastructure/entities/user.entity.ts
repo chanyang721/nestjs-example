@@ -1,8 +1,8 @@
 import { Column, Entity, JoinColumn, OneToOne } from "typeorm";
-import { AuthEntity }                           from "../../../../libs/authentication/infrastructure/entities/auth.entity";
-import { BaseEntity }                           from "../../../../libs/database/orm/typeorm/base/base.entity";
-import { USER_GENDER, USER_ROLE }               from "./enums";
-import { ProfileEntity }                        from "./profile.entity";
+import { AuthEntity } from "../../../../libs/authentication/infrastructure/entities/auth.entity";
+import { BaseEntity } from "../../../../libs/database/orm/typeorm/base/base.entity";
+import { USER_GENDER, USER_ROLE } from "./enums";
+import { ProfileEntity } from "./profile.entity";
 
 
 
@@ -48,7 +48,7 @@ export class UserEntity extends BaseEntity {
     
     @OneToOne( () => ProfileEntity, {
         eager: true
-    })
+    } )
     @JoinColumn( { name: "profile_id" } )
     profile: ProfileEntity;
     

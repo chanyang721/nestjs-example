@@ -1,7 +1,7 @@
-import { Module }                  from "@nestjs/common";
-import { TerminusModule }          from "@nestjs/terminus";
+import { Module } from "@nestjs/common";
+import { TerminusModule } from "@nestjs/terminus";
 import { HealthCheckerController } from "./health-checker.controller";
-import { TerminusLogger }          from "./terminus-logger.service";
+import { TerminusLogger } from "./terminus-logger.service";
 
 
 

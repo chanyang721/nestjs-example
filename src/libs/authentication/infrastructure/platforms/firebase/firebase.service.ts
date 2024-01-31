@@ -1,5 +1,5 @@
-import { Injectable }          from "@nestjs/common";
-import firebase                from "firebase-admin";
+import { Injectable } from "@nestjs/common";
+import firebase from "firebase-admin";
 import { CommonConfigService } from "../../../../config/common.config.service";
 
 

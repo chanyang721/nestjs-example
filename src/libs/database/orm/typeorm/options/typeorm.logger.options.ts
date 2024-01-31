@@ -1,4 +1,4 @@
-import { Logger as NestLogger }    from "@nestjs/common";
+import { Logger as NestLogger } from "@nestjs/common";
 import { Logger as TypeOrmLogger } from "typeorm";
 
 

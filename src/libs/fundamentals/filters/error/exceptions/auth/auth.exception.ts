@@ -1,5 +1,7 @@
-import { HttpStatus }    from "@nestjs/common";
+import { HttpStatus } from "@nestjs/common";
 import { BaseException } from "../base/base.exception";
+
+
 
 export enum AuthErrorCodeEnum {
     EmailNotFound = "0001",
@@ -11,6 +13,7 @@ export enum AuthErrorCodeEnum {
     JwtInvalidSignature = "0007",
     UserNotFound = "0008",
 }
+
 
 export class AuthEmailNotFoundException extends BaseException {
     constructor() {

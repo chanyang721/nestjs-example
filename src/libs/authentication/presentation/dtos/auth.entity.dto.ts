@@ -1,7 +1,7 @@
-import { ApiProperty, PartialType }                            from "@nestjs/swagger";
+import { ApiProperty, PartialType } from "@nestjs/swagger";
 import { IsEnum, IsNotEmpty, IsOptional, IsString, MaxLength } from "class-validator";
-import { BaseEntityDto }                                       from "../../../database/orm/typeorm/base/base.entity.dto";
-import { AuthenticationPlatform }                              from "../../infrastructure/entities/enums/auth.enum.platform";
+import { BaseEntityDto } from "../../../database/orm/typeorm/base/base.entity.dto";
+import { AuthenticationPlatform } from "../../infrastructure/entities/enums/auth.enum.platform";
 
 
 
@@ -42,7 +42,7 @@ export class AuthEntityDto extends PartialType( BaseEntityDto ) {
     @MaxLength( 150 )
     currentRefreshToken: string;
     
-
+    
     constructor( authEntityDto: AuthEntityDto ) {
         super();
         Object.assign( this, authEntityDto );

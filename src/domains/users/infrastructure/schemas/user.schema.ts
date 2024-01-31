@@ -1,6 +1,6 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
-import { HydratedDocument }            from "mongoose";
-import { BaseModel }                   from "../../../../libs/database/orm/mongoose/base/mongoose/base.model";
+import { HydratedDocument } from "mongoose";
+import { BaseModel } from "../../../../libs/database/orm/mongoose/base/mongoose/base.model";
 
 
 

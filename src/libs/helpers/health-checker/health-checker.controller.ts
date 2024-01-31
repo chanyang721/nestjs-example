@@ -1,5 +1,12 @@
-import { Controller, Get }                                                                                                            from "@nestjs/common";
-import { HealthCheck, HealthCheckResult, HealthCheckService, MemoryHealthIndicator, MongooseHealthIndicator, TypeOrmHealthIndicator } from "@nestjs/terminus";
+import { Controller, Get } from "@nestjs/common";
+import {
+    HealthCheck,
+    HealthCheckResult,
+    HealthCheckService,
+    MemoryHealthIndicator,
+    MongooseHealthIndicator,
+    TypeOrmHealthIndicator
+} from "@nestjs/terminus";
 
 
 

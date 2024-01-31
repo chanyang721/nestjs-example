@@ -1,6 +1,6 @@
-import { PickType }                                                         from "@nestjs/mapped-types";
+import { PickType } from "@nestjs/mapped-types";
 import { IsNotEmpty, IsNumber, IsOptional, IsString, MaxLength, MinLength } from "class-validator";
-import { CommentsEntity }                                                   from "../../infrastructrue/entities/comments.entity";
+import { CommentsEntity } from "../../infrastructrue/entities/comments.entity";
 
 
 

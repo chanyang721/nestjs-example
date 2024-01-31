@@ -1,6 +1,6 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { IsUUID }      from "class-validator";
-import { Timestamps }  from "./timestamps.model";
+import { IsUUID } from "class-validator";
+import { Timestamps } from "./timestamps.model";
 
 
 

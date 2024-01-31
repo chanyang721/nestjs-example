@@ -1,6 +1,5 @@
-import { HttpException, Injectable } from "@nestjs/common";
-import { HttpStatusCode }            from "axios";
-import { ethers }              from "ethers";
+import { Injectable } from "@nestjs/common";
+import { ethers } from "ethers";
 import { CommonConfigService } from "../../config/common.config.service";
 
 
@@ -22,16 +21,19 @@ export class EtherConnectService {
         this.setProvider();
     }
     
+    
     setProvider() {
         try {
-            if(!this.provider) {
+            if ( !this.provider ) {
                 this.provider = new ethers.JsonRpcProvider( this.rpcUrl );
             }
-        } catch ( error ) {
-            console.log(error.message)
+        }
+        catch ( error ) {
+            console.log( error.message );
             this.setProvider();
         }
     }
+    
     
     async getProvider() {
         return this.provider;

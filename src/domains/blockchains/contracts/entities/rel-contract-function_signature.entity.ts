@@ -1,7 +1,7 @@
 import { Column, Entity, JoinColumn, ManyToOne } from "typeorm";
-import { BaseEntity }                            from "../../../../libs/database/orm/typeorm/base/base.entity";
-import { FunctionSignature }                     from "./contract-function-signature.entity";
-import { Contract }                              from "./contract.entity";
+import { BaseEntity } from "../../../../libs/database/orm/typeorm/base/base.entity";
+import { FunctionSignature } from "./contract-function-signature.entity";
+import { Contract } from "./contract.entity";
 
 
 

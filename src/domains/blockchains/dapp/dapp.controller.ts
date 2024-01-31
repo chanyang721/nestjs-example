@@ -1,18 +1,30 @@
-import { Body, Controller, Get, Logger, Param, ParseIntPipe, Post, UploadedFile, UseInterceptors } from "@nestjs/common";
-import { FileInterceptor }                                                                         from "@nestjs/platform-express";
-import { HttpStatusCode }                                                                          from "axios";
-import { ResponseDto }                                                                             from "../../../libs/fundamentals/interceptors/response/dto/response.dto";
-import { multerOptions }                                                                           from "../../../libs/helpers/multer/options";
-import { Public, Roles }                                                                           from "../../../libs/utils/decoretors";
-import { USER_ROLE }                                                                               from "../../users/infrastructure/entities/enums";
-import { DappService }                                                                             from "./dapp.service";
-import { DappDto }                                                                                 from "./dtos/dapp.dto";
-import { RegisterDappDto }                                                                         from "./dtos/register-dapp.dto";
-import { SendMailDto }                                                                             from "./dtos/send-mail.dto";
+import {
+    Body,
+    Controller,
+    Get,
+    Logger,
+    Param,
+    ParseIntPipe,
+    Post,
+    Query,
+    UploadedFile,
+    UseInterceptors
+} from "@nestjs/common";
+import { FileInterceptor } from "@nestjs/platform-express";
+import { HttpStatusCode } from "axios";
+import { ResponseDto } from "../../../libs/fundamentals/interceptors/response/dto/response.dto";
+import { multerOptions } from "../../../libs/helpers/multer/options";
+import { Public, Roles } from "../../../libs/utils/decoretors";
+import { PaginationDto } from "../../../libs/utils/dtos";
+import { USER_ROLE } from "../../users/infrastructure/entities/enums";
+import { DappService } from "./dapp.service";
+import { DappDto } from "./dtos/dapp.dto";
+import { RegisterDappDto } from "./dtos/register-dapp.dto";
+import { SendMailDto } from "./dtos/send-mail.dto";
 
 
 
-@Controller( "dapp" )
+@Controller( "dapps" )
 export class DappController {
     private readonly logger: Logger = new Logger( DappController.name );
     
@@ -36,8 +48,8 @@ export class DappController {
     }
     
     
-    @Roles( USER_ROLE.ADMIN )
     @Post()
+    @Roles( USER_ROLE.ADMIN )
     @UseInterceptors( FileInterceptor( "file", multerOptions ) )
     async registerDapp(
       @UploadedFile() file: Express.Multer.File,
@@ -53,7 +65,14 @@ export class DappController {
     }
     
     
-    @Public()
+    @Get( "" )
+    async getDapps(
+      @Query() paginationDto: PaginationDto
+    ): Promise<any> {
+    
+    }
+    
+    
     @Post( "email" )
     async sendMail(
       @Body() sendMailDto: SendMailDto

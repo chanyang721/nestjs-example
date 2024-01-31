@@ -1,7 +1,7 @@
-import { CanActivate }        from "@nestjs/common";
-import { Reflector }          from "@nestjs/core";
+import { CanActivate } from "@nestjs/common";
+import { Reflector } from "@nestjs/core";
 import { JwtAuthGlobalGuard } from "./global/jwt.auth.global.guard";
-import { RolesGuard }         from "./role/roles.guard";
+import { RolesGuard } from "./role/roles.guard";
 
 
 

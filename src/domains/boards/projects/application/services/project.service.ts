@@ -1,5 +1,5 @@
-import { Injectable }                    from "@nestjs/common";
-import { CommandBus, QueryBus }          from "@nestjs/cqrs";
+import { Injectable } from "@nestjs/common";
+import { CommandBus, QueryBus } from "@nestjs/cqrs";
 import { CreateProjectCommandImplement } from "../commands/handlers/create-project.command.handler";
 
 

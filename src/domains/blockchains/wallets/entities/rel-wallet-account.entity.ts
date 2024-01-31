@@ -1,20 +1,20 @@
 import { Column, Entity, JoinColumn, ManyToOne } from "typeorm";
-import { BaseEntity }                            from "../../../../libs/database/orm/typeorm/base/base.entity";
-import { Account }                               from "./account.entity";
-import { Wallet }                                from "./wallet.entity";
+import { BaseEntity } from "../../../../libs/database/orm/typeorm/base/base.entity";
+import { Account } from "./account.entity";
+import { Wallet } from "./wallet.entity";
 
 
 
 @Entity( { name: "rel_wallet_account" } )
 export class RelWalletAccount extends BaseEntity {
     /*
-    * Columns
-    * */
+     * Columns
+     * */
     
     
     /*
-    * FK Columns
-    * */
+     * FK Columns
+     * */
     @Column( { type: "uuid", length: 36 } )
     wallet_id: string;
     
@@ -22,8 +22,8 @@ export class RelWalletAccount extends BaseEntity {
     account_id: string;
     
     /*
-    * Relations
-    * */
+     * Relations
+     * */
     @ManyToOne( () => Wallet, wallet => wallet.rel_wallet_accounts, {
         onDelete: "CASCADE",
         onUpdate: "CASCADE"
@@ -31,10 +31,10 @@ export class RelWalletAccount extends BaseEntity {
     @JoinColumn( { name: "wallet_id" } )
     wallet: Wallet;
     
-    @ManyToOne(() => Account, account => account.rel_wallet_accounts, {
+    @ManyToOne( () => Account, account => account.rel_wallet_accounts, {
         onDelete: "CASCADE",
         onUpdate: "CASCADE"
     } )
-    @JoinColumn({ name: "account_id" })
-    account: Account
+    @JoinColumn( { name: "account_id" } )
+    account: Account;
 }

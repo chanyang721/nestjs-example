@@ -1,6 +1,6 @@
 import { HttpException, HttpStatus } from "@nestjs/common";
-import { MulterOptions }             from "@nestjs/platform-express/multer/interfaces/multer-options.interface";
-import type { Request }              from "express";
+import { MulterOptions } from "@nestjs/platform-express/multer/interfaces/multer-options.interface";
+import type { Request } from "express";
 
 
 
@@ -28,7 +28,7 @@ export const dappIconMulterOptions: MulterOptions = {
 export const contractAuditMulterOptions: MulterOptions = {
     limits: {
         fileSize: 1024 * 1024 * 40, // 40MB
-        files: 10
+        files   : 10
     },
     fileFilter(
       req: Request,
@@ -44,7 +44,7 @@ export const contractAuditMulterOptions: MulterOptions = {
             message   : `${ file.mimetype }는 지원하지 않는 파일 형식입니다. 다시 시도해주세요`
         }, HttpStatus.BAD_REQUEST ), false );
     }
-}
+};
 
 export const multerOptions: MulterOptions = {
     limits    : {

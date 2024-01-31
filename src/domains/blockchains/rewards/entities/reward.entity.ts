@@ -1,6 +1,6 @@
 import { Column, Entity, JoinColumn, OneToOne } from "typeorm";
-import { BaseEntity }                           from "../../../../libs/database/orm/typeorm/base/base.entity";
-import { RewardPolicy }                 from "./reward-policy.entity";
+import { BaseEntity } from "../../../../libs/database/orm/typeorm/base/base.entity";
+import { RewardPolicy } from "./reward-policy.entity";
 
 
 
@@ -8,7 +8,7 @@ import { RewardPolicy }                 from "./reward-policy.entity";
 export class Reward extends BaseEntity {
     
     @Column()
-    policy_id: string
+    policy_id: string;
     
     
     @OneToOne( () => RewardPolicy )

@@ -35,6 +35,7 @@ export class ResponseDto<ReturnData> implements IResponse<ReturnData> {
     } )
     data: ReturnData;
     
+    
     constructor( response: ResponseDto<ReturnData> ) {
         this.statusCode = response.statusCode;
         this.message = response.message;

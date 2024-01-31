@@ -1,27 +1,28 @@
 import { BadRequestException, Injectable, Logger, NotFoundException } from "@nestjs/common";
-import { CommonConfigService }                                        from "../../../libs/config/common.config.service";
-import { AzureStorageService }                                        from "../../../libs/infra/azure/storage/azure.storage.service";
-import { ApplicationFormsRepository }                                 from "./application.forms.repository";
-import { ApplicationFormDappDto }                                     from "./dtos/application.form.dapp.dto";
-import { RegisterApplicationFormDto }                                 from "./dtos/register.application.form.dto";
-import { TermAgreementDto }                                           from "./dtos/terms.agreement.dto";
-import { ApplicationForm }                                            from "./entities/application.form.entity";
-import { ApplicationFormTermsAgreement }                              from "./entities/application.form.terms.agreement.entity";
+import { CommonConfigService } from "../../../libs/config/common.config.service";
+import { AzureStorageService } from "../../../libs/infra/azure/storage/azure.storage.service";
+import { ApplicationFormsRepository } from "./application.forms.repository";
+import { ApplicationFormDappDto } from "./dtos/application.form.dapp.dto";
+import { RegisterApplicationFormDto } from "./dtos/register.application.form.dto";
+import { TermAgreementDto } from "./dtos/terms.agreement.dto";
+import { ApplicationForm } from "./entities/application.form.entity";
+import { ApplicationFormTermsAgreement } from "./entities/application.form.terms.agreement.entity";
 
 
 
 @Injectable()
 export class ApplicationFormsService {
     private readonly logger: Logger = new Logger( ApplicationFormsService.name );
-    private readonly containerName: string
+    private readonly containerName: string;
+    
     
     constructor(
       private readonly commonConfigService: CommonConfigService,
       private readonly applicationFormRepository: ApplicationFormsRepository,
       private readonly storageService: AzureStorageService
     ) {
-        const storageConfig = this.commonConfigService.accessAzureConfig
-        this.containerName = storageConfig.storage.containerName
+        const storageConfig = this.commonConfigService.accessAzureConfig;
+        this.containerName = storageConfig.storage.containerName;
     }
     
     
@@ -64,7 +65,7 @@ export class ApplicationFormsService {
               registerDappApplicationForm.application_form_id,
               file.originalname,
               file.buffer
-            )
+            );
             
             /* save dapp application form */
             const newApplicationFormDapp: ApplicationFormDappDto =
@@ -77,12 +78,12 @@ export class ApplicationFormsService {
             return new ApplicationFormDappDto( newApplicationFormDapp );
         }
         catch ( error ) {
-            this.logger.debug(error)
+            this.logger.debug( error );
             /* delete file if failed */
             await this.storageService.deleteFile(
               this.containerName,
               registerDappApplicationForm.application_form_id
-            )
+            );
         }
     }
 }

@@ -1,5 +1,5 @@
 import { IsEnum, IsOptional, IsString } from "class-validator";
-import { PostsSearchOptions }           from "./search.posts.by.where.options.dto";
+import { PostsSearchOptions } from "./search.posts.by.where.options.dto";
 
 
 

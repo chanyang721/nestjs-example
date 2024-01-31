@@ -1,18 +1,29 @@
-import { Body, Controller, Get, Param, ParseIntPipe, Patch, Post, UploadedFile, UploadedFiles, UseInterceptors } from "@nestjs/common";
-import { AnyFilesInterceptor, FileInterceptor }                                                                  from "@nestjs/platform-express";
-import { ApiBody, ApiConsumes, ApiParam }                                                                        from "@nestjs/swagger";
-import { HttpStatusCode }                                                                                        from "axios";
-import * as fs                                                                                                   from "fs";
-import hbs                                                                                                       from "hbs";
-import { ResponseDto }                                                                                           from "../../../libs/fundamentals/interceptors/response/dto/response.dto";
-import { contractAuditMulterOptions, dappIconMulterOptions, multerOptions }                                      from "../../../libs/helpers/multer/options";
-import { AzureCommunicationService }                                                                             from "../../../libs/infra/azure/mail/azure.communication.service";
-import { Public }                                                                                                from "../../../libs/utils/decoretors";
-import { ApplicationFormsService }                                                                               from "./application.forms.service";
-import { ApplicationFormContractDto }                                                                            from "./dtos/application.form.contract.dto";
-import { ApplicationFormDappDto }                                                                                from "./dtos/application.form.dapp.dto";
-import { RegisterApplicationFormDto }                                                                            from "./dtos/register.application.form.dto";
-import { TermAgreementDto }                                                                                      from "./dtos/terms.agreement.dto";
+import {
+    Body,
+    Controller,
+    Get,
+    Param,
+    ParseIntPipe,
+    Patch,
+    Post,
+    UploadedFile,
+    UploadedFiles,
+    UseInterceptors
+} from "@nestjs/common";
+import { AnyFilesInterceptor, FileInterceptor } from "@nestjs/platform-express";
+import { ApiBody, ApiConsumes, ApiParam } from "@nestjs/swagger";
+import { HttpStatusCode } from "axios";
+import * as fs from "fs";
+import hbs from "hbs";
+import { ResponseDto } from "../../../libs/fundamentals/interceptors/response/dto/response.dto";
+import { contractAuditMulterOptions, dappIconMulterOptions, multerOptions } from "../../../libs/helpers/multer/options";
+import { AzureCommunicationService } from "../../../libs/infra/azure/mail/azure.communication.service";
+import { Public } from "../../../libs/utils/decoretors";
+import { ApplicationFormsService } from "./application.forms.service";
+import { ApplicationFormContractDto } from "./dtos/application.form.contract.dto";
+import { ApplicationFormDappDto } from "./dtos/application.form.dapp.dto";
+import { RegisterApplicationFormDto } from "./dtos/register.application.form.dto";
+import { TermAgreementDto } from "./dtos/terms.agreement.dto";
 
 
 
@@ -115,10 +126,8 @@ export class ApplicationFormsController {
     }
     
     
-    @Patch( "" )
-    async changeApplicationFormProcess(): Promise<any> {
-        
-        
+    @Patch( "/" )
+    async updateApplicationFormProcess(): Promise<any> {
         return;
     }
     
@@ -127,24 +136,27 @@ export class ApplicationFormsController {
     async sendEmailTest() {
         const htmlFilePath = "/app/templates/email-template-kr.hbs";
         const htmlTemplate = fs.readFileSync( htmlFilePath, "utf8" );
-        const hbsTemplate = hbs.handlebars.compile(htmlTemplate);
+        const hbsTemplate = hbs.handlebars.compile( htmlTemplate );
+        
         const context = {
-            dappName: 'test dapp name',
-            dappCode: 'test dapp code',
+            dapp     : {
+                name: "test dapp name",
+                code: "test dapp code"
+            },
             contracts: [
-                { contractName: 'test name1', contractAddress: 'test address1' },
-                { contractName: 'test name2', contractAddress: 'test address2' },
+                { name: "test name1", address: "test address1" },
+                { name: "test name2", address: "test address2" }
             ],
-            applicationFormCreateAt: new Date()
-        }
-        console.log("hbsTemplate :", hbsTemplate(context))
-        const content = hbsTemplate(context)
+            createAt : new Date()
+        };
+        console.log( "hbsTemplate :", hbsTemplate( context ) );
+        const content = hbsTemplate( context );
         
         const result = await this.azureCommunicationService.sendEmail(
-          'DoNotReply@',
-          [{ address: 'chanyang721@gmail.com' }],
+          "DoNotReply@",
+          [ { address: "chanyang721@gmail.com" } ],
           content
-        )
+        );
         
         return new ResponseDto( {
             statusCode: HttpStatusCode.Ok,

@@ -1,6 +1,6 @@
-import { applyDecorators, HttpStatus }         from "@nestjs/common";
+import { applyDecorators, HttpStatus } from "@nestjs/common";
 import { ApiOperation, ApiResponse, PickType } from "@nestjs/swagger";
-import { TokenDto }                            from "../dtos/token.dto";
+import { TokenDto } from "../dtos/token.dto";
 
 
 

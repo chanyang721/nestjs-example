@@ -1,12 +1,12 @@
-import { Module }              from "@nestjs/common";
-import { TypeOrmModule }       from "@nestjs/typeorm";
+import { Module } from "@nestjs/common";
+import { TypeOrmModule } from "@nestjs/typeorm";
 import { CommonConfigService } from "../../../libs/config/common.config.service";
 import { AzureStorageService } from "../../../libs/infra/azure/storage/azure.storage.service";
-import { MailService }         from "../../../libs/infra/mail/mail.srevice";
-import { DappController }      from "./dapp.controller";
-import { DappRepository }      from "./dapp.repository";
-import { DappService }         from "./dapp.service";
-import { Dapp }                from "./entities/dapp.entity";
+import { MailService } from "../../../libs/infra/mail/mail.srevice";
+import { DappController } from "./dapp.controller";
+import { DappRepository } from "./dapp.repository";
+import { DappService } from "./dapp.service";
+import { Dapp } from "./entities/dapp.entity";
 
 
 
@@ -23,7 +23,7 @@ import { Dapp }                from "./entities/dapp.entity";
         MailService,
         
         /*Repository Layer*/
-        DappRepository,
+        DappRepository
     ]
 } )
 export class DappModule {
