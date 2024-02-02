@@ -1,4 +1,5 @@
-import { Module } from "@nestjs/common";
+import { Logger, MiddlewareConsumer, Module } from '@nestjs/common';
+import { LoggerMiddleware } from '../../libs/fundamentals/middlewares/logger.middleware';
 import { MailModule } from "../../libs/infra/mail/mail.module";
 import { ApplicationFormsModule } from "./applicationForms/application.forms.module";
 import { ContractsModule } from "./contracts/contracts.module";
@@ -20,7 +21,11 @@ import { WalletsModule } from "./wallets/wallets.module";
         
         MailModule
     ],
-    providers: []
+    providers: [ Logger ]
 } )
 export class BlockchainsModule {
+    configure( consumer: MiddlewareConsumer ) {
+        consumer.apply( LoggerMiddleware )
+                .forRoutes( "*" );
+    }
 }

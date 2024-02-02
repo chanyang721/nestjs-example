@@ -1,7 +1,7 @@
-import { CreateProjectCommandHandler } from "./create-project.command.handler";
+import { CreateProjectCommandHandler } from './create-project.command.handler';
 
 
 
 export const ProjectCommandHandlers = [
-    CreateProjectCommandHandler
+  CreateProjectCommandHandler,
 ];

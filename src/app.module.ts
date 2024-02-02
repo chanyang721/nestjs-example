@@ -9,7 +9,7 @@ import { RedisCacheModule } from "./libs/cache/cache.module";
 import { configOptions } from "./libs/config/environment.config";
 import { DatabaseModule } from "./libs/database/database.module";
 import { LoggerMiddleware } from "./libs/fundamentals/middlewares/logger.middleware";
-import { HealthCheckerModule } from "./libs/helpers/health-checker/health-checker.module";
+import { HealthCheckerModule } from "./libs/infra/health/health-checker.module";
 import { HttpModule } from "./libs/infra/http/http.module";
 import { httpModuleAsyncOptions } from "./libs/infra/http/options/http.mudule.options";
 
@@ -35,11 +35,5 @@ import { httpModuleAsyncOptions } from "./libs/infra/http/options/http.mudule.op
         BoardsModule,
         BlockchainsModule
     ],
-    providers: [ Logger ]
 } )
-export class AppModule {
-    configure( consumer: MiddlewareConsumer ) {
-        consumer.apply( LoggerMiddleware )
-                .forRoutes( "*" );
-    }
-}
+export class AppModule {}

@@ -5,7 +5,7 @@ import { multerOptions } from "../../../../libs/helpers/multer/options";
 import { Public } from "../../../../libs/utils/decoretors";
 import { UserService } from "../../application/services/user.service";
 import { UpdateUserDto } from "../dtos/update.user.dto";
-import { IUserControllerAdapter } from "../interfaces/user.controller.interface";
+import { IUserControllerAdapter } from "./adaptor";
 
 
 

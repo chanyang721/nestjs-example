@@ -1,15 +1,16 @@
 import { ConfigModuleOptions } from "@nestjs/config/dist/interfaces";
+import Joi from "joi";
 
 
 
 export const configOptions: ConfigModuleOptions = {
-    isGlobal   : true,
-    envFilePath: ".env"
+    isGlobal         : true,
+    envFilePath      : ".env",
     // validationOptions: {
     //     allowUnknown: true,
     //     abortEarly  : true
     // },
-    // validationSchema : {
+    // validationSchema: {
     //     SERVER_PORT      : Joi.number()
     //                           .required(),
     //     DB_CONTAINER_HOST: Joi.string()

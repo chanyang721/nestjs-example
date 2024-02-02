@@ -54,15 +54,15 @@ export const multerOptions: MulterOptions = {
     fileFilter: ( request: Request, file: Express.Multer.File, callback: Function ): void => {
         const fileName = file.originalname.split( "." );
         const fileExtension = fileName[ fileName.length - 1 ];
-        
-        if ( file.mimetype.match( /\/(pdf|png|sgv)$/ ) ) {
+        console.log("file :", file)
+        // if ( file.mimetype.match( /\/(pdf|png|sgv)$/ ) ) {
             callback( null, true );
-        }
+        // }
         
-        callback( new HttpException( {
-            statusCode: HttpStatus.BAD_REQUEST,
-            message   : `${ file.mimetype }는 지원하지 않는 파일 형식입니다. 다시 시도해주세요`
-        }, HttpStatus.BAD_REQUEST ), false );
+        // callback( new HttpException( {
+        //     statusCode: HttpStatus.BAD_REQUEST,
+        //     message   : `${ file.mimetype }는 지원하지 않는 파일 형식입니다. 다시 시도해주세요`
+        // }, HttpStatus.BAD_REQUEST ), false );
         
     }
 };

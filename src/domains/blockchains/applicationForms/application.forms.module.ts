@@ -3,6 +3,7 @@ import { TypeOrmModule } from "@nestjs/typeorm";
 import { CommonConfigService } from "../../../libs/config/common.config.service";
 import { AzureCommunicationService } from "../../../libs/infra/azure/mail/azure.communication.service";
 import { AzureStorageService } from "../../../libs/infra/azure/storage/azure.storage.service";
+import { Account } from "../wallets/entities/account.entity";
 import { ApplicationFormsController } from "./application.forms.controller";
 import { ApplicationFormsRepository } from "./application.forms.repository";
 import { ApplicationFormsService } from "./application.forms.service";
@@ -21,6 +22,7 @@ import { ApplicationFormProcessLog } from "./entities/application.from.process.l
 @Module( {
     imports: [
         TypeOrmModule.forFeature( [
+            Account,
             ApplicationForm,
             ApplicationFormDapp,
             ApplicationFormContract,

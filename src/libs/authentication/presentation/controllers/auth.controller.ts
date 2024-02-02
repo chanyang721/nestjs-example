@@ -11,10 +11,8 @@ import { AuthService } from "../../application/services/auth.service";
 import { RegisterUserDto } from "../dtos/auth.register.user.dto";
 import { LoginDto } from "../dtos/login.dto";
 import { TokenDto } from "../dtos/token.dto";
-import { IAuthControllerAdapter } from "../interfaces/auth.controller.interface";
-import { ApiLoginDecorator } from "../swagger-decoretors/api.login.decorator";
-import { ApiRefreshDecorator } from "../swagger-decoretors/api.refresh.decorator";
-import { ApiRegisterDecorator } from "../swagger-decoretors/api.register.decorator";
+import { IAuthControllerAdapter } from "./adaptor";
+import { ApiLoginDecorator, ApiRefreshDecorator, ApiRegisterDecorator } from "./swagger";
 
 
 

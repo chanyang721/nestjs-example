@@ -1,4 +1,4 @@
-import { Column, Entity, Index, JoinColumn, ManyToOne, OneToMany } from "typeorm";
+import { Column, Entity, Index, JoinColumn, ManyToOne, OneToMany, OneToOne } from "typeorm";
 import { BaseEntity } from "../../../../libs/database/orm/typeorm/base/base.entity";
 import { Contract } from "../../contracts/entities/contract.entity";
 import { CONTRACT_TYPE } from "../../contracts/entities/enums";
@@ -61,7 +61,7 @@ export class ApplicationFormContract extends BaseEntity {
     /*
      * Application Relations
      * */
-    @ManyToOne( () => Contract, {
+    @OneToOne( () => Contract, {
         nullable: true
     } )
     @JoinColumn( { name: "contract_id" } )

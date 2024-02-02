@@ -29,11 +29,11 @@ export class Transaction extends BaseEntity {
     /*
      * Index Columns
      * */
-    @Column( { comment: "block 넘버링" } )
+    @Column( { comment: "block 넘버" } )
     @Index()
     block_number: number;
     
-    @Column( { type: "timestamp" } )
+    @Column( { type: "timestamp", comment: 'transaction 생성 일시' } )
     @Index()
     tx_timestamp: Date;
     

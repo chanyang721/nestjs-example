@@ -30,8 +30,8 @@ export class ApplicationForm extends BaseEntity {
     @Column( { comment: "약관 동의 여부" } )
     terms_agreement: boolean;
     
-    @Column( { default: false, comment: "신청서 승인 이 후 이메일 전송 여부" } )
-    is_sent_email: boolean;
+    @Column( { type: "timestamp", comment: "신청서 승인 이 후 이메일 전송 보낸 날짜" } )
+    send_email_at: Date;
     
     
     /*
