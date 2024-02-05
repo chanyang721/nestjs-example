@@ -1,6 +1,6 @@
 import { HttpException, HttpStatus, Injectable, Logger } from '@nestjs/common';
-import { ResponseDto } from '../../../../../libs/fundamentals/interceptors/response/dto/response.dto';
-import { JwtPayLoadDto } from '../../../../../libs/helpers/jwt/interface/jwt.payload.interface';
+import { ResponseDto } from '@/libs/fundamentals/interceptors/response/dto/response.dto';
+import { JwtPayLoadDto } from '@/libs/helpers/jwt/interface/jwt.payload.interface';
 import { CommentsEntity } from '../../infrastructrue/entities/comments.entity';
 import { CommentsRepository } from '../../infrastructrue/repositories/comments.repository';
 import { CreateCommentsOrReplyDto } from '../../presentation/dtos/create.comment.dto';

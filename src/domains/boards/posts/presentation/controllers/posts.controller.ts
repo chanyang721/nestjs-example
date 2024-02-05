@@ -1,7 +1,7 @@
+import { ResponseDto } from '@/libs/fundamentals/interceptors/response/dto/response.dto';
+import { JwtPayLoadDto } from '@/libs/helpers/jwt/interface/jwt.payload.interface';
+import { CurrentUser, Public } from '@/libs/utils/decoretors';
 import { Body, Controller, Get, Param, ParseUUIDPipe, Patch, Post, Query } from '@nestjs/common';
-import { ResponseDto } from '../../../../../libs/fundamentals/interceptors/response/dto/response.dto';
-import { JwtPayLoadDto } from '../../../../../libs/helpers/jwt/interface/jwt.payload.interface';
-import { CurrentUser, Public } from '../../../../../libs/utils/decoretors';
 import { CommentsService } from '../../application/services/comments.service';
 import { PostsService } from '../../application/services/posts.service';
 import { CommentsEntity } from '../../infrastructrue/entities/comments.entity';

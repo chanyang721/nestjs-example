@@ -1,5 +1,5 @@
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from 'typeorm';
-import { BaseEntity } from '../../../../../libs/database/orm/typeorm/base/base.entity';
+import { BaseEntity } from '@/libs/database/orm/typeorm/base/base.entity';
 import { FileEntity } from './file.entity';
 import { ProjectEntity } from './project.entity';
 

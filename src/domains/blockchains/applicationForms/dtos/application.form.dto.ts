@@ -1,4 +1,4 @@
-import { ApplicationForm } from "../entities/application.form.entity";
+import { ApplicationForm } from '../entities/application.form.entity';
 
 
 

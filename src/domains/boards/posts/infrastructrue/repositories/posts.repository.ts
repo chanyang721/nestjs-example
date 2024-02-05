@@ -1,7 +1,7 @@
 import { HttpException, HttpStatus, Injectable, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { DataSource, Repository } from 'typeorm';
-import { JwtPayLoadDto } from '../../../../../libs/helpers/jwt/interface/jwt.payload.interface';
+import { JwtPayLoadDto } from '@/libs/helpers/jwt/interface/jwt.payload.interface';
 import { CreatePostDto } from '../../presentation/dtos/create-post.dto';
 import { PagenationOptionsDto } from '../../presentation/dtos/pagenation-options.dto';
 import { SearchOptionsDto } from '../../presentation/dtos/search-options.dto';

@@ -1,6 +1,6 @@
 import { IsBoolean, IsNotEmpty, IsOptional, IsString, IsUUID, MaxLength, MinLength } from 'class-validator';
 import { Column, Entity, Index, JoinColumn, ManyToOne, OneToMany } from 'typeorm';
-import { BaseEntity } from '../../../../../libs/database/orm/typeorm/base/base.entity';
+import { BaseEntity } from '@/libs/database/orm/typeorm/base/base.entity';
 import { PostsEntity } from './posts.entity';
 
 

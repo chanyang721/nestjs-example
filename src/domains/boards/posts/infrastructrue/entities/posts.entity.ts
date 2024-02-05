@@ -1,6 +1,6 @@
 import { IsOptional, IsString, MaxLength, MinLength } from 'class-validator';
 import { Column, Entity, Index, OneToMany } from 'typeorm';
-import { BaseEntity } from '../../../../../libs/database/orm/typeorm/base/base.entity';
+import { BaseEntity } from '@/libs/database/orm/typeorm/base/base.entity';
 import { CommentsEntity } from './comments.entity';
 
 

@@ -1,5 +1,5 @@
 import { Column, DeleteDateColumn, Entity, JoinColumn, ManyToOne } from 'typeorm';
-import { BaseEntity } from '../../../../../libs/database/orm/typeorm/base/base.entity';
+import { BaseEntity } from '@/libs/database/orm/typeorm/base/base.entity';
 import { GroupEntity } from './group.entity';
 
 

@@ -1,5 +1,5 @@
-import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
-import { Timestamps } from "./timestamps.model";
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { Timestamps } from './timestamps.model';
 
 
 
@@ -8,11 +8,11 @@ export type BaseDocument = BaseModel & Document;
 
 @Schema()
 export class BaseModel {
-    @Prop()
-    id: string;
-    
-    @Prop()
-    timestamps: Timestamps;
+  @Prop()
+  id: string;
+  
+  @Prop()
+  timestamps: Timestamps;
 }
 
 
