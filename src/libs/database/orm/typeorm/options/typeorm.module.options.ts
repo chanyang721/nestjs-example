@@ -6,7 +6,7 @@ import {
     ApplicationFormDapp,
     ApplicationFormProcessLog,
     ApplicationFormTermsAgreement,
-} from '@/blockchains/applicationForms/entities';
+} from 'src/domains/blockchains/applicationForms/infrasturcture/entities';
 import { Contract, ContractFunctionSignature, RelContractFunctionSignature } from '@/blockchains/contracts/entities';
 import { Token } from '@/blockchains/contracts/entities/token.entity';
 import { Dapp } from '@/blockchains/dapp/entities/dapp.entity';

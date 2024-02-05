@@ -1,26 +1,31 @@
-import { Module } from '@nestjs/common';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { CommonConfigService } from '../../../libs/config/common.config.service';
-import { AzureCommunicationService } from '../../../libs/infra/azure/mail/azure.communication.service';
-import { AzureStorageService } from '../../../libs/infra/azure/storage/azure.storage.service';
-import { Account } from '../wallets/entities/account.entity';
-import { ApplicationFormsController } from './application.forms.controller';
-import { ApplicationFormsRepository } from './application.forms.repository';
-import { ApplicationFormsService } from './application.forms.service';
-import { ApplicationFormContractAudit } from './entities/application.form.contract.audits.entity';
-import { ApplicationFormContract } from './entities/application.form.contract.entity';
+import { ApplicationFormCommandHandlers } from '@/blockchains/applicationForms/application/commands/handlers';
 import {
+  ApplicationFormDapp,
+} from '@/blockchains/applicationForms/infrasturcture/entities/application.form.dapp.entity';
+import { ApplicationForm } from '@/blockchains/applicationForms/infrasturcture/entities/application.form.entity';
+import { CommonConfigService } from '@/libs/config/common.config.service';
+import { AzureCommunicationService } from '@/libs/infra/azure/mail/azure.communication.service';
+import { AzureStorageService } from '@/libs/infra/azure/storage/azure.storage.service';
+import { Module } from '@nestjs/common';
+import { CqrsModule } from '@nestjs/cqrs';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import {
+  ApplicationFormContract,
+  ApplicationFormContractAudit,
   ApplicationFormContractFunctionSignature,
-} from './entities/application.form.contract.function.signature.entity';
-import { ApplicationFormDapp } from './entities/application.form.dapp.entity';
-import { ApplicationForm } from './entities/application.form.entity';
-import { ApplicationFormTermsAgreement } from './entities/application.form.terms.agreement.entity';
-import { ApplicationFormProcessLog } from './entities/application.from.process.log.entity';
+  ApplicationFormProcessLog,
+  ApplicationFormTermsAgreement,
+} from 'src/domains/blockchains/applicationForms/infrasturcture/entities';
+import { Account } from '../wallets/entities/account.entity';
+import { ApplicationFormsService } from './application/services/application.forms.service';
+import { ApplicationFormsRepository } from './infrasturcture/application.forms.repository';
+import { ApplicationFormsController } from './presentation/controllers/application.forms.controller';
 
 
 
 @Module( {
-  imports    : [
+  imports: [
+    CqrsModule,
     TypeOrmModule.forFeature( [
       Account,
       ApplicationForm,
@@ -30,13 +35,17 @@ import { ApplicationFormProcessLog } from './entities/application.from.process.l
       ApplicationFormContractFunctionSignature,
       ApplicationFormProcessLog,
       ApplicationFormTermsAgreement,
-    ] ),
+    ] )
   ],
-  controllers: [ ApplicationFormsController ],
-  providers  : [
+  controllers: [
+    ApplicationFormsController,
+  ],
+  providers: [
     CommonConfigService,
     ApplicationFormsService,
     ApplicationFormsRepository,
+    
+    ...ApplicationFormCommandHandlers,
     
     AzureStorageService,
     AzureCommunicationService,

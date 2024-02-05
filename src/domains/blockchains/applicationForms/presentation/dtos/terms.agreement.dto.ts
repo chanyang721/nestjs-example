@@ -1,5 +1,5 @@
 import { PickType } from '@nestjs/mapped-types';
-import { ApplicationFormTermsAgreement } from '../entities/application.form.terms.agreement.entity';
+import { ApplicationFormTermsAgreement } from '@/blockchains/applicationForms/infrasturcture/entities/application.form.terms.agreement.entity';
 
 
 

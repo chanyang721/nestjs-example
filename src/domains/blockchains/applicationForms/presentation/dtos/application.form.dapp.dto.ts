@@ -1,5 +1,5 @@
 import { PickType } from '@nestjs/mapped-types';
-import { ApplicationFormDapp } from '../entities/application.form.dapp.entity';
+import { ApplicationFormDapp } from '@/blockchains/applicationForms/infrasturcture/entities/application.form.dapp.entity';
 
 
 

@@ -1,11 +1,17 @@
+import {
+  ApplicationFormContract,
+} from '@/blockchains/applicationForms/infrasturcture/entities/application.form.contract.entity';
+import {
+  ApplicationFormDapp,
+} from '@/blockchains/applicationForms/infrasturcture/entities/application.form.dapp.entity';
+import { ApplicationForm } from '@/blockchains/applicationForms/infrasturcture/entities/application.form.entity';
+import {
+  ApplicationFormTermsAgreement,
+} from '@/blockchains/applicationForms/infrasturcture/entities/application.form.terms.agreement.entity';
+import { ApplicationFormDappDto } from '@/blockchains/applicationForms/presentation/dtos';
 import { Injectable, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { DataSource, Repository } from 'typeorm';
-import { ApplicationFormDappDto } from './dtos/application.form.dapp.dto';
-import { ApplicationFormContract } from './entities/application.form.contract.entity';
-import { ApplicationFormDapp } from './entities/application.form.dapp.entity';
-import { ApplicationForm } from './entities/application.form.entity';
-import { ApplicationFormTermsAgreement } from './entities/application.form.terms.agreement.entity';
 
 
 
@@ -39,10 +45,11 @@ export class ApplicationFormsRepository extends Repository<ApplicationForm> {
   
   
   async findTermsAgreements( version: number ): Promise<ApplicationFormTermsAgreement[]> {
-    const terms: ApplicationFormTermsAgreement[] = await this.dataSource.getRepository( ApplicationFormTermsAgreement )
-                                                             .find( {
-                                                               where: { is_active: true, version: version },
-                                                             } );
+    const terms: ApplicationFormTermsAgreement[] =
+      await this.dataSource.getRepository( ApplicationFormTermsAgreement )
+                .find( {
+                  where: { is_active: true, version: version },
+                } );
     
     return terms;
   }

@@ -1,7 +1,7 @@
 import { IsEnum, IsNotEmpty } from 'class-validator';
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne } from 'typeorm';
 import { BaseEntity } from '@/libs/database/orm/typeorm/base/base.entity';
-import { Account } from '../../wallets/entities/account.entity';
+import { Account } from '../../../wallets/entities/account.entity';
 import { ApplicationFormContract } from './application.form.contract.entity';
 import { ApplicationFormDapp } from './application.form.dapp.entity';
 import { ApplicationFormProcessLog } from './application.from.process.log.entity';
@@ -31,7 +31,7 @@ export class ApplicationForm extends BaseEntity {
   terms_agreement: boolean;
   
   @Column( { type: 'timestamp', comment: '신청서 승인 이 후 이메일 전송 보낸 날짜' } )
-  send_email_at: Date;
+  email_sent_at: Date;
   
   
   /*

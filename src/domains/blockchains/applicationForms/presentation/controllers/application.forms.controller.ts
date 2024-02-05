@@ -1,4 +1,15 @@
 import {
+  ApplicationFormContractDto,
+  ApplicationFormDappDto,
+  RegisterApplicationFormDto,
+  TermAgreementDto,
+} from '@/blockchains/applicationForms/presentation/dtos';
+import { DappDto } from '@/blockchains/dapp/dtos/dapp.dto';
+import { ResponseDto } from '@/libs/fundamentals/interceptors/response/dto/response.dto';
+import { contractAuditMulterOptions, dappIconMulterOptions, multerOptions } from '@/libs/helpers/multer/options';
+import { AzureCommunicationService } from '@/libs/infra/azure/mail/azure.communication.service';
+import { Public } from '@/libs/utils/decoretors';
+import {
   Body,
   Controller,
   Get,
@@ -10,35 +21,50 @@ import {
   UploadedFiles,
   UseInterceptors,
 } from '@nestjs/common';
+import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import { AnyFilesInterceptor, FileInterceptor } from '@nestjs/platform-express';
 import { ApiBody, ApiConsumes, ApiParam } from '@nestjs/swagger';
 import { HttpStatusCode } from 'axios';
 import * as fs from 'fs';
 import hbs from 'hbs';
-import { ResponseDto } from '../../../libs/fundamentals/interceptors/response/dto/response.dto';
-import { contractAuditMulterOptions, dappIconMulterOptions, multerOptions } from '../../../libs/helpers/multer/options';
-import { AzureCommunicationService } from '../../../libs/infra/azure/mail/azure.communication.service';
-import { Public } from '../../../libs/utils/decoretors';
-import { ApplicationFormsService } from './application.forms.service';
-import { ApplicationFormContractDto } from './dtos/application.form.contract.dto';
-import { ApplicationFormDappDto } from './dtos/application.form.dapp.dto';
-import { RegisterApplicationFormDto } from './dtos/register.application.form.dto';
-import { TermAgreementDto } from './dtos/terms.agreement.dto';
+import { ApplicationFormsService } from '../../application/services/application.forms.service';
 
 
 
 @Public()
 @Controller( 'applications-forms' )
-export class ApplicationFormsController {
+export class ApplicationFormsController
+  // implements ApplicationFormControllerAdaptor
+{
   constructor(
+    private commandBus: CommandBus,
+    private queryBud: QueryBus,
     private readonly applicationFormsService: ApplicationFormsService,
     private readonly azureCommunicationService: AzureCommunicationService,
   ) {
   }
   
   
-  // @CacheKey( `application-forms` )
-  // @CacheTTL( 10_000 )
+  @ApiParam( {
+    name   : 'code',
+    example: 'poet-00001',
+    type   : String,
+  } )
+  @Get( '/dapp/:code' )
+  async getDappByVerificationCode(
+    @Param( 'code' ) code: string,
+  ): Promise<ResponseDto<DappDto>> {
+    const dappDto: DappDto =
+      await this.applicationFormsService.getDappByVerificationCode( code );
+    
+    return new ResponseDto( {
+      statusCode: HttpStatusCode.Ok,
+      message   : '인증이 완료되었습니다.',
+      data      : dappDto,
+    } );
+  }
+  
+  
   @Get( '/:application_form_id' )
   async getApplicationFormById(
     @Param( 'application_form_id', ParseIntPipe ) applicationFormId: string,
@@ -77,7 +103,7 @@ export class ApplicationFormsController {
     example: 1,
   } )
   @Get( '/terms/:version' )
-  async getTermsAgreement(
+  async getTermsAgreementFormat(
     @Param( 'version', ParseIntPipe ) version: number,
   ): Promise<ResponseDto<TermAgreementDto[]>> {
     const termsDto: TermAgreementDto[] =
@@ -165,3 +191,4 @@ export class ApplicationFormsController {
     } );
   }
 }
+

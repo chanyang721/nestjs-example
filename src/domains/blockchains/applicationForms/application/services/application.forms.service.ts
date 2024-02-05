@@ -1,12 +1,16 @@
+import {
+  ApplicationFormDappDto,
+  RegisterApplicationFormDto,
+  TermAgreementDto,
+} from '@/blockchains/applicationForms/presentation/dtos';
+import { ApplicationFormTermsAgreement } from 'src/domains/blockchains/applicationForms/infrasturcture/entities';
+import { DappDto } from '@/blockchains/dapp/dtos/dapp.dto';
+import { CommonConfigService } from '@/libs/config/common.config.service';
+import { AzureStorageService } from '@/libs/infra/azure/storage/azure.storage.service';
 import { BadRequestException, Injectable, Logger, NotFoundException } from '@nestjs/common';
-import { CommonConfigService } from '../../../libs/config/common.config.service';
-import { AzureStorageService } from '../../../libs/infra/azure/storage/azure.storage.service';
-import { ApplicationFormsRepository } from './application.forms.repository';
-import { ApplicationFormDappDto } from './dtos/application.form.dapp.dto';
-import { RegisterApplicationFormDto } from './dtos/register.application.form.dto';
-import { TermAgreementDto } from './dtos/terms.agreement.dto';
-import { ApplicationForm } from './entities/application.form.entity';
-import { ApplicationFormTermsAgreement } from './entities/application.form.terms.agreement.entity';
+import { Cron, CronExpression } from '@nestjs/schedule';
+import { ApplicationForm } from '@/blockchains/applicationForms/infrasturcture/entities/application.form.entity';
+import { ApplicationFormsRepository } from '../../infrasturcture/application.forms.repository';
 
 
 
@@ -25,6 +29,10 @@ export class ApplicationFormsService {
     this.containerName = storageConfig.storage.containerName;
   }
   
+  @Cron(CronExpression.EVERY_SECOND)
+  async softDeleteExpiredApplicationForm(): Promise<void> {
+    console.log('softDeleteExpiredApplicationForm')
+  }
   
   async getApplicationFormById( applicationFormId: string ): Promise<ApplicationForm> {
     const applicationForm = await this.applicationFormRepository.findApplicationFormById( applicationFormId );
@@ -86,4 +94,10 @@ export class ApplicationFormsService {
       );
     }
   }
+  
+  
+  async getDappByVerificationCode( code: string ): Promise<DappDto> {
+    return
+  }
+  
 }

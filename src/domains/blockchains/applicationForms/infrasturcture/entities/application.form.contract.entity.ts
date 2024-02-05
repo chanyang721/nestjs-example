@@ -1,7 +1,7 @@
 import { Column, Entity, Index, JoinColumn, ManyToOne, OneToMany, OneToOne } from 'typeorm';
 import { BaseEntity } from '@/libs/database/orm/typeorm/base/base.entity';
 import { Contract } from '@/blockchains/contracts/entities';
-import { CONTRACT_TYPE } from '../../contracts/entities/enums';
+import { CONTRACT_TYPE } from '../../../contracts/entities/enums';
 import { ApplicationFormContractAudit } from './application.form.contract.audits.entity';
 import { ApplicationFormContractFunctionSignature } from './application.form.contract.function.signature.entity';
 import { ApplicationForm } from './application.form.entity';
