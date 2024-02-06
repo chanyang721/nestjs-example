@@ -29,7 +29,7 @@ export class ApplicationFormsService {
     this.containerName = storageConfig.storage.containerName;
   }
   
-  @Cron(CronExpression.EVERY_SECOND)
+  // @Cron(CronExpression.EVERY_SECOND)
   async softDeleteExpiredApplicationForm(): Promise<void> {
     console.log('softDeleteExpiredApplicationForm')
   }
@@ -94,10 +94,4 @@ export class ApplicationFormsService {
       );
     }
   }
-  
-  
-  async getDappByVerificationCode( code: string ): Promise<DappDto> {
-    return
-  }
-  
 }

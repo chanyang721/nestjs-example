@@ -1,3 +1,4 @@
+import { ApplicationFormControllerAdaptor } from '@/blockchains/applicationForms/presentation/controllers/adaptor';
 import {
   ApplicationFormContractDto,
   ApplicationFormDappDto,
@@ -34,34 +35,14 @@ import { ApplicationFormsService } from '../../application/services/application.
 @Public()
 @Controller( 'applications-forms' )
 export class ApplicationFormsController
-  // implements ApplicationFormControllerAdaptor
+  implements ApplicationFormControllerAdaptor
 {
   constructor(
-    private commandBus: CommandBus,
-    private queryBud: QueryBus,
+    private readonly commandBus: CommandBus,
+    private readonly queryBud: QueryBus,
     private readonly applicationFormsService: ApplicationFormsService,
     private readonly azureCommunicationService: AzureCommunicationService,
   ) {
-  }
-  
-  
-  @ApiParam( {
-    name   : 'code',
-    example: 'poet-00001',
-    type   : String,
-  } )
-  @Get( '/dapp/:code' )
-  async getDappByVerificationCode(
-    @Param( 'code' ) code: string,
-  ): Promise<ResponseDto<DappDto>> {
-    const dappDto: DappDto =
-      await this.applicationFormsService.getDappByVerificationCode( code );
-    
-    return new ResponseDto( {
-      statusCode: HttpStatusCode.Ok,
-      message   : '인증이 완료되었습니다.',
-      data      : dappDto,
-    } );
   }
   
   

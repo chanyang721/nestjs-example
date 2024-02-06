@@ -1,3 +1,8 @@
+import { ResponseDto } from '@/libs/fundamentals/interceptors/response/dto/response.dto';
+import { multerOptions } from '@/libs/helpers/multer/options';
+import { Roles } from '@/libs/utils/decoretors';
+import { PaginationDto } from '@/libs/utils/dtos';
+import { USER_ROLE } from '@/users/infrastructure/entities/enums';
 import {
   Body,
   Controller,
@@ -11,12 +16,8 @@ import {
   UseInterceptors,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
+import { ApiParam } from '@nestjs/swagger';
 import { HttpStatusCode } from 'axios';
-import { ResponseDto } from '../../../libs/fundamentals/interceptors/response/dto/response.dto';
-import { multerOptions } from '../../../libs/helpers/multer/options';
-import { Public, Roles } from '../../../libs/utils/decoretors';
-import { PaginationDto } from '../../../libs/utils/dtos';
-import { USER_ROLE } from '../../users/infrastructure/entities/enums';
 import { DappService } from './dapp.service';
 import { DappDto } from './dtos/dapp.dto';
 import { RegisterDappDto } from './dtos/register-dapp.dto';
@@ -29,16 +30,23 @@ export class DappController {
   private readonly logger: Logger = new Logger( DappController.name );
   
   
-  constructor( private readonly dappService: DappService ) {
+  constructor(
+    private readonly dappService: DappService
+  ) {
   }
   
   
-  @Public()
-  @Get( '/:code' )
-  async findDappByVerificationCode(
-    @Param( 'code', ParseIntPipe ) code: string,
+  @ApiParam( {
+    name   : 'code',
+    example: 'poet-00001',
+    type   : String,
+  } )
+  @Get( '/dapp/:code' )
+  async getDappByVerificationCode(
+    @Param( 'code' ) code: string,
   ): Promise<ResponseDto<DappDto>> {
-    const dappDto: DappDto = await this.dappService.findDappByVerificationCode( code );
+    const dappDto: DappDto =
+      await this.dappService.findDappByVerificationCode( code );
     
     return new ResponseDto( {
       statusCode: HttpStatusCode.Ok,
@@ -46,7 +54,6 @@ export class DappController {
       data      : dappDto,
     } );
   }
-  
   
   @Post()
   @Roles( USER_ROLE.ADMIN )

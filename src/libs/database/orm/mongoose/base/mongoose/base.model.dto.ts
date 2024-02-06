@@ -1,6 +1,6 @@
+import { Timestamps } from '@/libs/database/orm/mongoose/base/mongoose/base.model';
 import { ApiProperty } from '@nestjs/swagger';
 import { IsUUID } from 'class-validator';
-import { Timestamps } from './timestamps.model';
 
 
 

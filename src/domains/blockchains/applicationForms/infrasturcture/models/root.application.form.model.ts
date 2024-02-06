@@ -6,11 +6,9 @@ import {
 } from '@/blockchains/applicationForms/infrasturcture/entities';
 import { APPLICATION_PROCESS_STATUS } from '@/blockchains/applicationForms/infrasturcture/entities/enums';
 import { Account } from '@/blockchains/wallets/entities/account.entity';
-import { BaseModel } from '@/libs/database/orm/mongoose/base/mongoose/base.model';
-import { Timestamps } from '@/libs/database/orm/mongoose/base/mongoose/timestamps.model';
+import { BaseModel, Timestamps } from '@/libs/database/orm/mongoose/base/mongoose/base.model';
 import { AggregateRoot } from '@nestjs/cqrs';
 import { Prop, Schema } from '@nestjs/mongoose';
-import { Column } from 'typeorm';
 
 
 
