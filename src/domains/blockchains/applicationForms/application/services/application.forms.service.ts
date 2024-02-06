@@ -1,8 +1,11 @@
+import { RootApplicationForm } from '@/blockchains/applicationForms/infrasturcture/models/root.application.form.model';
 import {
   ApplicationFormDappDto,
   RegisterApplicationFormDto,
   TermAgreementDto,
 } from '@/blockchains/applicationForms/presentation/dtos';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
 import { ApplicationFormTermsAgreement } from 'src/domains/blockchains/applicationForms/infrasturcture/entities';
 import { DappDto } from '@/blockchains/dapp/dtos/dapp.dto';
 import { CommonConfigService } from '@/libs/config/common.config.service';
@@ -29,9 +32,9 @@ export class ApplicationFormsService {
     this.containerName = storageConfig.storage.containerName;
   }
   
-  // @Cron(CronExpression.EVERY_SECOND)
+  @Cron(CronExpression.EVERY_SECOND)
   async softDeleteExpiredApplicationForm(): Promise<void> {
-    console.log('softDeleteExpiredApplicationForm')
+    console.log('[softDeleteExpiredApplicationForm]: test log')
   }
   
   async getApplicationFormById( applicationFormId: string ): Promise<ApplicationForm> {

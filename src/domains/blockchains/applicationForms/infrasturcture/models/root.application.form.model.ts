@@ -1,4 +1,7 @@
 import {
+  FindRootApplicationFormEvent,
+} from '@/blockchains/applicationForms/application/events/handlers/find.root.application.form.event';
+import {
   ApplicationForm,
   ApplicationFormContract,
   ApplicationFormDapp,
@@ -8,7 +11,8 @@ import { APPLICATION_PROCESS_STATUS } from '@/blockchains/applicationForms/infra
 import { Account } from '@/blockchains/wallets/entities/account.entity';
 import { BaseModel, Timestamps } from '@/libs/database/orm/mongoose/base/mongoose/base.model';
 import { AggregateRoot } from '@nestjs/cqrs';
-import { Prop, Schema } from '@nestjs/mongoose';
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import mongoose, { HydratedDocument } from 'mongoose';
 
 
 
@@ -19,12 +23,16 @@ export type IRootApplicationForm = Omit<ApplicationForm,
   | 'account_id'
 >
 
+export type RootApplicationFormDocument = HydratedDocument<RootApplicationForm>;
+
 
 @Schema( { collection: 'ROOT_APPLICATION_FORM' } )
 export class RootApplicationForm extends AggregateRoot
   implements IRootApplicationForm, BaseModel {
   
-  constructor() {
+  constructor(
+    private readonly applicationFormId: string,
+  ) {
     super();
     this.autoCommit = true;
   }
@@ -34,7 +42,7 @@ export class RootApplicationForm extends AggregateRoot
   id: string;
   
   /*
-   * Columns
+   * Props
    * */
   @Prop()
   process_status: APPLICATION_PROCESS_STATUS;
@@ -51,25 +59,28 @@ export class RootApplicationForm extends AggregateRoot
   /*
    * Mysql Relations
    * */
-  @Prop()
+  @Prop( { type: mongoose.Schema.Types.ObjectId, ref: 'ApplicationFormDapp' } )
   applicationFormDapp: ApplicationFormDapp;
   
-  @Prop()
+  @Prop( [ { type: mongoose.Schema.Types.ObjectId, ref: 'ApplicationFormProcessLog' } ] )
   process_logs: ApplicationFormProcessLog[];
   
-  @Prop()
+  @Prop( [ { type: mongoose.Schema.Types.ObjectId, ref: 'ApplicationFormContract' } ] )
   application_form_contracts: ApplicationFormContract[];
   
-  @Prop()
+  @Prop( { type: mongoose.Schema.Types.ObjectId, ref: 'Account' } )
   account: Account;
   
-  @Prop()
+  @Prop( { type: mongoose.Schema.Types.ObjectId, ref: 'Timestamps' } )
   timestamps: Timestamps;
   
   
-  async getRootApplicationForm( applicationFormId: string ): Promise<RootApplicationForm> {
-    
-    
-    return;
+  async getRootApplicationForm(
+    processStatus: APPLICATION_PROCESS_STATUS,
+  ): Promise<void> {
+    this.apply( new FindRootApplicationFormEvent( this.id, processStatus ) );
   }
 }
+
+
+export const RootApplicationFormSchema = SchemaFactory.createForClass( RootApplicationForm );

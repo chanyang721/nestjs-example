@@ -1,13 +1,20 @@
 import { ApplicationFormCommandHandlers } from '@/blockchains/applicationForms/application/commands/handlers';
+import { RootApplicationFormEventHandlers } from '@/blockchains/applicationForms/application/events/handlers';
+import { ApplicationFormSagas } from '@/blockchains/applicationForms/application/events/sagas';
 import {
   ApplicationFormDapp,
 } from '@/blockchains/applicationForms/infrasturcture/entities/application.form.dapp.entity';
 import { ApplicationForm } from '@/blockchains/applicationForms/infrasturcture/entities/application.form.entity';
+import {
+  RootApplicationForm,
+  RootApplicationFormSchema,
+} from '@/blockchains/applicationForms/infrasturcture/models/root.application.form.model';
 import { CommonConfigService } from '@/libs/config/common.config.service';
 import { AzureCommunicationService } from '@/libs/infra/azure/mail/azure.communication.service';
 import { AzureStorageService } from '@/libs/infra/azure/storage/azure.storage.service';
 import { Module } from '@nestjs/common';
 import { CqrsModule } from '@nestjs/cqrs';
+import { MongooseModule } from '@nestjs/mongoose';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import {
   ApplicationFormContract,
@@ -24,7 +31,7 @@ import { ApplicationFormsController } from './presentation/controllers/applicati
 
 
 @Module( {
-  imports: [
+  imports    : [
     CqrsModule,
     TypeOrmModule.forFeature( [
       Account,
@@ -35,18 +42,26 @@ import { ApplicationFormsController } from './presentation/controllers/applicati
       ApplicationFormContractFunctionSignature,
       ApplicationFormProcessLog,
       ApplicationFormTermsAgreement,
-    ] )
+    ] ),
+    MongooseModule.forFeature( [ {
+      name: RootApplicationForm.name,
+      schema: RootApplicationFormSchema
+    } ] ),
   ],
   controllers: [
     ApplicationFormsController,
   ],
-  providers: [
+  providers  : [
     CommonConfigService,
     ApplicationFormsService,
     ApplicationFormsRepository,
     
+    /* CQRS Providers */
+    ApplicationFormSagas,
     ...ApplicationFormCommandHandlers,
+    ...RootApplicationFormEventHandlers,
     
+    /* Infra Providers */
     AzureStorageService,
     AzureCommunicationService,
   ],

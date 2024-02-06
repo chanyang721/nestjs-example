@@ -4,8 +4,11 @@ import {
   ApplicationFormDapp,
   ApplicationFormTermsAgreement,
 } from '@/blockchains/applicationForms/infrasturcture/entities';
+import { RootApplicationForm } from '@/blockchains/applicationForms/infrasturcture/models/root.application.form.model';
 import { ApplicationFormDappDto } from '@/blockchains/applicationForms/presentation/dtos';
 import { Injectable, Logger } from '@nestjs/common';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
 import { DataSource } from 'typeorm';
 
 
@@ -19,6 +22,8 @@ export class ApplicationFormsRepository
   
   constructor(
     private readonly dataSource: DataSource,
+    @InjectModel( RootApplicationForm.name )
+    private rootApplicationFormModel: Model<RootApplicationForm>,
   ) {
   }
   
