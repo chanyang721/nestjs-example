@@ -1,5 +1,5 @@
 import { IsNotEmpty, IsString, MaxLength, MinLength } from 'class-validator';
-import { Column, Entity, JoinColumn, OneToOne } from 'typeorm';
+import { Column, Entity, JoinColumn, OneToMany, OneToOne } from 'typeorm';
 import { BaseEntity } from '@/libs/database/orm/typeorm/base/base.entity';
 import { ApplicationForm } from './application.form.entity';
 
@@ -60,4 +60,6 @@ export class ApplicationFormDapp extends BaseEntity {
   @OneToOne( () => ApplicationForm )
   @JoinColumn( { name: 'application_form_id' } )
   application_form: ApplicationForm;
+  
+  
 }

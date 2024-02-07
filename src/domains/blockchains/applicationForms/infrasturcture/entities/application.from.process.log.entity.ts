@@ -23,6 +23,9 @@ export class ApplicationFormProcessLog {
   } )
   after_process_status: APPLICATION_PROCESS_STATUS;
   
+  @Column({ length: 255, nullable: true, comment: '상태 변경 사유' })
+  reason: string
+  
   @Column( { comment: '관리자 id 서비스 분리로 인한 fk키 연결 생략' } )
   admin_user_id: string;
   
