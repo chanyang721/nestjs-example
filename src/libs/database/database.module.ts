@@ -3,22 +3,19 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { mainMongooseModuleAsyncOptions } from './orm/mongoose/options/mongoose.module.options';
 import {
-    boardTypeOrmModuleAsyncOptions,
-    dAppTypeOrmModuleAsyncOptions,
-    typeOrmModuleAsyncOptions,
+  boardTypeOrmModuleAsyncOptions,
+  dAppTypeOrmModuleAsyncOptions,
+  typeOrmModuleAsyncOptions,
 } from './orm/typeorm/options/typeorm.module.options';
 
+@Module({
+  imports: [
+    TypeOrmModule.forRootAsync(typeOrmModuleAsyncOptions),
+    TypeOrmModule.forRootAsync(dAppTypeOrmModuleAsyncOptions),
+    TypeOrmModule.forRootAsync(boardTypeOrmModuleAsyncOptions),
 
-
-@Module( {
-  imports  : [
-    TypeOrmModule.forRootAsync( typeOrmModuleAsyncOptions ),
-    TypeOrmModule.forRootAsync( dAppTypeOrmModuleAsyncOptions ),
-    TypeOrmModule.forRootAsync( boardTypeOrmModuleAsyncOptions ),
-    
-    MongooseModule.forRootAsync( mainMongooseModuleAsyncOptions ),
+    MongooseModule.forRootAsync(mainMongooseModuleAsyncOptions),
   ],
   providers: [],
-} )
-export class DatabaseModule {
-}
+})
+export class DatabaseModule {}

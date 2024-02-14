@@ -1,7 +1,16 @@
 import { ResponseDto } from '@/libs/fundamentals/interceptors/response/dto/response.dto';
 import { JwtPayLoadDto } from '@/libs/helpers/jwt/interface/jwt.payload.interface';
 import { CurrentUser, Public } from '@/libs/utils/decoretors';
-import { Body, Controller, Get, Param, ParseUUIDPipe, Patch, Post, Query } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  ParseUUIDPipe,
+  Patch,
+  Post,
+  Query,
+} from '@nestjs/common';
 import { CommentsService } from '../../application/services/comments.service';
 import { PostsService } from '../../application/services/posts.service';
 import { CommentsEntity } from '../../infrastructrue/entities/comments.entity';
@@ -13,90 +22,88 @@ import { SearchPostsBySearchAndWhereOptionsDto } from '../dtos/search.posts.by.w
 import { UpdatePostDto } from '../dtos/update-post.dto';
 import { UpdateCommentsOrReplyDto } from '../dtos/update.comment.dto';
 
-
-
-@Controller( 'posts' )
+@Controller('posts')
 export class PostsController {
   constructor(
     private readonly commentService: CommentsService,
     private readonly postsService: PostsService,
-  ) {
-  }
-  
-  
+  ) {}
+
   @Public()
-  @Get( '' )
+  @Get('')
   async findPosts(
-    @Query() searchPostsBySearchAndWhereOptionsDto: SearchPostsBySearchAndWhereOptionsDto,
+    @Query()
+    searchPostsBySearchAndWhereOptionsDto: SearchPostsBySearchAndWhereOptionsDto,
   ): Promise<PostsEntity[]> {
-    return await this.postsService.findPostsBySearchAndWhereOptions( searchPostsBySearchAndWhereOptionsDto );
+    return await this.postsService.findPostsBySearchAndWhereOptions(
+      searchPostsBySearchAndWhereOptionsDto,
+    );
   }
-  
-  
+
   @Public()
-  @Get( '/:id' )
+  @Get('/:id')
   async findPost(
-    @Param( 'id', ParseUUIDPipe ) postId: string,
+    @Param('id', ParseUUIDPipe) postId: string,
   ): Promise<PostsEntity> {
-    return this.postsService.findPostByIdWithAllInfo( postId );
+    return this.postsService.findPostByIdWithAllInfo(postId);
   }
-  
-  
-  @Post( '' )
+
+  @Post('')
   async createPost(
     @Body() createPostDto: CreatePostDto,
     @CurrentUser() user: JwtPayLoadDto,
   ): Promise<ResponseDto<boolean>> {
-    return this.postsService.createPost( user, createPostDto );
+    return this.postsService.createPost(user, createPostDto);
   }
-  
-  
-  @Patch( '' )
+
+  @Patch('')
   async updatePost(
     @Body() updatePostDto: UpdatePostDto,
     @CurrentUser() user: JwtPayLoadDto,
   ): Promise<ResponseDto<boolean>> {
-    return this.postsService.updatePost( user, updatePostDto );
+    return this.postsService.updatePost(user, updatePostDto);
   }
-  
-  
+
   /**
    * Comments APIs ------------------------------------------------------
    */
   @Public()
-  @Get( '/:id/comments' )
+  @Get('/:id/comments')
   async findComments(
-    @Param( 'id', ParseUUIDPipe ) postId: string,
+    @Param('id', ParseUUIDPipe) postId: string,
     @Query() pagenationOptionsDto: PagenationOptionsDto,
   ): Promise<CommentsEntity[]> {
-    return this.commentService.findCommentsByPostId( postId, pagenationOptionsDto );
+    return this.commentService.findCommentsByPostId(
+      postId,
+      pagenationOptionsDto,
+    );
   }
-  
-  
+
   @Public()
-  @Get( '/comments/:id/replies' )
+  @Get('/comments/:id/replies')
   async findReplies(
-    @Param( 'id', ParseUUIDPipe ) commentId: string,
+    @Param('id', ParseUUIDPipe) commentId: string,
     @Query() pagenationOptionsDto: PagenationOptionsDto,
   ): Promise<CommentsEntity[]> {
-    return this.commentService.findRepliesByParent( commentId, pagenationOptionsDto );
+    return this.commentService.findRepliesByParent(
+      commentId,
+      pagenationOptionsDto,
+    );
   }
-  
-  
-  @Post( '/comments' )
+
+  @Post('/comments')
   async createCommentsOrReply(
     @Body() createCommentsOrReplyDto: CreateCommentsOrReplyDto,
     @CurrentUser() user: JwtPayLoadDto,
   ): Promise<ResponseDto<boolean>> {
-    return this.commentService.createComment( user, createCommentsOrReplyDto );
+    return this.commentService.createComment(user, createCommentsOrReplyDto);
   }
-  
-  
-  @Patch( 'comments' )
+
+  @Patch('comments')
   async updateCommentsOrReply(
     @Body() updateCommentsOrReplyDto: UpdateCommentsOrReplyDto,
     @CurrentUser() user: JwtPayLoadDto,
   ): Promise<ResponseDto<boolean>> {
-    return this.commentService.updateComment( user, updateCommentsOrReplyDto );
+    return this.commentService.updateComment(user, updateCommentsOrReplyDto);
   }
 }
