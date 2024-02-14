@@ -1,62 +1,62 @@
-import { ExecutionContext, HttpException, HttpStatus, Injectable, Logger, UnauthorizedException } from "@nestjs/common";
-import { Reflector }                                                                              from "@nestjs/core";
-import { AuthGuard }                                                                              from "@nestjs/passport";
-import { ExtractJwt }                                                                             from "passport-jwt";
-import { IS_PUBLIC_KEY }                                                                          from "../../../utils/constants";
+import { ExecutionContext, HttpException, HttpStatus, Injectable, Logger, UnauthorizedException } from '@nestjs/common';
+import { Reflector } from '@nestjs/core';
+import { AuthGuard } from '@nestjs/passport';
+import { ExtractJwt } from 'passport-jwt';
+import { IS_PUBLIC_KEY } from '../../../utils/constants';
 
 
 
 @Injectable()
-export class JwtAuthGlobalGuard extends AuthGuard( "jwt" ) {
-    private logger = new Logger( JwtAuthGlobalGuard.name );
+export class JwtAuthGlobalGuard extends AuthGuard( 'jwt' ) {
+  private logger = new Logger( JwtAuthGlobalGuard.name );
+  
+  
+  constructor( private reflector: Reflector ) {
+    super();
+  }
+  
+  
+  async canActivate( context: ExecutionContext ) {
+    const request = context.switchToHttp()
+                           .getRequest();
     
-    
-    constructor( private reflector: Reflector ) {
-        super();
+    const { isPublic } = await this.catchPublicRequest( context );
+    if ( isPublic ) {
+      return true;
     }
     
-    
-    async canActivate( context: ExecutionContext ) {
-        const request = context.switchToHttp()
-                               .getRequest();
-        
-        const { isPublic } = await this.catchPublicRequest( context );
-        if ( isPublic ) {
-            return true;
-        }
-        
-        const access_token = ExtractJwt.fromAuthHeaderAsBearerToken()( request );
-        if ( !access_token ) {
-            throw new UnauthorizedException( "Access token is not set in header" );
-        }
-        
-        return this.activate( context );
+    const access_token = ExtractJwt.fromAuthHeaderAsBearerToken()( request );
+    if ( !access_token ) {
+      throw new UnauthorizedException( 'Access token is not set in header' );
     }
     
-    
-    async activate( context: ExecutionContext ): Promise<boolean> {
-        return super.canActivate( context ) as Promise<boolean>;
+    return this.activate( context );
+  }
+  
+  
+  async activate( context: ExecutionContext ): Promise<boolean> {
+    return super.canActivate( context ) as Promise<boolean>;
+  }
+  
+  
+  async catchPublicRequest( context: ExecutionContext ) {
+    const isPublic = this.reflector.getAllAndOverride<boolean>( IS_PUBLIC_KEY, [
+      context.getHandler(), context.getClass(),
+    ] );
+    return { isPublic };
+  }
+  
+  
+  handleRequest( err, user, info: Error ) {
+    if ( info?.name === 'TokenExpiredError' ) {
+      throw new HttpException( 'Token expired', HttpStatus.UNAUTHORIZED );
+    }
+    if ( err || !user ) {
+      throw new HttpException( 'Unauthorized access', HttpStatus.UNAUTHORIZED );
     }
     
-    
-    async catchPublicRequest( context: ExecutionContext ) {
-        const isPublic = this.reflector.getAllAndOverride<boolean>( IS_PUBLIC_KEY, [
-            context.getHandler(), context.getClass()
-        ] );
-        return { isPublic };
-    }
-    
-    
-    handleRequest( err, user, info: Error ) {
-        if ( info?.name === "TokenExpiredError" ) {
-            throw new HttpException( "Token expired", HttpStatus.UNAUTHORIZED );
-        }
-        if ( err || !user ) {
-            throw new HttpException( "Unauthorized access", HttpStatus.UNAUTHORIZED );
-        }
-        
-        return user;
-    }
-    
+    return user;
+  }
+  
 }
 

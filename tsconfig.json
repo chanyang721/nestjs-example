@@ -10,6 +10,23 @@
     "sourceMap": true,
     "outDir": "./dist",
     "baseUrl": "./",
+    "paths": {
+      "@/domains/*": [
+        "./src/domains/*"
+      ],
+      "@/blockchains/*": [
+        "./src/domains/blockchains/*"
+      ],
+      "@/boards/*": [
+        "./src/domains/boards/*"
+      ],
+      "@/users/*": [
+        "./src/domains/users/*"
+      ],
+      "@/libs/*": [
+        "./src/libs/*"
+      ]
+    },
     "incremental": true,
     "skipLibCheck": true,
     "strictNullChecks": false,

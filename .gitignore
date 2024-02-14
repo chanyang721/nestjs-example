@@ -5,11 +5,13 @@
 # env
 .env*
 
+# Log
+/logs
+
 # container data
 /data
 
 # Logs
-logs
 *.log
 npm-debug.log*
 pnpm-debug.log*

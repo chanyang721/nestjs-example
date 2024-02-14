@@ -8,12 +8,15 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
       MYSQL_USER: ${DB_USER}
+      MYSQL_PORT: ${DB_PORT}
       MYSQL_DATABASE: ${DB_DATABASE}
       MYSQL_PASSWORD: ${DB_PASSWORD}
+      TZ: Asia/Seoul
     ports:
-      - ${DB_PORT}:${DB_PORT}
+      - 6603:${DB_PORT}
     volumes:
-      - ./data/mysql_db:/var/libs/mysql
+      - ./data/mysql_db:/var/lib/mysql
+      - ./src/libs/database/init:/docker-entrypoint-initdb.d
     networks:
       - backend
 
@@ -28,20 +31,20 @@ services:
     ports:
       - ${MONGO_DB_PORT}:${MONGO_DB_PORT}
     volumes:
-      - ./data/mongo_db:/var/libs/mongodb
+      - ./data/mongo_db:/var/lib/mongodb
     networks:
       - backend
 
-  cache_redis:
-    image: redis:7.0-alpine
-    container_name: ${REDIS_CONTAINER_HOST}
-    restart: always
-    ports:
-      - ${REDIS_PORT}:${REDIS_PORT}
-    volumes:
-      - ./data/cache_redis:/data
-    networks:
-      - backend
+#  cache_redis:
+#    image: redis:7.0-alpine
+#    container_name: ${REDIS_CONTAINER_HOST}
+#    restart: always
+#    ports:
+#      - ${REDIS_PORT}:${REDIS_PORT}
+#    volumes:
+#      - ./data/cache_redis:/data
+#    networks:
+#      - backend
 
   server:
     container_name: main_server
@@ -49,7 +52,7 @@ services:
     depends_on:
       - mysql_db
       - mongo_db
-      - cache_redis
+#      - cache_redis
     build:
       context: .
       dockerfile: Dockerfile
@@ -57,6 +60,7 @@ services:
       - ${SERVER_PORT}:${SERVER_PORT}
     volumes:
       - ./:/app
+    command: sh -c 'yarn install && yarn build && yarn start:dev'
     networks:
       - backend
 
@@ -66,8 +70,8 @@ volumes:
     driver: local
   mongo_db:
     driver: local
-  cache_redis:
-    driver: local
+#  cache_redis:
+#    driver: local
 
 
 networks:

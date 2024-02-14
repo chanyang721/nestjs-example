@@ -1,32 +1,21 @@
-import { HttpException }  from "@nestjs/common";
-import { IBaseException } from "../interfaces/global.error.execption";
+import { HttpException } from '@nestjs/common';
+import { IBaseException } from '../interfaces/global.error.execption';
 
 
 
 export class BaseException extends HttpException implements IBaseException {
-    constructor( errorCode: string, statusCode: number ) {
-        super( errorCode, statusCode );
-        this.errorCode = errorCode;
-        this.statusCode = statusCode;
-    }
+  httpStatus: number;
+  exceptionCode: string;
+  method: string;
+  path: string;
+  message: string;
+  timestamp?: string;
+  
+  
+  constructor( exceptionCode: string, httpStatus: number ) {
+    super( exceptionCode, httpStatus );
     
-    
-    errorCode: string;
-    statusCode: number;
-    exceptionCode: string;
-    method: string;
-    path: string;
-    message: string;
-    timestamp?: string;
+    this.exceptionCode = exceptionCode;
+    this.httpStatus = httpStatus;
+  }
 }
-
-
-// export interface IBaseException {
-//     statusCode: number;
-//     errorCode: number;
-//     method: string;
-//     path: string;
-//     message: string;
-//     timestamp?: string;
-//     errors?: any;
-// }
