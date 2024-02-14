@@ -1,28 +1,51 @@
+import { RolesGuard } from '@/libs/fundamentals/guards/role/roles.guard';
+import { USER_ROLE } from '@/users/infrastructure/entities/enums';
 import { PickType } from '@nestjs/mapped-types';
+import { Exclude, Expose, Transform } from 'class-transformer';
 import { Dapp } from '../entities/dapp.entity';
-import { Expose } from 'class-transformer';
 
-export class DappDto extends PickType(Dapp, [
+
+
+export class DappDto extends PickType( Dapp, [
   'id',
   'name',
   'url',
   'logo',
   'description',
   'claim_address',
-  'auth',
-]) {
+  'auth'
+] ) {
+  
   @Expose()
-  get validationCode() {
-    return `${this.auth.prefix}-${this.auth.verification_code}`;
+  get verificationCode(): string {
+    return `${this.auth.prefix}-${this.auth.verification_code}`
   }
-
-  constructor(inputData: Partial<Dapp>) {
+  
+  constructor( inputData: Partial<Dapp> ) {
     super();
     this.name = inputData.name;
     this.url = inputData.url;
     this.logo = inputData.logo;
     this.description = inputData.description;
     this.claim_address = inputData.claim_address;
-    this.auth = inputData.auth;
+    this.auth = inputData.auth
+  }
+}
+
+
+export class TestDto {
+  firstName: string;
+  lastName: string;
+  
+  @Exclude()
+  password: string
+  
+  @Expose()
+  get fullName(): string {
+    return `${this.firstName} ${this.lastName}`;
+  }
+  
+  constructor(partial: Partial<TestDto>) {
+    Object.assign(this, partial);
   }
 }

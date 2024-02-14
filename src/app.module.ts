@@ -1,3 +1,4 @@
+import { BlockchainsModule } from '@/blockchains/blockchains.module';
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { AuthModule } from './libs/authentication/auth.module';
@@ -28,6 +29,7 @@ import { PostsModule } from '@/boards/posts/posts.module';
     UserModule, // users
     ProjectModule, // projects
     PostsModule, // boards
+    BlockchainsModule //
   ],
 })
 export class AppModule {}

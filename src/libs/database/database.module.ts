@@ -13,7 +13,7 @@ import {
     TypeOrmModule.forRootAsync(typeOrmModuleAsyncOptions),
     TypeOrmModule.forRootAsync(dAppTypeOrmModuleAsyncOptions),
     TypeOrmModule.forRootAsync(boardTypeOrmModuleAsyncOptions),
-
+    
     MongooseModule.forRootAsync(mainMongooseModuleAsyncOptions),
   ],
   providers: [],

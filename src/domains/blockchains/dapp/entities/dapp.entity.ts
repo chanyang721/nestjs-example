@@ -1,3 +1,4 @@
+import { Transform } from 'class-transformer';
 import { IsNotEmpty, IsString, MaxLength, MinLength } from 'class-validator';
 import { Column, Entity, OneToMany, OneToOne } from 'typeorm';
 import { BaseEntity } from '@/libs/database/orm/typeorm/base/base.entity';
@@ -49,7 +50,7 @@ export class Dapp extends BaseEntity {
    * */
   @OneToMany(() => Contract, (contract) => contract.dapp)
   contracts: Contract[];
-
+  
   @OneToOne(() => DappAuth)
   auth: DappAuth;
 }
