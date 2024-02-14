@@ -21,6 +21,9 @@ export class DappDto extends PickType( Dapp, [
     return `${this.auth.prefix}-${this.auth.verification_code}`
   }
   
+  @Transform(({ value }) => value.name)
+  role: { id: 1, name: 'Role Test' }
+  
   constructor( inputData: Partial<Dapp> ) {
     super();
     this.name = inputData.name;
