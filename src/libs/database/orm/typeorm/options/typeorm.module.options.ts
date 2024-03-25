@@ -1,4 +1,5 @@
 import { DappAuth } from '@/blockchains/dapp/entities/dapp.auth.entity';
+import { WalletAccount } from '@/blockchains/wallets/entities/wallet-account.entity';
 import {
     ApplicationForm,
     ApplicationFormContract,
@@ -16,7 +17,6 @@ import { Reward } from '@/blockchains/rewards/entities/reward.entity';
 import { RewardHistory } from '@/blockchains/rewards/entities/reward_history.entity';
 import { Transaction } from '@/blockchains/transactions/entities/transaction.entity';
 import { Account } from '@/blockchains/wallets/entities/account.entity';
-import { RelWalletAccount } from '@/blockchains/wallets/entities/rel-wallet-account.entity';
 import { Wallet } from '@/blockchains/wallets/entities/wallet.entity';
 import { CommentsEntity } from '@/boards/posts/infrastructrue/entities/comments.entity';
 import { PostsEntity } from '@/boards/posts/infrastructrue/entities/posts.entity';
@@ -93,7 +93,7 @@ export const dAppTypeOrmModuleAsyncOptions: TypeOrmModuleAsyncOptions = {
       Transaction,
       
       Wallet,
-      RelWalletAccount, Account,
+      WalletAccount, Account,
       
       Dapp, DappAuth,
       

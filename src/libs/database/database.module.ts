@@ -1,4 +1,5 @@
 import { Module } from '@nestjs/common';
+import { ConfigModule } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { mainMongooseModuleAsyncOptions } from './orm/mongoose/options/mongoose.module.options';
@@ -16,6 +17,6 @@ import {
     
     MongooseModule.forRootAsync(mainMongooseModuleAsyncOptions),
   ],
-  providers: [],
+  providers: [ConfigModule],
 })
 export class DatabaseModule {}
